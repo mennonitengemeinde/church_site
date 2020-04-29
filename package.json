@@ -1,0 +1,24 @@
+{
+  "name": "church_site",
+  "version": "1.0.0",
+  "description": "**Still in planning mode**",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mennonitengemeinde/church_site.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mennonitengemeinde/church_site/issues"
+  },
+  "homepage": "https://github.com/mennonitengemeinde/church_site#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "bootstrap": "^4.4.1",
+    "jquery": "~3.4.1",
+    "popper.js": "^1.16.1"
+  }
+}
