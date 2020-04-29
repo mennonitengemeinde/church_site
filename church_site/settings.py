@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'churches.apps.ChurchesConfig',
+    'schedules.apps.SchedulesConfig',
 ]
 
 MIDDLEWARE = [
