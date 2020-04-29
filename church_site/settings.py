@@ -16,7 +16,7 @@ import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-root = environ.Path(os.path.join(BASE_DIR, 'settings', '.env'))
+root = environ.Path(os.path.join(BASE_DIR, 'church_site', '.env'))
 env = environ.Env()
 environ.Env.read_env(root())
 
@@ -29,7 +29,6 @@ SECRET_KEY = env.str('SECRET_KEY', default='#xk&tivq8s*pq6ztb1%hj%kv_&h3620#n$qu
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
-print(DEBUG)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'churches.apps.ChurchesConfig',
 ]
 
 MIDDLEWARE = [
