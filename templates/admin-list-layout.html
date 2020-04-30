@@ -2,7 +2,9 @@
 
 {% block content %}
 
+    {{ block.super }}
     <div class="container">
+
         <div class="d-flex justify-content-between mb-3">
             {% if btn_back_href %}
                 <a href="{{ btn_back_href }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Back</a>
