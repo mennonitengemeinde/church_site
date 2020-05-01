@@ -1,0 +1,22 @@
+{% extends 'admin-list-layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block table_head %}
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+    </tr>
+{% endblock %}
+
+
+{% block table_body %}
+    {% if speakers %}
+        {% for speaker in speakers %}
+            <tr>
+                <td>{{ speaker.name }}</td>
+                <td>{{ speaker.city }}, {{ speaker.province_state }}, {{ speaker.country }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

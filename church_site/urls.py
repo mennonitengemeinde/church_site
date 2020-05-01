@@ -21,5 +21,5 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
-    path('', TemplateView.as_view(template_name='admin-list-layout.html'))
+    path('speakers/', include('speakers.urls'))
 ]

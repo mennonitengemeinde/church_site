@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {{ block.super }}
+
+    <div class="container">
+        {% if btn_back_href %}
+            <div class="mb-3">
+                <a href="{{ btn_back_href }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+            </div>
+        {% endif %}
+
+        {% block form %}
+
+        {% endblock %}
+    </div>
+{% endblock %}

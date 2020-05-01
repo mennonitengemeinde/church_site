@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'crispy_forms',
     'django_countries',
     # Project
     'accounts.apps.AccountsConfig',
@@ -169,3 +170,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets'),
     os.path.join(BASE_DIR, 'node_modules')
 ]
+
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
