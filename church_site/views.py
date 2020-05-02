@@ -1,22 +1,38 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 
 
-class BaseListView(ListView):
+class PageProperties:
     page_title = None
+    current_page = None
+
+
+class BaseListView(PageProperties, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
+        context['current_page'] = self.current_page
         return context
 
 
-class BaseCreateView(CreateView):
-    page_title = None
+class BaseCreateView(PageProperties, CreateView):
     btn_back_href = None
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
+        context['current_page'] = self.current_page
+        context['btn_back_href'] = self.btn_back_href
+        return context
+
+
+class BaseUpdateView(PageProperties, UpdateView):
+    btn_back_href = None
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = self.page_title
+        context['current_page'] = self.current_page
         context['btn_back_href'] = self.btn_back_href
         return context
 

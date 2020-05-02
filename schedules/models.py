@@ -12,11 +12,11 @@ class Event(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     address = models.TextField(null=True, blank=True)
-    map_search_query = models.CharField(max_length=300)
+    map_search_query = models.CharField(max_length=300, blank=True, null=True)
 
     in_person = models.BooleanField(default=True)
     live_stream = models.BooleanField(default=False)
-    visibility = models.CharField( max_length=50, choices=(
+    visibility = models.CharField(max_length=50, choices=(
         ('public', 'Public'), ('members', 'Members Only'), ('hidden', 'Hidden')))
 
     class Meta:

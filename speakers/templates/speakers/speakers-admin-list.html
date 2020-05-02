@@ -6,6 +6,7 @@
     <tr>
         <th>Name</th>
         <th>Address</th>
+        <th>Actions</th>
     </tr>
 {% endblock %}
 
@@ -16,6 +17,7 @@
             <tr>
                 <td>{{ speaker.name }}</td>
                 <td>{{ speaker.city }}, {{ speaker.province_state }}, {{ speaker.country }}</td>
+                <td><a href="{% url 'speakers:speakers-admin-update' pk=speaker.id %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a></td>
             </tr>
         {% endfor %}
     {% endif %}
