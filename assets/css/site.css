@@ -1,0 +1,72 @@
+:root {
+    --mg-primary: #602627;
+    --mg-background: #F2F5F5;
+    --mg-dark: #292526;
+    --mg-secondary: #31564F;
+    --mg-accent: #DECD8A;
+}
+
+body {
+    background-color: var(--mg-background);
+}
+
+.page-logo {
+    padding-top: .5em;
+    color: white;
+    text-align: center;
+}
+
+.nav-container {
+    background-color: var(--mg-primary);
+}
+
+.badge-mg-secondary {
+    background-color: var(--mg-secondary);
+    color: white;
+}
+
+.btn-mg-primary {
+    background-color: var(--mg-primary);
+    color: white;
+}
+
+.btn-mg-secondary {
+    background-color: var(--mg-secondary);
+    color: white;
+}
+
+.btn-mg-outline-primary {
+    color: var(--mg-primary);
+    border-color: var(--mg-primary);
+}
+.btn-mg-outline-primary:hover {
+    background-color: var(--mg-primary);
+    color: white;
+}
+.btn-mg-outline-primary:hover i {
+    color: white;
+}
+
+.btn-mg-outline-primary i {
+    color: var(--mg-primary);
+}
+
+.btn-mg-outline-secondary {
+    border-color: var(--mg-secondary);
+}
+
+.btn-mg-outline-secondary:hover {
+    background-color: var(--mg-secondary);
+}
+
+.card-footer {
+    background-color: var(--mg-accent);
+}
+
+.fa-microphone {
+    color: var(--mg-primary);
+}
+
+.text-mg-primary {
+    color: var(--mg-primary);
+}
