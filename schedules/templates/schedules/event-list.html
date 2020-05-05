@@ -5,69 +5,55 @@
     {{ block.super }}
 
     <div class="container">
-{#        <div class="row">#}
+        {% for event in events %}
+            {% ifchanged event.start.date %}
+                <h4 class="mt-5">{{ event.start.date }}</h4>
+            {% endifchanged %}
 
-            {% for event in events %}
-                {% ifchanged event.start.date %}
-{#                    <div class="col-12 mt-5">#}
-                        <h4 class="mt-5">{{ event.start.date }}</h4>
-{#                    </div>#}
-                {% endifchanged %}
-
-{#                <div class="col-12">#}
-
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <div class="small">{{ event.church|upper }}</div>
-                                <span class="badge badge-mg-secondary">
-                                    <i class="fas fa-clock mr-1"></i>
-                                    {{ event.start.time|time:"g:i a" }}
-                                </span>
-                            </div>
-                            <h5 class="card-title">{{ event.title }}</h5>
-                            <div class="row text-center mt-2">
-                                {% for speaker in event.speakers.all %}
-                                    <div class="col-12 col-md">
-                                        <div><i class="fas fa-microphone mr-1"></i> {{ speaker }}</div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-
-                            {% if event.description or event.address or event.map_search_query %}
-                                <hr>
-                            {% endif %}
-
-                            {% if event.description %}
-                                <h6>Description:</h6>
-                                <p>{{ event.description }}</p>
-                            {% endif %}
-
-                            {% if event.address %}
-                                <h6>Address:</h6>
-                                <p>{{ event.address }}</p>
-                            {% endif %}
-
-                            {# TODO: Map intagration #}
-                        </div>
-                        {% if event.in_person or event.live_stream %}
-                            <div class="card-footer">
-                                <div class="d-flex justify-content-around mt-2">
-                                    {% if event.in_person %}
-                                        <a href="" class="btn btn-light"><i class="fas fa-map-marked mr-1 text-mg-primary"></i> Directions</a>
-                                    {% endif %}
-                                    {% if event.live_stream %}
-                                        <a href="" class="btn btn-light"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endif %}
+            <div class="card my-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="small">{{ event.church|upper }}</div>
+                        <span class="badge badge-mg-secondary">
+                            <i class="fas fa-clock mr-1"></i>
+                            {{ event.start.time|time:"g:i a" }}
+                        </span>
                     </div>
+                    <h5 class="card-title mb-0">{{ event.title }}</h5>
 
-{#                </div>#}
-            {% endfor %}
+                    {% if event.description or event.address or event.map_search_query %}
+                        <hr>
+                    {% endif %}
 
-{#        </div>#}
+                    {% if event.description %}
+                        <h6>Description:</h6>
+                        <p>{{ event.description }}</p>
+                    {% endif %}
+
+                    {% if event.address %}
+                        <h6>Address:</h6>
+                        <p>{{ event.address }}</p>
+                    {% endif %}
+
+                    {# TODO: Map intagration #}
+                </div>
+                {% if event.in_person or event.live_stream %}
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-around">
+                            {% if event.in_person %}
+                                <a href="" class="btn btn-sm btn-light"><i
+                                        class="fas fa-map-marked mr-1 text-mg-primary"></i> Directions</a>
+                            {% endif %}
+                            {% if event.live_stream %}
+                                <a href="" class="btn btn-sm btn-light"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+        {% endfor %}
+
     </div>
 
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {{ block.super }}
+
+    <div class="container">
+        {% for sermon in sermons %}
+            <div class="card my-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="small">{{ sermon.event.church|upper }}</div>
+                        <span class="badge badge-mg-secondary">
+                            <i class="fas fa-calendar mr-1"></i>
+                            {{ sermon.event.start.date }}
+                        </span>
+                    </div>
+                    <h5 class="card-title mb-0">{{ sermon.title }}</h5>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

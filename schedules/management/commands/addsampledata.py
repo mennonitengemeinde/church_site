@@ -52,15 +52,13 @@ def create_events():
             start_hour=hour['start_hour'],
             start_minute=hour['start_minute'],
             end_hour=hour['end_hour'],
-            end_minute=hour['end_minute'],
-            speaker_amount=randint(1, 2),
+            end_minute=hour['end_minute']
         )
 
 
 def create_event(title: str, start_days_added: int, start_hour: int, start_minute: int,
-                 end_hour: int, end_minute: int, speaker_amount: int, desc=None, address=None):
+                 end_hour: int, end_minute: int, desc=None, address=None):
     churches = Church.objects.all()
-    speakers = Speaker.objects.all()
     date = timezone.now() + timedelta(days=start_days_added)
     end_date = date.replace(hour=end_hour, minute=end_minute)
     start_date = date.replace(hour=start_hour, minute=start_minute)
@@ -86,11 +84,6 @@ def create_event(title: str, start_days_added: int, start_hour: int, start_minut
         live_stream=bool(randint(0, 1)),
         visibility='public'
     )
-
-    event.save()
-
-    for index in range(speaker_amount):
-        event.speakers.add(speakers[randint(0, len(speakers) - 1)])
 
     event.save()
 

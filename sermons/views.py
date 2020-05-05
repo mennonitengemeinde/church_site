@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from church_site.views import BaseListView
 
-# Create your views here.
+from .models import Sermon
+
+
+class SermonsListView(BaseListView):
+    page_title = 'Sermons'
+    current_page = 'sermons'
+    model = Sermon
+    template_name = 'sermons/sermons-list.html'
+    context_object_name = 'sermons'

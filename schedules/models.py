@@ -6,7 +6,6 @@ from speakers.models import Speaker
 
 class Event(models.Model):
     church = models.ForeignKey(Church, on_delete=models.PROTECT, related_name='events')
-    speakers = models.ManyToManyField(Speaker, related_name='events', blank=True)
     start = models.DateTimeField()
     end = models.DateTimeField()
     title = models.CharField(max_length=200)
