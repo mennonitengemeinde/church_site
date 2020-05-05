@@ -25,6 +25,10 @@ body {
     color: white;
 }
 
+.btn-mg-round {
+    border-radius: 1.2em;
+}
+
 .btn-mg-primary {
     background-color: var(--mg-primary);
     color: white;
@@ -33,6 +37,16 @@ body {
 .btn-mg-secondary {
     background-color: var(--mg-secondary);
     color: white;
+}
+.btn-mg-secondary:hover {
+    background-color: #477c72;
+}
+
+.btn-mg-accent {
+    background-color: var(--mg-accent);
+}
+.btn-mg-accent:hover {
+    background-color: #d8c780;
 }
 
 .btn-mg-outline-primary {

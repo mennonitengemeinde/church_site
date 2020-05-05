@@ -3,6 +3,12 @@ from django.db import models
 from churches.models import Church
 from speakers.models import Speaker
 
+visibility_choices = (
+    ('public', 'Public'),
+    ('private', 'Private'),
+    ('members', 'Members Only'),
+)
+
 
 class Event(models.Model):
     church = models.ForeignKey(Church, on_delete=models.PROTECT, related_name='events')
@@ -15,8 +21,7 @@ class Event(models.Model):
 
     in_person = models.BooleanField(default=True)
     live_stream = models.BooleanField(default=False)
-    visibility = models.CharField(max_length=50, choices=(
-        ('public', 'Public'), ('members', 'Members Only'), ('hidden', 'Hidden')))
+    visibility = models.CharField(max_length=50, choices=visibility_choices)
 
     class Meta:
         ordering = ('start', 'church')

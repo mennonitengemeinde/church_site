@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 
 class PageProperties:
@@ -22,6 +22,15 @@ class BaseCreateView(PageProperties, CreateView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
+        context['btn_back_href'] = self.btn_back_href
+        return context
+
+
+class BaseDetailView(PageProperties, DetailView):
+    btn_back_href = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         context['btn_back_href'] = self.btn_back_href
         return context
 

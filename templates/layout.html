@@ -21,8 +21,8 @@
                     <li class="nav-item {% if current_page == 'events' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'schedules:events-list' %}">Events</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sermons</a>
+                    <li class="nav-item {% if current_page == 'sermons' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'sermons:sermons-list' %}">Sermons</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Live</a>

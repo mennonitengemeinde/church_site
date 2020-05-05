@@ -5,6 +5,14 @@
     {{ block.super }}
 
     <div class="container">
+        {# filters #}
+        <div class="col-md-6 offset-md-3 mt-5">
+            <label for="churchFilter">Filter Church</label>
+            <select id="churchFilter" class="custom-select">
+                <option selected value="0">All Churches</option>
+            </select>
+        </div>
+
         {% for event in events %}
             {% ifchanged event.start.date %}
                 <h4 class="mt-5">{{ event.start.date }}</h4>
