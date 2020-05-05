@@ -19,6 +19,7 @@ def get_audio_path(instance, filename):
 class Sermon(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='sermons')
     sermon_type = models.CharField(max_length=50, choices=sermon_types)
+    title = models.CharField(max_length=200, null=True, blank=True)
     speaker = models.ManyToManyField(Speaker, related_name='sermons')
     audio_low = models.FileField(upload_to=get_audio_path, null=True, blank=True)
     audio_med = models.FileField(upload_to=get_audio_path, null=True, blank=True)
