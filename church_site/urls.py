@@ -26,4 +26,5 @@ urlpatterns = [
     path('speakers/', include('speakers.urls')),
     path('schedules/', include('schedules.urls')),
     path('sermons/', include('sermons.urls')),
+    path('streams/', include('streams.urls')),
 ]

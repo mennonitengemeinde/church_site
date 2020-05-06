@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from .models import Sermon, Stream
+from .models import Sermon
 
 admin.site.register(Sermon)
-admin.site.register(Stream)

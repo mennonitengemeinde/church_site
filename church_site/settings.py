@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'speakers.apps.SpeakersConfig',
     'schedules.apps.SchedulesConfig',
     'sermons.apps.SermonsConfig',
+    'streams.apps.StreamsConfig',
 ]
 
 MIDDLEWARE = [

@@ -10,6 +10,8 @@ class Church(models.Model):
     province_state = models.CharField(max_length=50)
     country = CountryField()
 
+    mixlr_url = models.URLField(null=True, blank=True)
+
     class Meta:
         ordering = ('country', 'name')
 

@@ -20,9 +20,17 @@ body {
     background-color: var(--mg-primary);
 }
 
+.badge-mg-accent {
+    background-color: var(--mg-accent);
+}
+
 .badge-mg-secondary {
     background-color: var(--mg-secondary);
     color: white;
+}
+
+.bg-mg-accent {
+    background-color: var(--mg-accent);
 }
 
 .btn-mg-round {
@@ -31,6 +39,10 @@ body {
 
 .btn-mg-primary {
     background-color: var(--mg-primary);
+    color: white;
+}
+.btn-mg-primary:hover {
+    background-color: #9a3d42;
     color: white;
 }
 
@@ -81,6 +93,14 @@ body {
     color: var(--mg-primary);
 }
 
+.text-mg-accent {
+    color: var(--mg-accent);
+}
+
 .text-mg-primary {
     color: var(--mg-primary);
+}
+
+.text-mg-secondary {
+    color: var(--mg-secondary);
 }

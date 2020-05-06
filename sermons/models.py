@@ -19,6 +19,7 @@ class Sermon(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='sermons')
     sermon_type = models.CharField(max_length=50, choices=sermon_types)
     title = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
     speakers = models.ManyToManyField(Speaker, related_name='sermons')
     audio_low = models.FileField(upload_to=get_audio_path, null=True, blank=True)
     audio_med = models.FileField(upload_to=get_audio_path, null=True, blank=True)
@@ -32,18 +33,3 @@ class Sermon(models.Model):
 
     def __str__(self):
         return f'{self.sermon_type}-{self.title}'
-
-
-class Stream(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='streams')
-    title = models.CharField(max_length=200, null=True, blank=True)
-    speakers = models.ManyToManyField(Speaker, related_name='streams')
-    live_url = models.URLField(blank=True, null=True)
-    live = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ('event', 'title')
-        unique_together = ('event', 'title')
-
-    def __str__(self):
-        return self.title

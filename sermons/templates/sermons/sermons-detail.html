@@ -8,30 +8,34 @@
         <a href="{{ btn_back_href }}" class="btn btn-mg-secondary"><i class="fas fa-arrow-left mr-1"></i>Back</a>
 
         <div class="card mt-3">
-            <div class="card-body">
+            <div class="card-header bg-mg-accent">
                 <div class="text-center">
                     <h3 class="card-title mb-0">{{ event.title }}</h3>
                     <small>{{ event.church }}</small>
-                    <div><i class="fas fa-calendar-alt text-mg-primary mr-1"></i>{{ event.start.date }}</div>
+                    <div><span class="badge badge-mg-secondary"><i class="fas fa-calendar-alt mr-1"></i>{{ event.start.date }}</span></div>
                 </div>
-
+            </div>
+            <div class="card-body">
                 {% if event.description %}
                     <p class="card-text mt-3">{{ event.description }}</p>
+                    <hr>
                 {% endif %}
-
-                <hr>
 
                 {% for sermon in event.sermons.all %}
                     {% if not forloop.first %}
                         <hr>
                     {% endif %}
                     <div class="text-center">
-                        <h5>{{ sermon.title }}</h5>
+                        <h5 class="mt-5 mb-2">{{ sermon.title }}</h5>
                         <div class="d-flex justify-content-around">
                             {% for speaker in sermon.speakers.all %}
                                 <div><i class="fas fa-microphone mr-1"></i>{{ speaker }}</div>
                             {% endfor %}
                         </div>
+
+                        {% if sermon.description %}
+                            {{ sermon.description }}
+                        {% endif %}
 
                         {% if sermon.video_url %}
                             <div class="embed-responsive embed-responsive-16by9 my-3">
@@ -47,23 +51,25 @@
                         {% endif %}
                     </div>
 
-                    <div class="row text-center">
-                        {% if sermon.audio_low %}
-                            <div class="col">
-                                <a href="" class="btn btn-mg-secondary">Low</a>
-                            </div>
-                        {% endif %}
-                        {% if sermon.audio_med %}
-                            <div class="col">
-                                <a href="" class="btn btn-mg-secondary">Medium</a>
-                            </div>
-                        {% endif %}
-                        {% if sermon.audio_high %}
-                            <div class="col">
-                                <a href="" class="btn btn-mg-secondary">High</a>
-                            </div>
-                        {% endif %}
-                    </div>
+                    {% if sermon.audio_low or sermon.audio_med or sermon.audio_high %}
+                        <div class="row text-center mt-1 mx-3 py-4" style="border: 1px solid var(--mg-dark); border-radius: .5em">
+                            {% if sermon.audio_low %}
+                                <div class="col-12 col-sm-4">
+                                    <a href="" class="btn btn-mg-primary"><i class="fas fa-download mr-1"></i>Low</a>
+                                </div>
+                            {% endif %}
+                            {% if sermon.audio_med %}
+                                <div class="col-12 col-sm-4 my-2 my-sm-0">
+                                    <a href="" class="btn btn-mg-primary"><i class="fas fa-download mr-1"></i>Medium</a>
+                                </div>
+                            {% endif %}
+                            {% if sermon.audio_high %}
+                                <div class="col-12 col-sm-4">
+                                    <a href="" class="btn btn-mg-primary"><i class="fas fa-download mr-1"></i>High</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 {% endfor %}
                 <h4></h4>
             </div>

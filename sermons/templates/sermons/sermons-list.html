@@ -21,7 +21,7 @@
         </div>
 
         {% for event in events %}
-            <div class="card my-3">
+            <div class="card my-5">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="small">{{ event.church|upper }}</div>
@@ -36,20 +36,21 @@
 
                     <div class="row mt-2">
                         {% for sermon in event.sermons.all %}
-                            <div class="col-12 col-md text-center">
-                                <div>
-                                    <h6 class="mb-0">{{ sermon.title }}</h6>
-                                    <small>{{ sermon.sermon_type.title }}</small>
-                                    {% for speaker in sermon.speakers.all %}
-                                        <div><i class="fas fa-microphone text-mg-primary mr-1"></i>{{ speaker }}</div>
-                                    {% endfor %}
-                                </div>
+                            <div class="col-12 col-md text-center my-3">
+                                <h6 class="mb-0">{{ sermon.title }}</h6>
+                                <small>{{ sermon.sermon_type.title }}</small>
+                                {% for speaker in sermon.speakers.all %}
+                                    <div><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
+                                {% endfor %}
                             </div>
                         {% endfor %}
                     </div>
-                    <hr>
-                    <div class="text-center mt-2">
-                        <a href="{% url 'sermons:sermons-detail' pk=event.id %}" class="btn btn-mg-round btn-mg-accent"><i class="fas fa-play text-mg-primary mr-1"></i>Open</a>
+
+                </div>
+                <div class="card-footer">
+                    <div class="text-center">
+                        <a href="{% url 'sermons:sermons-detail' church=event.church pk=event.id %}"
+                           class="btn btn-mg-round btn-mg-primary"><i class="fas fa-play mr-2"></i>Open</a>
                     </div>
                 </div>
 
