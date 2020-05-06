@@ -1,5 +1,12 @@
 {% extends 'layout.html' %}
 
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plyr/dist/plyr.css' %}">
+{% endblock %}
+
 {% block content %}
 
     {{ block.super }}
@@ -45,8 +52,8 @@
                         {% endif %}
 
                         {% if sermon.audio_low %}
-                            <audio id="player" controls preload="none" class="my-3">
-                                <source src="{{ sermon.audio_low.url }}" type="audio/mpeg">
+                            <audio id="player" controls preload="none" class="audio-player my-3">
+                                <source src="{{ sermon.audio_low }}" type="audio/mpeg">
                             </audio>
                         {% endif %}
                     </div>
@@ -76,4 +83,11 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'plyr/dist/plyr.polyfilled.min.js' %}"></script>
+    <script>
+        const players = Plyr.setup('.audio-player');
+    </script>
 {% endblock %}

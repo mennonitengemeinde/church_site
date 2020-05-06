@@ -3,7 +3,6 @@ from django.urls import reverse_lazy
 from church_site.views import BaseListView, BaseDetailView
 
 from schedules.models import Event
-from .models import Sermon
 
 
 class SermonsListView(BaseListView):
