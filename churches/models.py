@@ -12,6 +12,10 @@ class Church(models.Model):
 
     mixlr_url = models.URLField(null=True, blank=True)
 
+    @property
+    def slug(self):
+        return self.name.replace(' ', '-')
+
     class Meta:
         ordering = ('country', 'name')
 

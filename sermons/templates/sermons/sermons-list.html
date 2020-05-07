@@ -8,14 +8,20 @@
         <div class="row my-5">
             <div class="col-12 col-md">
                 <label for="churchFilter">Filter Church</label>
-                <select id="churchFilter" class="custom-select">
-                    <option selected value="0">All Churches</option>
+                <select id="churchFilter" class="custom-select" onchange="onChurchChange(this.value)">
+                    <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
+                    {% for for_church in churches %}
+                        <option value="{{ for_church.slug }}"{% if current_church == for_church.slug %} selected{% endif %}>{{ for_church.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-12 col-md mt-3 mt-md-0">
                 <label for="speakerFilter">Filter Speaker</label>
-                <select id="speakerFilter" class="custom-select">
-                    <option selected value="0">All Speakers</option>
+                <select id="speakerFilter" class="custom-select" onchange="onSpeakerChange(this.value)">
+                    <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
+                    {% for for_speaker in speakers %}
+                        <option value="{{ for_speaker.id }}"{% if for_speaker.id == current_speaker %} selected{% endif %}>{{ for_speaker.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -58,4 +64,34 @@
         {% endfor %}
     </div>
 
+{% endblock %}
+
+{% block js %}
+    <script>
+        function onChurchChange(church) {
+            console.log(church);
+            window.location.href = uriConstructor(church, "{{ current_speaker }}");
+        }
+
+        function onSpeakerChange(speaker) {
+            window.location.href = uriConstructor("{{ current_church }}", speaker);
+        }
+
+        function uriConstructor(church, speaker) {
+            console.log(`Church: ${church} - Speaker: ${speaker}`)
+            if (church === 'None') {
+                if (speaker === 'None') {
+                    return "{% url 'sermons:sermons-list' %}";
+                } else {
+                    return "{% url 'sermons:sermons-list' %}?speaker=" + speaker;
+                }
+            } else {
+                if (speaker === 'None') {
+                    return "{% url 'sermons:sermons-list' %}" + church + "/";
+                } else {
+                    return "{% url 'sermons:sermons-list' %}" + church + "/?speaker=" + speaker;
+                }
+            }
+        }
+    </script>
 {% endblock %}

@@ -6,5 +6,6 @@ app_name = 'sermons'
 
 urlpatterns = [
     path('', SermonsListView.as_view(), name='sermons-list'),
+    path('<str:church>/', SermonsListView.as_view(), name='sermons-list-filtered'),
     path('<str:church>/<int:pk>/', SermonsDetailView.as_view(), name='sermons-detail'),
 ]
