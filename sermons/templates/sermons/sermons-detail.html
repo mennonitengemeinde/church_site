@@ -12,14 +12,14 @@
     {{ block.super }}
 
     <div class="container py-3">
-        <a href="{{ btn_back_href }}" class="btn btn-mg-secondary"><i class="fas fa-arrow-left mr-1"></i>Back</a>
+        <a href="{{ btn_back_href }}" class="btn btn-outline-info"><i class="fas fa-arrow-left mr-1"></i>Back</a>
 
         <div class="card mt-3">
             <div class="card-header bg-mg-accent">
                 <div class="text-center">
                     <h3 class="card-title mb-0">{{ event.title }}</h3>
                     <small>{{ event.church }}</small>
-                    <div><span class="badge badge-mg-secondary"><i class="fas fa-calendar-alt mr-1"></i>{{ event.start.date }}</span></div>
+                    <div><span class="badge badge-info"><i class="fas fa-calendar-alt mr-1"></i>{{ event.start.date }}</span></div>
                 </div>
             </div>
             <div class="card-body">
