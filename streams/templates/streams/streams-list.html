@@ -13,8 +13,11 @@
         <div class="row mt-3 mb-5">
             <div class="col-12 col-md-6 offset-md-3">
                 <label for="churchFilter">Filter Church</label>
-                <select id="churchFilter" class="custom-select">
-                    <option selected value="0">All Churches</option>
+                <select id="churchFilter" class="custom-select" onchange="onStreamsChurchChange(this.value)">
+                    <option value="None"{% if current_church == 'None' %} selected{% endif %}>All Churches</option>
+                    {% for church in churches %}
+                        <option value="{{ church.slug }}"{% if current_church == church.slug %} selected{% endif %}>{{ church.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -102,4 +105,16 @@
             {% endif %}
         {% endfor %}
     </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function onStreamsChurchChange(church) {
+            if (church !== 'None') {
+                window.location.href = "{% url 'streams:streams-list' %}" + church + "/";
+            } else {
+                window.location.href = "{% url 'streams:streams-list' %}";
+            }
+        }
+    </script>
 {% endblock %}

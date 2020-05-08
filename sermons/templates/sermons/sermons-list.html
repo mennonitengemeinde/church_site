@@ -8,7 +8,7 @@
         <div class="row my-5">
             <div class="col-12 col-md">
                 <label for="churchFilter">Filter Church</label>
-                <select id="churchFilter" class="custom-select" onchange="onChurchChange(this.value)">
+                <select id="churchFilter" class="custom-select" onchange="onSermonsChurchChange(this.value)">
                     <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
                     {% for for_church in churches %}
                         <option value="{{ for_church.slug }}"{% if current_church == for_church.slug %} selected{% endif %}>{{ for_church.name }}</option>
@@ -17,7 +17,7 @@
             </div>
             <div class="col-12 col-md mt-3 mt-md-0">
                 <label for="speakerFilter">Filter Speaker</label>
-                <select id="speakerFilter" class="custom-select" onchange="onSpeakerChange(this.value)">
+                <select id="speakerFilter" class="custom-select" onchange="onSermonsSpeakerChange(this.value)">
                     <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
                     {% for for_speaker in speakers %}
                         <option value="{{ for_speaker.id }}"{% if for_speaker.id == current_speaker %} selected{% endif %}>{{ for_speaker.name }}</option>
@@ -68,12 +68,11 @@
 
 {% block js %}
     <script>
-        function onChurchChange(church) {
-            console.log(church);
+        function onSermonsChurchChange(church) {
             window.location.href = uriConstructor(church, "{{ current_speaker }}");
         }
 
-        function onSpeakerChange(speaker) {
+        function onSermonsSpeakerChange(speaker) {
             window.location.href = uriConstructor("{{ current_church }}", speaker);
         }
 

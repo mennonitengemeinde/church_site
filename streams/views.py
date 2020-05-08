@@ -1,6 +1,7 @@
 from django.utils import timezone
 
 from church_site.views import BaseListView, BaseDetailView
+from churches.models import Church
 
 from .models import Stream
 
@@ -13,7 +14,16 @@ class StreamsListView(BaseListView):
     context_object_name = 'streams'
 
     def get_queryset(self):
+        if self.kwargs.get('church'):
+            return self.model.objects.filter(event__end__gt=timezone.now(),
+                                             event__church__name=self.kwargs.get('church').replace('-', ' '))
         return Stream.objects.filter(event__end__gt=timezone.now())
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['churches'] = Church.objects.all()
+        context['current_church'] = self.kwargs.get('church') if self.kwargs.get('church') else None
+        return context
 
 
 class LiveAudioView(BaseDetailView):
