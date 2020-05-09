@@ -1,6 +1,9 @@
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.utils import timezone
+from django.views import View
 
-from church_site.views import BaseListView, BaseDetailView
+from church_site.views import AdminListView, BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView
 from churches.models import Church
 
 from .models import Stream
@@ -50,3 +53,41 @@ class LiveVideoView(BaseDetailView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = f'Live Video - {self.object.title}'
         return context
+
+
+class StreamsAdminListView(AdminListView):
+    model = Stream
+    context_object_name = 'streams'
+    template_name = 'streams/streams-admin-list.html'
+    page_title = 'Streams - Admin'
+    current_page = 'manage'
+    btn_add_href = reverse_lazy('streams:streams-admin-create')
+
+
+class StreamsAdminCreateView(BaseCreateView):
+    model = Stream
+    template_name = 'admin-form-view.html'
+    fields = ('event', 'title', 'description', 'speakers', 'live_url', 'live_mixlr_audio', 'live')
+    success_url = reverse_lazy('streams:streams-admin-list')
+    page_title = 'New Stream - Admin'
+    current_page = 'manage'
+    btn_back_href = reverse_lazy('streams:streams-admin-list')
+
+
+class StreamAdminUpdateView(BaseUpdateView):
+    model = Stream
+    template_name = 'admin-form-view.html'
+    fields = ('event', 'title', 'description', 'speakers', 'live_url', 'live_mixlr_audio', 'live')
+    success_url = reverse_lazy('streams:streams-admin-list')
+    page_title = 'Update Stream - Admin'
+    current_page = 'manage'
+    btn_back_href = reverse_lazy('streams:streams-admin-list')
+
+
+class StreamAdminLiveUpdateView(View):
+    def get(self, request, pk=None):
+        stream = Stream.objects.filter(id=pk).first()
+        if stream:
+            stream.live = not stream.live
+            stream.save()
+        return redirect('streams:streams-admin-list')

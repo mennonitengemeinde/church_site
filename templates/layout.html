@@ -35,8 +35,10 @@
                             Manage
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="manageDropdown">
-                            <a class="dropdown-item" href="{% url 'churches-admin-list' %}">Churches</a>
+                            <a class="dropdown-item" href="{% url 'churches:churches-admin-list' %}">Churches</a>
                             <a class="dropdown-item" href="{% url 'speakers:speakers-admin-list' %}">Speakers</a>
+                            <a class="dropdown-item" href="{% url 'schedules:events-admin-list' %}">Events</a>
+                            <a class="dropdown-item" href="{% url 'streams:streams-admin-list' %}">Streams</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
