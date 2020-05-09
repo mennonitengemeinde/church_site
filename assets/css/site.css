@@ -89,8 +89,16 @@ body {
     background-color: var(--mg-accent);
 }
 
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--mg-primary);
+}
+
 .fa-microphone {
     color: var(--mg-primary);
+}
+
+.table > tbody > tr > td {
+    vertical-align: center;
 }
 
 .text-mg-accent {

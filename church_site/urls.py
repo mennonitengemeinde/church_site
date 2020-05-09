@@ -23,6 +23,7 @@ urlpatterns = [
         'current_page': 'home', 'page_title': 'Menniten Gemeinde'}), name='home'),
     path('admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
+    path('churches/', include('churches.urls')),
     path('speakers/', include('speakers.urls')),
     path('schedules/', include('schedules.urls')),
     path('sermons/', include('sermons.urls')),

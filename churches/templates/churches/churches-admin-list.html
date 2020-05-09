@@ -1,0 +1,21 @@
+{% extends 'admin-list-layout.html' %}
+
+{% block table_head %}
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+
+{% block table_body %}
+    {% for church in churches %}
+        <tr>
+            <td class="align-middle">{{ church.name }}</td>
+            <td class="align-middle">{{ church.street }}, {{ church.city }}, {{ church.province_state }}, {{ church.country }}</td>
+            <td>
+                <a class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
