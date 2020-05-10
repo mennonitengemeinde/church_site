@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% load compress %}
+
 {% block content %}
     {{ block.super }}
 
@@ -67,30 +69,32 @@
 {% endblock %}
 
 {% block js %}
-    <script>
-        function onSermonsChurchChange(church) {
-            window.location.href = uriConstructor(church, "{{ current_speaker }}");
-        }
+    {% compress js inline %}
+        <script>
+            function onSermonsChurchChange(church) {
+                window.location.href = uriConstructor(church, "{{ current_speaker }}");
+            }
 
-        function onSermonsSpeakerChange(speaker) {
-            window.location.href = uriConstructor("{{ current_church }}", speaker);
-        }
+            function onSermonsSpeakerChange(speaker) {
+                window.location.href = uriConstructor("{{ current_church }}", speaker);
+            }
 
-        function uriConstructor(church, speaker) {
-            console.log(`Church: ${church} - Speaker: ${speaker}`)
-            if (church === 'None') {
-                if (speaker === 'None') {
-                    return "{% url 'sermons:sermons-list' %}";
+            function uriConstructor(church, speaker) {
+                console.log(`Church: ${church} - Speaker: ${speaker}`)
+                if (church === 'None') {
+                    if (speaker === 'None') {
+                        return "{% url 'sermons:sermons-list' %}";
+                    } else {
+                        return "{% url 'sermons:sermons-list' %}?speaker=" + speaker;
+                    }
                 } else {
-                    return "{% url 'sermons:sermons-list' %}?speaker=" + speaker;
-                }
-            } else {
-                if (speaker === 'None') {
-                    return "{% url 'sermons:sermons-list' %}" + church + "/";
-                } else {
-                    return "{% url 'sermons:sermons-list' %}" + church + "/?speaker=" + speaker;
+                    if (speaker === 'None') {
+                        return "{% url 'sermons:sermons-list' %}" + church + "/";
+                    } else {
+                        return "{% url 'sermons:sermons-list' %}" + church + "/?speaker=" + speaker;
+                    }
                 }
             }
-        }
-    </script>
+        </script>
+    {% endcompress %}
 {% endblock %}

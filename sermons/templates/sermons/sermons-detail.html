@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% load static %}
+{% load compress %}
 
 
 {% block css %}
@@ -86,8 +87,10 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'plyr/dist/plyr.polyfilled.min.js' %}"></script>
-    <script>
-        const players = Plyr.setup('.audio-player');
-    </script>
+    {% compress js inline %}
+        <script src="{% static 'plyr/dist/plyr.polyfilled.min.js' %}"></script>
+        <script>
+            const players = Plyr.setup('.audio-player');
+        </script>
+    {% endcompress %}
 {% endblock %}

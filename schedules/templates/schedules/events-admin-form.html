@@ -1,10 +1,13 @@
 {% extends 'admin-form-layout.html' %}
 
 {% load static %}
+{% load compress %}
 {% load crispy_forms_tags %}
 
 {% block css %}
-
+    {% compress css inline %}
+        <link rel="stylesheet" href="{% static 'daterangepicker/daterangepicker.css' %}">
+    {% endcompress %}
 {% endblock %}
 
 {% block form %}
@@ -20,35 +23,35 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'daterangepicker/moment.min.js' %}"></script>
-    <script src="{% static 'daterangepicker/daterangepicker.js' %}"></script>
+    {% compress js inline %}
+        <script src="{% static 'daterangepicker/moment.min.js' %}"></script>
+        <script src="{% static 'daterangepicker/daterangepicker.js' %}"></script>
 
-    <script>
-        $(function() {
-            $('#id_start').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
-                minYear: 2000,
-                locale: {
-                    format: "Y-MM-DD HH:mm"
-                }
+        <script>
+            $(function() {
+                $('#id_start').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    timePicker: true,
+                    timePicker24Hour: true,
+                    minYear: 2000,
+                    locale: {
+                        format: "Y-MM-DD HH:mm"
+                    }
+                });
             });
-        });
-        $(function() {
-            $('#id_end').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
-                minYear: 2000,
-                locale: {
-                    format: "Y-MM-DD HH:mm"
-                }
+            $(function() {
+                $('#id_end').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    timePicker: true,
+                    timePicker24Hour: true,
+                    minYear: 2000,
+                    locale: {
+                        format: "Y-MM-DD HH:mm"
+                    }
+                });
             });
-        });
-    </script>
-
-    <link rel="stylesheet" href="{% static 'daterangepicker/daterangepicker.css' %}">
+        </script>
+    {% endcompress %}
 {% endblock %}

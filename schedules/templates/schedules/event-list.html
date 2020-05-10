@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% load compress %}
+
 {% block content %}
 
     {{ block.super }}
@@ -70,13 +72,15 @@
 {% endblock %}
 
 {% block js %}
-    <script>
-        function onEventsChurchChange(church) {
-            if (church !== 'None') {
-                window.location.href = "{% url 'schedules:events-list' %}" + church + "/";
-            } else {
-                window.location.href = "{% url 'schedules:events-list' %}";
+    {% compress js inline %}
+        <script>
+            function onEventsChurchChange(church) {
+                if (church !== 'None') {
+                    window.location.href = "{% url 'schedules:events-list' %}" + church + "/";
+                } else {
+                    window.location.href = "{% url 'schedules:events-list' %}";
+                }
             }
-        }
-    </script>
+        </script>
+    {% endcompress %}
 {% endblock %}

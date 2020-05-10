@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% load compress %}
+
 {% block content %}
 
     {{ block.super }}
@@ -108,13 +110,15 @@
 {% endblock %}
 
 {% block js %}
-    <script>
-        function onStreamsChurchChange(church) {
-            if (church !== 'None') {
-                window.location.href = "{% url 'streams:streams-list' %}" + church + "/";
-            } else {
-                window.location.href = "{% url 'streams:streams-list' %}";
+    {% compress js inline %}
+        <script>
+            function onStreamsChurchChange(church) {
+                if (church !== 'None') {
+                    window.location.href = "{% url 'streams:streams-list' %}" + church + "/";
+                } else {
+                    window.location.href = "{% url 'streams:streams-list' %}";
+                }
             }
-        }
-    </script>
+        </script>
+    {% endcompress %}
 {% endblock %}
