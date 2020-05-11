@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 
-from church_site.views import BaseListView, BaseDetailView, BaseCreateView
+from church_site.views import BaseListView, BaseDetailView, BaseCreateView, AdminListView
+from church_site.mixins import AjaxableResponseMixin
 
 from churches.models import Church
 from schedules.models import Event
@@ -52,7 +53,17 @@ class SermonsDetailView(BaseDetailView):
         return context
 
 
-class SermonsAdminCreateView(BaseCreateView):
+class SermonsAdminListView(AdminListView):
+    model = Sermon
+    ordering = ('-event',)
+    context_object_name = 'sermons'
+    template_name = 'sermons/sermons-admin-list.html'
+    page_title = 'Sermons - Admin'
+    current_page = 'manage'
+    btn_add_href = reverse_lazy('sermons:sermons-admin-create')
+
+
+class SermonsAdminCreateView(AjaxableResponseMixin, BaseCreateView):
     model = Sermon
     template_name = 'sermons/sermons-admin-form.html'
     fields = ('event', 'sermon_type', 'title', 'description', 'speakers', 'audio_low', 'audio_med', 'audio_high',
@@ -60,3 +71,4 @@ class SermonsAdminCreateView(BaseCreateView):
     success_url = reverse_lazy('sermons:sermons-list')
     page_title = 'New Sermon - Admin'
     current_page = 'manage'
+    btn_back_href = reverse_lazy('sermons:sermons-admin-list')

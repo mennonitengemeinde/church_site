@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
     <div class="nav-container">
-        <h3 class="page-logo d-none d-sm-block">Mennoniten<i class="fas fa-2x fa-cross mx-1"></i>Gemeinde</h3>
-        <h3 class="page-logo d-sm-none mb-0"><i class="fas fa-2x fa-cross"></i></h3>
-        <h3 class="page-logo d-sm-none pt-0">Mennoniten Gemeinde</h3>
+        <div class="text-center pt-1">
+            <img class="img-fluid" src="{% static 'img/logo-white.png' %}" alt="Logo" style="max-height: 4em">
+        </div>
 
         <nav class="navbar navbar-expand-lg navbar-dark d-flex justify-content-end" style="background-color: #602627;">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -39,6 +41,7 @@
                             <a class="dropdown-item" href="{% url 'speakers:speakers-admin-list' %}">Speakers</a>
                             <a class="dropdown-item" href="{% url 'schedules:events-admin-list' %}">Events</a>
                             <a class="dropdown-item" href="{% url 'streams:streams-admin-list' %}">Streams</a>
+                            <a class="dropdown-item" href="{% url 'sermons:sermons-admin-list' %}">Sermons</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

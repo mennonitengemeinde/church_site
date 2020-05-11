@@ -1,0 +1,38 @@
+{% extends 'admin-list-layout.html' %}
+
+{% block table_head %}
+    <tr>
+        <th>Date</th>
+        <th>Event</th>
+        <th>Sermon Type</th>
+        <th>Title</th>
+        <th>Speakers</th>
+        <th>Low</th>
+        <th>Med</th>
+        <th>High</th>
+        <th>Video</th>
+        <th>Visible</th>
+    </tr>
+{% endblock %}
+
+
+{% block table_body %}
+    {% for sermon in sermons %}
+        <tr>
+            <td class="align-middle">{{ sermon.event.start.date }}</td>
+            <td class="align-middle">{{ sermon.event.title }}</td>
+            <td class="align-middle">{{ sermon.sermon_type }}</td>
+            <td class="align-middle">{{ sermon.title }}</td>
+            <td class="align-middle">
+                {% for speaker in sermon.speakers.all %}
+                    {% if not forloop.first %}, {% endif %}{{ speaker.name }}
+                {% endfor %}
+            </td>
+            <td class="align-middle">{% if sermon.audio_low %}<i class="fas fa-check"></i>{% endif %}</td>
+            <td class="align-middle">{% if sermon.audio_med %}<i class="fas fa-check"></i>{% endif %}</td>
+            <td class="align-middle">{% if sermon.audio_high %}<i class="fas fa-check"></i>{% endif %}</td>
+            <td class="align-middle">{% if sermon.video_url %}<i class="fas fa-check"></i>{% endif %}</td>
+            <td class="align-middle">{% if sermon.visible %}<i class="fas fa-check"></i>{% endif %}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
