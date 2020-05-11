@@ -57,7 +57,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="text-center">
-                        <a href="{% url 'sermons:sermons-detail' church=event.church pk=event.id %}"
+                        <a href="{% url 'sermons:sermons-detail' church=event.church.slug pk=event.id %}"
                            class="btn btn-mg-round btn-mg-primary"><i class="fas fa-play mr-2"></i>Open</a>
                     </div>
                 </div>
@@ -80,7 +80,6 @@
             }
 
             function uriConstructor(church, speaker) {
-                console.log(`Church: ${church} - Speaker: ${speaker}`)
                 if (church === 'None') {
                     if (speaker === 'None') {
                         return "{% url 'sermons:sermons-list' %}";

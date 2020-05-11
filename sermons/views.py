@@ -1,9 +1,10 @@
 from django.urls import reverse_lazy
 
-from church_site.views import BaseListView, BaseDetailView
+from church_site.views import BaseListView, BaseDetailView, BaseCreateView
 
 from churches.models import Church
 from schedules.models import Event
+from sermons.models import Sermon
 from speakers.models import Speaker
 
 
@@ -49,3 +50,13 @@ class SermonsDetailView(BaseDetailView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = f'{self.object.start.date()} | {self.object.title}'
         return context
+
+
+class SermonsAdminCreateView(BaseCreateView):
+    model = Sermon
+    template_name = 'sermons/sermons-admin-form.html'
+    fields = ('event', 'sermon_type', 'title', 'description', 'speakers', 'audio_low', 'audio_med', 'audio_high',
+              'video_url', 'visible')
+    success_url = reverse_lazy('sermons:sermons-list')
+    page_title = 'New Sermon - Admin'
+    current_page = 'manage'

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'storages',
     'compressor',
     'crispy_forms',
     'django_countries',
@@ -179,6 +180,13 @@ STATICFILES_FINDERS = (
     # other finders..
     'compressor.finders.CompressorFinder',
 )
+
+# Azure
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_ACCOUNT_NAME = env('AZURE_ACCOUNT_NAME', default='')
+AZURE_ACCOUNT_KEY = env('AZURE_ACCOUNT_KEY', default='')
+AZURE_CONTAINER = env('AZURE_CONTAINER', default='')
+# AZURE_CUSTOM_DOMAIN = env('AZURE_CUSTOM_DOMAIN', default='')
 
 # Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

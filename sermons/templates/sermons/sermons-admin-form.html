@@ -1,0 +1,46 @@
+{% extends 'admin-form-layout.html' %}
+
+{% load compress %}
+{% load crispy_forms_tags %}
+
+{% block form %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-mg-primary">Save</button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block js %}
+    {% compress js inline %}
+        <script>
+            $(function () {
+
+                var bar = $('.bar');
+                var percent = $('.percent');
+                var status = $('#status');
+
+                $('form').ajaxForm({
+                    beforeSend: function () {
+                        status.empty();
+                        var percentVal = '0%';
+                        bar.width(percentVal);
+                        percent.html(percentVal);
+                    },
+                    uploadProgress: function (event, position, total, percentComplete) {
+                        var percentVal = percentComplete + '%';
+                        bar.width(percentVal);
+                        percent.html(percentVal);
+                    },
+                    complete: function (xhr) {
+                        status.html(xhr.responseText);
+                    }
+                });
+            });
+        </script>
+    {% endcompress %}
+{% endblock %}
