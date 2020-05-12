@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'schedules.apps.SchedulesConfig',
     'sermons.apps.SermonsConfig',
     'streams.apps.StreamsConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
@@ -109,7 +110,7 @@ DATABASES = {
 # Authentication
 SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = True
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

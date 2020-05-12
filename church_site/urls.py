@@ -19,10 +19,10 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home.html', extra_context={
-        'current_page': 'home', 'page_title': 'Menniten Gemeinde'}), name='home'),
+    path('', include('home.urls')),
     path('admin/', admin.site.urls),
-    url(r'^accounts/', include('allauth.urls')),
+    url(r'^account/', include('allauth.urls')),
+    path('accounts/', include('accounts.urls')),
     path('churches/', include('churches.urls')),
     path('speakers/', include('speakers.urls')),
     path('schedules/', include('schedules.urls')),

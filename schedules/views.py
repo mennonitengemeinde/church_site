@@ -1,4 +1,6 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
+from django.utils import timezone
 
 from church_site.views import BaseListView, AdminListView, BaseCreateView, BaseUpdateView
 from churches.models import Church
@@ -16,8 +18,8 @@ class EventsListView(BaseListView):
 
     def get_queryset(self):
         if self.kwargs.get('church'):
-            return self.model.objects.filter(church__name=self.kwargs.get('church').replace('-', ' '))
-        return self.model.objects.all()
+            return self.model.objects.filter(end__gt=timezone.now(), church__name=self.kwargs.get('church').replace('-', ' '))
+        return self.model.objects.filter(end__gt=timezone.now())
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -26,7 +28,8 @@ class EventsListView(BaseListView):
         return context
 
 
-class EventsAdminListView(AdminListView):
+class EventsAdminListView(PermissionRequiredMixin, AdminListView):
+    permission_required = 'schedules.view_event'
     model = Event
     ordering = ('-start',)
     context_object_name = 'events'
@@ -34,9 +37,15 @@ class EventsAdminListView(AdminListView):
     page_title = 'Events - Admin'
     current_page = 'manage'
     btn_add_href = reverse_lazy('schedules:events-admin-create')
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.member_events(user=self.request.user)
+        return queryset
 
 
-class EventsAdminCreateView(BaseCreateView):
+class EventsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
+    permission_required = 'schedules.add_event'
     model = Event
     template_name = 'schedules/events-admin-form.html'
     form_class = EventForm
@@ -45,8 +54,14 @@ class EventsAdminCreateView(BaseCreateView):
     current_page = 'manage'
     btn_back_href = reverse_lazy('schedules:events-admin-list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
-class EventsAdminUpdateView(BaseUpdateView):
+
+class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
+    permission_required = 'schedules.change_event'
     model = Event
     template_name = 'schedules/events-admin-form.html'
     form_class = EventForm
@@ -54,3 +69,9 @@ class EventsAdminUpdateView(BaseUpdateView):
     page_title = 'Update Event - Admin'
     current_page = 'manage'
     btn_back_href = reverse_lazy('schedules:events-admin-list')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+

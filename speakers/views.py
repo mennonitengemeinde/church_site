@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormMixin
 
@@ -7,9 +8,9 @@ from .forms import SpeakerCreateForm
 from .models import Speaker
 
 
-class SpeakersAdminListView(FormMixin, AdminListView):
+class SpeakersAdminListView(PermissionRequiredMixin, AdminListView):
+    permission_required = 'speakers.view_speaker'
     model = Speaker
-    form_class = SpeakerCreateForm
     template_name = 'speakers/speakers-admin-list.html'
     context_object_name = 'speakers'
     page_title = 'Speakers - Admin'
@@ -17,7 +18,8 @@ class SpeakersAdminListView(FormMixin, AdminListView):
     btn_add_href = reverse_lazy('speakers:speakers-admin-create')
     
 
-class SpeakersAdminCreateView(BaseCreateView):
+class SpeakersAdminCreateView(PermissionRequiredMixin, BaseCreateView):
+    permission_required = 'speakers.add_speaker'
     model = Speaker
     template_name = 'admin-form-view.html'
     form_class = SpeakerCreateForm
@@ -27,7 +29,8 @@ class SpeakersAdminCreateView(BaseCreateView):
     success_url = reverse_lazy('speakers:speakers-admin-list')
 
 
-class SpeakerAdminUpdateView(BaseUpdateView):
+class SpeakerAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
+    permission_required = 'speakers.change_speaker'
     model = Speaker
     template_name = 'admin-form-view.html'
     form_class = SpeakerCreateForm

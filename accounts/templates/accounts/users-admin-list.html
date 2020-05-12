@@ -1,0 +1,20 @@
+{% extends 'admin-list-layout.html' %}
+
+{% block table_head %}
+    <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+{% endblock %}
+
+
+{% block table_body %}
+    {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from churches.models import Church
 from speakers.models import Speaker
@@ -8,6 +9,22 @@ visibility_choices = (
     ('private', 'Private'),
     ('members', 'Members Only'),
 )
+
+
+class EventQuerySet(models.query.QuerySet):
+    def member_events(self, user):
+        return self.filter(church__members=user, church__members__membership_validated=True)
+
+
+class EventManager(models.Manager):
+    def get_queryset(self):
+        return EventQuerySet(self.model, using=self._db)
+
+    def get_first_four(self):
+        return self.get_queryset().filter(end__gt=timezone.now())[:4]
+
+    def member_only_events(self, user):
+        return self.get_queryset().filter(church__members=user, church__members__membership_validated=True)
 
 
 class Event(models.Model):
@@ -23,8 +40,10 @@ class Event(models.Model):
     live_stream = models.BooleanField(default=False)
     visibility = models.CharField(max_length=50, choices=visibility_choices)
 
+    objects = EventManager()
+
     class Meta:
         ordering = ('start', 'church')
 
     def __str__(self):
-        return self.title
+        return f'{self.start.date()} - {self.title}'
