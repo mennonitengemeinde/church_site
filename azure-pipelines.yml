@@ -46,6 +46,12 @@ steps:
 
 - script: |
     pushd '$(projectRoot)'
+    npm install
+    python manage.py collectstatic
+  displayName: 'Install and collect statics'
+
+- script: |
+    pushd '$(projectRoot)'
     python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
   displayName: 'Run tests'
 
