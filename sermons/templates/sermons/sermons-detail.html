@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+{% load compress %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plyr/dist/plyr.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <div class="container py-3">
+        <a href="{{ btn_back_href }}" class="btn btn-outline-info"><i class="fas fa-arrow-left mr-1"></i>Back</a>
+
+        <div class="card mt-3">
+            <div class="card-header bg-mg-accent">
+                <div class="text-center">
+                    <h3 class="card-title mb-0">{{ event.title }}</h3>
+                    <small>{{ event.church }}</small>
+                    <div><span class="badge badge-info"><i class="fas fa-calendar-alt mr-1"></i>{{ event.start.date }}</span></div>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if event.description %}
+                    <p class="card-text mt-3">{{ event.description }}</p>
+                    <hr>
+                {% endif %}
+
+                {% for sermon in event.sermons.all %}
+                    {% if not forloop.first %}
+                        <hr>
+                    {% endif %}
+                    <div class="text-center">
+                        <h5 class="mt-5 mb-2">{{ sermon.title }}</h5>
+                        <div class="d-flex justify-content-around">
+                            {% for speaker in sermon.speakers.all %}
+                                <div><i class="fas fa-microphone mr-1"></i>{{ speaker }}</div>
+                            {% endfor %}
+                        </div>
+
+                        {% if sermon.description %}
+                            {{ sermon.description }}
+                        {% endif %}
+
+                        {% if sermon.video_url %}
+                            <div class="embed-responsive embed-responsive-16by9 my-3">
+                                <iframe class="embed-responsive-item" src="{{ sermon.video_url }}"
+                                        allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+
+                        {% if sermon.audio_low %}
+                            <audio id="player" controls preload="none" class="audio-player my-3">
+                                <source src="{{ sermon.audio_low.url }}" type="audio/mpeg">
+                            </audio>
+                        {% endif %}
+                    </div>
+
+                    {% if sermon.audio_low or sermon.audio_med or sermon.audio_high %}
+                        <div class="row text-center mt-1 mx-3 py-4" style="border: 1px solid var(--mg-dark); border-radius: .5em">
+                            {% if sermon.audio_low %}
+                                <div class="col-12 col-sm-4">
+                                    <a href="{{ sermon.audio_low.url }}" class="btn btn-mg-primary"><i class="fas fa-download mr-1"></i>Low</a>
+                                </div>
+                            {% endif %}
+                            {% if sermon.audio_med %}
+                                <div class="col-12 col-sm-4 my-2 my-sm-0">
+                                    <a href="{{ sermon.audio_med.url }}" class="btn btn-mg-primary"><i class="fas fa-download mr-1"></i>Medium</a>
+                                </div>
+                            {% endif %}
+                            {% if sermon.audio_high %}
+                                <div class="col-12 col-sm-4">
+                                    <a href="{{ sermon.audio_high.url }}" class="btn btn-mg-primary"><i class="fas fa-download mr-1"></i>High</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <h4></h4>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    {% compress js inline %}
+        <script src="{% static 'plyr/dist/plyr.polyfilled.min.js' %}"></script>
+        <script>
+            const players = Plyr.setup('.audio-player');
+        </script>
+    {% endcompress %}
+{% endblock %}

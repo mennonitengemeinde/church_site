@@ -1,0 +1,35 @@
+{% extends 'admin-list-layout.html' %}
+
+{% block table_head %}
+    <tr>
+        <th>Event</th>
+        <th>Title</th>
+        <th>Speakers</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+
+
+{% block table_body %}
+    {% for stream in streams %}
+        <tr>
+            <td class="align-middle">{{ stream.event.title}}</td>
+            <td class="align-middle">{{ stream.title }}</td>
+            <td class="align-middle">
+                {% for speaker in stream.speakers.all %}
+                    {% if not forloop.first %}, {% endif %}{{ speaker.name }}
+                {% endfor %}
+            </td>
+            <td class="d-flex justify-content-between">
+                <a href="{% url 'streams:streams-admin-update-live' pk=stream.id %}" class="btn btn-sm btn-mg-outline-primary">
+                    {% if stream.live %}
+                        <i class="fas fa-circle text-danger"></i> Live
+                    {% else %}
+                        Go Live
+                    {% endif %}
+                </a>
+                <a href="{% url 'streams:streams-admin-update' pk=stream.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

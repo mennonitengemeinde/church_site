@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+
+{% load compress %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <div class="container">
+        {# filters #}
+        <div class="col-md-6 offset-md-3 mt-5">
+            <label for="churchFilter">Filter Church</label>
+            <select id="churchFilter" class="custom-select" onchange="onEventsChurchChange(this.value)">
+                <option value="None"{% if current_church == 'None' %} selected{% endif %}>All Churches</option>
+                {% for church in churches %}
+                    <option value="{{ church.slug }}"{% if current_church == church.slug %} selected{% endif %}>{{ church.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        {% for event in events %}
+            {% ifchanged event.start.date %}
+                <h4 class="mt-5 text-mg-secondary">{{ event.start.date }}</h4>
+            {% endifchanged %}
+
+            <div class="card my-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="small">{{ event.church|upper }}</div>
+                        <span class="badge badge-info">
+                            <i class="fas fa-clock mr-1"></i>
+                            {{ event.start.time|time:"g:i a" }}
+                        </span>
+                    </div>
+                    <h5 class="card-title mb-0">{{ event.title }}</h5>
+
+                    {% if event.description or event.address or event.map_search_query %}
+                        <hr>
+                    {% endif %}
+
+                    {% if event.description %}
+                        <h6>Description:</h6>
+                        <p>{{ event.description }}</p>
+                    {% endif %}
+
+                    {% if event.address %}
+                        <h6>Address:</h6>
+                        <p>{{ event.address }}</p>
+                    {% endif %}
+
+                    {# TODO: Map intagration #}
+                </div>
+                {% if event.in_person or event.live_stream %}
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-around">
+                            {% if event.in_person %}
+                                <a href="" class="btn btn-sm btn-light"><i
+                                        class="fas fa-map-marked mr-1 text-mg-primary"></i> Directions</a>
+                            {% endif %}
+                            {% if event.live_stream %}
+                                <a href="" class="btn btn-sm btn-light"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    {% compress js inline %}
+        <script>
+            function onEventsChurchChange(church) {
+                if (church !== 'None') {
+                    window.location.href = "{% url 'schedules:events-list' %}" + church + "/";
+                } else {
+                    window.location.href = "{% url 'schedules:events-list' %}";
+                }
+            }
+        </script>
+    {% endcompress %}
+{% endblock %}

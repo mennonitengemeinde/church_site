@@ -42,11 +42,29 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    # Third party
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'storages',
+    'compressor',
+    'crispy_forms',
+    'django_countries',
+    # Project
+    'accounts.apps.AccountsConfig',
     'churches.apps.ChurchesConfig',
+    'speakers.apps.SpeakersConfig',
+    'schedules.apps.SchedulesConfig',
+    'sermons.apps.SermonsConfig',
+    'streams.apps.StreamsConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -90,9 +108,33 @@ DATABASES = {
     }
 }
 
+# Authentication
+SITE_ID = 1
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'accounts.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -133,3 +175,20 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets'),
     os.path.join(BASE_DIR, 'node_modules')
 ]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+
+# Azure
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_ACCOUNT_NAME = env('AZURE_ACCOUNT_NAME', default='')
+AZURE_ACCOUNT_KEY = env('AZURE_ACCOUNT_KEY', default='')
+AZURE_CONTAINER = env('AZURE_CONTAINER', default='')
+# AZURE_CUSTOM_DOMAIN = env('AZURE_CUSTOM_DOMAIN', default='')
+
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

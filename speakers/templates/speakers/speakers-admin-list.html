@@ -1,0 +1,24 @@
+{% extends 'admin-list-layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block table_head %}
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+
+
+{% block table_body %}
+    {% if speakers %}
+        {% for speaker in speakers %}
+            <tr>
+                <td class="align-middle">{{ speaker.name }}</td>
+                <td class="align-middle">{{ speaker.city }}, {{ speaker.province_state }}, {{ speaker.country }}</td>
+                <td><a href="{% url 'speakers:speakers-admin-update' pk=speaker.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a></td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

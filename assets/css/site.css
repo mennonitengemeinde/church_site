@@ -1,0 +1,114 @@
+:root {
+    --mg-primary: #602627;
+    --mg-background: #F2F5F5;
+    --mg-dark: #292526;
+    --mg-secondary: #31564F;
+    --mg-accent: #DECD8A;
+}
+
+body {
+    background-color: var(--mg-background);
+}
+
+.page-logo {
+    padding-top: .5em;
+    color: white;
+    text-align: center;
+}
+
+.nav-container {
+    background-color: var(--mg-primary);
+}
+
+.badge-mg-accent {
+    background-color: var(--mg-accent);
+}
+
+.badge-mg-secondary {
+    background-color: var(--mg-secondary);
+    color: white;
+}
+
+.bg-mg-accent {
+    background-color: var(--mg-accent);
+}
+
+.btn-mg-round {
+    border-radius: 1.2em;
+}
+
+.btn-mg-primary {
+    background-color: var(--mg-primary);
+    color: white;
+}
+.btn-mg-primary:hover {
+    background-color: #9a3d42;
+    color: white;
+}
+
+.btn-mg-secondary {
+    background-color: var(--mg-secondary);
+    color: white;
+}
+.btn-mg-secondary:hover {
+    background-color: #477c72;
+}
+
+.btn-mg-accent {
+    background-color: var(--mg-accent);
+}
+.btn-mg-accent:hover {
+    background-color: #d8c780;
+}
+
+.btn-mg-outline-primary {
+    color: var(--mg-primary);
+    border-color: var(--mg-primary);
+}
+.btn-mg-outline-primary:hover {
+    background-color: var(--mg-primary);
+    color: white;
+}
+.btn-mg-outline-primary:hover i {
+    color: white;
+}
+
+.btn-mg-outline-primary i {
+    color: var(--mg-primary);
+}
+
+.btn-mg-outline-secondary {
+    border-color: var(--mg-secondary);
+}
+
+.btn-mg-outline-secondary:hover {
+    background-color: var(--mg-secondary);
+}
+
+.card-footer {
+    background-color: var(--mg-accent);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--mg-primary);
+}
+
+.fa-microphone {
+    color: var(--mg-primary);
+}
+
+.table > tbody > tr > td {
+    vertical-align: center;
+}
+
+.text-mg-accent {
+    color: var(--mg-accent);
+}
+
+.text-mg-primary {
+    color: var(--mg-primary);
+}
+
+.text-mg-secondary {
+    color: var(--mg-secondary);
+}

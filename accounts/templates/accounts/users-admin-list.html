@@ -1,0 +1,24 @@
+{% extends 'admin-list-layout.html' %}
+
+{% block table_head %}
+    <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+
+
+{% block table_body %}
+    {% for user in users %}
+        <tr>
+            <td class="align-middle">{{ user.username }}</td>
+            <td class="align-middle">{{ user.first_name }} {{ user.last_name }}</td>
+            <td class="align-middle">{{ user.email }}</td>
+            <td class="align-middle">
+                <a href="{% url 'accounts:users-admin-update' pk=user.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

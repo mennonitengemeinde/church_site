@@ -1,0 +1,99 @@
+{% extends 'layout.html' %}
+
+{% load compress %}
+
+{% block content %}
+    {{ block.super }}
+
+    <div class="container">
+        {# filters #}
+        <div class="row my-5">
+            <div class="col-12 col-md">
+                <label for="churchFilter">Filter Church</label>
+                <select id="churchFilter" class="custom-select" onchange="onSermonsChurchChange(this.value)">
+                    <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
+                    {% for for_church in churches %}
+                        <option value="{{ for_church.slug }}"{% if current_church == for_church.slug %} selected{% endif %}>{{ for_church.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12 col-md mt-3 mt-md-0">
+                <label for="speakerFilter">Filter Speaker</label>
+                <select id="speakerFilter" class="custom-select" onchange="onSermonsSpeakerChange(this.value)">
+                    <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
+                    {% for for_speaker in speakers %}
+                        <option value="{{ for_speaker.id }}"{% if for_speaker.id == current_speaker %} selected{% endif %}>{{ for_speaker.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        {% for event in events %}
+            <div class="card my-5">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="small">{{ event.church|upper }}</div>
+                        <span class="badge badge-info">
+                            <i class="fas fa-calendar mr-1"></i>
+                            {{ event.start.date }}
+                        </span>
+                    </div>
+                    <h5 class="card-title mb-0 text-mg-secondary">{{ event.title }}</h5>
+
+                    <hr>
+
+                    <div class="row mt-2">
+                        {% for sermon in event.sermons.all %}
+                            <div class="col-12 col-md text-center my-3">
+                                <h6 class="mb-0">{{ sermon.title }}</h6>
+                                <small>{{ sermon.sermon_type.title }}</small>
+                                {% for speaker in sermon.speakers.all %}
+                                    <div><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="text-center">
+                        <a href="{% url 'sermons:sermons-detail' church=event.church.slug pk=event.id %}"
+                           class="btn btn-mg-round btn-mg-primary"><i class="fas fa-play mr-2"></i>Open</a>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    {% compress js inline %}
+        <script>
+            function onSermonsChurchChange(church) {
+                window.location.href = uriConstructor(church, "{{ current_speaker }}");
+            }
+
+            function onSermonsSpeakerChange(speaker) {
+                window.location.href = uriConstructor("{{ current_church }}", speaker);
+            }
+
+            function uriConstructor(church, speaker) {
+                if (church === 'None') {
+                    if (speaker === 'None') {
+                        return "{% url 'sermons:sermons-list' %}";
+                    } else {
+                        return "{% url 'sermons:sermons-list' %}?speaker=" + speaker;
+                    }
+                } else {
+                    if (speaker === 'None') {
+                        return "{% url 'sermons:sermons-list' %}" + church + "/";
+                    } else {
+                        return "{% url 'sermons:sermons-list' %}" + church + "/?speaker=" + speaker;
+                    }
+                }
+            }
+        </script>
+    {% endcompress %}
+{% endblock %}

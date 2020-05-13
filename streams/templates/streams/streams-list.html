@@ -1,0 +1,124 @@
+{% extends 'layout.html' %}
+
+{% load compress %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <div class="container py-3">
+
+        <h2 class="text-center mt-3 text-mg-secondary">Live Streams</h2>
+        <hr class="mx-5">
+
+        {# filters #}
+        <div class="row mt-3 mb-5">
+            <div class="col-12 col-md-6 offset-md-3">
+                <label for="churchFilter">Filter Church</label>
+                <select id="churchFilter" class="custom-select" onchange="onStreamsChurchChange(this.value)">
+                    <option value="None"{% if current_church == 'None' %} selected{% endif %}>All Churches</option>
+                    {% for church in churches %}
+                        <option value="{{ church.slug }}"{% if current_church == church.slug %} selected{% endif %}>{{ church.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        {% for live_stream in streams %}
+            {% if live_stream.live %}
+                <div class="card my-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0"><i class="fas fa-circle text-danger mr-2"></i>{{ live_stream.title }}</h5>
+                        <div class="small">{{ live_stream.event.church|upper }}</div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between">
+                            <span class="badge badge-info">
+                                <i class="fas fa-calendar-alt mr-1"></i>
+                                {{ live_stream.event.start.date }}
+                            </span>
+                            <span class="badge badge-info">
+                                <i class="fas fa-clock mr-1"></i>
+                                {{ live_stream.event.start.time|time:"g:i a" }}
+                            </span>
+                        </div>
+
+                        <div class="row mt-2">
+                            {% for speaker in live_stream.speakers.all %}
+                                <div class="col-12 col-md text-center my-2">
+                                    <div><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="row">
+                            {% if not live_stream.live_mixlr_audio %}
+                                <div class="col text-center">
+                                    <a href="{% url 'streams:live-audio' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-mg-primary"><i class="fas fa-music mr-2"></i>Live Audio</a>
+                                </div>
+                            {% endif %}
+                            {% if live_stream.live_url %}
+                                <div class="col text-center">
+                                    <a href="{% url 'streams:live-video' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-mg-primary"><i class="fas fa-video mr-2"></i>Live Video</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <h2 class="text-center mt-5 text-mg-secondary">Scheduled Live Streams</h2>
+        <hr class="mb-3 mx-5">
+
+
+        {% for s_stream in streams %}
+            {% if not scheduled_stream.live %}
+                <div class="card my-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">{{ s_stream.title }}</h5>
+                        <div class="small">{{ s_stream.event.church|upper }}</div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between">
+                            <span class="badge badge-info">
+                                <i class="fas fa-calendar-alt mr-1"></i>
+                                {{ s_stream.event.start.date }}
+                            </span>
+                            <span class="badge badge-info">
+                                <i class="fas fa-clock mr-1"></i>
+                                {{ s_stream.event.start.time|time:"g:i a" }}
+                            </span>
+                        </div>
+
+                        <div class="row mt-2">
+                            {% for speaker in s_stream.speakers.all %}
+                                <div class="col-12 col-md text-center my-2">
+                                    <div><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% compress js inline %}
+        <script>
+            function onStreamsChurchChange(church) {
+                if (church !== 'None') {
+                    window.location.href = "{% url 'streams:streams-list' %}" + church + "/";
+                } else {
+                    window.location.href = "{% url 'streams:streams-list' %}";
+                }
+            }
+        </script>
+    {% endcompress %}
+{% endblock %}
