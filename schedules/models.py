@@ -13,7 +13,7 @@ visibility_choices = (
 
 class EventQuerySet(models.query.QuerySet):
     def member_events(self, user):
-        return self.filter(church__members=user, church__members__membership_validated=True)
+        return self.filter(church__members=user)
 
 
 class EventManager(models.Manager):
@@ -24,7 +24,7 @@ class EventManager(models.Manager):
         return self.get_queryset().filter(end__gt=timezone.now())[:4]
 
     def member_only_events(self, user):
-        return self.get_queryset().filter(church__members=user, church__members__membership_validated=True)
+        return self.get_queryset().filter(church__members=user)
 
 
 class Event(models.Model):

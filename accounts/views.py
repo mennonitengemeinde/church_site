@@ -40,3 +40,4 @@ class UsersAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     success_url = reverse_lazy('accounts:users-admin-list')
     page_title = 'Update User - Admin'
     current_page = 'manage'
+    btn_back_href = reverse_lazy('accounts:users-admin-list')

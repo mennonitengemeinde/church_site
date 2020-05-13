@@ -20,7 +20,7 @@
 
         {% for event in events %}
             {% ifchanged event.start.date %}
-                <h4 class="mt-5">{{ event.start.date }}</h4>
+                <h4 class="mt-5 text-mg-secondary">{{ event.start.date }}</h4>
             {% endifchanged %}
 
             <div class="card my-3">

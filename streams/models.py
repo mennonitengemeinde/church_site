@@ -6,7 +6,7 @@ from schedules.models import Event
 
 class StreamQuerySet(models.query.QuerySet):
     def member_streams(self, user):
-        return self.filter(event__church__members=user, event__church__members__membership_validated=True)
+        return self.filter(event__church__members=user)
 
 
 class StreamManager(models.Manager):
@@ -14,7 +14,7 @@ class StreamManager(models.Manager):
         return StreamQuerySet(self.model, self._db)
 
     def member_only_streams(self, user):
-        return self.get_queryset().filter(event__church__members=user, event_church__members__membership_validated=True)
+        return self.get_queryset().filter(event__church__members=user)
 
 
 class Stream(models.Model):

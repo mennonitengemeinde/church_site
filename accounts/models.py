@@ -10,4 +10,3 @@ class User(AbstractUser):
     country = CountryField()
 
     member = models.ManyToManyField(Church, related_name='members')
-    membership_validated = models.BooleanField(default=False)

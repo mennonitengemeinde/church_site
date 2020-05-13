@@ -6,6 +6,6 @@ class UpdateUserForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = (
-            'username', 'first_name', 'last_name', 'email', 'member', 'membership_validated', 'groups',
-            'user_permissions', 'is_superuser', 'is_staff', 'is_active', 'date_joined', 'last_login'
+            'username', 'first_name', 'last_name', 'email', 'member', 'groups', 'user_permissions', 'is_superuser',
+            'is_staff', 'is_active', 'date_joined', 'last_login'
         )

@@ -6,3 +6,4 @@ django-crispy-forms==1.9.0
 django-environ==0.4.5
 django_storages[azure]==1.9.1
 psycopg2-binary==2.8.5
+whitenoise==5.0.1

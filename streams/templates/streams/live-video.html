@@ -9,10 +9,18 @@
 
         <div class="card mt-3">
             <div class="card-body">
-                <h4 class="card-title">{{ stream.title }}</h4>
+                <h4 class="card-title mb-0">{{ stream.title }}</h4>
                 <small>{{ stream.event.church }}</small>
 
-                <div class="embed-responsive embed-responsive-16by9">
+                <div class="row my-3">
+                    {% for speaker in stream.speakers.all %}
+                        <div class="col text-center">
+                            <div><i class="fas fa-microphone mr-1 text-mg-accent"></i> {{ speaker }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="embed-responsive embed-responsive-16by9 mt-3">
                     <iframe class="embed-responsive-item" src="{{ stream.live_url }}" allowfullscreen></iframe>
                 </div>
             </div>
