@@ -60,3 +60,14 @@ steps:
     testResultsFiles: "**/TEST-*.xml"
     testRunTitle: 'Python $(PYTHON_VERSION)'
   condition: succeededOrFailed()
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
+    replaceExistingArchive: true
+- publish: $(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip
+  displayName: 'Upload package'
+  artifact: drop
