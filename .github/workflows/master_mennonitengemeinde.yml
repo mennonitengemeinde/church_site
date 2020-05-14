@@ -30,4 +30,4 @@ jobs:
       with:
         app-name: 'mennonitengemeinde'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3603e60c0da94d00b582aca176abb7f0 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_f7ff5366667b42b1ac134e590981766f }}
