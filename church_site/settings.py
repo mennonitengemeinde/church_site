@@ -104,7 +104,8 @@ if env.bool('PRODUCTION_DB', default=True):
             'NAME': 'church_db',
             'USER': env.str('DB_USER'),
             'PASSWORD': env.str('DB_PASSWORD'),
-            'HOST': env.str('DB_HOST')
+            'HOST': env.str('DB_HOST'),
+            'PORT': env.int('DB_PORT', default=5432)
         }
     }
 
