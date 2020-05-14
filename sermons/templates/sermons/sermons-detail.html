@@ -5,7 +5,7 @@
 
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'vendor/plyr/plyr.css' %}">
+    <link rel="stylesheet" href="{% static 'plyr/dist/plyr.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -88,7 +88,7 @@
 
 {% block js %}
     {% compress js inline %}
-        <script src="{% static 'vendor/plyr/plyr.polyfilled.min.js' %}"></script>
+        <script src="{% static 'plyr/dist/plyr.polyfilled.min.js' %}"></script>
         <script>
             const players = Plyr.setup('.audio-player');
         </script>

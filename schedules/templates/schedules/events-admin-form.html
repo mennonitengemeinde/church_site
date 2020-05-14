@@ -6,7 +6,7 @@
 
 {% block css %}
     {% compress css inline %}
-        <link rel="stylesheet" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+        <link rel="stylesheet" href="{% static 'daterangepicker/daterangepicker.css' %}">
     {% endcompress %}
 {% endblock %}
 
@@ -24,8 +24,8 @@
 
 {% block js %}
     {% compress js inline %}
-        <script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
-        <script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+        <script src="{% static 'daterangepicker/moment.min.js' %}"></script>
+        <script src="{% static 'daterangepicker/daterangepicker.js' %}"></script>
 
         <script>
             $(function() {
