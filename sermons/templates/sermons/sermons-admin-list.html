@@ -12,6 +12,7 @@
         <th>High</th>
         <th>Video</th>
         <th>Visible</th>
+        <th></th>
     </tr>
 {% endblock %}
 
@@ -33,6 +34,7 @@
             <td class="align-middle">{% if sermon.audio_high %}<i class="fas fa-check"></i>{% endif %}</td>
             <td class="align-middle">{% if sermon.video_url %}<i class="fas fa-check"></i>{% endif %}</td>
             <td class="align-middle">{% if sermon.visible %}<i class="fas fa-check"></i>{% endif %}</td>
+            <td class="align-middle"><a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a></td>
         </tr>
     {% endfor %}
 {% endblock %}

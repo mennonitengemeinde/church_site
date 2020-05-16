@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 
-from church_site.views import BaseListView, BaseDetailView, BaseCreateView, AdminListView
+from church_site.views import BaseListView, BaseDetailView, BaseCreateView, AdminListView, BaseUpdateView
 
 from churches.models import Church
 from schedules.models import Event
@@ -73,6 +73,22 @@ class SermonsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     # fields = ('event', 'sermon_type', 'title', 'description', 'speakers', 'video_url', 'visible')
     success_url = reverse_lazy('sermons:sermons-admin-list')
     page_title = 'New Sermon - Admin'
+    current_page = 'manage'
+    btn_back_href = reverse_lazy('sermons:sermons-admin-list')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+
+class SermonAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
+    permission_required = 'sermons.change_sermon'
+    model = Sermon
+    template_name = 'admin-form-view.html'
+    form_class = SermonCreateForm
+    success_url = reverse_lazy('sermons:sermons-admin-list')
+    page_title = 'Update Sermon - Admin'
     current_page = 'manage'
     btn_back_href = reverse_lazy('sermons:sermons-admin-list')
 
