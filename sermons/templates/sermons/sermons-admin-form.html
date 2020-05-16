@@ -1,0 +1,15 @@
+{% extends 'admin-form-layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block form %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-mg-primary">Save</button>
+        </div>
+    </form>
+{% endblock %}
