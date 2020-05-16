@@ -29,7 +29,7 @@ class StreamsListView(BaseListView):
         context = super().get_context_data(**kwargs)
         context['churches'] = Church.objects.all()
         context['current_church'] = self.kwargs.get('church') if self.kwargs.get('church') else None
-        context['schedule'] = Event.objects.filter(end__gt=timezone.now(), live_stream=True)
+        context['schedule'] = Event.objects.filter(start__gt=timezone.now(), live_stream=True)
         return context
 
 
