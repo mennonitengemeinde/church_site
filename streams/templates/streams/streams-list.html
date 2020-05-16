@@ -75,33 +75,26 @@
         <hr class="mb-3 mx-5">
 
 
-        {% for s_stream in streams %}
+        {% for s_stream in schedule %}
             {% if not scheduled_stream.live %}
                 <div class="card my-4">
                     <div class="card-body">
                         <h5 class="card-title mb-0">{{ s_stream.title }}</h5>
-                        <div class="small">{{ s_stream.event.church|upper }}</div>
+                        <div class="small">{{ s_stream.church|upper }}</div>
 
                         <hr>
 
                         <div class="d-flex justify-content-between">
                             <span class="badge badge-info">
                                 <i class="fas fa-calendar-alt mr-1"></i>
-                                {{ s_stream.event.start.date }}
+                                {{ s_stream.start.date }}
                             </span>
                             <span class="badge badge-info">
                                 <i class="fas fa-clock mr-1"></i>
-                                {{ s_stream.event.start.time|time:"g:i a" }}
+                                {{ s_stream.start.time|time:"g:i a" }}
                             </span>
                         </div>
 
-                        <div class="row mt-2">
-                            {% for speaker in s_stream.speakers.all %}
-                                <div class="col-12 col-md text-center my-2">
-                                    <div><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
-                                </div>
-                            {% endfor %}
-                        </div>
                     </div>
                 </div>
             {% endif %}
