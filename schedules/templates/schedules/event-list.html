@@ -53,12 +53,12 @@
                 {% if event.in_person or event.live_stream %}
                     <div class="card-footer">
                         <div class="d-flex justify-content-around">
-                            {% if event.in_person %}
-                                <a href="" class="btn btn-sm btn-light"><i
-                                        class="fas fa-map-marked mr-1 text-mg-primary"></i> Directions</a>
-                            {% endif %}
+{#                            {% if event.in_person %}#}
+{#                                <a href="" class="btn btn-sm btn-light"><i#}
+{#                                        class="fas fa-map-marked mr-1 text-mg-primary"></i> Directions</a>#}
+{#                            {% endif %}#}
                             {% if event.live_stream %}
-                                <a href="" class="btn btn-sm btn-light"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-light"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
                             {% endif %}
                         </div>
                     </div>
