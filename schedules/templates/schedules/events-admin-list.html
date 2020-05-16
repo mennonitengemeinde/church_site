@@ -1,10 +1,13 @@
 {% extends 'admin-list-layout.html' %}
 
+{% load static %}
+{% load compress %}
+
 {% block table_head %}
     <tr>
         <th>Church</th>
-        <th>Start</th>
-        <th>End</th>
+        <th>Start<i class="fas fa-calendar-alt ml-1"></i></th>
+        <th>Start<i class="fas fa-clock ml-1"></i></th>
         <th>Title</th>
         <th>Actions</th>
     </tr>
@@ -15,12 +18,19 @@
     {% for event in events %}
         <tr>
             <td class="align-middle">{{ event.church.name }}</td>
-            <td class="align-middle">{{ event.start }}</td>
-            <td class="align-middle">{{ event.end }}</td>
+            <td class="align-middle local-date" data-date="{{ event.start|date:'U' }}"></td>
+            <td class="align-middle local-time" data-time="{{ event.start|date:'U' }}"></td>
             <td class="align-middle">{{ event.title }}</td>
             <td>
                 <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-mg-accent"><i class="fas fa-edit"></i></a>
             </td>
         </tr>
     {% endfor %}
+{% endblock %}
+
+{% block js %}
+    {% compress js inline %}
+        <script src="{% static 'moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'js/timezoneService.js' %}"></script>
+    {% endcompress %}
 {% endblock %}

@@ -10,7 +10,7 @@ from .models import Event
 
 
 class EventsListView(BaseListView):
-    page_title = 'Events'
+    page_title = 'Events - Mennoniten Gemeinde'
     current_page = 'events'
     model = Event
     template_name = 'schedules/event-list.html'

@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 
+{% load static %}
 {% load compress %}
 
 {% block content %}
@@ -33,9 +34,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="small">{{ event.church|upper }}</div>
-                        <span class="badge badge-info">
+                        <span class="badge badge-info local-date" data-date="{{ event.start|date:'U' }}">
                             <i class="fas fa-calendar mr-1"></i>
-                            {{ event.start.date }}
                         </span>
                     </div>
                     <h5 class="card-title mb-0 text-mg-secondary">{{ event.title }}</h5>
@@ -70,6 +70,8 @@
 
 {% block js %}
     {% compress js inline %}
+        <script src="{% static 'moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'js/timezoneService.js' %}"></script>
         <script>
             function onSermonsChurchChange(church) {
                 window.location.href = uriConstructor(church, "{{ current_speaker }}");

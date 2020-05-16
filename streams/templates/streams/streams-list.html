@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 
+{% load static %}
 {% load compress %}
 
 {% block content %}
@@ -34,14 +35,12 @@
                         <hr>
 
                         <div class="d-flex justify-content-between">
-                            <span class="badge badge-info">
+                            <div class="badge badge-info local-date" data-date="{{ live_stream.event.start|date:'U' }}">
                                 <i class="fas fa-calendar-alt mr-1"></i>
-                                {{ live_stream.event.start.date }}
-                            </span>
-                            <span class="badge badge-info">
+                            </div>
+                            <div class="badge badge-info local-time" data-time="{{ live_stream.event.start|date:"U" }}">
                                 <i class="fas fa-clock mr-1"></i>
-                                {{ live_stream.event.start|time:"g:i a" }}
-                            </span>
+                            </div>
                         </div>
 
                         <div class="row mt-2">
@@ -104,6 +103,8 @@
 
 {% block js %}
     {% compress js inline %}
+        <script src="{% static 'moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'js/timezoneService.js' %}"></script>
         <script>
             function onStreamsChurchChange(church) {
                 if (church !== 'None') {

@@ -1,9 +1,12 @@
 {% extends 'admin-list-layout.html' %}
 
+{% load static %}
+{% load compress %}
+
 {% block table_head %}
     <tr>
         <th>Date</th>
-        <th>Event</th>
+        <th>Time</th>
         <th>Sermon Type</th>
         <th>Title</th>
         <th>Speakers</th>
@@ -20,8 +23,8 @@
 {% block table_body %}
     {% for sermon in sermons %}
         <tr>
-            <td class="align-middle">{{ sermon.event.start.date }}</td>
-            <td class="align-middle">{{ sermon.event.title }}</td>
+            <td class="align-middle local-date" data-date="{{ sermon.event.start|date:'U' }}"></td>
+            <td class="align-middle local-time" data-time="{{ sermon.event.start|date:'U' }}"></td>
             <td class="align-middle">{{ sermon.sermon_type }}</td>
             <td class="align-middle">{{ sermon.title }}</td>
             <td class="align-middle">
@@ -37,4 +40,11 @@
             <td class="align-middle"><a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a></td>
         </tr>
     {% endfor %}
+{% endblock %}
+
+{% block js %}
+    {% compress js inline %}
+        <script src="{% static 'moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'js/timezoneService.js' %}"></script>
+    {% endcompress %}
 {% endblock %}
