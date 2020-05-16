@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 
+{% load static %}
 {% load compress %}
 
 {% block content %}
@@ -20,16 +21,16 @@
 
         {% for event in events %}
             {% ifchanged event.start.date %}
-                <h4 class="mt-5 text-mg-secondary">{{ event.start.date }}</h4>
+                <h4 class="mt-5 text-mg-secondary local-date" data-date="{{ event.start.date|date:'U' }}"></h4>
             {% endifchanged %}
 
             <div class="card my-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="small">{{ event.church|upper }}</div>
-                        <span class="badge badge-info">
+                        <span class="badge badge-info local-time" data-time="{{ event.start|date:'U' }}">
                             <i class="fas fa-clock mr-1"></i>
-                            {{ event.start|time:"g:i a" }}
+{#                            {{ event.start|time:"g:i a" }}#}
                         </span>
                     </div>
                     <h5 class="card-title mb-0">{{ event.title }}</h5>
@@ -73,6 +74,8 @@
 
 {% block js %}
     {% compress js inline %}
+        <script src="{% static 'moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'js/timezoneService.js' %}"></script>
         <script>
             function onEventsChurchChange(church) {
                 if (church !== 'None') {

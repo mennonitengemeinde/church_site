@@ -1,5 +1,8 @@
 {% extends 'layout.html' %}
 
+{% load static %}
+{% load compress %}
+
 {% block content %}
     {{ block.super }}
 
@@ -40,13 +43,13 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
 {#                                <div class="small">{{ event.church|upper }}</div>#}
-                                <div class="small">
+                                <div class="small local-date" data-date="{{ event.start|date:'U' }}">
                                     <i class="fas fa-calendar-alt mr-1"></i>
-                                    {{ event.start|date:"N j, o" }}
+{#                                    {{ event.start|date:"N j, o" }}#}
                                 </div>
-                                <div class="small">
+                                <div class="small local-time" data-time="{{ event.start|date:'U' }}">
                                     <i class="fas fa-clock mr-1"></i>
-                                    {{ event.start|time:"g:i a" }}
+{#                                    {{ event.start|time:"g:i a" }}#}
                                 </div>
                             </div>
                             <div>
@@ -70,4 +73,11 @@
     </div>
 
 
+{% endblock %}
+
+{% block js %}
+    {% compress js inline %}
+        <script src="{% static 'moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'js/timezoneService.js' %}"></script>
+    {% endcompress %}
 {% endblock %}
