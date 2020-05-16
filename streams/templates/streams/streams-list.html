@@ -54,7 +54,7 @@
 
                     <div class="card-footer">
                         <div class="row">
-                            {% if not live_stream.live_mixlr_audio %}
+                            {% if live_stream.live_mixlr_audio %}
                                 <div class="col text-center">
                                     <a href="{% url 'streams:live-audio' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-mg-primary"><i class="fas fa-music mr-2"></i>Live Audio</a>
                                 </div>
