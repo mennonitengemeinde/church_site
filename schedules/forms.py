@@ -8,7 +8,7 @@ class EventForm(ModelForm):
     def __init__(self, user=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if user:
-            self.fields['church'].queryset = Church.objects.filter(members=user, members__membership_validated=True)
+            self.fields['church'].queryset = Church.objects.filter(members=user)
 
     class Meta:
         model = Event
