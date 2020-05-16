@@ -11,7 +11,7 @@ from speakers.models import Speaker
 
 
 class SermonsListView(BaseListView):
-    page_title = 'Sermons'
+    page_title = 'Sermons - Mennoniten Gemeinde'
     current_page = 'sermons'
     model = Event
     template_name = 'sermons/sermons-list.html'
@@ -50,7 +50,7 @@ class SermonsDetailView(BaseDetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = f'{self.object.start.date()} | {self.object.title}'
+        context['page_title'] = f'{self.object.start.date()} - {self.object.title}'
         return context
 
 

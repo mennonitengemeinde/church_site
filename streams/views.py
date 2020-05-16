@@ -13,7 +13,7 @@ from .models import Stream
 
 
 class StreamsListView(BaseListView):
-    page_title = 'Live'
+    page_title = 'Live - Mennoniten Gemeinde'
     current_page = 'live'
     model = Stream
     template_name = 'streams/streams-list.html'
