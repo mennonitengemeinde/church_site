@@ -11,4 +11,5 @@ class SermonCreateForm(ModelForm):
 
     class Meta:
         model = Sermon
-        fields = ('event', 'sermon_type', 'title', 'description', 'speakers', 'video_url', 'visible')
+        fields = ('event', 'sermon_type', 'title', 'description', 'speakers', 'video_url',
+                  'audio_low', 'audio_med', 'audio_high', 'visible')
