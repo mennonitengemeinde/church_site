@@ -62,17 +62,17 @@
                     {% if sermon.audio_low or sermon.audio_med or sermon.audio_high %}
                         <div class="row text-center mt-1 mx-3 py-4" style="border: 1px solid var(--mg-dark); border-radius: .5em">
                             {% if sermon.audio_low %}
-                                <div class="col-12 col-sm-4">
+                                <div class="col-12 col-sm">
                                     <a href="{{ sermon.audio_low.url }}" class="btn btn-mg-primary"><i class="fas fa-download mr-1"></i>Low</a>
                                 </div>
                             {% endif %}
                             {% if sermon.audio_med %}
-                                <div class="col-12 col-sm-4 my-2 my-sm-0">
+                                <div class="col-12 col-sm my-2 my-sm-0">
                                     <a href="{{ sermon.audio_med.url }}" class="btn btn-mg-primary"><i class="fas fa-download mr-1"></i>Medium</a>
                                 </div>
                             {% endif %}
                             {% if sermon.audio_high %}
-                                <div class="col-12 col-sm-4">
+                                <div class="col-12 col-sm">
                                     <a href="{{ sermon.audio_high.url }}" class="btn btn-mg-primary"><i class="fas fa-download mr-1"></i>High</a>
                                 </div>
                             {% endif %}
