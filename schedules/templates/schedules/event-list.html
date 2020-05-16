@@ -29,7 +29,7 @@
                         <div class="small">{{ event.church|upper }}</div>
                         <span class="badge badge-info">
                             <i class="fas fa-clock mr-1"></i>
-                            {{ event.start.time|time:"g:i a" }}
+                            {{ event.start|time:"g:i a" }}
                         </span>
                     </div>
                     <h5 class="card-title mb-0">{{ event.title }}</h5>
