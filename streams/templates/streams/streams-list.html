@@ -84,14 +84,12 @@
                         <hr>
 
                         <div class="d-flex justify-content-between">
-                            <span class="badge badge-info">
+                            <div class="badge badge-info local-date" data-date="{{ s_stream.start|date:'U' }}">
                                 <i class="fas fa-calendar-alt mr-1"></i>
-                                {{ s_stream.start.date }}
-                            </span>
-                            <span class="badge badge-info">
+                            </div>
+                            <div class="badge badge-info local-time" data-time="{{ s_stream.start|date:'U' }}">
                                 <i class="fas fa-clock mr-1"></i>
-                                {{ s_stream.start|time:"g:i a" }}
-                            </span>
+                            </div>
                         </div>
 
                     </div>
