@@ -70,7 +70,7 @@ class StreamsAdminListView(PermissionRequiredMixin, AdminListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.member_streams(self.request.user)
+        queryset = queryset.member_streams(self.request.user).order_by('-event')
         return queryset
 
 
