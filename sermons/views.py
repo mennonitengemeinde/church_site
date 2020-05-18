@@ -64,6 +64,11 @@ class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
     current_page = 'manage'
     btn_add_href = reverse_lazy('sermons:sermons-admin-create')
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.member_sermons(self.request.user).order_by('-event')
+        return queryset
+
 
 class SermonsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     permission_required = 'sermons.add_sermon'
