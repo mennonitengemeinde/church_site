@@ -52,8 +52,6 @@ class SermonManager(models.Manager):
         if church and not speaker:
             return self.filter(event__church__name=church.replace('-', ' ')).order_by('-event')
         elif not church and speaker:
-            s = self.filter(speakers=int(speaker)).order_by('-event')
-            print(s)
             return self.filter(speakers=int(speaker)).order_by('-event')
         elif church and speaker:
             return self.filter(event__church__name=church.replace('-', ' '), speakers=int(speaker)).order_by('-event')
