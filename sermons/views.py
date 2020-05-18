@@ -44,14 +44,17 @@ class SermonsListView(BaseListView):
 class SermonsDetailView(BaseDetailView):
     current_page = 'sermons'
     btn_back_href = reverse_lazy('sermons:sermons-list')
-    model = Event
+    model = Sermon
     template_name = 'sermons/sermons-detail.html'
-    context_object_name = 'event'
+    context_object_name = 'sermon'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = f'{self.object.start.date()} - {self.object.title}'
+        context['page_title'] = self.get_page_title()
         return context
+
+    def get_page_title(self) -> str:
+        return f'{self.object.event.start.strftime("%b %d, %Y")} - {self.object.title}'
 
 
 class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
