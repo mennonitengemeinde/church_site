@@ -1,5 +1,13 @@
 {% extends 'admin-list-layout.html' %}
 
+{% block add_btn %}
+
+    {% if perms.churches.add_church %}
+        {{ block.super }}
+    {% endif %}
+
+{% endblock %}
+
 {% block table_head %}
     <tr>
         <th>Name</th>
@@ -14,7 +22,9 @@
             <td class="align-middle">{{ church.name }}</td>
             <td class="align-middle">{{ church.street }}, {{ church.city }}, {{ church.province_state }}, {{ church.country }}</td>
             <td>
-                <a href="{% url 'churches:churches-admin-update' pk=church.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a>
+                {% if perms.churches.change_church and church in user.member.all %}
+                    <a href="{% url 'churches:churches-admin-update' pk=church.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a>
+                {% endif %}
             </td>
         </tr>
     {% endfor %}

@@ -36,3 +36,6 @@ class ChurchesAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     template_name = 'admin-form-view.html'
     fields = ('name', 'street', 'city', 'province_state', 'country', 'mixlr_url')
     success_url = reverse_lazy('churches:churches-admin-list')
+
+    def get_queryset(self):
+        return self.model.objects.filter(members=self.request.user)

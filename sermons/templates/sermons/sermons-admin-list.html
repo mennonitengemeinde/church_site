@@ -37,7 +37,11 @@
             <td class="align-middle">{% if sermon.audio_high %}<i class="fas fa-check"></i>{% endif %}</td>
             <td class="align-middle">{% if sermon.video_url %}<i class="fas fa-check"></i>{% endif %}</td>
             <td class="align-middle">{% if sermon.visible %}<i class="fas fa-check"></i>{% endif %}</td>
-            <td class="align-middle"><a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a></td>
+            <td class="align-middle">
+                {% if perms.sermons.change_sermon %}
+                    <a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a>
+                {% endif %}
+            </td>
         </tr>
     {% endfor %}
 {% endblock %}

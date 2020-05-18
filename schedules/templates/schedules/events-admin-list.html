@@ -22,7 +22,9 @@
             <td class="align-middle local-time" data-time="{{ event.start|date:'U' }}"></td>
             <td class="align-middle">{{ event.title }}</td>
             <td>
-                <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-mg-accent"><i class="fas fa-edit"></i></a>
+                {% if perms.schedules.change_event %}
+                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-mg-accent"><i class="fas fa-edit"></i></a>
+                {% endif %}
             </td>
         </tr>
     {% endfor %}
