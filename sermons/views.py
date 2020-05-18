@@ -4,7 +4,6 @@ from django.urls import reverse_lazy
 from church_site.views import BaseListView, BaseDetailView, BaseCreateView, AdminListView, BaseUpdateView
 
 from churches.models import Church
-from schedules.models import Event
 from sermons.forms import SermonCreateForm
 from sermons.models import Sermon
 from speakers.models import Speaker
@@ -13,24 +12,15 @@ from speakers.models import Speaker
 class SermonsListView(BaseListView):
     page_title = 'Sermons - Mennoniten Gemeinde'
     current_page = 'sermons'
-    model = Event
+    model = Sermon
     template_name = 'sermons/sermons-list.html'
-    context_object_name = 'events'
+    context_object_name = 'sermons'
 
     def get_queryset(self):
-        if self.kwargs.get('church'):
-            if self.request.GET.get('speaker'):
-                return self.model.objects.filter(sermons__isnull=False,
-                                                 church__name=self.kwargs['church'].replace('-', ' '),
-                                                 sermons__speakers=int(self.request.GET.get('speaker'))).order_by('-start')
-            return self.model.objects.filter(sermons__isnull=False,
-                                             church__name=self.kwargs['church'].replace('-', ' ')).order_by('-start')
-        else:
-            if self.request.GET.get('speaker'):
-                return self.model.objects.filter(sermons__isnull=False,
-                                                 sermons__speakers=int(self.request.GET.get('speaker'))
-                                                 ).order_by('-start')
-            return self.model.objects.filter(sermons__isnull=False).order_by('-start')
+        return self.model.objects.filtered_sermons(
+            church=self.kwargs.get('church'),
+            speaker=self.request.GET.get('speaker')
+        )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
