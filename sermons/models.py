@@ -39,6 +39,16 @@ def high_audio_path(instance, filename):
         f'{uuid4()}-low.mp3')
 
 
+class SermonQuerySet(models.query.QuerySet):
+    def member_sermons(self, user):
+        return self.filter(event__church__members=user)
+
+
+class SermonManager(models.Manager):
+    def get_queryset(self):
+        return SermonQuerySet(self.model, self._db)
+
+
 class Sermon(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='sermons')
     sermon_type = models.CharField(max_length=50, choices=sermon_types)
@@ -50,6 +60,8 @@ class Sermon(models.Model):
     audio_high = models.FileField(upload_to=high_audio_path, validators=[validate_file_extension], null=True, blank=True)
     video_url = models.URLField(blank=True, null=True)
     visible = models.BooleanField(default=True)
+
+    objects = SermonManager()
 
     class Meta:
         ordering = ('event', 'title')
