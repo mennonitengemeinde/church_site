@@ -48,6 +48,18 @@ class SermonManager(models.Manager):
     def get_queryset(self):
         return SermonQuerySet(self.model, self._db)
 
+    def filtered_sermons(self, church: str = None, speaker: str = None):
+        if church and not speaker:
+            return self.filter(event__church__name=church.replace('-', ' ')).order_by('-event')
+        elif not church and speaker:
+            s = self.filter(speakers=int(speaker)).order_by('-event')
+            print(s)
+            return self.filter(speakers=int(speaker)).order_by('-event')
+        elif church and speaker:
+            return self.filter(event__church__name=church.replace('-', ' '), speakers=int(speaker)).order_by('-event')
+        else:
+            return self.all().order_by('-event')
+
 
 class Sermon(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='sermons')
