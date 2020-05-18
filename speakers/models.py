@@ -10,7 +10,7 @@ class Speaker(models.Model):
     city = models.CharField(max_length=50)
     province_state = models.CharField(max_length=50)
     country = CountryField()
-    home_church = models.ForeignKey(Church, on_delete=models.PROTECT, related_name='speakers')
+    home_church = models.ForeignKey(Church, on_delete=models.PROTECT, related_name='speakers', null=True, blank=True)
 
     class Meta:
         ordering = ('name',)
