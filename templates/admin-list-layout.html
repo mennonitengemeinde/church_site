@@ -11,9 +11,11 @@
 {#            {% if btn_back_href %}#}
 {#                <a href="{{ btn_back_href }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Back</a>#}
 {#            {% endif %}#}
-            {% if btn_add_href %}
-                <a href="{{ btn_add_href }}" class="btn btn-mg-primary"><i class="fas fa-plus"></i> Add</a>
-            {% endif %}
+            {% block add_btn %}
+                {% if btn_add_href %}
+                    <a href="{{ btn_add_href }}" class="btn btn-mg-primary"><i class="fas fa-plus"></i> Add</a>
+                {% endif %}
+            {% endblock %}
         </div>
 
         <div class="table-responsive">
