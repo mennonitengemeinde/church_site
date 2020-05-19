@@ -1,4 +1,4 @@
-from allauth.account.forms import LoginForm
+from allauth.account.forms import LoginForm, SignupForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
@@ -8,19 +8,29 @@ from accounts.forms import UpdateUserForm
 from church_site.views import AdminListView, BaseUpdateView
 
 
-class LoginView(TemplateView):
-    template_name = 'account/login.html'
+# class LoginView(TemplateView):
+#     template_name = 'account/login.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['page_title'] = 'Login - Mennoniten Gemeinde'
+#         context['form'] = LoginForm
+#         context['redirect_field_name'] = 'next'
+#         if self.request.GET.get('next'):
+#             context['redirect_field_value'] = self.request.GET.get('next')
+#         else:
+#             context['redirect_field_value'] = reverse_lazy('home:home')
+#         return context
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page_title'] = 'Login - Mennoniten Gemeinde'
-        context['form'] = LoginForm
-        context['redirect_field_name'] = 'next'
-        if self.request.GET.get('next'):
-            context['redirect_field_value'] = self.request.GET.get('next')
-        else:
-            context['redirect_field_value'] = reverse_lazy('home:home')
-        return context
+
+# class SignupView(TemplateView):
+#     template_name = 'account/signup.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['page_title'] = 'Sign Up - Mennoniten Gemeinde'
+#         context['form'] = SignupForm
+#         return context
 
 
 class UsersAdminListView(PermissionRequiredMixin, AdminListView):

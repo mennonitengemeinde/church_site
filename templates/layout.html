@@ -78,13 +78,13 @@
                                         <input type="hidden" name="{{ redirect_field_name }}"
                                                value="{{ redirect_field_value }}"/>
                                     {% endif %}
-                                    <button type="submit" class="dropdown-item">Logout</button>
+                                    <button type="submit" class="dropdown-item">Sign out</button>
                                 </form>
                             </div>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                            <a class="nav-link" href="{% url 'account_login' %}">Sign in</a>
                         </li>
                     {% endif %}
 

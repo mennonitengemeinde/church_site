@@ -1,14 +1,26 @@
 {% extends 'layout.html' %}
 
+{% load static %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
+
+{% get_providers as socialaccount_providers %}
 
 {% block content %}
 
-    <div class="row">
-        <div class="col-6 offset-3">
+    <div class="row m-0">
+        <div class="col-12 col-md-6 offset-md-3">
             <div class="card mt-5">
                 <div class="card-body">
                     <h1>Sign In</h1>
+
+                    <hr>
+
+                    <div class="my-4 text-center">
+                        <a href="{% provider_login_url 'google' %}"><img src="{% static 'img/social/btn_google_signin_dark_normal_web.png' %}" alt="Sign in with Google"></a>
+                    </div>
+
+                    <hr>
 
                     <form class="login" method="POST" action="{% url 'account_login' %}">
                         {% csrf_token %}
@@ -21,6 +33,10 @@
                             <button class="btn btn-mg-primary" type="submit">Sign In</button>
                         </div>
                     </form>
+
+                    <hr>
+
+                    <p class="mt-4">Don't have an account? <a href="{{ signup_url }}" class="btn-link">Sign Up</a></p>
                 </div>
             </div>
 
