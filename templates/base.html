@@ -19,7 +19,12 @@
         <link rel="stylesheet" href="{% static '@fortawesome/fontawesome-free/css/all.min.css' %}">
         <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
 
-        <link rel="stylesheet" href="{% static 'css/site.css' %}">
+        <link rel="stylesheet" href="{% static 'css/shared/variables.css' %}">
+        <link rel="stylesheet" href="{% static 'css/shared/site.css' %}">
+        <link rel="stylesheet" href="{% static 'css/shared/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'css/shared/buttons.css' %}">
+        <link rel="stylesheet" href="{% static 'css/shared/text.css' %}">
+        <link rel="stylesheet" href="{% static 'css/shared/backgrounds.css' %}">
     {% endcompress %}
 
     {% block css %}{% endblock %}
@@ -36,6 +41,14 @@
     <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'popper.js/dist/umd/popper.min.js' %}"></script>
     <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+                $(".alert").slideUp(500);
+            });
+        });
+    </script>
 {% endcompress %}
 
 {% block js %}{% endblock %}

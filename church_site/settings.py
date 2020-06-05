@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_countries',
     # Project
+    'shared.apps.SharedConfig',
     'accounts.apps.AccountsConfig',
     'churches.apps.ChurchesConfig',
     'speakers.apps.SpeakersConfig',

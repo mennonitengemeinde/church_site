@@ -33,30 +33,34 @@
 
         <div class="row mt-2">
             {% for sermon in sermons %}
-                {% ifchanged sermon.event %}
-                    <div class="col-12">
-                        <div class="d-flex justify-content-between mt-5">
-                            <div class="small">{{ sermon.event.church|upper }}</div>
-                            <span class="badge badge-info local-date" data-date="{{ sermon.event.start|date:'U' }}">
-                                <i class="fas fa-calendar mr-1"></i>
-                            </span>
-                        </div>
-                        <h5 class="card-title mb-0 text-mg-secondary">{{ sermon.event.title }}</h5>
-                        <hr>
-                    </div>
-                {% endifchanged %}
+{#                {% ifchanged sermon.event %}#}
+{#                    <div class="col-12">#}
+{#                        <div class="d-flex justify-content-between mt-5">#}
+{#                            <div class="small">{{ sermon.event.church|upper }}</div>#}
+{#                            <span class="badge badge-info local-date" data-date="{{ sermon.event.start|date:'U' }}">#}
+{#                                <i class="fas fa-calendar mr-1"></i>#}
+{#                            </span>#}
+{#                        </div>#}
+{#                        <h5 class="card-title mb-0 text-mg-secondary">{{ sermon.event.title }}</h5>#}
+{#                        <hr>#}
+{#                    </div>#}
+{#                {% endifchanged %}#}
 
 
-                <div class="col-12 col-md-6 col-lg-4 text-center my-3">
+                <div class="col-12 col-md-6 col-lg-4 my-3 px-4">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="mb-0">{{ sermon.title }}</h6>
+                            <h6 class="text-mg-info">{{ sermon.event.church }}</h6>
+                            <h4 class="mb-0 text-mg-primary">{{ sermon.title }}</h4>
                             <small>{{ sermon.sermon_type.title }}</small>
+                            <hr>
                             {% for speaker in sermon.speakers.all %}
-                                <div><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
+                                <div class="text-center"><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
                             {% endfor %}
 
-                            <a href="{% url 'sermons:sermons-detail' pk=sermon.id church=sermon.event.church.slug %}" class="btn btn-mg-round btn-mg-secondary mt-2">Open</a>
+                            <div class="text-center">
+                                <a href="{% url 'sermons:sermons-detail' pk=sermon.id church=sermon.event.church.slug %}" class="btn btn-mg-round btn-mg-primary mt-4">Open</a>
+                            </div>
 
                         </div>
                     </div>

@@ -20,8 +20,8 @@ class EventManager(models.Manager):
     def get_queryset(self):
         return EventQuerySet(self.model, using=self._db)
 
-    def get_first_four(self):
-        return self.get_queryset().filter(end__gt=timezone.now())[:4]
+    def get_first_six(self):
+        return self.get_queryset().filter(end__gt=timezone.now())[:6]
 
     def member_only_events(self, user):
         return self.get_queryset().filter(church__members=user)

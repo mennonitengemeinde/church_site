@@ -1,0 +1,19 @@
+.fa-microphone {
+    color: var(--mg-primary);
+}
+
+.text-mg-dark {
+    color: var(--mg-dark);
+}
+
+.text-mg-primary {
+    color: var(--mg-primary);
+}
+
+.text-mg-secondary {
+    color: var(--mg-secondary);
+}
+
+.text-mg-info {
+    color: var(--mg-info);
+}

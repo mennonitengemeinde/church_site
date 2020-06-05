@@ -17,7 +17,7 @@
             <td class="align-middle">{{ user.first_name }} {{ user.last_name }}</td>
             <td class="align-middle">{{ user.email }}</td>
             <td class="align-middle">
-                <a href="{% url 'accounts:users-admin-update' pk=user.id %}" class="btn btn-sm btn-mg-accent"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'accounts:users-admin-update' pk=user.id %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
             </td>
         </tr>
     {% endfor %}
