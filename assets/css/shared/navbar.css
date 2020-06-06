@@ -1,0 +1,26 @@
+.nav-container {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nav-logo {
+    max-height: 4em;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    opacity: 0.7;
+    padding: .3em .8em;
+    color: var(--mg-primary);
+}
+
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link {
+    opacity: 0.9;
+    border-bottom: .2em solid var(--mg-primary);
+    background-color: #602627;
+    /*border-radius: .5em;*/
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

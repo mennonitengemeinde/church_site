@@ -5,7 +5,7 @@
     {{ block.super }}
 
     <div class="container">
-        <a href="{% url 'streams:streams-list' %}" class="btn btn-outline-info mt-3"><i class="fas fa-arrow-left mr-2"></i>Back</a>
+        <a href="{% url 'streams:streams-list' %}" class="btn btn-mg-outline-default mt-3"><i class="fas fa-arrow-left mr-2"></i>Back</a>
 
         <div class="card mt-3">
             <div class="card-body">
@@ -15,7 +15,7 @@
                 <div class="row my-3">
                     {% for speaker in stream.speakers.all %}
                         <div class="col text-center">
-                            <div><i class="fas fa-microphone mr-1 text-mg-accent"></i> {{ speaker }}</div>
+                            <div><i class="fas fa-microphone mr-1 text-mg-secondary"></i> {{ speaker }}</div>
                         </div>
                     {% endfor %}
                 </div>

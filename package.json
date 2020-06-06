@@ -17,11 +17,10 @@
   "homepage": "https://github.com/mennonitengemeinde/church_site#readme",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.0",
     "daterangepicker": "^3.0.5",
     "jquery": "^3.5.1",
     "moment": "^2.25.3",
-    "plyr": "^3.6.2",
     "popper.js": "^1.16.1"
   }
 }

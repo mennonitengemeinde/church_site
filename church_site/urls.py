@@ -20,9 +20,10 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', include('home.urls')),
+    url('', include('pwa.urls')),
     path('admin/', admin.site.urls),
-    url(r'^account/', include('allauth.urls')),
-    path('accounts/', include('accounts.urls')),
+    url(r'^accounts/', include('allauth.urls')),
+    path('users/', include('accounts.urls')),
     path('churches/', include('churches.urls')),
     path('speakers/', include('speakers.urls')),
     path('schedules/', include('schedules.urls')),

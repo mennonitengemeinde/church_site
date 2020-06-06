@@ -1,0 +1,17 @@
+body {
+    background-color: var(--mg-background);
+}
+
+.table > tbody > tr > td {
+    vertical-align: center;
+}
+
+.badge-mg-secondary {
+    background-color: var(--mg-secondary);
+
+}
+
+.badge-mg-info {
+    background-color: var(--mg-info);
+    color: white;
+}

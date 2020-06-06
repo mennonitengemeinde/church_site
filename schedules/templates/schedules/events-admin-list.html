@@ -23,7 +23,7 @@
             <td class="align-middle">{{ event.title }}</td>
             <td>
                 {% if perms.schedules.change_event %}
-                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-mg-accent"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-mg-secondary"><i class="fas fa-edit"></i></a>
                 {% endif %}
             </td>
         </tr>

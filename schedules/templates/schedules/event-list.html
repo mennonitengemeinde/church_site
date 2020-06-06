@@ -28,7 +28,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="small">{{ event.church|upper }}</div>
-                        <span class="badge badge-info local-time" data-time="{{ event.start|date:'U' }}">
+                        <span class="badge badge-mg-info local-time" data-time="{{ event.start|date:'U' }}">
                             <i class="fas fa-clock mr-1"></i>
 {#                            {{ event.start|time:"g:i a" }}#}
                         </span>
@@ -51,7 +51,7 @@
 
                     {# TODO: Map intagration #}
                 </div>
-                {% if event.in_person or event.live_stream %}
+                {% if event.live_stream %}
                     <div class="card-footer">
                         <div class="d-flex justify-content-around">
 {#                            {% if event.in_person %}#}
@@ -59,7 +59,7 @@
 {#                                        class="fas fa-map-marked mr-1 text-mg-primary"></i> Directions</a>#}
 {#                            {% endif %}#}
                             {% if event.live_stream %}
-                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-light"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-mg-outline-primary"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
                             {% endif %}
                         </div>
                     </div>

@@ -2,63 +2,60 @@
 
 {% load static %}
 {% load compress %}
+{% load math_tags %}
+
+{% block css %}
+    {% compress css inline %}
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% endcompress %}
+{% endblock %}
 
 {% block content %}
     {{ block.super }}
 
+    <div class="home-container">
+        <h2 class="card-title">Welcome to the Mennoniten Gemeinde Website</h2>
+        <h6>Here you will find Sermons which could be a blessing for your Spiritual life</h6>
+        <hr>
+        <p>Look not every man on his own things, but every man also on the things of others.
+            Let this mind be in you, which was also in Christ Jesus:
+            Who, being in the form of God, thought it not robbery to be equal with God:
+            But made himself of no reputation, and took upon him the form of a servant, and was made in the
+            likeness of men:
+            And being found in fashion as a man, he humbled himself, and became obedient unto death, even the
+            death of the cross.
+            Wherefore God also hath highly exalted him, and given him a name which is above every name:
+            That at the name of Jesus every knee should bow, of things in heaven, and things in earth, and
+            things under the earth;
+            And that every tongue should confess that Jesus Christ is Lord, to the glory of God the
+            Father. Philippians 2:4-11
+        </p>
+        <p>For other foundation can no man lay than that is laid, which is Jesus Christ. 1 Corinthians 3:11</p>
+    </div>
+
     <div class="container py-3">
-        <div class="card" style="background-color: transparent;">
-            <div class="card-body">
-                <h2 class="card-title text-mg-secondary">Welcome to the Mennoniten Gemeinde Website</h2>
-                <h6>Here you fill find Sermons which could be a blessing for your Spiritual life</h6>
-            </div>
-        </div>
-
-        <div class="card mt-3">
-            <div class="card-body">
-                <p>Look not every man on his own things, but every man also on the things of others.
-                    Let this mind be in you, which was also in Christ Jesus:
-                    Who, being in the form of God, thought it not robbery to be equal with God:
-                    But made himself of no reputation, and took upon him the form of a servant, and was made in the
-                    likeness of men:
-                    And being found in fashion as a man, he humbled himself, and became obedient unto death, even the
-                    death of the cross.
-                    Wherefore God also hath highly exalted him, and given him a name which is above every name:
-                    That at the name of Jesus every knee should bow, of things in heaven, and things in earth, and
-                    things under the earth;
-                    And that every tongue should confess that Jesus Christ is Lord, to the glory of God the
-                    Father. Philippians 2:4-11
-                </p>
-                <p>For other foundation can no man lay than that is laid, which is Jesus Christ. 1 Corinthians 3:11</p>
-            </div>
-        </div>
-
-        <h4 class="mt-5 text-center text-mg-secondary">Upcoming Events</h4>
+        <h4 class="mt-5 text-center text-mg-dark">Upcoming Events</h4>
         <hr>
 
         <div class="row">
             {% for event in events %}
-                <div class="col-12 col-md-6">
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-{#                                <div class="small">{{ event.church|upper }}</div>#}
-                                <div class="small local-date" data-date="{{ event.start|date:'U' }}">
-                                    <i class="fas fa-calendar-alt mr-1"></i>
-{#                                    {{ event.start|date:"N j, o" }}#}
-                                </div>
-                                <div class="small local-time" data-time="{{ event.start|date:'U' }}">
-                                    <i class="fas fa-clock mr-1"></i>
-{#                                    {{ event.start|time:"g:i a" }}#}
-                                </div>
-                            </div>
-                            <div>
+                <div class="col-12 col-md-6 col-lg-4 px-4">
+                    <div class="card home-event-card my-4">
+                        <div class="card-body p-4">
+                            <div class="mb-2">
                                 <h5 class="card-title mt-1 mb-0">{{ event.title }}</h5>
                                 <div class="small">{{ event.church|upper }}</div>
                             </div>
+                            <div class="small local-date" data-date="{{ event.start|date:'U' }}">
+                                <i class="fas fa-calendar-alt mr-1"></i>
+                            </div>
+                            <div class="small local-time" data-time="{{ event.start|date:'U' }}">
+                                <i class="fas fa-clock mr-1"></i>
+                            </div>
 
-                            <div class="text-right">
-                                <a href="{% url 'schedules:events-list' %}" class="btn btn-sm btn-info">Details <i class="fas fa-arrow-right ml-1"></i></a>
+
+                            <div class="text-center mt-4">
+                                <a href="{% url 'schedules:events-list' %}" class="btn btn-sm btn-mg-round btn-mg-info">Details <i class="fas fa-arrow-right ml-1"></i></a>
                             </div>
 
 {#                            <div class="text-right">#}

@@ -9,7 +9,7 @@
 
     <div class="container py-3">
 
-        <h2 class="text-center mt-3 text-mg-secondary">Live Streams</h2>
+        <h2 class="text-center mt-3 text-mg-dark">Live Streams</h2>
         <hr class="mx-5">
 
         {# filters #}
@@ -35,10 +35,10 @@
                         <hr>
 
                         <div class="d-flex justify-content-between">
-                            <div class="badge badge-info local-date" data-date="{{ live_stream.event.start|date:'U' }}">
+                            <div class="badge badge-mg-info local-date" data-date="{{ live_stream.event.start|date:'U' }}">
                                 <i class="fas fa-calendar-alt mr-1"></i>
                             </div>
-                            <div class="badge badge-info local-time" data-time="{{ live_stream.event.start|date:"U" }}">
+                            <div class="badge badge-mg-info local-time" data-time="{{ live_stream.event.start|date:"U" }}">
                                 <i class="fas fa-clock mr-1"></i>
                             </div>
                         </div>
@@ -56,12 +56,12 @@
                         <div class="row">
                             {% if live_stream.live_mixlr_audio %}
                                 <div class="col text-center">
-                                    <a href="{% url 'streams:live-audio' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-mg-primary"><i class="fas fa-music mr-2"></i>Live Audio</a>
+                                    <a href="{% url 'streams:live-audio' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-mg-outline-primary"><i class="fas fa-music mr-2"></i>Live Audio</a>
                                 </div>
                             {% endif %}
                             {% if live_stream.live_url %}
                                 <div class="col text-center">
-                                    <a href="{% url 'streams:live-video' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-mg-primary"><i class="fas fa-video mr-2"></i>Live Video</a>
+                                    <a href="{% url 'streams:live-video' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-mg-outline-primary"><i class="fas fa-video mr-2"></i>Live Video</a>
                                 </div>
                             {% endif %}
                         </div>
@@ -70,7 +70,7 @@
             {% endif %}
         {% endfor %}
 
-        <h2 class="text-center mt-5 text-mg-secondary">Scheduled Live Streams</h2>
+        <h2 class="text-center mt-5 text-mg-dark">Scheduled Live Streams</h2>
         <hr class="mb-3 mx-5">
 
 
@@ -84,10 +84,10 @@
                         <hr>
 
                         <div class="d-flex justify-content-between">
-                            <div class="badge badge-info local-date" data-date="{{ s_stream.start|date:'U' }}">
+                            <div class="badge badge-mg-info local-date" data-date="{{ s_stream.start|date:'U' }}">
                                 <i class="fas fa-calendar-alt mr-1"></i>
                             </div>
-                            <div class="badge badge-info local-time" data-time="{{ s_stream.start|date:'U' }}">
+                            <div class="badge badge-mg-info local-time" data-time="{{ s_stream.start|date:'U' }}">
                                 <i class="fas fa-clock mr-1"></i>
                             </div>
                         </div>
