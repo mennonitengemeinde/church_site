@@ -5,7 +5,9 @@
 {% load math_tags %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% compress css inline %}
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% endcompress %}
 {% endblock %}
 
 {% block content %}
