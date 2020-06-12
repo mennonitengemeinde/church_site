@@ -6,6 +6,14 @@
 
 {% block content %}
 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-auto-dismiss {{ message.level|notify }} m-0" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <div class="nav-container">
         <div class="text-center pt-1">
             <img class="img-fluid nav-logo" src="{% static 'img/mennonitengemeinde-text-round-logo-25%.png' %}"
@@ -34,7 +42,7 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
+                    {% if perms.churches.view_church or perms.speakers.view_speaker or perms.schedules.view_event or perms.streams.view_stream or perms.sermons.view_sermon or perms.accounts.view_user %}
                         <li class="nav-item dropdown {% if current_page == 'manage' %}active{% endif %}">
                             <a class="nav-link dropdown-toggle" href="#" id="manageDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -98,14 +106,5 @@
 
         {#        <hr class="mb-0">#}
     </div>
-
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert {{ message.level|notify }} m-0" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-
 
 {% endblock %}

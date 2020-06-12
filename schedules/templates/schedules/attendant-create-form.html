@@ -1,0 +1,32 @@
+{% extends 'admin-form-layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block form %}
+    <h1 class="text-center">Sign up to attend {{ event.title }}</h1>
+    <h3 class="text-center">Church: {{ event.church }}</h3>
+
+    <div class="alert alert-warning mt-4">
+        By signing up, you’re confirming that you have not travelled outside of the country during the last 14 days and are not experiencing any COVID-19 symptoms. We look forward to seeing you!
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3 pt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {{ form|crispy }}
+
+                        <div class="text-center">
+                            <a id="btn-back" href="{% url 'home:home' %}" class="btn btn-mg-outline-default"><i class="fas fa-arrow-left"></i> Back</a>
+                            <button type="submit" class="btn btn-mg-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

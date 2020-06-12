@@ -23,6 +23,9 @@ class EventManager(models.Manager):
     def get_first_six(self):
         return self.get_queryset().filter(end__gt=timezone.now())[:6]
 
+    def get_first_twelve(self):
+        return self.get_queryset().filter(end__gt=timezone.now())[:12]
+
     def member_only_events(self, user):
         return self.get_queryset().filter(church__members=user)
 
@@ -38,12 +41,43 @@ class Event(models.Model):
 
     in_person = models.BooleanField(default=True)
     live_stream = models.BooleanField(default=False)
+    attendance_limit = models.IntegerField(default=0)
+    attendance_signup = models.BooleanField(default=False)
     visibility = models.CharField(max_length=50, choices=visibility_choices)
 
     objects = EventManager()
+
+    @property
+    def available_attendance(self):
+        if self.attendance_limit == 0:
+            return 0
+        else:
+            total_count = 0
+            for attendant in self.attendants.all():
+                total_count = total_count + attendant.amount
+            return self.attendance_limit - total_count
+
+    @property
+    def total_attendants(self):
+        total_sum = 0
+        for attendant in self.attendants.all():
+            total_sum = total_sum + attendant.amount
+        return total_sum
 
     class Meta:
         ordering = ('start', 'church')
 
     def __str__(self):
         return f'{self.start.date()} - {self.title}'
+
+
+class Attendant(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='attendants')
+    full_name = models.CharField(max_length=150)
+    amount = models.IntegerField(default=1)
+
+    class Meta:
+        ordering = ('event', 'full_name')
+
+    def __str__(self):
+        return f'{self.event} - {self.full_name}'

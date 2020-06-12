@@ -1,12 +1,15 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.views import View
 
-from church_site.views import BaseListView, AdminListView, BaseCreateView, BaseUpdateView
+from church_site.views import BaseListView, AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
 from churches.models import Church
-from .forms import EventForm
+from .forms import EventForm, AttendantForm
 
-from .models import Event
+from .models import Event, Attendant
 
 
 class EventsListView(BaseListView):
@@ -75,3 +78,59 @@ class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+
+class AttendantCreateView(SuccessMessageMixin, BaseCreateView):
+    model = Attendant
+    template_name = 'schedules/attendant-create-form.html'
+    form_class = AttendantForm
+    success_url = reverse_lazy('home:home')
+    page_title = 'Signup attendance'
+    current_page = 'events'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(AttendantCreateView, self).get_context_data(**kwargs)
+        context['event'] = Event.objects.get(id=self.kwargs.get('event'))
+        return context
+
+    def get_initial(self):
+        initial = super(AttendantCreateView, self).get_initial()
+        initial['event'] = self.kwargs.get('event')
+        return initial
+
+    def get_success_message(self, cleaned_data):
+        if cleaned_data.get('amount') > 1:
+            people = 'people'
+        else:
+            people = 'person'
+        return f"{cleaned_data.get('full_name')}, you have successfully signup {cleaned_data.get('amount')} {people} " \
+               f"to attend {cleaned_data.get('event').title} at {cleaned_data.get('event').church}"
+
+
+class AttendantAdminDetailView(PermissionRequiredMixin, BaseDetailView):
+    permission_required = 'schedules.view_attendant'
+    model = Event
+    context_object_name = 'event'
+    template_name = 'schedules/attendant-admin-detail.html'
+    page_title = 'Attendant Details - Admin'
+    current_page = 'manage'
+
+    def get_object(self, queryset=None):
+        event = super(AttendantAdminDetailView, self).get_object(queryset)
+        return event
+
+    def get_queryset(self):
+        # queryset.filter(attendance_limit__gt=0, start__gte=timezone.now(), church__members=self.request.user)
+        return Event.objects.filter(church__members=self.request.user)
+        # return queryset
+
+
+class AttendantAdminSignupToggle(PermissionRequiredMixin, View):
+    permission_required = 'schedules.change_attendant'
+
+    # This will change the signup status
+    def get(self, request, pk=None):
+        event = Event.objects.filter(id=pk).first()
+        if event:
+            event.attendance_signup = not event.attendance_signup
+            event.save()
+        return redirect('schedules:events-admin-list')

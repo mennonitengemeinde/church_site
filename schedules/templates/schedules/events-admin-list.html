@@ -3,12 +3,20 @@
 {% load static %}
 {% load compress %}
 
+{% block add_btn %}
+    {% if btn_add_href and perms.schedules.add_event %}
+        <a href="{{ btn_add_href }}" class="btn btn-mg-primary"><i class="fas fa-plus"></i> Add</a>
+    {% endif %}
+{% endblock %}
+
 {% block table_head %}
     <tr>
         <th>Church</th>
         <th>Start<i class="fas fa-calendar-alt ml-1"></i></th>
         <th>Start<i class="fas fa-clock ml-1"></i></th>
         <th>Title</th>
+        <th>Space</th>
+        <th>Signed up</th>
         <th>Actions</th>
     </tr>
 {% endblock %}
@@ -21,9 +29,23 @@
             <td class="align-middle local-date" data-date="{{ event.start|date:'U' }}"></td>
             <td class="align-middle local-time" data-time="{{ event.start|date:'U' }}"></td>
             <td class="align-middle">{{ event.title }}</td>
+            <td class="align-middle">{{ event.attendance_limit }}</td>
+            <td class="align-middle">{{ event.total_attendants }}</td>
             <td>
                 {% if perms.schedules.change_event %}
-                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-mg-secondary"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
+                {% endif %}
+                {% if perms.schedules.view_attendant and event.attendance_limit > 0 %}
+                    <a href="{% url  'schedules:attendants-admin-detail' pk=event.pk %}" class="btn btn-sm btn-mg-outline-default"><i class="fas fa-chair"></i></a>
+                {% endif %}
+                {% if perms.schedules.change_attendant and event.attendance_limit > 0 %}
+                    <a href="{% url  'schedules:attendants-admin-signup-toggle' pk=event.pk %}" class="btn btn-sm {% if event.attendance_signup %}btn-danger{% else %}btn-success{% endif %}">
+                        {% if event.attendance_signup %}
+                            End Signup
+                        {% else %}
+                            Start Signup
+                        {% endif %}
+                    </a>
                 {% endif %}
             </td>
         </tr>
