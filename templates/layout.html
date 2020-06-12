@@ -83,7 +83,7 @@
                                 {% endif %}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">Settings</a>
+{#                                <a class="dropdown-item" href="#">Settings</a>#}
                                 <form method="post" action="{% url 'account_logout' %}">
                                     {% csrf_token %}
                                     {% if redirect_field_value %}
