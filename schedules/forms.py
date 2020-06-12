@@ -14,7 +14,7 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = ('church', 'start', 'end', 'title', 'description', 'address', 'map_search_query',
-                  'in_person', 'live_stream', 'visibility')
+                  'in_person', 'live_stream', 'attendance_limit', 'attendance_signup', 'visibility')
 
     def clean_end(self):
         data = self.cleaned_data['end']
