@@ -61,6 +61,7 @@ def create_event(title: str, start_days_added: int, start_hour: int, start_minut
         address=local_address,
         map_search_query=f'{church.street} {church.city} {church.province_state} {church.country}' if use_church_address else '',
         in_person=True if local_address is not '' else False,
+        attendance_limit=randint(0, 5),
         live_stream=bool(randint(0, 1)),
         visibility=visibility_choices[visible_index][0]
     )

@@ -1,7 +1,8 @@
-from django.forms import ModelForm, ValidationError
+from django.contrib import messages
+from django.forms import ModelForm, ValidationError, HiddenInput
 
 from churches.models import Church
-from schedules.models import Event
+from schedules.models import Event, Attendant
 
 
 class EventForm(ModelForm):
@@ -20,3 +21,21 @@ class EventForm(ModelForm):
         if data < self.cleaned_data['start']:
             raise ValidationError("End can not be less then Start!")
         return data
+
+
+class AttendantForm(ModelForm):
+    class Meta:
+        model = Attendant
+        fields = ('event', 'full_name', 'amount')
+        widgets = {
+            'event': HiddenInput()
+        }
+
+    def clean_amount(self):
+        amount = self.cleaned_data.get('amount')
+        event = self.cleaned_data.get('event')
+        available = event.available_attendance
+        if available < amount:
+            raise ValidationError(f'There are only {available} spaces available')
+
+        return self.cleaned_data['amount']

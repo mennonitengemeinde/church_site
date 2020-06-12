@@ -11,5 +11,5 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Mennoniten Gemeinde'
         context['current_page'] = 'home'
-        context['events'] = Event.objects.get_first_six()
+        context['events'] = Event.objects.get_first_twelve()
         return context
