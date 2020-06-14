@@ -3,13 +3,17 @@
 {% load crispy_forms_tags %}
 
 {% block form %}
-    <form method="post">
-        {% csrf_token %}
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
 
-        {{ form|crispy }}
+                {{ form|crispy }}
 
-        <div class="text-center">
-            <button type="submit" class="btn btn-mg-primary">Save</button>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-mg-primary">Save</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils import timezone
 
@@ -68,13 +69,13 @@ class Event(models.Model):
         ordering = ('start', 'church')
 
     def __str__(self):
-        return f'{self.start.date()} - {self.title}'
+        return f'{self.start.date()} {self.start.hour}:{self.start.minute} - {self.title}'
 
 
 class Attendant(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='attendants')
     full_name = models.CharField(max_length=150)
-    amount = models.IntegerField(default=1)
+    amount = models.IntegerField(default=1, validators=[MinValueValidator(1)])
 
     class Meta:
         ordering = ('event', 'full_name')

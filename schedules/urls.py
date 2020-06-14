@@ -1,8 +1,11 @@
 from django.urls import path
 
 from .views import (
-    AttendantAdminDetailView,
+    EventsAdminDetailView,
     AttendantCreateView,
+    AttendantAdminDetailView,
+    AttendantAdminDeleteView,
+    AttendantAdminUpdateView,
     AttendantAdminSignupToggle,
     EventsListView,
     EventsAdminListView,
@@ -19,7 +22,13 @@ urlpatterns = [
     path('manage/events/', EventsAdminListView.as_view(), name='events-admin-list'),
     path('manage/events/add/', EventsAdminCreateView.as_view(), name='events-admin-create'),
     path('manage/events/<int:pk>/update/', EventsAdminUpdateView.as_view(), name='events-admin-update'),
-    path('manage/events/<int:pk>/attendants/', AttendantAdminDetailView.as_view(), name='attendants-admin-detail'),
+    path('manage/events/<int:pk>/', EventsAdminDetailView.as_view(), name='events-admin-detail'),
+    path('manage/events/<int:event>/attendants/<int:pk>/', AttendantAdminDetailView.as_view(),
+         name='attendants-admin-detail'),
+    path('manage/events/<int:event>/attendants/<int:pk>/update/', AttendantAdminUpdateView.as_view(),
+         name='attendants-admin-update'),
+    path('manage/events/<int:event>/attendants/<int:pk>/delete/', AttendantAdminDeleteView.as_view(),
+         name='attendants-admin-delete'),
     path('manage/events/<int:pk>/attendants/signup/toggle/', AttendantAdminSignupToggle.as_view(),
          name='attendants-admin-signup-toggle'),
 ]

@@ -23,7 +23,23 @@ class EventForm(ModelForm):
         return data
 
 
-class AttendantForm(ModelForm):
+class AttendantAdminForm(ModelForm):
+    class Meta:
+        model = Attendant
+        fields = ('event', 'full_name', 'amount')
+
+    def clean_amount(self):
+        print(self.instance.amount)
+        amount = self.cleaned_data.get('amount')
+        event = self.cleaned_data.get('event')
+        available = event.available_attendance + self.instance.amount
+        if available < amount:
+            raise ValidationError(f'There are only {available} spaces available')
+
+        return self.cleaned_data['amount']
+
+
+class AttendantForm(AttendantAdminForm):
     class Meta:
         model = Attendant
         fields = ('event', 'full_name', 'amount')

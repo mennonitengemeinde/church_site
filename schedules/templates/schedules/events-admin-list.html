@@ -24,19 +24,19 @@
 
 {% block table_body %}
     {% for event in events %}
-        <tr>
+        <tr class="text-nowrap">
             <td class="align-middle">{{ event.church.name }}</td>
             <td class="align-middle local-date" data-date="{{ event.start|date:'U' }}"></td>
             <td class="align-middle local-time" data-time="{{ event.start|date:'U' }}"></td>
             <td class="align-middle">{{ event.title }}</td>
             <td class="align-middle">{{ event.attendance_limit }}</td>
             <td class="align-middle">{{ event.total_attendants }}</td>
-            <td>
+            <td class="">
                 {% if perms.schedules.change_event %}
-                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-sm btn-mg-secondary mr-2"><i class="fas fa-edit"></i></a>
                 {% endif %}
                 {% if perms.schedules.view_attendant and event.attendance_limit > 0 %}
-                    <a href="{% url  'schedules:attendants-admin-detail' pk=event.pk %}" class="btn btn-sm btn-mg-outline-default"><i class="fas fa-chair"></i></a>
+                    <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-sm btn-mg-outline-default mr-2"><i class="fas fa-chair"></i></a>
                 {% endif %}
                 {% if perms.schedules.change_attendant and event.attendance_limit > 0 %}
                     <a href="{% url  'schedules:attendants-admin-signup-toggle' pk=event.pk %}" class="btn btn-sm {% if event.attendance_signup %}btn-danger{% else %}btn-success{% endif %}">
