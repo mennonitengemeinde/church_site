@@ -59,7 +59,7 @@
                                         {{ attendant.full_name }}
                                     </td>
                                     <td>{{ attendant.amount }}</td>
-                                    <td>
+                                    <td class="d-print-none">
                                         <a href="{% url 'schedules:attendants-admin-detail' event=event.pk pk=attendant.pk %}" class="btn btn-sm btn-mg-outline-default">
                                             <i class="fas fa-clipboard-list"></i>
                                         </a>
