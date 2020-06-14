@@ -4,10 +4,11 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
+from django.views.generic import DeleteView
 
 from church_site.views import BaseListView, AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
 from churches.models import Church
-from .forms import EventForm, AttendantForm
+from .forms import EventForm, AttendantForm, AttendantAdminForm
 
 from .models import Event, Attendant
 
@@ -63,6 +64,22 @@ class EventsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
         return kwargs
 
 
+class EventsAdminDetailView(PermissionRequiredMixin, BaseDetailView):
+    permission_required = 'schedules.view_attendant'
+    model = Event
+    context_object_name = 'event'
+    template_name = 'schedules/events-admin-detail.html'
+    page_title = 'Event Details - Admin'
+    current_page = 'manage'
+
+    def get_object(self, queryset=None):
+        event = super(EventsAdminDetailView, self).get_object(queryset)
+        return event
+
+    def get_queryset(self):
+        return Event.objects.filter(church__members=self.request.user)
+
+
 class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     permission_required = 'schedules.change_event'
     model = Event
@@ -106,22 +123,54 @@ class AttendantCreateView(SuccessMessageMixin, BaseCreateView):
                f"to attend {cleaned_data.get('event').title} at {cleaned_data.get('event').church}"
 
 
-class AttendantAdminDetailView(PermissionRequiredMixin, BaseDetailView):
-    permission_required = 'schedules.view_attendant'
-    model = Event
-    context_object_name = 'event'
-    template_name = 'schedules/attendant-admin-detail.html'
-    page_title = 'Attendant Details - Admin'
-    current_page = 'manage'
-
-    def get_object(self, queryset=None):
-        event = super(AttendantAdminDetailView, self).get_object(queryset)
-        return event
+class AttendantAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
+    permission_required = 'schedules.change_attendant'
+    template_name = 'admin-form-view.html'
+    model = Attendant
+    context_object_name = 'attendant'
+    form_class = AttendantAdminForm
+    page_title = 'Update Attendant - Admin'
 
     def get_queryset(self):
-        # queryset.filter(attendance_limit__gt=0, start__gte=timezone.now(), church__members=self.request.user)
-        return Event.objects.filter(church__members=self.request.user)
-        # return queryset
+        return self.model.objects.filter(event__church__members=self.request.user, id=self.kwargs.get('pk'))
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(AttendantAdminUpdateView, self).get_context_data(**kwargs)
+        context['btn_back_href'] = reverse_lazy('schedules:attendants-admin-detail', kwargs={
+            'event': self.kwargs.get('event'), 'pk': self.kwargs.get('pk')})
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('schedules:attendants-admin-detail', kwargs={'event': self.kwargs.get('event'),
+                                                                         'pk': self.kwargs.get('pk')})
+
+
+class AttendantAdminDetailView(PermissionRequiredMixin, BaseDetailView):
+    permission_required = 'schedules.view_attendant'
+    template_name = 'schedules/attendant-admin-detail.html'
+    model = Attendant
+    context_object_name = 'attendant'
+    page_title = 'Attendant Detail - Admin'
+
+    def get_queryset(self):
+        return self.model.objects.filter(event__church__members=self.request.user, id=self.kwargs.get('pk'))
+
+    def get_context_data(self, **kwargs):
+        context = super(AttendantAdminDetailView, self).get_context_data(**kwargs)
+        context['btn_back_href'] = reverse_lazy('schedules:events-admin-detail',
+                                                kwargs={'pk': self.kwargs.get('event')})
+        return context
+
+
+class AttendantAdminDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'schedules.delete_attendant'
+    model = Attendant
+
+    def get_queryset(self):
+        return self.model.objects.filter(event__church__members=self.request.user, id=self.kwargs.get('pk'))
+
+    def get_success_url(self):
+        return reverse_lazy('schedules:events-admin-detail', kwargs={'pk': self.kwargs.get('event')})
 
 
 class AttendantAdminSignupToggle(PermissionRequiredMixin, View):
