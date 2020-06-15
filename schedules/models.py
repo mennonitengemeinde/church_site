@@ -76,10 +76,17 @@ class Event(models.Model):
         return f'{local_date.strftime("%G-%m-%d %I:%M")} - {self.church.name} - {self.title}'
 
 
+class AttendantManager(models.Manager):
+    def get_member_attendants(self, user):
+        return self.filter(event__church__members=user)
+
+
 class Attendant(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='attendants')
     full_name = models.CharField(max_length=150)
     amount = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+
+    objects = AttendantManager()
 
     class Meta:
         ordering = ('event', 'full_name')

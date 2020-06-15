@@ -48,6 +48,9 @@ class SermonManager(models.Manager):
     def get_queryset(self):
         return SermonQuerySet(self.model, self._db)
 
+    def get_member_sermons(self, user):
+        return self.filter(event__church__members=user)
+
     def filtered_sermons(self, church: str = None, speaker: str = None):
         if church and not speaker:
             return self.filter(visible=True, event__church__name=church.replace('-', ' ')).order_by('-event')

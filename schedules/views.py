@@ -72,12 +72,8 @@ class EventsAdminDetailView(PermissionRequiredMixin, BaseDetailView):
     page_title = 'Event Details - Admin'
     current_page = 'manage'
 
-    def get_object(self, queryset=None):
-        event = super(EventsAdminDetailView, self).get_object(queryset)
-        return event
-
     def get_queryset(self):
-        return Event.objects.filter(church__members=self.request.user)
+        return self.model.objects.member_only_events(self.request.user)
 
 
 class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
@@ -89,6 +85,9 @@ class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     page_title = 'Update Event - Admin'
     current_page = 'manage'
     btn_back_href = reverse_lazy('schedules:events-admin-list')
+
+    def get_queryset(self):
+        return self.model.objects.member_only_events(self.request.user)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -132,7 +131,7 @@ class AttendantAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     page_title = 'Update Attendant - Admin'
 
     def get_queryset(self):
-        return self.model.objects.filter(event__church__members=self.request.user, id=self.kwargs.get('pk'))
+        return self.model.objects.get_member_attendants(self.request.user)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(AttendantAdminUpdateView, self).get_context_data(**kwargs)
@@ -153,7 +152,7 @@ class AttendantAdminDetailView(PermissionRequiredMixin, BaseDetailView):
     page_title = 'Attendant Detail - Admin'
 
     def get_queryset(self):
-        return self.model.objects.filter(event__church__members=self.request.user, id=self.kwargs.get('pk'))
+        return self.model.objects.get_member_attendants(self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super(AttendantAdminDetailView, self).get_context_data(**kwargs)
@@ -167,7 +166,7 @@ class AttendantAdminDeleteView(PermissionRequiredMixin, DeleteView):
     model = Attendant
 
     def get_queryset(self):
-        return self.model.objects.filter(event__church__members=self.request.user, id=self.kwargs.get('pk'))
+        return self.model.objects.get_member_attendants(self.request.user)
 
     def get_success_url(self):
         return reverse_lazy('schedules:events-admin-detail', kwargs={'pk': self.kwargs.get('event')})
