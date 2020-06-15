@@ -1,3 +1,5 @@
+import pytz
+from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils import timezone
@@ -69,7 +71,9 @@ class Event(models.Model):
         ordering = ('start', 'church')
 
     def __str__(self):
-        return f'{self.start.date()} {self.start.hour}:{self.start.minute} - {self.title}'
+        local_timezone = pytz.timezone(settings.TIME_ZONE)
+        local_date = self.start.astimezone(local_timezone)
+        return f'{local_date.strftime("%G-%m-%d %I:%M")} - {self.church.name} - {self.title}'
 
 
 class Attendant(models.Model):
