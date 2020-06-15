@@ -6,9 +6,9 @@
 {% block content %}
     {{ block.super }}
 
-    <div class="container">
+    <div class="container py-5">
         {# filters #}
-        <div class="row my-5">
+        <div class="row pb-5">
             <div class="col-12 col-md">
                 <label for="churchFilter">Filter Church</label>
                 <select id="churchFilter" class="custom-select" onchange="onSermonsChurchChange(this.value)">
@@ -29,6 +29,24 @@
                     {% endfor %}
                 </select>
             </div>
+        </div>
+
+        <div class="text-center">
+            <span>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-mg-secondary">
+                    <i class="fas fa-chevron-circle-left"></i>
+                </a>
+            {% endif %}
+            </span>
+            <span class="px-1 align-middle">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-mg-secondary">
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </a>
+                {% endif %}
+            </span>
         </div>
 
         <div class="row mt-2">
@@ -67,6 +85,24 @@
                 </div>
 
             {% endfor %}
+        </div>
+
+        <div class="text-center">
+            <span>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-mg-secondary">
+                    <i class="fas fa-chevron-circle-left"></i>
+                </a>
+            {% endif %}
+            </span>
+            <span class="px-1 align-middle">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-mg-secondary">
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </a>
+                {% endif %}
+            </span>
         </div>
 
     </div>

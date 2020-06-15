@@ -84,6 +84,9 @@ class StreamsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     current_page = 'manage'
     btn_back_href = reverse_lazy('streams:streams-admin-list')
 
+    def get_queryset(self):
+        return self.model.objects.member_only_streams(user=self.request.user)
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
@@ -100,6 +103,9 @@ class StreamAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     current_page = 'manage'
     btn_back_href = reverse_lazy('streams:streams-admin-list')
 
+    def get_queryset(self):
+        return self.model.objects.member_only_streams(user=self.request.user)
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
@@ -111,7 +117,8 @@ class StreamAdminLiveUpdateView(PermissionRequiredMixin, View):
 
     # This will change the live status of the live stream
     def get(self, request, pk=None):
-        stream = Stream.objects.filter(id=pk).first()
+        stream = Stream.objects.member_only_streams(user=self.request.user).filter(id=pk).first()
+        # stream = Stream.objects.filter(id=pk).member_events(user=self.request.user).first()
         if stream:
             stream.live = not stream.live
             stream.save()
