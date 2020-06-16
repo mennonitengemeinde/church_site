@@ -38,4 +38,4 @@ class ChurchesAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     success_url = reverse_lazy('churches:churches-admin-list')
 
     def get_queryset(self):
-        return self.model.objects.filter(members=self.request.user)
+        return self.model.objects.get_member_churches(user=self.request.user)

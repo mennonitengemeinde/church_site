@@ -15,6 +15,7 @@ class SermonsListView(BaseListView):
     model = Sermon
     template_name = 'sermons/sermons-list.html'
     context_object_name = 'sermons'
+    paginate_by = 18
 
     def get_queryset(self):
         return self.model.objects.filtered_sermons(
@@ -88,6 +89,9 @@ class SermonAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     page_title = 'Update Sermon - Admin'
     current_page = 'manage'
     btn_back_href = reverse_lazy('sermons:sermons-admin-list')
+
+    def get_queryset(self):
+        return self.model.objects.get_member_sermons(user=self.request.user)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

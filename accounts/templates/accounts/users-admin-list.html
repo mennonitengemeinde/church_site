@@ -5,6 +5,9 @@
         <th>Username</th>
         <th>Name</th>
         <th>Email</th>
+        <th>Membership</th>
+        <th>Group</th>
+        <th>Validated</th>
         <th>Actions</th>
     </tr>
 {% endblock %}
@@ -16,6 +19,23 @@
             <td class="align-middle">{{ user.username }}</td>
             <td class="align-middle">{{ user.first_name }} {{ user.last_name }}</td>
             <td class="align-middle">{{ user.email }}</td>
+            <td class="align-middle">
+                {% for member in user.member.all %}
+                    {% if not forloop.last %}{{ member }} - {% else %}{{ member }}{% endif %}
+                {% endfor %}
+            </td>
+            <td class="align-middle">
+                {% for group in user.groups.all %}
+                    {% if not forloop.last %}{{ group }} - {% else %}{{ group }}{% endif %}
+                {% endfor %}
+            </td>
+            <td class="align-middle">
+                {% if user.is_validated %}
+                    <i class="fas fa-check text-success"></i>
+                {% else %}
+                    <i class="fas fa-times text-danger"></i>
+                {% endif %}
+            </td>
             <td class="align-middle">
                 <a href="{% url 'accounts:users-admin-update' pk=user.id %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
             </td>
