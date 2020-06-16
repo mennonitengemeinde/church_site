@@ -73,7 +73,7 @@ class Event(models.Model):
     def __str__(self):
         local_timezone = pytz.timezone(settings.TIME_ZONE)
         local_date = self.start.astimezone(local_timezone)
-        return f'{local_date.strftime("%G-%m-%d %I:%M")} - {self.church.name} - {self.title}'
+        return f'{local_date.strftime("%G-%m-%d %I:%M%p")} - {self.church.name} - {self.title}'
 
 
 class AttendantManager(models.Manager):
