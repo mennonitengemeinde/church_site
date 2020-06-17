@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'sermons.apps.SermonsConfig',
     'streams.apps.StreamsConfig',
     'home.apps.HomeConfig',
+    'memberships.apps.MembershipsConfig',
 ]
 
 MIDDLEWARE = [

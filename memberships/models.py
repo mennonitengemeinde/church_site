@@ -9,6 +9,12 @@ marital_status = (
     (1, 'Married'),
 )
 
+parent_types = (
+    (0, 'None'),
+    (1, 'Father'),
+    (2, 'Mother'),
+)
+
 
 class Membership(models.Model):
     church = models.ForeignKey(Church, on_delete=models.PROTECT, related_name='membership')
@@ -26,8 +32,7 @@ class Membership(models.Model):
 
 class Family(models.Model):
     name = models.CharField(max_length=200, unique=True)
-    father = models.ForeignKey('Person', on_delete=models.PROTECT, related_name='father_of')
-    mother = models.ForeignKey('Person', on_delete=models.PROTECT, related_name='mother_of')
+    church = models.ForeignKey(Church, on_delete=models.PROTECT, related_name='families')
 
     def __str__(self):
         return self.name
@@ -36,6 +41,7 @@ class Family(models.Model):
 class Person(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.PROTECT, related_name='member_info',
                                 blank=True, null=True)
+    church = models.ForeignKey(Church, on_delete=models.PROTECT, related_name='people')
     first_name = models.CharField(max_length=100)
     first_last_name = models.CharField(max_length=100)
     second_last_name = models.CharField(max_length=100, blank=True, null=True)
@@ -43,17 +49,16 @@ class Person(models.Model):
     date_birth = models.DateField(null=True, blank=True)
     contact_number = models.CharField(max_length=20, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
-    street = models.CharField(max_length=250)
-    city = models.CharField(max_length=50)
-    province_state = models.CharField(max_length=50)
+    street = models.CharField(max_length=250, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    province_state = models.CharField(max_length=50, null=True, blank=True)
     country = CountryField()
-    marital_status = models.IntegerField(max_length=50, choices=marital_status)
+    marital_status = models.IntegerField(choices=marital_status)
     passed_away = models.ForeignKey('Family', on_delete=models.PROTECT, related_name='passed_away',
                                     null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
-    member_of = models.ForeignKey(Church, on_delete=models.PROTECT, related_name='church_members')
-    speaker = models.BooleanField(default=False)
-    spouse = models.OneToOneField('Person', on_delete=models.PROTECT, related_name='spouse', blank=True, null=True)
+    parent = models.ForeignKey('Family', on_delete=models.PROTECT, related_name='parents')
+    parent_type = models.IntegerField(default=0, choices=parent_types)
     child_of = models.ForeignKey(Family, on_delete=models.PROTECT, related_name='children', blank=True, null=True)
 
     def __str__(self):

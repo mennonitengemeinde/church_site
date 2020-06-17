@@ -1,0 +1,21 @@
+{% extends 'admin-list-layout.html' %}
+
+{% block table_head %}
+    <tr>
+        <th>Name</th>
+        <th>Church</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+
+{% block table_body %}
+    {% for fam in families %}
+        <tr>
+            <td>{{ fam.name }}</td>
+            <td>{{ fam.church }}</td>
+            <td>
+                <a href="{% url 'memberships:families-admin-detail' pk=fam.pk %}" class="btn btn-sm btn-mg-primary"><i class="fas fa-clipboard-list"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

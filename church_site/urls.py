@@ -29,4 +29,5 @@ urlpatterns = [
     path('schedules/', include('schedules.urls')),
     path('sermons/', include('sermons.urls')),
     path('streams/', include('streams.urls')),
+    path('members/', include('memberships.urls')),
 ]
