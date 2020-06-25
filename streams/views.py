@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import View
 
@@ -45,6 +45,9 @@ class LiveAudioView(BaseDetailView):
         context['page_title'] = f'Live Audio - {self.object.title}'
         return context
 
+    def get_queryset(self):
+        return self.model.objects.filter(live=True)
+
 
 class LiveVideoView(BaseDetailView):
     page_title = 'Page Title'
@@ -57,6 +60,9 @@ class LiveVideoView(BaseDetailView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = f'Live Video - {self.object.title}'
         return context
+
+    def get_queryset(self):
+        return self.model.objects.filter(live=True)
 
 
 class StreamsAdminListView(PermissionRequiredMixin, AdminListView):

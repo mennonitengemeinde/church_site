@@ -20,7 +20,7 @@ class UsersAdminListView(PermissionRequiredMixin, AdminListView):
         if self.request.user.is_superuser:
             return User.objects.all()
         else:
-            return User.objects.filter(Q(member__in=self.request.user.member.all()) | Q(member__isnull=True)).distinct()
+            return User.objects.filter(Q(member__in=self.request.user.churches.all()) | Q(member__isnull=True)).distinct()
 
 
 class UsersAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
@@ -37,5 +37,5 @@ class UsersAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
         if self.request.user.is_superuser:
             return User.objects.all()
         else:
-            return User.objects.filter(Q(member__in=self.request.user.member.all()) | Q(member__isnull=True)).distinct()
+            return User.objects.filter(Q(member__in=self.request.user.churches.all()) | Q(member__isnull=True)).distinct()
 
