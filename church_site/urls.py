@@ -30,3 +30,6 @@ urlpatterns = [
     path('sermons/', include('sermons.urls')),
     path('streams/', include('streams.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

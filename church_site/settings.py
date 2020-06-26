@@ -189,6 +189,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'node_modules')
 ]
 
+if DEBUG:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -199,7 +203,7 @@ STATICFILES_FINDERS = (
 # Send Grid
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = env('SENDGRID_API_KEY', default='')
-SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_SANDBOX_MODE_IN_DEBUG = True
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='')
 
 # Azure
