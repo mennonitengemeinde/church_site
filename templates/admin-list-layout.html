@@ -5,7 +5,7 @@
 {% block content %}
 
     {{ block.super }}
-    <div class="container mt-3">
+    <div class="container-fluid mt-3">
 
         <div class="d-flex justify-content-end mb-3">
 {#            {% if btn_back_href %}#}
@@ -18,15 +18,19 @@
             {% endblock %}
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-                <thead>
-                    {% block table_head %}{% endblock %}
-                </thead>
-                <tbody>
-                    {% block table_body %}{% endblock %}
-                </tbody>
-            </table>
+        <div class="card">
+            <div class="card-body px-4 py-5">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped mb-0">
+                        <thead>
+                        {% block table_head %}{% endblock %}
+                        </thead>
+                        <tbody>
+                        {% block table_body %}{% endblock %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 

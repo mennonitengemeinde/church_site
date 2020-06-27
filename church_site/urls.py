@@ -20,6 +20,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', include('home.urls')),
+    url('', include('pwa.urls')),
     path('admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
     path('users/', include('accounts.urls')),
@@ -29,3 +30,6 @@ urlpatterns = [
     path('sermons/', include('sermons.urls')),
     path('streams/', include('streams.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

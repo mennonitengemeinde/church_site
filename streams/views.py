@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import View
 
@@ -45,6 +45,9 @@ class LiveAudioView(BaseDetailView):
         context['page_title'] = f'Live Audio - {self.object.title}'
         return context
 
+    def get_queryset(self):
+        return self.model.objects.filter(live=True)
+
 
 class LiveVideoView(BaseDetailView):
     page_title = 'Page Title'
@@ -57,6 +60,9 @@ class LiveVideoView(BaseDetailView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = f'Live Video - {self.object.title}'
         return context
+
+    def get_queryset(self):
+        return self.model.objects.filter(live=True)
 
 
 class StreamsAdminListView(PermissionRequiredMixin, AdminListView):
@@ -84,6 +90,9 @@ class StreamsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     current_page = 'manage'
     btn_back_href = reverse_lazy('streams:streams-admin-list')
 
+    def get_queryset(self):
+        return self.model.objects.member_only_streams(user=self.request.user)
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
@@ -100,6 +109,9 @@ class StreamAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     current_page = 'manage'
     btn_back_href = reverse_lazy('streams:streams-admin-list')
 
+    def get_queryset(self):
+        return self.model.objects.member_only_streams(user=self.request.user)
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
@@ -111,7 +123,8 @@ class StreamAdminLiveUpdateView(PermissionRequiredMixin, View):
 
     # This will change the live status of the live stream
     def get(self, request, pk=None):
-        stream = Stream.objects.filter(id=pk).first()
+        stream = Stream.objects.member_only_streams(user=self.request.user).filter(id=pk).first()
+        # stream = Stream.objects.filter(id=pk).member_events(user=self.request.user).first()
         if stream:
             stream.live = not stream.live
             stream.save()

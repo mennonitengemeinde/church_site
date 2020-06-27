@@ -35,6 +35,24 @@
                     </div>
                     <h5 class="card-title mb-0">{{ event.title }}</h5>
 
+                    {% if event.in_person or event.live_stream %}
+                        <div class="small">
+                            {% if event.in_person %}
+                                <span class="text-mg-secondary mr-3"><i class="fas fa-church mr-1"></i>In Church</span>
+                            {% endif %}
+                            {% if event.live_stream %}
+                                <span class="text-mg-primary"><i class="fas fa-video mr-1"></i>Live Stream</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if event.attendance_limit != 0 and event.attendance_signup %}
+                        <div class="font-weight-bold mt-2">
+                            Space available: <span
+                                class="{% if event.available_attendance == 0 %}text-danger{% else %}text-success{% endif %}">{{ event.available_attendance }}</span>
+                        </div>
+                    {% endif %}
+
                     {% if event.description or event.address or event.map_search_query %}
                         <hr>
                     {% endif %}
@@ -51,15 +69,20 @@
 
                     {# TODO: Map intagration #}
                 </div>
-                {% if event.live_stream %}
+                {% if event.live_stream or event.available_attendance is not 0 and event.attendance_signup %}
                     <div class="card-footer">
-                        <div class="d-flex justify-content-around">
+                        <div class="text-center">
 {#                            {% if event.in_person %}#}
 {#                                <a href="" class="btn btn-sm btn-light"><i#}
 {#                                        class="fas fa-map-marked mr-1 text-mg-primary"></i> Directions</a>#}
 {#                            {% endif %}#}
+                            {% if event.available_attendance is not 0 and event.attendance_signup %}
+                                <a href="{% url 'schedules:attendants-create' church=event.church event=event.id %}"
+                                       class="btn btn-sm btn-mg-round btn-mg-primary mr-2">Signup <i
+                                            class="fas fa-pen ml-1"></i></a>
+                            {% endif %}
                             {% if event.live_stream %}
-                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-mg-outline-primary"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-mg-round btn-mg-outline-primary"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
                             {% endif %}
                         </div>
                     </div>

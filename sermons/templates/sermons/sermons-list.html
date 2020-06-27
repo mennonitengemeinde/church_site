@@ -6,9 +6,9 @@
 {% block content %}
     {{ block.super }}
 
-    <div class="container">
+    <div class="container py-5">
         {# filters #}
-        <div class="row my-5">
+        <div class="row pb-5">
             <div class="col-12 col-md">
                 <label for="churchFilter">Filter Church</label>
                 <select id="churchFilter" class="custom-select" onchange="onSermonsChurchChange(this.value)">
@@ -31,26 +31,36 @@
             </div>
         </div>
 
+        <div class="text-center">
+            <span>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-mg-outline-default">
+                    <i class="fas fa-chevron-circle-left"></i>
+                </a>
+            {% endif %}
+            </span>
+            <span class="px-1 align-middle">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-mg-outline-default">
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </a>
+                {% endif %}
+            </span>
+        </div>
+
         <div class="row mt-2">
             {% for sermon in sermons %}
-{#                {% ifchanged sermon.event %}#}
-{#                    <div class="col-12">#}
-{#                        <div class="d-flex justify-content-between mt-5">#}
-{#                            <div class="small">{{ sermon.event.church|upper }}</div>#}
-{#                            <span class="badge badge-info local-date" data-date="{{ sermon.event.start|date:'U' }}">#}
-{#                                <i class="fas fa-calendar mr-1"></i>#}
-{#                            </span>#}
-{#                        </div>#}
-{#                        <h5 class="card-title mb-0 text-mg-secondary">{{ sermon.event.title }}</h5>#}
-{#                        <hr>#}
-{#                    </div>#}
-{#                {% endifchanged %}#}
-
 
                 <div class="col-12 col-md-6 col-lg-4 my-3 px-4">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="text-mg-info">{{ sermon.event.church }}</h6>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-mg-info">{{ sermon.event.church }}</h6>
+                                <h6 class="badge badge-info local-date" data-date="{{ sermon.event.start|date:'U' }}">
+                                    <i class="fas fa-calendar mr-1"></i>
+                                </h6>
+                            </div>
                             <h4 class="mb-0 text-mg-primary">{{ sermon.title }}</h4>
                             <small>{{ sermon.sermon_type.title }}</small>
                             <hr>
@@ -67,6 +77,24 @@
                 </div>
 
             {% endfor %}
+        </div>
+
+        <div class="text-center">
+            <span>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-mg-outline-default">
+                    <i class="fas fa-chevron-circle-left"></i>
+                </a>
+            {% endif %}
+            </span>
+            <span class="px-1 align-middle">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-mg-outline-default">
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </a>
+                {% endif %}
+            </span>
         </div>
 
     </div>

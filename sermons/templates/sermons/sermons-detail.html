@@ -5,7 +5,9 @@
 
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/sermons-detail.css' %}">
+    {% compress css inline %}
+        <link rel="stylesheet" href="{% static 'css/sermons-detail.css' %}">
+    {% endcompress %}
 {% endblock %}
 
 {% block content %}

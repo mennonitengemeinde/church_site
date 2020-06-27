@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block css %}
+    <style>
+        @media print {
+            nav {
+                visibility: hidden;
+            }
+
+            .btn {
+                visibility: hidden;
+            }
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <div class="container py-4">
+
+        <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-mg-outline-default"><i
+                class="fas fa-arrow-left mr-1"></i>Back</a>
+
+        <div class="card my-4">
+            <div class="card-body px-4 py-5">
+                <h3>{{ event.title }}</h3>
+                <h5 class="small">{{ event.church }}</h5>
+                <h6 class="mb-3">{{ event.start }}</h6>
+
+                {% if not event.attendants.all %}
+                    <div><span class="font-weight-bold">Space Limit:</span> {{ event.attendance_limit }}</div>
+                    <div><span class="font-weight-bold">Signed up Total:</span> {{ event.total_attendants }}</div>
+                    <div class="mb-3"><span
+                            class="font-weight-bold">Space Available:</span> {{ event.available_attendance }}</div>
+                {% endif %}
+
+                {% if event.attendants.all %}
+                    <div class="table-responsive-md">
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th class="d-print-none">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for attendant in event.attendants.all %}
+                                <tr class="text-nowrap">
+                                    <td>
+                                        {{ attendant.full_name }}
+                                    </td>
+                                    <td>{{ attendant.amount }}</td>
+                                    <td class="d-print-none">
+                                        <a href="{% url 'schedules:attendants-admin-detail' event=event.pk pk=attendant.pk %}" class="btn btn-sm btn-mg-outline-default">
+                                            <i class="fas fa-clipboard-list"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% if forloop.last %}
+                                    <tr>
+                                        <td class="text-right">Limit</td>
+                                        <td>{{ event.attendance_limit }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">Total</td>
+                                        <td>{{ event.total_attendants }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right font-weight-bold">Space available</td>
+                                        <td>{{ event.available_attendance }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

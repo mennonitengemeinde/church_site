@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    {{ block.super }}
+    
+    <div class="container py-5">
+
+        <div class="pb-3">
+            <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-mg-outline-default"><i class="fas fa-arrow-left mr-1"></i>Back</a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>{{ attendant.full_name }}</h2>
+
+                <hr>
+
+                <div><span class="font-weight-bold">Church: </span>{{ attendant.event.church }}</div>
+                <div><span class="font-weight-bold">Date: </span>{{ attendant.event.start.date }}</div>
+                <div><span class="font-weight-bold">Time: </span>{{ attendant.event.start.time }}</div>
+                <br>
+                <div><span class="font-weight-bold">Amount: </span>{{ attendant.amount }}</div>
+            </div>
+
+            <div class="text-center pb-3">
+                {% if perms.schedules.change_attendant %}
+                    <a href="{% url 'schedules:attendants-admin-update' event=attendant.event.pk pk=attendant.pk %}" class="btn btn-warning">
+                        <i class="fas fa-edit mr-1"></i>Edit
+                    </a>
+                {% endif %}
+                {% if perms.schedules.delete_attendant %}
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">
+                        <i class="fas fa-trash mr-1"></i>Delete
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    <div id="delete-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete {{ attendant.full_name }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete {{ attendant.full_name }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-mg-outline-default" data-dismiss="modal" aria-label="Close">Close</button>
+                    <form method="post" action="{% url 'schedules:attendants-admin-delete' event=attendant.event.pk pk=attendant.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

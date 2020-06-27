@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'storages',
     'compressor',
     'crispy_forms',
+    'pwa',
     'django_countries',
     # Project
     'shared.apps.SharedConfig',
@@ -115,6 +116,7 @@ SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_AUTO_SIGNUP = False
 ACCOUNT_FORMS = {
@@ -187,6 +189,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'node_modules')
 ]
 
+if DEBUG:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -197,7 +203,7 @@ STATICFILES_FINDERS = (
 # Send Grid
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = env('SENDGRID_API_KEY', default='')
-SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_SANDBOX_MODE_IN_DEBUG = True
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='')
 
 # Azure
@@ -209,3 +215,71 @@ AZURE_CONTAINER = env('AZURE_CONTAINER', default='')
 
 # Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# PWA settings
+PWA_APP_NAME = 'Mennoniten Gemeinde'
+PWA_APP_DESCRIPTION = "Here you will find Sermons which could be a blessing for your Spiritual life"
+PWA_APP_THEME_COLOR = '#602627'
+PWA_APP_BACKGROUND_COLOR = '#F4F2F1'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = 'https://mennonitengemeinde.org/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/favicon.ico',
+        'sizes': '96x96 32x32 16x16'
+    },
+    {
+        'src': '/static/android-chrome-192x192.png',
+        'sizes': '192x192'
+    },
+    {
+        'src': '/static/android-chrome-512x512.png',
+        'sizes': '512x512'
+    },
+    {
+        'src': '/static/mstile-150x150.png',
+        'sizes': '150x150'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/images/apple_touch_icon.png',
+        'sizes': '180x180'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/splashscreens/apple-splash-640-1136.jpg',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    },
+    {
+        'src': '/static/splashscreens/apple-splash-750-1334.jpg',
+        'media': '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)'
+    },
+    {
+        'src': '/static/splashscreens/apple-splash-1242-2208.jpg',
+        'media': '(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)'
+    },
+    {
+        'src': '/static/splashscreens/apple-splash-1125-2436.jpg',
+        'media': '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)'
+    },
+    {
+        'src': '/static/splashscreens/apple-splash-1536-2048.jpg',
+        'media': '(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)'
+    },
+    {
+        'src': '/static/splashscreens/apple-splash-1668-2224.jpg',
+        'media': '(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)'
+    },
+    {
+        'src': '/static/splashscreens/apple-splash-2048-2732.jpg',
+        'media': '(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)'
+    },
+
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
