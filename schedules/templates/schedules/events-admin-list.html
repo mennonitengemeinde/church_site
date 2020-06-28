@@ -38,7 +38,7 @@
                 {% if perms.schedules.view_attendant and event.attendance_limit > 0 %}
                     <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-sm btn-mg-outline-default mr-2"><i class="fas fa-chair"></i></a>
                 {% endif %}
-                {% if perms.schedules.change_attendant and event.attendance_limit > 0 %}
+                {% if perms.schedules.change_event and event.attendance_limit > 0 %}
                     <a href="{% url  'schedules:attendants-admin-signup-toggle' pk=event.pk %}" class="btn btn-sm {% if event.attendance_signup %}btn-danger{% else %}btn-success{% endif %}">
                         {% if event.attendance_signup %}
                             End Signup
