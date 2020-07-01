@@ -10,7 +10,8 @@ from .views import (
     EventsListView,
     EventsAdminListView,
     EventsAdminCreateView,
-    EventsAdminUpdateView
+    EventsAdminUpdateView,
+    EventsAdminDeleteView
 )
 
 app_name = 'schedules'
@@ -23,6 +24,7 @@ urlpatterns = [
     path('manage/events/add/', EventsAdminCreateView.as_view(), name='events-admin-create'),
     path('manage/events/<int:pk>/update/', EventsAdminUpdateView.as_view(), name='events-admin-update'),
     path('manage/events/<int:pk>/', EventsAdminDetailView.as_view(), name='events-admin-detail'),
+    path('manage/events/<int:pk>/delete', EventsAdminDeleteView.as_view(), name='events-admin-delete'),
     path('manage/events/<int:event>/attendants/<int:pk>/', AttendantAdminDetailView.as_view(),
          name='attendants-admin-detail'),
     path('manage/events/<int:event>/attendants/<int:pk>/update/', AttendantAdminUpdateView.as_view(),

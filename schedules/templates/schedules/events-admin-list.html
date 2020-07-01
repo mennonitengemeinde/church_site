@@ -62,14 +62,9 @@
                     {% endif %}
 
                     <div class="text-center">
-                        {% if perms.schedules.change_event %}
-                            <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-mg-secondary mr-2">
-                                <i class="fas fa-edit mr-1"></i>Edit
-                            </a>
-                        {% endif %}
-                        {% if perms.schedules.view_attendant and event.attendance_limit > 0 %}
+                        {% if perms.schedules.view_attendant %}
                             <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-mg-outline-default mr-2">
-                                <i class="fas fa-chair mr-1"></i>Attendants
+                                <i class="fas {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} mr-1"></i>Details
                             </a>
                         {% endif %}
                     </div>
