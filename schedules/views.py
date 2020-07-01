@@ -44,7 +44,7 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.member_events(user=self.request.user)
+        queryset = queryset.filter_events(self.request.GET.get('filter')).member_events(user=self.request.user)
         return queryset
 
 

@@ -18,6 +18,12 @@ class EventQuerySet(models.query.QuerySet):
     def member_events(self, user):
         return self.filter(church__members=user)
 
+    def filter_events(self, query):
+        if query == 'all':
+            return self.filter()
+
+        return self.filter(end__gt=timezone.now())
+
 
 class EventManager(models.Manager):
     def get_queryset(self):
