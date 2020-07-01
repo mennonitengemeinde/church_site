@@ -7,16 +7,13 @@
     {{ block.super }}
     <div class="container-fluid mt-3">
 
-        <div class="d-flex justify-content-end mb-3">
-{#            {% if btn_back_href %}#}
-{#                <a href="{{ btn_back_href }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Back</a>#}
-{#            {% endif %}#}
-            {% block add_btn %}
+        {% block add_btn %}
+            <div class="d-flex justify-content-end mb-3">
                 {% if btn_add_href %}
                     <a href="{{ btn_add_href }}" class="btn btn-mg-primary"><i class="fas fa-plus"></i> Add</a>
                 {% endif %}
-            {% endblock %}
-        </div>
+            </div>
+        {% endblock %}
 
         <div class="card">
             <div class="card-body px-4 py-5">

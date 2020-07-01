@@ -1,0 +1,36 @@
+{% extends 'admin-list-layout.html' %}
+
+{% block add_btn %}
+    <div class="py-3">
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'accounts:users-admin-list' %}" class="btn btn-mg-outline-default">
+                <i class="fas fa-arrow-left mr-1"></i>Back
+            </a>
+            {% if btn_add_href %}
+                {% if perms.auth.add_group %}
+                    <a href="{{ btn_add_href }}" class="btn btn-mg-primary"><i class="fas fa-plus"></i> Add</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block table_head %}
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+
+{% block table_body %}
+    {% for group in groups %}
+        <tr>
+            <td class="align-middle">{{ group.name }}</td>
+            <td class="align-middle">
+                {% if perms.auth.change_group %}
+                    <a href="{% url 'accounts:groups-admin-update' pk=group.pk %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
