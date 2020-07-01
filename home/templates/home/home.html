@@ -75,7 +75,10 @@
                                     {% if event.live_stream %}
                                         <span class="text-mg-info"><i
                                                 class="fas fa-video mr-1"></i>Live stream</span>
-                                    {% endif %}
+                                        <div class="text-center mt-3">
+                                            <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-mg-round btn-mg-outline-primary"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                                        </div>
+                                        {% endif %}
                                 </div>
                             {% endif %}
 
