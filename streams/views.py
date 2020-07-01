@@ -21,9 +21,9 @@ class StreamsListView(BaseListView):
 
     def get_queryset(self):
         if self.kwargs.get('church'):
-            return self.model.objects.filter(event__end__gt=timezone.now(),
+            return self.model.objects.filter(live=True,
                                              event__church__name=self.kwargs.get('church').replace('-', ' '))
-        return Stream.objects.filter(event__end__gt=timezone.now())
+        return Stream.objects.filter(live=True)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
