@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
@@ -44,7 +45,7 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.member_events(user=self.request.user)
+        queryset = queryset.filter_events(self.request.GET.get('filter')).member_events(user=self.request.user)
         return queryset
 
 
@@ -93,6 +94,20 @@ class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+
+class EventsAdminDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'schedules.delete_event'
+    model = Event
+    success_url = reverse_lazy('schedules:events-admin-list')
+    success_message = 'Event was deleted successfully'
+
+    def get_queryset(self):
+        return self.model.objects.member_only_events(user=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(EventsAdminDeleteView, self).delete(request, *args, **kwargs)
 
 
 class AttendantCreateView(SuccessMessageMixin, BaseCreateView):

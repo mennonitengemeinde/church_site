@@ -1,56 +1,128 @@
-{% extends 'admin-list-layout.html' %}
+{% extends 'layout.html' %}
 
 {% load static %}
 {% load compress %}
 
-{% block add_btn %}
-    {% if btn_add_href and perms.schedules.add_event %}
-        <a href="{{ btn_add_href }}" class="btn btn-mg-primary"><i class="fas fa-plus"></i> Add</a>
-    {% endif %}
-{% endblock %}
+{% block content %}
 
-{% block table_head %}
-    <tr>
-        <th>Church</th>
-        <th>Start<i class="fas fa-calendar-alt ml-1"></i></th>
-        <th>Start<i class="fas fa-clock ml-1"></i></th>
-        <th>Title</th>
-        <th>Space</th>
-        <th>Signed up</th>
-        <th>Actions</th>
-    </tr>
-{% endblock %}
+    {{ block.super }}
 
-
-{% block table_body %}
-    {% for event in events %}
-        <tr class="text-nowrap">
-            <td class="align-middle">{{ event.church.name }}</td>
-            <td class="align-middle local-date" data-date="{{ event.start|date:'U' }}"></td>
-            <td class="align-middle local-time" data-time="{{ event.start|date:'U' }}"></td>
-            <td class="align-middle">{{ event.title }}</td>
-            <td class="align-middle">{{ event.attendance_limit }}</td>
-            <td class="align-middle">{{ event.total_attendants }}</td>
-            <td class="">
-                {% if perms.schedules.change_event %}
-                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-sm btn-mg-secondary mr-2"><i class="fas fa-edit"></i></a>
+    <div class="container">
+        {% if btn_add_href and perms.schedules.add_event %}
+            <div class="d-flex justify-content-between pt-3">
+                {% if request.GET.urlencode %}
+                    <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-mg-outline-default">Show Current</a>
+                {% else %}
+                    <a href="{% url 'schedules:events-admin-list' %}?filter=all" class="btn btn-mg-outline-default">Show All</a>
                 {% endif %}
-                {% if perms.schedules.view_attendant and event.attendance_limit > 0 %}
-                    <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-sm btn-mg-outline-default mr-2"><i class="fas fa-chair"></i></a>
-                {% endif %}
-                {% if perms.schedules.change_event and event.attendance_limit > 0 %}
-                    <a href="{% url  'schedules:attendants-admin-signup-toggle' pk=event.pk %}" class="btn btn-sm {% if event.attendance_signup %}btn-danger{% else %}btn-success{% endif %}">
-                        {% if event.attendance_signup %}
-                            End Signup
-                        {% else %}
-                            Start Signup
+                <a href="{{ btn_add_href }}" class="btn btn-mg-primary"><i class="fas fa-plus"></i> Add</a>
+            </div>
+        {% endif %}
+
+        {% for event in events %}
+            <div class="card my-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="badge badge-info local-date" data-date="{{ event.start|date:'U' }}">
+                            <i class="fas fa-calendar mr-1"></i>
+                        </h6>
+                        <h6 class="badge badge-info local-time" data-time="{{ event.start|date:'U' }}">
+                            <i class="fas fa-clock mr-1"></i>
+                        </h6>
+                    </div>
+                    <h4 class="mb-0 text-mg-primary">{{ event.title }}</h4>
+                    <small>{{ event.church.name }}</small>
+
+                    <hr>
+
+                    {% if event.attendance_limit > 0 %}
+                        <h6>Attendance Signup</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="font-weight-bold">Limit</small>
+                                <div class="text-center">{{ event.attendance_limit }}</div>
+                            </div>
+                            <div>
+                                <small class="font-weight-bold">Signed up</small>
+                                <div class="text-center">{{ event.total_attendants }}</div>
+                            </div>
+                            {% if perms.schedules.change_event and event.attendance_limit > 0 %}
+                                <div>
+                                    <a href="{% url  'schedules:attendants-admin-signup-toggle' pk=event.pk %}" class="btn {% if event.attendance_signup %}btn-danger{% else %}btn-success{% endif %}">
+                                        {% if event.attendance_signup %}
+                                            End
+                                        {% else %}
+                                            Start
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <hr>
+                    {% endif %}
+
+                    <div class="text-center">
+                        {% if perms.schedules.view_attendant %}
+                            <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-mg-outline-default mr-2">
+                                <i class="fas {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} mr-1"></i>Details
+                            </a>
                         {% endif %}
-                    </a>
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}
+
+{#{% block add_btn %}#}
+{#    {% if btn_add_href and perms.schedules.add_event %}#}
+{#        <a href="{{ btn_add_href }}" class="btn btn-mg-primary"><i class="fas fa-plus"></i> Add</a>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+{##}
+{#{% block table_head %}#}
+{#    <tr>#}
+{#        <th>Church</th>#}
+{#        <th>Start<i class="fas fa-calendar-alt ml-1"></i></th>#}
+{#        <th>Start<i class="fas fa-clock ml-1"></i></th>#}
+{#        <th>Title</th>#}
+{#        <th>Space</th>#}
+{#        <th>Signed up</th>#}
+{#        <th>Actions</th>#}
+{#    </tr>#}
+{#{% endblock %}#}
+{##}
+{##}
+{#{% block table_body %}#}
+{#    {% for event in events %}#}
+{#        <tr class="text-nowrap">#}
+{#            <td class="align-middle">{{ event.church.name }}</td>#}
+{#            <td class="align-middle local-date" data-date="{{ event.start|date:'U' }}"></td>#}
+{#            <td class="align-middle local-time" data-time="{{ event.start|date:'U' }}"></td>#}
+{#            <td class="align-middle">{{ event.title }}</td>#}
+{#            <td class="align-middle">{{ event.attendance_limit }}</td>#}
+{#            <td class="align-middle">{{ event.total_attendants }}</td>#}
+{#            <td class="">#}
+{#                {% if perms.schedules.change_event %}#}
+{#                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-sm btn-mg-secondary mr-2"><i class="fas fa-edit"></i></a>#}
+{#                {% endif %}#}
+{#                {% if perms.schedules.view_attendant and event.attendance_limit > 0 %}#}
+{#                    <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-sm btn-mg-outline-default mr-2"><i class="fas fa-chair"></i></a>#}
+{#                {% endif %}#}
+{#                {% if perms.schedules.change_event and event.attendance_limit > 0 %}#}
+{#                    <a href="{% url  'schedules:attendants-admin-signup-toggle' pk=event.pk %}" class="btn btn-sm {% if event.attendance_signup %}btn-danger{% else %}btn-success{% endif %}">#}
+{#                        {% if event.attendance_signup %}#}
+{#                            End Signup#}
+{#                        {% else %}#}
+{#                            Start Signup#}
+{#                        {% endif %}#}
+{#                    </a>#}
+{#                {% endif %}#}
+{#            </td>#}
+{#        </tr>#}
+{#    {% endfor %}#}
+{#{% endblock %}#}
 
 {% block js %}
     {% compress js inline %}

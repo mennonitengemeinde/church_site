@@ -1,5 +1,13 @@
 {% extends 'admin-list-layout.html' %}
 
+{% block add_btn %}
+    {% if perms.auth.view_group %}
+        <div class="py-3">
+            <a href="{% url 'accounts:groups-admin-list' %}" class="btn btn-mg-primary"><i class="fas fa-users"></i> Groups</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block table_head %}
     <tr>
         <th>Username</th>
