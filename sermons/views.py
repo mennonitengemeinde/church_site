@@ -42,6 +42,12 @@ class SermonsDetailView(BaseDetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.get_page_title()
+        # Track views
+        try:
+            context['sermon'].views += 1
+            context['sermon'].save()
+        except Exception as e:
+            print('Error', e)
         return context
 
     def get_page_title(self) -> str:

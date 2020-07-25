@@ -73,6 +73,7 @@ class Sermon(models.Model):
     audio_high = models.FileField(upload_to=high_audio_path, validators=[validate_file_extension], null=True, blank=True)
     video_url = models.URLField(blank=True, null=True)
     visible = models.BooleanField(default=True)
+    views = models.IntegerField(default=0)
 
     objects = SermonManager()
 

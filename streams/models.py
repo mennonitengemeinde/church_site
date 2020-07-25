@@ -25,6 +25,8 @@ class Stream(models.Model):
     live_url = models.URLField(blank=True, null=True)
     live_mixlr_audio = models.BooleanField(default=False)
     live = models.BooleanField(default=False)
+    audio_views = models.IntegerField(default=0)
+    video_views = models.IntegerField(default=0)
 
     objects = StreamManager()
 
