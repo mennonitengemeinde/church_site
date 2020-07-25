@@ -32,6 +32,7 @@ DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
+ADMIN_URL = env.str('ADMIN_URL', default='admin/')
 
 # Application definition
 
