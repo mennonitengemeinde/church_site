@@ -43,6 +43,11 @@ class LiveAudioView(BaseDetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = f'Live Audio - {self.object.title}'
+        try:
+            context['stream'].audio_views += 1
+            context['stream'].save()
+        except Exception as e:
+            print('Error', e)
         return context
 
     def get_queryset(self):
@@ -59,6 +64,11 @@ class LiveVideoView(BaseDetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = f'Live Video - {self.object.title}'
+        try:
+            context['stream'].video_views += 1
+            context['stream'].save()
+        except Exception as e:
+            print('Error', e)
         return context
 
     def get_queryset(self):

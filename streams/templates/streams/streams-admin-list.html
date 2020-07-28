@@ -9,6 +9,10 @@
         <th>Time</th>
         <th>Title</th>
         <th>Speakers</th>
+        {% if user.is_superuser %}
+            <th><i class="fas fa-music"></i></th>
+            <th><i class="fas fa-video"></i></th>
+        {% endif %}
         <th>Actions</th>
     </tr>
 {% endblock %}
@@ -25,6 +29,17 @@
                     {% if not forloop.first %}, {% endif %}{{ speaker.name }}
                 {% endfor %}
             </td>
+            {% if user.is_superuser %}
+                <td class="align-middle">
+                    {% if stream.live_mixlr_audio %}
+                        {{ stream.audio_views }}
+                    {% endif %}
+                </td>
+
+                <td class="align-middle">
+                    {{ stream.video_views }}
+                </td>
+            {% endif %}
             <td class="align-middle">
                 {% if perms.streams.change_stream %}
                     <a href="{% url 'streams:streams-admin-update-live' pk=stream.id %}" class="btn btn-sm btn-mg-outline-primary">
