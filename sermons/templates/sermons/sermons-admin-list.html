@@ -14,7 +14,9 @@
         <th>Med</th>
         <th>High</th>
         <th>Video</th>
-        <th><i class="fas fa-video"></i></th>
+        {% if user.is_superuser %}
+            <th><i class="fas fa-video"></i></th>
+        {% endif %}
         <th>Visible</th>
         <th></th>
     </tr>
@@ -37,8 +39,8 @@
             <td class="align-middle">{% if sermon.audio_med %}<i class="fas fa-check"></i>{% endif %}</td>
             <td class="align-middle">{% if sermon.audio_high %}<i class="fas fa-check"></i>{% endif %}</td>
             <td class="align-middle">{% if sermon.video_url %}<i class="fas fa-check"></i>{% endif %}</td>
-            <td class="align-middle">{% if sermon.visible %}<i class="fas fa-check"></i>{% endif %}</td>
             {% if user.is_superuser %}<td class="align-middle">{{ sermon.views }}</td>{% endif %}
+            <td class="align-middle">{% if sermon.visible %}<i class="fas fa-check"></i>{% endif %}</td>
             <td class="align-middle">
                 {% if perms.sermons.change_sermon %}
                     <a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
