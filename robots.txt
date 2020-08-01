@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /users/
+Sitemap: https://mennonitengemeinde.org/sitemap.xml

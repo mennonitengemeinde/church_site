@@ -4,13 +4,17 @@
 {% load compress %}
 {% load pwa %}
 
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
     <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#b91d47">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block meta %}
+        <meta name="robots" content="noindex, nofollow">
+    {% endblock %}
 
     {% progressive_web_app_meta %}
 
@@ -29,6 +33,11 @@
     {% block css %}{% endblock %}
 
     <title>{% block head_title %}{{ page_title }}{% endblock %}</title>
+
+    <meta property="og:title" content="The Rock" />
+    <meta property="og:type" content="video.movie" />
+    <meta property="og:url" content="https://mennonitengemeinde.org{{ request.get_full_path }}" />
+    <meta property="og:image" content="https://mennonitengemeinde.org{% static 'img/mennonitengemeinde-text-round-logo-25%.png' %}" />
 </head>
 <body>
 
