@@ -28,7 +28,7 @@
 
     {% block css %}{% endblock %}
 
-    <title>{{ page_title }}</title>
+    <title>{% block head_title %}{{ page_title }}{% endblock %}</title>
 </head>
 <body>
 

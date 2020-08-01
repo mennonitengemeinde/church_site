@@ -32,6 +32,8 @@ class BaseDetailView(PageProperties, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['btn_back_href'] = self.btn_back_href
+        context['page_title'] = self.page_title
+        context['current_page'] = self.current_page
         return context
 
 

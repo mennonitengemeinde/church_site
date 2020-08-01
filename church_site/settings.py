@@ -239,10 +239,6 @@ PWA_APP_ICONS = [
     {
         'src': '/static/android-chrome-512x512.png',
         'sizes': '512x512'
-    },
-    {
-        'src': '/static/mstile-150x150.png',
-        'sizes': '150x150'
     }
 ]
 PWA_APP_ICONS_APPLE = [

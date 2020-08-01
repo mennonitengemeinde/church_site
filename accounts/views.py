@@ -13,7 +13,7 @@ class UserProfileView(LoginRequiredMixin, BaseDetailView):
     model = get_user_model()
     context_object_name = 'user'
     template_name = 'accounts/profile.html'
-    page_title = 'Profile'
+    page_title = 'User Profile'
 
     def get_object(self, queryset=None):
         return self.model.objects.filter(pk=self.request.user.pk).get()
