@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <div class="row mt-4">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-center">{{ user.first_name }} {{ user.last_name }}</h1>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col text-right px-2">
+                            <div class="font-weight-bold">Username:</div>
+                        </div>
+                        <div class="col px-2">
+                            <div>{{ user.username }}</div>
+                        </div>
+                    </div>
+
+                    <div class="row my-2">
+                        <div class="col text-right px-2">
+                            <div class="font-weight-bold">Membership:</div>
+                        </div>
+                        <div class="col px-2">
+                            {% for church in user.churches.all %}
+                                {% if not forloop.first %}
+                                    <br>
+                                {% endif %}
+                                {{ church }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="text-center">
+                        <a href="{% url 'account_set_password' %}" class="btn btn-mg-outline-default">Change Password</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

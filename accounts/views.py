@@ -1,12 +1,22 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.db.models import Q
 from django.urls import reverse_lazy
 
 from accounts.forms import UpdateUserForm
 from accounts.models import User
-from church_site.views import AdminListView, BaseUpdateView, BaseCreateView
+from church_site.views import AdminListView, BaseUpdateView, BaseCreateView, BaseDetailView
+
+
+class UserProfileView(LoginRequiredMixin, BaseDetailView):
+    model = get_user_model()
+    context_object_name = 'user'
+    template_name = 'accounts/profile.html'
+    page_title = 'Profile'
+
+    def get_object(self, queryset=None):
+        return self.model.objects.filter(pk=self.request.user.pk).get()
 
 
 class UsersAdminListView(PermissionRequiredMixin, AdminListView):
