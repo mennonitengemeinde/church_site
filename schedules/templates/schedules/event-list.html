@@ -3,6 +3,10 @@
 {% load static %}
 {% load compress %}
 
+{% block meta %}
+    <meta name="robots" content="index, nofollow">
+{% endblock %}
+
 {% block content %}
 
     {{ block.super }}

@@ -10,11 +10,5 @@ from churches.models import Church
 class User(AbstractUser):
     country = CountryField()
     churches = models.ManyToManyField(Church, related_name='members')
-
-    @property
-    def is_validated(self):
-        email = EmailAddress.objects.filter(user=self, verified=True)
-        if email:
-            return True
-        else:
-            return False
+    # preferred_church = models.ForeignKey(Church, related_name='frequent_visitors', on_delete=models.PROTECT,
+    #                                      null=True, blank=True)

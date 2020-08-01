@@ -4,6 +4,10 @@
 {% load compress %}
 {% load math_tags %}
 
+{% block meta %}
+    <meta name="robots" content="index, follow">
+{% endblock %}
+
 {% block css %}
     {% compress css inline %}
         <link rel="stylesheet" href="{% static 'css/home.css' %}">
