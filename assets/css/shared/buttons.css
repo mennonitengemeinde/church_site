@@ -1,6 +1,20 @@
+.btn {
+    border-radius: 0;
+}
+
 .btn-mg-round {
     border-radius: 1.7em;
     padding: .5em .9em;
+}
+
+
+.btn-mg-default {
+    background-color: whitesmoke;
+    border-color: #d0d0d0;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+.btn-mg-default:hover {
+    background-color: transparent;
 }
 
 
@@ -20,7 +34,9 @@
 
 .btn-mg-primary {
     background-color: var(--mg-primary);
+    border: .1rem #512021 outset;
     color: white;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 .btn-mg-primary:hover {
     opacity: .8;
