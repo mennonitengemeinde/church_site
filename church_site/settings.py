@@ -11,28 +11,22 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-root = environ.Path(os.path.join(BASE_DIR, 'church_site', '.env'))
-env = environ.Env()
-environ.Env.read_env(root())
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY', default='#xk&tivq8s*pq6ztb1%hj%kv_&h3620#n$qu+i8(xor@28wdma')
+SECRET_KEY = os.getenv('SECRET_KEY', default='#xk&tivq8s*pq6ztb1%hj%kv_&h3620#n$qu+i8(xor@28wdma')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = os.getenv('DEBUG', default=False)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default=[])
 
-ADMIN_URL = env.str('ADMIN_URL', default='admin/')
+ADMIN_URL = os.getenv('ADMIN_URL', default='admin/')
 
 # Application definition
 
@@ -100,15 +94,15 @@ WSGI_APPLICATION = 'church_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if env.bool('PRODUCTION_DB', default=True):
+if os.getenv('PRODUCTION_DB', default=True):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'church_db',
-            'USER': env.str('DB_USER'),
-            'PASSWORD': env.str('DB_PASSWORD'),
-            'HOST': env.str('DB_HOST'),
-            'PORT': env.int('DB_PORT', default=5432)
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT', default=5432)
         }
     }
 
@@ -203,15 +197,15 @@ STATICFILES_FINDERS = (
 
 # Send Grid
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = env('SENDGRID_API_KEY', default='')
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY', default='')
 SENDGRID_SANDBOX_MODE_IN_DEBUG = True
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', default='')
 
 # Azure
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-AZURE_ACCOUNT_NAME = env('AZURE_ACCOUNT_NAME', default='')
-AZURE_ACCOUNT_KEY = env('AZURE_ACCOUNT_KEY', default='')
-AZURE_CONTAINER = env('AZURE_CONTAINER', default='')
+AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME', default='')
+AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY', default='')
+AZURE_CONTAINER = os.getenv('AZURE_CONTAINER', default='')
 # AZURE_CUSTOM_DOMAIN = env('AZURE_CUSTOM_DOMAIN', default='')
 
 # Crispy Forms
