@@ -76,6 +76,9 @@
                             </div>
                             <h5 class="mb-0 text-mg-primary">{{ sermon.title }}</h5>
                             <small>{{ sermon.sermon_type.title }}</small>
+                            <br>
+                            {% if sermon.audio_low %}<small><i class="fas fa-music mr-1"></i></small>{% endif %}
+                            {% if sermon.video_url %}<small><i class="fas fa-video"></i></small>{% endif %}
                             <hr>
                             {% for speaker in sermon.speakers.all %}
                                 <div class="text-center"><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
