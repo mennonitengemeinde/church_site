@@ -11,7 +11,7 @@ from church_site.views import AdminListView, BaseUpdateView, BaseCreateView, Bas
 
 class UserProfileView(LoginRequiredMixin, BaseDetailView):
     model = get_user_model()
-    context_object_name = 'user'
+    context_object_name = 'user_obj'
     template_name = 'accounts/profile.html'
     page_title = 'User Profile'
 
@@ -37,6 +37,7 @@ class UsersAdminListView(PermissionRequiredMixin, AdminListView):
 class UsersAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     permission_required = 'accounts.change_user'
     model = get_user_model()
+    context_object_name = 'user_obj'
     template_name = 'admin-form-view.html'
     form_class = UpdateUserForm
     success_url = reverse_lazy('accounts:users-admin-list')
