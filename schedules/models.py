@@ -2,41 +2,16 @@ import pytz
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.utils import timezone
 
 from churches.models import Church
 from speakers.models import Speaker
+from schedules.managers import AttendantManager, EventManager
 
 visibility_choices = (
     ('public', 'Public'),
     ('private', 'Private'),
     ('members', 'Members Only'),
 )
-
-
-class EventQuerySet(models.query.QuerySet):
-    def member_events(self, user):
-        return self.filter(church__members=user)
-
-    def filter_events(self, query):
-        if query == 'all':
-            return self.filter()
-
-        return self.filter(end__gt=timezone.now())
-
-
-class EventManager(models.Manager):
-    def get_queryset(self):
-        return EventQuerySet(self.model, using=self._db)
-
-    def get_first_six(self):
-        return self.get_queryset().filter(end__gt=timezone.now())[:6]
-
-    def get_first_twelve(self):
-        return self.get_queryset().filter(end__gt=timezone.now())[:12]
-
-    def member_only_events(self, user):
-        return self.get_queryset().filter(church__members=user)
 
 
 class Event(models.Model):
@@ -80,11 +55,6 @@ class Event(models.Model):
         local_timezone = pytz.timezone(settings.TIME_ZONE)
         local_date = self.start.astimezone(local_timezone)
         return f'{local_date.strftime("%G-%m-%d %I:%M%p")} - {self.church.name} - {self.title}'
-
-
-class AttendantManager(models.Manager):
-    def get_member_attendants(self, user):
-        return self.filter(event__church__members=user)
 
 
 class Attendant(models.Model):
