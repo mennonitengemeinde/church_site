@@ -9,6 +9,7 @@ from .views import (
     AttendantAdminSignupToggle,
     EventsListView,
     EventsAdminListView,
+    EventsAdminAllListView,
     EventsAdminCreateView,
     EventsAdminUpdateView,
     EventsAdminDeleteView
@@ -21,6 +22,7 @@ urlpatterns = [
     path('<str:church>/', EventsListView.as_view(), name='events-list-filtered'),
     path('<str:church>/<int:event>/attendants/add', AttendantCreateView.as_view(), name='attendants-create'),
     path('manage/events/', EventsAdminListView.as_view(), name='events-admin-list'),
+    path('manage/events/all/', EventsAdminAllListView.as_view(), name='events-admin-all-list'),
     path('manage/events/add/', EventsAdminCreateView.as_view(), name='events-admin-create'),
     path('manage/events/<int:pk>/update/', EventsAdminUpdateView.as_view(), name='events-admin-update'),
     path('manage/events/<int:pk>/', EventsAdminDetailView.as_view(), name='events-admin-detail'),

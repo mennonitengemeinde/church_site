@@ -10,31 +10,38 @@
 {% block content %}
     {{ block.super }}
 
-    <div class="container py-5">
+    <div class="container pt-5">
         {# filters #}
-        <div class="row pb-5">
-            <div class="col-12 col-md">
-                <label for="churchFilter">Filter Church</label>
-                <select id="churchFilter" class="custom-select" onchange="onSermonsChurchChange(this.value)">
-                    <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
-                    {% for for_church in churches %}
-                        <option value="{{ for_church.slug }}"{% if current_church == for_church.slug %}
-                                selected{% endif %}>{{ for_church.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-12 col-md mt-3 mt-md-0">
-                <label for="speakerFilter">Filter Speaker</label>
-                <select id="speakerFilter" class="custom-select" onchange="onSermonsSpeakerChange(this.value)">
-                    <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
-                    {% for for_speaker in speakers %}
-                        <option value="{{ for_speaker.id }}"{% if for_speaker.id == current_speaker %}
-                                selected{% endif %}>{{ for_speaker.name }}</option>
-                    {% endfor %}
-                </select>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12 col-md">
+                        <label for="churchFilter">Filter Church</label>
+                        <select id="churchFilter" class="custom-select" onchange="onSermonsChurchChange(this.value)">
+                            <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
+                            {% for for_church in churches %}
+                                <option value="{{ for_church.slug }}"{% if current_church == for_church.slug %}
+                                        selected{% endif %}>{{ for_church.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12 col-md mt-3 mt-md-0">
+                        <label for="speakerFilter">Filter Speaker</label>
+                        <select id="speakerFilter" class="custom-select" onchange="onSermonsSpeakerChange(this.value)">
+                            <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
+                            {% for for_speaker in speakers %}
+                                <option value="{{ for_speaker.id }}"{% if for_speaker.id == current_speaker %}
+                                        selected{% endif %}>{{ for_speaker.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 
+    <div class="container-fluid pb-5">
         <div class="text-center">
             <span>
             {% if page_obj.has_previous %}
@@ -43,7 +50,9 @@
                 </a>
             {% endif %}
             </span>
-            <span class="px-1 align-middle">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.paginator.num_pages > 1 %}
+                <span class="px-1 align-middle">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% endif %}
             <span>
                 {% if page_obj.has_next %}
                     <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-mg-outline-default">
@@ -56,8 +65,8 @@
         <div class="row mt-2">
             {% for sermon in sermons %}
 
-                <div class="col-12 col-md-6 col-lg-4 my-3 px-4">
-                    <div class="card">
+                <div class="col-12 col-md-6 col-xl-4 my-3 px-4">
+                    <div class="card shadow">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-mg-info">{{ sermon.event.church }}</h6>
@@ -65,8 +74,11 @@
                                     <i class="fas fa-calendar mr-1"></i>
                                 </h6>
                             </div>
-                            <h4 class="mb-0 text-mg-primary">{{ sermon.title }}</h4>
+                            <h5 class="mb-0 text-mg-primary">{{ sermon.title }}</h5>
                             <small>{{ sermon.sermon_type.title }}</small>
+                            <br>
+                            {% if sermon.audio_low %}<small><i class="fas fa-music mr-1"></i></small>{% endif %}
+                            {% if sermon.video_url %}<small><i class="fas fa-video"></i></small>{% endif %}
                             <hr>
                             {% for speaker in sermon.speakers.all %}
                                 <div class="text-center"><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
@@ -91,7 +103,9 @@
                 </a>
             {% endif %}
             </span>
-            <span class="px-1 align-middle">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.paginator.num_pages > 1 %}
+                <span class="px-1 align-middle">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% endif %}
             <span>
                 {% if page_obj.has_next %}
                     <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-mg-outline-default">

@@ -19,7 +19,7 @@
 .navbar-light .navbar-nav .show>.nav-link {
     opacity: 0.9;
     border-bottom: .2em solid var(--mg-primary);
-    background-color: #602627;
+    background-color: var(--mg-primary);
     /*border-radius: .5em;*/
     color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

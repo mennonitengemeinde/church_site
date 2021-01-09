@@ -8,7 +8,7 @@
         <div class="col-12 col-md-6 offset-md-3">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="text-center">{{ user.first_name }} {{ user.last_name }}</h1>
+                    <h1 class="text-center">{{ user_obj.first_name }} {{ user_obj.last_name }}</h1>
 
                     <hr>
 
@@ -17,7 +17,7 @@
                             <div class="font-weight-bold">Username:</div>
                         </div>
                         <div class="col px-2">
-                            <div>{{ user.username }}</div>
+                            <div>{{ user_obj.username }}</div>
                         </div>
                     </div>
 
@@ -26,7 +26,7 @@
                             <div class="font-weight-bold">Membership:</div>
                         </div>
                         <div class="col px-2">
-                            {% for church in user.churches.all %}
+                            {% for church in user_obj.churches.all %}
                                 {% if not forloop.first %}
                                     <br>
                                 {% endif %}

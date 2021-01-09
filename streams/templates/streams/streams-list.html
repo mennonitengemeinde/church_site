@@ -31,7 +31,7 @@
 
         {% for live_stream in streams %}
             {% if live_stream.live %}
-                <div class="card my-4">
+                <div class="shadow bg-light my-5">
                     <div class="card-body">
                         <h5 class="card-title mb-0"><i class="fas fa-circle text-danger mr-2"></i>{{ live_stream.title }}</h5>
                         <div class="small">{{ live_stream.event.church|upper }}</div>

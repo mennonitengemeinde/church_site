@@ -38,18 +38,18 @@
     </div>
 
     <div class="container-fluid py-3">
-        <div class="alert alert-warning">
-            Due to COVID-19, we were unable to host live gatherings, but we are happy to announce, that we can reopen at
-            30% building capacity, starting June 13, 2020!
-            <br>
-            <br>
-            NOTE: This does not lift the emergency order under the Quarantine Act that the Government of Canada has put
-            in place. It applies to all travellers. Upon arrival in Canada, by air or by land, you must quarantine
-            (self-isolate) for 14 days. This is mandatory. We ask that you respect this requirement, if you have
-            travelled out of the country or are experiencing any symptoms (fever, coughing and difficulty breathing) we
-            invite you to join us for our Live Online Stream.
-
-        </div>
+{#        <div class="alert alert-warning">#}
+{#            Due to COVID-19, we were unable to host live gatherings, but we are happy to announce, that we can reopen at#}
+{#            30% building capacity, starting June 13, 2020!#}
+{#            <br>#}
+{#            <br>#}
+{#            NOTE: This does not lift the emergency order under the Quarantine Act that the Government of Canada has put#}
+{#            in place. It applies to all travellers. Upon arrival in Canada, by air or by land, you must quarantine#}
+{#            (self-isolate) for 14 days. This is mandatory. We ask that you respect this requirement, if you have#}
+{#            travelled out of the country or are experiencing any symptoms (fever, coughing and difficulty breathing) we#}
+{#            invite you to join us for our Live Online Stream.#}
+{##}
+{#        </div>#}
 
         <h4 class="mt-5 text-center text-mg-dark">Upcoming Events</h4>
         <hr>
@@ -115,6 +115,27 @@
 
     </div>
 
+    <div class="row m-0 py-5">
+        <div class="card home-nav-card shadow col-8 col-md-3 offset-2 mb-5 mb-md-0">
+            <div class="card-body d-flex flex-column text-center">
+                <p class="card-text">Watch or listen to past recorded sermons</p>
+                <a class="btn btn-mg-round btn-mg-outline-primary mt-auto" href="{% url 'sermons:sermons-list' %}">
+                    <i class="fas fa-microphone mr-1"></i>
+                    Sermons
+                </a>
+            </div>
+        </div>
+
+        <div class="card home-nav-card shadow col-8 col-md-3 offset-2">
+            <div class="card-body d-flex flex-column text-center">
+                <p class="card-text">Watch or listen to live sermons</p>
+                <a class="btn btn-mg-round btn-mg-outline-primary mt-auto" href="{% url 'sermons:sermons-list' %}">
+                    <i class="fas fa-circle mr-1 text-mg-primary"></i>
+                    Live
+                </a>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 

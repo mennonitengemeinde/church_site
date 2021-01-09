@@ -42,11 +42,15 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     page_title = 'Events - Admin'
     current_page = 'manage'
     btn_add_href = reverse_lazy('schedules:events-admin-create')
+    paginate_by = 25
     
     def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter_events(self.request.GET.get('filter')).member_events(user=self.request.user)
-        return queryset
+        return self.model.objects.current_memeber_only_events(user=self.request.user)
+
+
+class EventsAdminAllListView(EventsAdminListView):
+    def get_queryset(self):
+        return self.model.objects.member_only_events(self.request.user)
 
 
 class EventsAdminCreateView(PermissionRequiredMixin, BaseCreateView):

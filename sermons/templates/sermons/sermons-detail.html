@@ -15,7 +15,7 @@
     {{ block.super }}
 
     <div class="container py-3">
-        <a href="{{ btn_back_href }}" class="btn btn-mg-outline-default"><i class="fas fa-arrow-left mr-1"></i>Back</a>
+        <a href="{{ btn_back_href }}" class="btn btn-mg-default shadow-sm"><i class="fas fa-arrow-left mr-1"></i>Back</a>
 
         <div class="card mt-3">
             <div class="card-header">
@@ -68,7 +68,7 @@
                         {% endif %}
                         {% if sermon.audio_med %}
                             <div class="col-12 col-sm my-2 my-sm-0">
-                                <a href="{{ sermon.audio_med.url }}" class="btn btn-mg-primary"><i
+                                <a href="{{ sermon.audio_med.url }}" class="btn btn-mg-primary shadow"><i
                                         class="fas fa-download mr-1"></i>Medium</a>
                             </div>
                         {% endif %}

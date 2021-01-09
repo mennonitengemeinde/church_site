@@ -63,6 +63,7 @@ class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
     page_title = 'Sermons - Admin'
     current_page = 'manage'
     btn_add_href = reverse_lazy('sermons:sermons-admin-create')
+    paginate_by = 25
 
     def get_queryset(self):
         queryset = super().get_queryset()
