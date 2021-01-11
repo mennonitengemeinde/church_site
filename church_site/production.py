@@ -31,8 +31,9 @@ if os.environ['PRODUCTION_DB']:
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ['DB_NAME'],
-            'HOST': hostname + ".postgres.database.azure.com",
-            'USER': os.environ['DB_USER'] + "@" + hostname,
-            'PASSWORD': os.environ['DB_PASS']
+            'HOST': hostname,
+            'USER': os.environ['DB_USER'],
+            'PASSWORD': os.environ['DB_PASS'],
+            'PORT': os.environ['DB_PORT']
         }
 }
