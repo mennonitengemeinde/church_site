@@ -14,7 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(os.environ)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -98,9 +98,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'church_db',
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASS'],
-        'HOST': os.environ['DB_HOST'],
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': 5432
     }
 }
@@ -196,15 +196,15 @@ STATICFILES_FINDERS = (
 
 # Send Grid
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 SENDGRID_SANDBOX_MODE_IN_DEBUG = True
-DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 # Azure
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-AZURE_ACCOUNT_NAME = os.environ['AZURE_ACCOUNT_NAME']
-AZURE_ACCOUNT_KEY = os.environ['AZURE_ACCOUNT_KEY']
-AZURE_CONTAINER = os.environ['AZURE_CONTAINER']
+AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+AZURE_CONTAINER = os.getenv('AZURE_CONTAINER')
 # AZURE_CUSTOM_DOMAIN = env('AZURE_CUSTOM_DOMAIN', default='')
 
 # Crispy Forms

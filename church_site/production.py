@@ -1,10 +1,10 @@
 from .settings import *
 import os
 
-SECRET_KEY = os.environ['SECRET_KEY']
-DEBUG = os.environ['DEBUG']
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
-ADMIN_URL = os.environ['ADMIN_URL']
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG')
+ALLOWED_HOSTS = [os.getenv('WEBSITE_HOSTNAME')] if 'WEBSITE_HOSTNAME' in os.environ else []
+ADMIN_URL = os.getenv('ADMIN_URL')
 
 # WhiteNoise configuration
 MIDDLEWARE = [
@@ -22,18 +22,18 @@ MIDDLEWARE = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # DBHOST is only the server name, not the full URL
-hostname = os.environ['DB_HOST']
+hostname = os.getenv('DB_HOST')
 
 # Configure Postgres database; the full username is username@servername,
 # which we construct using the DBHOST value.
-if os.environ['PRODUCTION_DB']:
+if os.getenv('PRODUCTION_DB'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ['DB_NAME'],
+            'NAME': os.getenv('DB_NAME'),
             'HOST': hostname,
-            'USER': os.environ['DB_USER'],
-            'PASSWORD': os.environ['DB_PASS'],
-            'PORT': os.environ['DB_PORT']
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASS'),
+            'PORT': os.getenv('DB_PORT')
         }
 }
