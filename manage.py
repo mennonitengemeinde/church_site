@@ -5,7 +5,8 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'church_site.settings')
+    settings_module = 'church_site.production' if 'WEBSITE_HOSTNAME' in os.environ else 'church_site.settings'
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
