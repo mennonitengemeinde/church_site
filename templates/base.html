@@ -19,8 +19,8 @@
     {% progressive_web_app_meta %}
 
     {% compress css %}
-        <link rel="stylesheet" href="{% static '@fortawesome/fontawesome-free/css/all.min.css' %}">
-        <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/@fortawesome/fontawesome-free/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}">
 
         <link rel="stylesheet" href="{% static 'css/shared/variables.css' %}">
         <link rel="stylesheet" href="{% static 'css/shared/site.css' %}">
@@ -47,9 +47,9 @@
 {% block content %}{% endblock %}
 
 {% compress js %}
-    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'popper.js/dist/umd/popper.min.js' %}"></script>
-    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'vendors/popper.js/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 
     <script>
         $(document).ready(function () {
