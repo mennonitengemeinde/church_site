@@ -2,7 +2,7 @@ from .settings import *
 import os
 
 SECRET_KEY = os.environ['SECRET_KEY']
-DEBUG = False
+DEBUG = os.environ['DEBUG']
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
 ADMIN_URL = os.environ['ADMIN_URL']
 
