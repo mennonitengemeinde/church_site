@@ -110,6 +110,9 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+env.ps1
+env.bat
+env.sh
 
 # Spyder project settings
 .spyderproject
