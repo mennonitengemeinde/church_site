@@ -1,7 +1,8 @@
 from .settings import *
+from django.core.management.utils import get_random_secret_key
 import os
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY') if os.getenv('DEBUG') else get_random_secret_key()
 DEBUG = os.getenv('DEBUG') if os.getenv('DEBUG') else False
 ALLOWED_HOSTS = [os.getenv('WEBSITE_HOSTNAME')] if 'WEBSITE_HOSTNAME' in os.environ else []
 ADMIN_URL = os.getenv('ADMIN_URL')
