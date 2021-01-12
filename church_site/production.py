@@ -37,3 +37,5 @@ if os.getenv('PRODUCTION_DB'):
             'PORT': os.getenv('DB_PORT')
         }
 }
+
+COMPRESS_OFFLINE = True
