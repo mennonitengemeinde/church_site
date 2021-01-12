@@ -38,4 +38,5 @@ if os.getenv('PRODUCTION_DB'):
         }
 }
 
+COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
