@@ -3,6 +3,9 @@
 {% load static %}
 {% load compress %}
 
+{% block meta %}
+    <meta name="referrer" content="same-origin">
+{% endblock %}
 
 {% block css %}
     {% compress css inline %}
@@ -45,7 +48,7 @@
 
                     {% if sermon.video_url %}
                         <div class="embed-responsive embed-responsive-16by9 my-3">
-                            <iframe class="embed-responsive-item" src="{{ sermon.video_url }}"
+                            <iframe class="embed-responsive-item" referrerpolicy="origin-when-cross-origin" src="{{ sermon.video_url }}"
                                     allowfullscreen></iframe>
                         </div>
                     {% endif %}

@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% block meta %}
+    <meta name="referrer" content="origin-when-cross-origin">
+{% endblock %}
+
 {% block content %}
 
     {{ block.super }}
@@ -21,7 +25,7 @@
                 </div>
 
                 <div class="embed-responsive embed-responsive-16by9 mt-3">
-                    <iframe class="embed-responsive-item" src="{{ stream.live_url }}" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" referrerpolicy="origin-when-cross-origin" src="{{ stream.live_url }}" allowfullscreen></iframe>
                 </div>
             </div>
         </div>

@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'church_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if env('PRODUCTION_DB'):
+if env('PRODUCTION_DB', default=True):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',

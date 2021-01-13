@@ -2,15 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 def main():
-    settings_module = 'church_site.production' if 'WEBSITE_HOSTNAME' in os.environ else 'church_site.settings'
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
-    logger.warning(f'Using {settings_module}')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'church_site.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% block meta %}
+    <meta name="referrer" content="origin-when-cross-origin">
+{% endblock %}
+
 {% block content %}
 
     {{ block.super }}
