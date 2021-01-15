@@ -19,12 +19,19 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from rest_framework import routers
+
+router = routers.DefaultRouter()
 
 urlpatterns = [
     path('', include('home.urls')),
     url('', include('pwa.urls')),
     path(settings.ADMIN_URL, admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
+    path('api/v1/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    url(r'^dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('users/', include('accounts.urls')),
     path('churches/', include('churches.urls')),
     path('speakers/', include('speakers.urls')),
