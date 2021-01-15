@@ -18,10 +18,12 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
 from rest_framework import routers
 
+from telegram.api.controllers import LiveSubscriptionViewSet
+
 router = routers.DefaultRouter()
+router.register(r'subscription/live', LiveSubscriptionViewSet)
 
 urlpatterns = [
     path('', include('home.urls')),

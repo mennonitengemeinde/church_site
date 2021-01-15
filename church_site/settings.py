@@ -304,3 +304,4 @@ PWA_APP_LANG = 'en-US'
 
 # Bot
 BOT_API_KEY = env('BOT_API_KEY')
+BOT_URL = env('BOT_URL')

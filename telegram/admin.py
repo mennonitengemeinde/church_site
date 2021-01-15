@@ -1,3 +1,5 @@
 from django.contrib import admin
+from telegram.models import LiveSubscription
 
-# Register your models here.
+
+admin.site.register(LiveSubscription)
