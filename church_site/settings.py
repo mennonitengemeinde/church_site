@@ -153,7 +153,8 @@ SOCIALACCOUNT_PROVIDERS = {
 # Rest
 REST_SESSION_LOGIN = True
 REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'auth'
+JWT_AUTH_COOKIE = 'mg-auth'
+# REFRESH_TOKEN_LIFETIME =
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -223,7 +224,10 @@ STATICFILES_FINDERS = (
 )
 
 # Send Grid
-EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = env('SENDGRID_API_KEY', default='')
 SENDGRID_SANDBOX_MODE_IN_DEBUG = True
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='')

@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from allauth.account.views import confirm_email
 
 from telegram.api.controllers import LiveSubscriptionViewSet
 
@@ -32,8 +33,10 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     path('api/v1/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('dj-rest-auth/', include('dj_rest_auth.urls')),
-    url(r'^dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('auth/', include('dj_rest_auth.urls')),
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    url(r"^rest-auth/registration/account-confirm-email/(?P<key>[\s\d\w().+-_',:&]+)/$", confirm_email,
+        name="account_confirm_email"),
     path('users/', include('accounts.urls')),
     path('churches/', include('churches.urls')),
     path('speakers/', include('speakers.urls')),
