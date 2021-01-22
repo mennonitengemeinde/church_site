@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 
-from church_site.views import PageProperties
+from contactus.forms import ContactUsForm
 from schedules.models import Event
 
 
@@ -12,4 +12,5 @@ class HomeView(TemplateView):
         context['page_title'] = 'Mennoniten Gemeinde'
         context['current_page'] = 'home'
         context['events'] = Event.objects.get_first_twelve()
+        context['contact_form'] = ContactUsForm
         return context

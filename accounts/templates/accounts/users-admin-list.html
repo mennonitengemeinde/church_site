@@ -3,7 +3,7 @@
 {% block add_btn %}
     {% if perms.auth.view_group %}
         <div class="py-3">
-            <a href="{% url 'accounts:groups-admin-list' %}" class="btn btn-mg-primary"><i class="fas fa-users"></i> Groups</a>
+            <a href="{% url 'accounts:groups-admin-list' %}" class="btn btn-primary"><i class="fas fa-users"></i> Groups</a>
         </div>
     {% endif %}
 {% endblock %}
@@ -45,7 +45,7 @@
                 {% endif %}
             </td>
             <td class="align-middle">
-                <a href="{% url 'accounts:users-admin-update' pk=user.id %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'accounts:users-admin-update' pk=user.id %}" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
             </td>
         </tr>
     {% endfor %}

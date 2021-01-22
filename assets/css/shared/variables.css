@@ -1,4 +1,22 @@
 :root {
+    --primary: #602627;
+    --primary-600: #521B21;
+    --primary-700: #45131C;
+    --secondary: #11A03C;
+    --secondary-600: #0C893E;
+    --secondary-700: #08733D;
+    --info: #008093;
+    --info-600: #00647E;
+    --info-700: #004B69;
+    --success: #5F990F;
+    --success-600: #4B830A;
+    --success-700: #3A6E07;
+    --warning: #AA9A03;
+    --warning-600: #928202;
+    --warning-700: #7A6C01;
+    --danger: #A81914;
+    --danger-600: #900E15;
+    --danger-700: #780A19;
     --mg-primary: #602627;
     --mg-background: #F4F2F1;
     --mg-dark: #1C2224;

@@ -43,7 +43,7 @@
             <td class="align-middle">{% if sermon.visible %}<i class="fas fa-check"></i>{% endif %}</td>
             <td class="align-middle">
                 {% if perms.sermons.change_sermon %}
-                    <a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
                 {% endif %}
             </td>
         </tr>

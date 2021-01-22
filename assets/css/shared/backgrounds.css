@@ -1,3 +1,23 @@
+.bg-primary {
+    background-color: var(--primary) !important;
+    color: white;
+}
+
+.bg-secondary {
+    background-color: var(--secondary) !important;
+    color: white;
+}
+
+.bg-info {
+    background-color: var(--info) !important;
+    color: white;
+}
+
+.bg-warning {
+    background-color: var(--warning) !important;
+    color: white;
+}
+
 .bg-mg-info {
     background-color: var(--mg-info);
 }

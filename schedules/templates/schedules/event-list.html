@@ -82,11 +82,11 @@
 {#                            {% endif %}#}
                             {% if event.available_attendance is not 0 and event.attendance_signup %}
                                 <a href="{% url 'schedules:attendants-create' church=event.church event=event.id %}"
-                                       class="btn btn-sm btn-mg-round btn-mg-primary mr-2">Signup <i
+                                       class="btn btn-sm btn-round btn-primary mr-2">Signup <i
                                             class="fas fa-pen ml-1"></i></a>
                             {% endif %}
                             {% if event.live_stream %}
-                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-mg-round btn-mg-outline-primary"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-round btn-mg-outline-primary"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
                             {% endif %}
                         </div>
                     </div>
