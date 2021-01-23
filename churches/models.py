@@ -2,18 +2,7 @@ from django.db import models
 
 from django_countries.fields import CountryField
 
-
-class ChurchQuerySet(models.query.QuerySet):
-    def is_member(self, user):
-        return self.filter(members=user)
-
-
-class ChurchManager(models.Manager):
-    def get_queryset(self):
-        return ChurchQuerySet(self.model, using=self._db)
-
-    def get_member_churches(self, user):
-        return self.filter(members=user)
+from churches.managers import ChurchManager
 
 
 class Church(models.Model):
