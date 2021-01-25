@@ -10,3 +10,11 @@ class ContactUsForm(ModelForm):
         widgets = {
             'page_title': HiddenInput()
         }
+
+    def is_valid(self):
+        valid = super(ContactUsForm, self).is_valid()
+        if valid:
+            print('is valid')
+        else:
+            print('not valid')
+        return valid

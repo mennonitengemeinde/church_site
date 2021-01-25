@@ -5,10 +5,11 @@ djangorestframework-simplejwt==4.6.0
 dj-rest-auth==2.1.3
 django-allauth==0.44.0
 django_compressor==2.4
-django-cors-headers==3.6.0
+django-cors-headers==3.7.0
 django-countries==7.0
 django-crispy-forms==1.10.0
 django-environ==0.4.5
+django-libsass==0.8
 django-pwa==1.0.10
 django-rest-swagger==2.2.0
 django-sendgrid-v5==0.9.0

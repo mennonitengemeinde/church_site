@@ -88,10 +88,10 @@
                         <hr>
 
                         <div class="d-flex justify-content-between">
-                            <div class="badge badge-mg-info local-date" data-date="{{ s_stream.start|date:'U' }}">
+                            <div class="badge badge-info local-date" data-date="{{ s_stream.start|date:'U' }}">
                                 <i class="fas fa-calendar-alt mr-1"></i>
                             </div>
-                            <div class="badge badge-mg-info local-time" data-time="{{ s_stream.start|date:'U' }}">
+                            <div class="badge badge-info local-time" data-time="{{ s_stream.start|date:'U' }}">
                                 <i class="fas fa-clock mr-1"></i>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
 
 {% block js %}
     {% compress js inline %}
-        <script src="{% static 'moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'dayjs/dayjs.min.js' %}"></script>
         <script src="{% static 'js/timezoneService.js' %}"></script>
         <script>
             function onStreamsChurchChange(church) {

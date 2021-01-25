@@ -20,14 +20,17 @@
 
     {% compress css %}
         <link rel="stylesheet" href="{% static '@fortawesome/fontawesome-free/css/all.min.css' %}">
-        <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+{#        <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">#}
+        <link type="text/x-scss" href="{% static 'bootstrap/scss/bootstrap.scss' %}" rel="stylesheet" media="screen">
 
-        <link rel="stylesheet" href="{% static 'css/shared/variables.css' %}">
+        <link type="text/x-scss" href="{% static 'css/theme.scss' %}" rel="stylesheet">
+
+{#        <link rel="stylesheet" href="{% static 'css/shared/variables.css' %}">#}
         <link rel="stylesheet" href="{% static 'css/shared/site.css' %}">
-        <link rel="stylesheet" href="{% static 'css/shared/navbar.css' %}">
+{#        <link type="text/x-scss" rel="stylesheet" href="{% static 'css/shared/navbar.scss' %}">#}
         <link rel="stylesheet" href="{% static 'css/shared/buttons.css' %}">
-        <link rel="stylesheet" href="{% static 'css/shared/text.css' %}">
-        <link rel="stylesheet" href="{% static 'css/shared/backgrounds.css' %}">
+{#        <link rel="stylesheet" href="{% static 'css/shared/text.css' %}">#}
+{#        <link rel="stylesheet" href="{% static 'css/shared/backgrounds.css' %}">#}
     {% endcompress %}
 
     {% block css %}{% endblock %}

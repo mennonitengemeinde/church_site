@@ -3,12 +3,12 @@
 {% block add_btn %}
     <div class="py-3">
         <div class="d-flex justify-content-between">
-            <a href="{% url 'accounts:users-admin-list' %}" class="btn btn-mg-outline-default">
+            <a href="{% url 'accounts:users-admin-list' %}" class="btn btn-outline-default">
                 <i class="fas fa-arrow-left mr-1"></i>Back
             </a>
             {% if btn_add_href %}
                 {% if perms.auth.add_group %}
-                    <a href="{{ btn_add_href }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add</a>
+                    <a href="{{ btn_add_href }}" class="btn btn-primary shadow"><i class="fas fa-plus"></i> Add</a>
                 {% endif %}
             {% endif %}
         </div>

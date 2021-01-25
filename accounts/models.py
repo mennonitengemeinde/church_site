@@ -12,3 +12,7 @@ class User(AbstractUser):
     churches = models.ManyToManyField(Church, related_name='members')
     # preferred_church = models.ForeignKey(Church, related_name='frequent_visitors', on_delete=models.PROTECT,
     #                                      null=True, blank=True)
+
+    @property
+    def is_verified(self):
+        return EmailAddress.objects.filter(user=self, verified=True).exists()
