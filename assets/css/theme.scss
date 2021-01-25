@@ -36,6 +36,11 @@ $dark: #222b45;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.btn-round {
+    border-radius: 1.7em;
+    padding: .5em .9em;
+}
+
 .btn-outline-default {
     background-color: $light;
     border-color: #DBD8D8;

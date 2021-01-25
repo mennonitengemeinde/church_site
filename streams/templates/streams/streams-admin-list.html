@@ -55,10 +55,3 @@
         </tr>
     {% endfor %}
 {% endblock %}
-
-{% block js %}
-    {% compress js inline %}
-        <script src="{% static 'dayjs/dayjs.min.js' %}"></script>
-        <script src="{% static 'js/timezoneService.js' %}"></script>
-    {% endcompress %}
-{% endblock %}

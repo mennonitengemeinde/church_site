@@ -105,8 +105,6 @@
 
 {% block js %}
     {% compress js inline %}
-        <script src="{% static 'dayjs/dayjs.min.js' %}"></script>
-        <script src="{% static 'js/timezoneService.js' %}"></script>
         <script>
             function onStreamsChurchChange(church) {
                 if (church !== 'None') {

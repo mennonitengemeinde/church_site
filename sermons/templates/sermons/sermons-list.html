@@ -132,8 +132,6 @@
 
 {% block js %}
     {% compress js inline %}
-        <script src="{% static 'dayjs/dayjs.min.js' %}"></script>
-        <script src="{% static 'js/timezoneService.js' %}"></script>
         <script>
             function onSermonsChurchChange(church) {
                 window.location.href = uriConstructor(church, "{{ current_speaker }}");

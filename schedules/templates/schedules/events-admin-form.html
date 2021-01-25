@@ -4,12 +4,6 @@
 {% load compress %}
 {% load crispy_forms_tags %}
 
-{% block css %}
-    {% compress css inline %}
-        <link rel="stylesheet" href="{% static 'daterangepicker/daterangepicker.css' %}">
-    {% endcompress %}
-{% endblock %}
-
 {% block form %}
     <form method="post">
         {% csrf_token %}
@@ -24,9 +18,6 @@
 
 {% block js %}
     {% compress js inline %}
-        <script src="{% static 'daterangepicker/moment.min.js' %}"></script>
-        <script src="{% static 'daterangepicker/daterangepicker.js' %}"></script>
-
         <script>
             $(function() {
                 $('#id_start').daterangepicker({
