@@ -43,6 +43,7 @@ urlpatterns = [
     path('schedules/', include('schedules.urls')),
     path('sermons/', include('sermons.urls')),
     path('streams/', include('streams.urls')),
+    path('contactus/', include('contactus.urls')),
 ]
 
 if settings.DEBUG:

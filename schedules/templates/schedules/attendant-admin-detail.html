@@ -52,7 +52,7 @@
                     <p>Are you sure you want to delete {{ attendant.full_name }}?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-mg-outline-default" data-dismiss="modal" aria-label="Close">Close</button>
+                    <button type="button" class="btn btn-outline-default" data-dismiss="modal" aria-label="Close">Close</button>
                     <form method="post" action="{% url 'schedules:attendants-admin-delete' event=attendant.event.pk pk=attendant.pk %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Delete</button>

@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {{ block.super }}
+
+    <div class="container py-4">
+
+        <a class="btn btn-outline-default shadow my-4" href="{% url 'contactus:admin-messages' %}">
+            <i class="fas fa-arrow-left mr-1"></i> Back
+        </a>
+
+        <div class="card shadow">
+            <div class="card-body">
+                <h1>Message</h1>
+                <hr>
+                <h5>Date & Time</h5>
+                <p>{{ contact_msg.message_date }}</p>
+
+                <h5>Sent from page</h5>
+                <p>{{ contact_msg.page_title }}</p>
+
+{#                {% if contact_msg.name %}#}
+                    <h5>Name</h5>
+                    <p>{{ contact_msg.name }}</p>
+{#                {% endif %}#}
+
+                {% if contact_msg.email %}
+                    <h5>Email</h5>
+                    <p>{{ contact_msg.email }}</p>
+                {% endif %}
+
+                {% if contact_msg.phone_number %}
+                    <h5>Phone Number</h5>
+                    <p>{{ contact_msg.phone_number }}</p>
+                {% endif %}
+
+                <h5>Message</h5>
+                <p>{{ contact_msg.message|linebreaksbr }}</p>
+
+                <div class="text-center pt-3">
+                    <a class="btn btn-primary shadow mr-2" href="{% url 'contactus:admin-read-message' pk=contact_msg.id %}">
+                        {% if contact_msg.read %}
+                            Mark Unread
+                        {% else %}
+                            Mark Read
+                        {% endif %}
+                    </a>
+                    <button class="btn btn-danger shadow" data-toggle="modal" data-target="#delete-modal">
+                        <i class="fas fa-trash mr-1"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete {{ contact_msg.message_date }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete {{ contact_msg.message_date }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-default" data-dismiss="modal" aria-label="Close">Close</button>
+                    <form method="post" action="{% url 'contactus:admin-delete-message' pk=contact_msg.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

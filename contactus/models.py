@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 import pytz
 
+from contactus.managers import ContactMessageManager
+
 
 class ContactMessage(models.Model):
     page_title = models.CharField(max_length=50)
@@ -11,6 +13,10 @@ class ContactMessage(models.Model):
     message = models.TextField()
     message_date = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=False)
+    deleted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
+
+    objects = ContactMessageManager
 
     class Meta:
         ordering = ['message_date']
