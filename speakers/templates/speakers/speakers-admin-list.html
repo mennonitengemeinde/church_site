@@ -19,7 +19,7 @@
                 <td class="align-middle">{{ speaker.city }}, {{ speaker.province_state }}, {{ speaker.country }}</td>
                 <td>
                     {% if perms.speakers.change_speaker %}
-                        <a href="{% url 'speakers:speakers-admin-update' pk=speaker.id %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
+                        <a href="{% url 'speakers:speakers-admin-update' pk=speaker.id %}" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
                     {% endif %}
                 </td>
             </tr>

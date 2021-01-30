@@ -30,10 +30,10 @@
 
     <div class="container py-4">
 
-        <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-mg-outline-default"><i
+        <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-outline-default"><i
                 class="fas fa-arrow-left mr-1"></i>Back</a>
 
-        <div class="card my-4">
+        <div class="card shadow my-4">
             <div class="card-body px-4 py-5">
                 <h3>{{ event.title }}</h3>
                 <h5 class="small">{{ event.church }}</h5>
@@ -77,7 +77,7 @@
                                     </td>
                                     <td>{{ attendant.amount }}</td>
                                     <td class="d-print-none">
-                                        <a href="{% url 'schedules:attendants-admin-detail' event=event.pk pk=attendant.pk %}" class="btn btn-sm btn-mg-outline-default">
+                                        <a href="{% url 'schedules:attendants-admin-detail' event=event.pk pk=attendant.pk %}" class="btn btn-sm btn-outline-default shadow">
                                             <i class="fas fa-clipboard-list"></i>
                                         </a>
                                     </td>
@@ -104,12 +104,12 @@
 
                 <div class="text-center pt-4">
                     {% if perms.schedules.change_event %}
-                        <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-mg-secondary mr-2">
+                        <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-warning shadow mr-2">
                             <i class="fas fa-edit mr-1"></i>Edit
                         </a>
                     {% endif %}
                     {% if perms.schedules.delete_event %}
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">
+                        <button class="btn btn-danger shadow" data-toggle="modal" data-target="#delete-modal">
                             <i class="fas fa-trash mr-1"></i>Delete
                         </button>
                     {% endif %}
@@ -131,21 +131,14 @@
                     <p>Are you sure you want to delete {{ event.title }}?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-mg-outline-default" data-dismiss="modal" aria-label="Close">Close</button>
+                    <button type="button" class="btn btn-outline-default shadow" data-dismiss="modal" aria-label="Close">Close</button>
                     <form method="post" action="{% url 'schedules:events-admin-delete' pk=event.pk %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger shadow">Delete</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-{% endblock %}
-
-{% block js %}
-    {% compress js inline %}
-        <script src="{% static 'moment/min/moment.min.js' %}"></script>
-        <script src="{% static 'js/timezoneService.js' %}"></script>
-    {% endcompress %}
 {% endblock %}

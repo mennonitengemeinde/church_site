@@ -42,23 +42,16 @@
             {% endif %}
             <td class="align-middle">
                 {% if perms.streams.change_stream %}
-                    <a href="{% url 'streams:streams-admin-update-live' pk=stream.id %}" class="btn btn-sm btn-mg-outline-primary">
+                    <a href="{% url 'streams:streams-admin-update-live' pk=stream.id %}" class="btn btn-sm btn-outline-primary">
                         {% if stream.live %}
                             <i class="fas fa-circle text-danger"></i> Live
                         {% else %}
                             Go Live
                         {% endif %}
                     </a>
-                    <a href="{% url 'streams:streams-admin-update' pk=stream.id %}" class="btn btn-sm btn-mg-secondary"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'streams:streams-admin-update' pk=stream.id %}" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
                 {% endif %}
             </td>
         </tr>
     {% endfor %}
-{% endblock %}
-
-{% block js %}
-    {% compress js inline %}
-        <script src="{% static 'moment/min/moment.min.js' %}"></script>
-        <script src="{% static 'js/timezoneService.js' %}"></script>
-    {% endcompress %}
 {% endblock %}

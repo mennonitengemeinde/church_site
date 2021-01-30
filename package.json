@@ -19,8 +19,8 @@
     "@fortawesome/fontawesome-free": "^5.15.1",
     "bootstrap": "^4.5.3",
     "daterangepicker": "^3.1.0",
+    "dayjs": "^1.10.4",
     "jquery": "^3.5.1",
-    "moment": "^2.29.1",
     "popper.js": "^1.16.1"
   }
 }

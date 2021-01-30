@@ -32,13 +32,14 @@
                         {% endif %}
 {#                        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>#}
                         <div class="text-center">
-                            <button class="btn btn-mg-primary" type="submit">Sign In</button>
+                            <a class="btn btn-outline-default shadow mr-2" href="{% url 'home:home' %}">Cancel</a>
+                            <button class="btn btn-primary shadow" type="submit">Sign In</button>
                         </div>
                     </form>
 
                     <hr>
 
-                    <p class="mt-4">Don't have an account? <a href="{{ signup_url }}" class="btn-link">Sign Up</a></p>
+                    <p class="mt-4">Don't have an account? <a href="{{ signup_url }}" class="btn btn-info shadow">Sign Up</a></p>
                 </div>
             </div>
 

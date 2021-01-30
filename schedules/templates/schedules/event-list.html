@@ -25,27 +25,26 @@
 
         {% for event in events %}
             {% ifchanged event.start.date %}
-                <h4 class="mt-5 text-mg-secondary local-date" data-date="{{ event.start.date|date:'U' }}"></h4>
+                <h4 class="mt-5 text-primary local-date" data-date="{{ event.start.date|date:'U' }}"></h4>
             {% endifchanged %}
 
             <div class="card my-3">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="small">{{ event.church|upper }}</div>
-                        <span class="badge badge-mg-info local-time" data-time="{{ event.start|date:'U' }}">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="card-title mb-0">{{ event.title }}</h5>
+                        <span class="badge badge-info local-time" data-time="{{ event.start|date:'U' }}">
                             <i class="fas fa-clock mr-1"></i>
-{#                            {{ event.start|time:"g:i a" }}#}
                         </span>
                     </div>
-                    <h5 class="card-title mb-0">{{ event.title }}</h5>
+                    <div class="small">{{ event.church|upper }}</div>
 
                     {% if event.in_person or event.live_stream %}
                         <div class="small">
                             {% if event.in_person %}
-                                <span class="text-mg-secondary mr-3"><i class="fas fa-church mr-1"></i>In Church</span>
+                                <span class="text-secondary mr-3"><i class="fas fa-church mr-1"></i>In Church</span>
                             {% endif %}
                             {% if event.live_stream %}
-                                <span class="text-mg-primary"><i class="fas fa-video mr-1"></i>Live Stream</span>
+                                <span class="text-primary"><i class="fas fa-video mr-1"></i>Live Stream</span>
                             {% endif %}
                         </div>
                     {% endif %}
@@ -82,11 +81,11 @@
 {#                            {% endif %}#}
                             {% if event.available_attendance is not 0 and event.attendance_signup %}
                                 <a href="{% url 'schedules:attendants-create' church=event.church event=event.id %}"
-                                       class="btn btn-sm btn-mg-round btn-mg-primary mr-2">Signup <i
+                                       class="btn btn-sm btn-round btn-primary mr-2">Signup <i
                                             class="fas fa-pen ml-1"></i></a>
                             {% endif %}
                             {% if event.live_stream %}
-                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-mg-round btn-mg-outline-primary"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-round btn-outline-primary"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
                             {% endif %}
                         </div>
                     </div>
@@ -101,8 +100,6 @@
 
 {% block js %}
     {% compress js inline %}
-        <script src="{% static 'moment/min/moment.min.js' %}"></script>
-        <script src="{% static 'js/timezoneService.js' %}"></script>
         <script>
             function onEventsChurchChange(church) {
                 if (church !== 'None') {

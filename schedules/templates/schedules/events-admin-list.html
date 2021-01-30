@@ -12,16 +12,16 @@
             <div class="d-flex justify-content-between pt-3">
                 {% url 'schedules:events-admin-all-list' as all_events_url %}
                 {% if request.path == all_events_url %}
-                    <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-mg-outline-default">Show Current</a>
+                    <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-outline-default shadow">Show Current</a>
                 {% else %}
-                    <a href="{% url 'schedules:events-admin-all-list' %}" class="btn btn-mg-outline-default">Show All</a>
+                    <a href="{% url 'schedules:events-admin-all-list' %}" class="btn btn-outline-default shadow">Show All</a>
                 {% endif %}
-                <a href="{{ btn_add_href }}" class="btn btn-mg-primary"><i class="fas fa-plus"></i> Add</a>
+                <a href="{{ btn_add_href }}" class="btn btn-primary shadow"><i class="fas fa-plus"></i> Add</a>
             </div>
         {% endif %}
 
         {% for event in events %}
-            <div class="card my-3">
+            <div class="card shadow my-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <h6 class="badge badge-info local-date" data-date="{{ event.start|date:'U' }}">
@@ -31,7 +31,7 @@
                             <i class="fas fa-clock mr-1"></i>
                         </h6>
                     </div>
-                    <h4 class="mb-0 text-mg-primary">{{ event.title }}</h4>
+                    <h4 class="mb-0 text-primary">{{ event.title }}</h4>
                     <small>{{ event.church.name }}</small>
 
                     <hr>
@@ -64,7 +64,7 @@
 
                     <div class="text-center">
                         {% if perms.schedules.view_attendant %}
-                            <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-mg-outline-default mr-2">
+                            <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-outline-primary mr-2">
                                 <i class="fas {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} mr-1"></i>Details
                             </a>
                         {% endif %}
@@ -76,11 +76,4 @@
         {% include 'snippets/paginator_snippet.html' %}
     </div>
 
-{% endblock %}
-
-{% block js %}
-    {% compress js inline %}
-        <script src="{% static 'moment/min/moment.min.js' %}"></script>
-        <script src="{% static 'js/timezoneService.js' %}"></script>
-    {% endcompress %}
 {% endblock %}

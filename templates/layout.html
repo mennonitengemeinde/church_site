@@ -66,6 +66,9 @@
                                 {% if perms.sermons.view_sermon %}
                                     <a class="dropdown-item" href="{% url 'sermons:sermons-admin-list' %}">Sermons</a>
                                 {% endif %}
+                                {% if perms.contactus.view_contact_message %}
+                                    <a class="dropdown-item" href="{% url 'contactus:admin-messages' %}">Messages</a>
+                                {% endif %}
                                 {% if perms.accounts.view_user %}
                                     <a class="dropdown-item" href="{% url 'accounts:users-admin-list' %}">Users</a>
                                 {% endif %}

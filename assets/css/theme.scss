@@ -1,0 +1,54 @@
+$primary: #602627;
+$secondary: #11A03C;
+$success: #5F990F;
+$info: #008093;
+$warning: #aa9a03;
+$danger: #A81914;
+$light: #fff;
+$dark: #222b45;
+
+@import "./bootstrap/scss/bootstrap";
+
+.nav-container {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nav-logo {
+    max-height: 4em;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    opacity: 0.7;
+    padding: .3em .8em;
+    color: $primary;
+}
+
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link {
+    opacity: 0.9;
+    border-bottom: .2em solid var(--mg-primary);
+    background-color: $primary;
+     border-radius: .5em;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-round {
+    border-radius: 1.7em;
+    padding: .5em .9em;
+}
+
+.btn-outline-default {
+    background-color: $light;
+    border-color: #DBD8D8;
+    color: $primary;
+}
+    .btn-outline-default:hover,
+    .btn-outline-default:active {
+        background-color: #DBD8D8;
+        color: $primary;
+        border-color: $primary;
+    }

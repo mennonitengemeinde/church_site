@@ -2,15 +2,22 @@
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/img/IMG_0331.jpeg") center center no-repeat;
     color: white;
     padding: 4em 2em;
-    /*background-position: center center;*/
-    /*background-repeat: no-repeat;*/
+    text-align: center;
+}
+
+.home-container > h3 > span {
+    font-size: 2rem;
 }
 
 .home-event-card {
-    border: 0;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)
+    min-height: 14.5rem;
 }
 
 .home-nav-card {
-    height: 12em;
+    height: 17em;
+}
+
+.home-nav-card > div > .card-icon {
+    font-size: 2.25rem;
+    padding-bottom: 0.5rem;
 }

@@ -12,11 +12,17 @@
 
     <div class="container pt-5">
         {# filters #}
-        <div class="card shadow mb-4">
+        <div class="card shadow mb-5">
             <div class="card-body">
 
                 <div class="row">
-                    <div class="col-12 col-md">
+                    <div class="col text-center">
+                        <h5>Filter Sermons</h5>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-sm">
                         <label for="churchFilter">Filter Church</label>
                         <select id="churchFilter" class="custom-select" onchange="onSermonsChurchChange(this.value)">
                             <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
@@ -26,7 +32,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col-12 col-md mt-3 mt-md-0">
+                    <div class="col-12 col-sm mt-3 mt-sm-0">
                         <label for="speakerFilter">Filter Speaker</label>
                         <select id="speakerFilter" class="custom-select" onchange="onSermonsSpeakerChange(this.value)">
                             <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
@@ -40,6 +46,9 @@
             </div>
         </div>
     </div>
+
+    <h4 class="mt-5 text-center text-mg-dark">Sermons</h4>
+    <hr>
 
     <div class="container-fluid pb-5">
         <div class="text-center">
@@ -69,23 +78,25 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h6 class="text-mg-info">{{ sermon.event.church }}</h6>
+                                <h6 class="text-info">{{ sermon.event.church }}</h6>
                                 <h6 class="badge badge-info local-date" data-date="{{ sermon.event.start|date:'U' }}">
                                     <i class="fas fa-calendar mr-1"></i>
                                 </h6>
                             </div>
-                            <h5 class="mb-0 text-mg-primary">{{ sermon.title }}</h5>
+                            <h5 class="mb-0 text-mg-primary">{{ sermon.title|truncatechars:30 }}</h5>
                             <small>{{ sermon.sermon_type.title }}</small>
                             <br>
-                            {% if sermon.audio_low %}<small><i class="fas fa-music mr-1"></i></small>{% endif %}
-                            {% if sermon.video_url %}<small><i class="fas fa-video"></i></small>{% endif %}
+                            {% if sermon.audio_low %}<small><i class="fas fa-music mr-1 text-warning"></i></small>{% endif %}
+                            {% if sermon.video_url %}<small><i class="fas fa-video text-danger"></i></small>{% endif %}
                             <hr>
-                            {% for speaker in sermon.speakers.all %}
-                                <div class="text-center"><i class="fas fa-microphone text-mg-secondary mr-1"></i>{{ speaker }}</div>
-                            {% endfor %}
+                            <div class="d-flex justify-content-around flex-wrap">
+                                {% for speaker in sermon.speakers.all %}
+                                    <div class="text-center"><i class="fas fa-microphone text-secondary mr-1"></i>{{ speaker }}</div>
+                                {% endfor %}
+                            </div>
 
                             <div class="text-center">
-                                <a href="{% url 'sermons:sermons-detail' pk=sermon.id church=sermon.event.church.slug %}" class="btn btn-mg-round btn-mg-primary mt-4">Open</a>
+                                <a href="{% url 'sermons:sermons-detail' pk=sermon.id church=sermon.event.church.slug %}" class="btn btn-round btn-primary mt-4">Open</a>
                             </div>
 
                         </div>
@@ -121,8 +132,6 @@
 
 {% block js %}
     {% compress js inline %}
-        <script src="{% static 'moment/min/moment.min.js' %}"></script>
-        <script src="{% static 'js/timezoneService.js' %}"></script>
         <script>
             function onSermonsChurchChange(church) {
                 window.location.href = uriConstructor(church, "{{ current_speaker }}");
