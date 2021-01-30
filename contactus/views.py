@@ -12,6 +12,7 @@ class AdminContactMessageListView(PermissionRequiredMixin, AdminListView):
     template_name = 'contactus/admin-contact-messages.html'
     model = ContactMessage
     context_object_name = 'contact_messages'
+    queryset = ContactMessage.objects.all_existing()
     page_title = 'Contact Messages - Admin'
     current_page = 'manage'
 
@@ -21,6 +22,7 @@ class AdminContactMessageDetailView(PermissionRequiredMixin, BaseDetailView):
     template_name = 'contactus/admin-message-detail.html'
     model = ContactMessage
     context_object_name = 'contact_msg'
+    # queryset = ContactMessage.objects.all_existing
     page_title = 'Contact Message - Admin'
     current_page = 'manage'
 

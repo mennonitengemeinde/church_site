@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 import pytz
 
-from contactus.managers import ContactMessageManager
+from contactus.querysets import ContactMessageQuerySet
 
 
 class ContactMessage(models.Model):
@@ -16,7 +16,7 @@ class ContactMessage(models.Model):
     deleted = models.BooleanField(default=False)
     deleted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
 
-    objects = ContactMessageManager
+    objects = ContactMessageQuerySet.as_manager()
 
     class Meta:
         ordering = ['message_date']
