@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'streams.apps.StreamsConfig',
     'home.apps.HomeConfig',
     'contactus.apps.ContactusConfig',
-    # 'telegram.apps.TelegramConfig',
+    'telegram.apps.TelegramConfig',
 ]
 
 MIDDLEWARE = [
@@ -246,6 +246,10 @@ COMPRESS_PRECOMPILERS = (
 COMPRESS_OFFLINE = True
 LIBSASS_OUTPUT_STYLE = 'compressed'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+COMPRESS_OFFLINE_CONTEXT = {
+    'current_speaker': 1,
+    'current_church': 1
+}
 
 # Send Grid
 if DEBUG:
