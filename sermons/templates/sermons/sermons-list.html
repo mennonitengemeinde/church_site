@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-12 col-sm">
                         <label for="churchFilter">Filter Church</label>
-                        <select id="churchFilter" class="custom-select" onchange="onSermonsChurchChange(this.value)">
+                        <select id="churchFilter" class="custom-select" onchange="onFilter()">
                             <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
                             {% for for_church in churches %}
                                 <option value="{{ for_church.slug }}"{% if current_church == for_church.slug %}
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-12 col-sm mt-3 mt-sm-0">
                         <label for="speakerFilter">Filter Speaker</label>
-                        <select id="speakerFilter" class="custom-select" onchange="onSermonsSpeakerChange(this.value)">
+                        <select id="speakerFilter" class="custom-select" onchange="onFilter()">
                             <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
                             {% for for_speaker in speakers %}
                                 <option value="{{ for_speaker.id }}"{% if for_speaker.id == current_speaker %}
@@ -132,33 +132,23 @@
 
 {% block js %}
     {% compress js inline %}
-{#        <script>#}
-{#            function onSermonsChurchChange(church) {#}
-{#                window.location.href = uriConstructor(church, "{{ current_speaker }}");#}
-{#            }#}
-{##}
-{#            function onSermonsSpeakerChange(speaker) {#}
-{#                window.location.href = uriConstructor("{{ current_church }}", speaker);#}
-{#            }#}
-{##}
-{#            function uriConstructor() {#}
-{#                const urlParams = new URLSearchParams(window.location.search);#}
-{#                const churchParam = urlParams.get('church');#}
-{#                const speakerParam = urlParams.get('speaker');#}
-{#                if (churchParam === undefined) {#}
-{#                    if (speakerParam === undefined) {#}
-{#                        return "{% url 'sermons:sermons-list' %}";#}
-{#                    } else {#}
-{#                        return "{% url 'sermons:sermons-list' %}?speaker=" + speakerParam;#}
-{#                    }#}
-{#                } else {#}
-{#                    if (speakerParam === undefined) {#}
-{#                        return "{% url 'sermons:sermons-list' %}" + churchParam + "/";#}
-{#                    } else {#}
-{#                        return "{% url 'sermons:sermons-list' %}" + churchParam + "/?speaker=" + speakerParam;#}
-{#                    }#}
-{#                }#}
-{#            }#}
-{#        </script>#}
+        <script>
+            function onFilter() {
+                let uri = "{% url 'sermons:sermons-list' %}";
+                const churchFilter = document.getElementById('churchFilter');
+                const speakerFilter = document.getElementById('speakerFilter');
+                if (churchFilter.value !== 'None') {
+                    uri = uri + '?church=' + churchFilter.value
+                    if (speakerFilter.value !== 'None') {
+                        uri = uri + '&speaker=' + speakerFilter.value;
+                    }
+                } else {
+                    if (speakerFilter.value !== 'None') {
+                        uri = uri + '?speaker=' + speakerFilter.value;
+                    }
+                }
+                window.location.href = uri;
+            }
+        </script>
     {% endcompress %}
 {% endblock %}

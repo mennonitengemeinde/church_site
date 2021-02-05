@@ -19,13 +19,13 @@ class SermonsListView(BaseListView):
 
     def get_queryset(self):
         return self.model.objects.filtered_sermons(
-            church=self.kwargs.get('church'),
+            church=self.request.GET.get('church'),
             speaker=self.request.GET.get('speaker')
         )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['current_church'] = self.kwargs.get('church') if self.kwargs.get('church') else None
+        context['current_church'] = self.request.GET.get('church') if self.request.GET.get('church') else None
         context['current_speaker'] = int(self.request.GET.get('speaker')) if self.request.GET.get('speaker') else None
         context['churches'] = Church.objects.all()
         context['speakers'] = Speaker.objects.all()
