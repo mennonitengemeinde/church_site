@@ -1,0 +1,137 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+{% load compress %}
+
+{% block meta %}
+    <meta name="robots" content="index, nofollow">
+{% endblock %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <div class="container py-3">
+
+        <h2 class="text-center mt-3 text-mg-dark">Live Streams</h2>
+        <hr class="mx-5">
+
+        <div id="live-app">
+            <div v-for="event in liveEvents" :key="event.id">
+                <div v-for="stream in event.streams" :key="stream.id" v-if="stream['live']"
+                     class="card shadow bg-light my-5">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0"><i class="fas fa-circle text-danger mr-2"></i>[[stream.title]]</h5>
+                        <div class="small">[[event.church.name]]</div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <div class="badge badge-info">
+                                <i class="fas fa-calendar-alt mr-1"></i>[[new Date(event.start).toDateString()]]
+                            </div>
+                            <div class="badge badge-info">
+                                <i class="fas fa-clock mr-1"></i>[[getLocalTime(event.start)]]
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div v-for="speaker in stream['speakers']" :key="speaker.name"
+                                 class="col-12 col-md text-center my-2">
+                                <div><i class="fas fa-microphone text-secondary mr-1"></i>[[ speaker.name ]]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-primary">
+                        <div class="row">
+                            <div v-if="stream['live_mixlr_audio']" class="col text-center">
+                                <a :href="`/streams/live/${event.church.slug}/${stream.id}/audio/`"
+                                   class="btn btn-warning">
+                                    <i class="fas fa-music mr-2"></i>Live Audio
+                                </a>
+                            </div>
+                            <div class="col text-center">
+                                <a :href="`/streams/live/${event.church.slug}/${stream.id}/video/`"
+                                   class="btn btn-info"><i class="fas fa-video mr-2"></i>Live Video</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-center mt-5 text-mg-dark">Scheduled Live Streams</h2>
+            <hr class="mb-3 mx-5">
+
+            <div v-for="schedule in scheduledEvents" :key="schedule.id" class="card my-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-0">[[schedule.title]]</h5>
+                    <div class="small">[[ schedule.church.name ]]</div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+                        <div class="badge badge-info">
+                            <i class="fas fa-calendar-alt mr-1"></i>[[new Date(schedule.start).toDateString()]]
+                        </div>
+                        <div class="badge badge-info">
+                            <i class="fas fa-clock mr-1"></i>[[getLocalTime(schedule.start)]]
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    {% compress js inline %}
+        <script>
+            const app = new Vue({
+                delimiters: ['[[', ']]'],
+                el: '#live-app',
+                data: {
+                    scheduledEvents: [],
+                    liveEvents: []
+                },
+                mounted: function () {
+                    this.getEvents();
+                    setInterval(() => this.getEvents(), 60000)
+                },
+                methods: {
+                    getEvents: async function () {
+                        console.log('Getting events');
+                        let response = await fetch("/api/v1/streams");
+                        if (response.ok) {
+                            const data = await response.json();
+                            let scheduledEvents = [];
+                            let liveEvents = [];
+                            for (const event of data) {
+                                let hasLive = false;
+                                {#let streams = [];#}
+                                for (const stream of event.streams) {
+                                    if (stream['live'] === true) {
+                                        hasLive = true;
+                                    }
+                                }
+                                if (hasLive === true) {
+                                    liveEvents.push(event);
+                                } else {
+                                    scheduledEvents.push(event);
+                                }
+                            }
+                            this.liveEvents = [...liveEvents];
+                            this.scheduledEvents = [...scheduledEvents];
+                        }
+                    },
+                    getLocalTime: function (date) {
+                        const d = new Date(date).toLocaleTimeString();
+                        const dAmPm = d.split(' ');
+                        const [hours, minutes, seconds] = dAmPm[0].split(':')
+                        return `${hours}:${minutes} ${dAmPm[1]}`
+                    }
+                }
+            });
+        </script>
+    {% endcompress %}
+{% endblock %}

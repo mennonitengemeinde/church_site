@@ -21,10 +21,12 @@ from django.urls import path, include
 from rest_framework import routers
 from allauth.account.views import confirm_email
 
+from streams.api.controllers import StreamsViewSet
 from telegram.api.controllers import LiveSubscriptionViewSet
 
 router = routers.DefaultRouter()
 router.register(r'subscription/live', LiveSubscriptionViewSet)
+router.register(r'streams', StreamsViewSet)
 
 urlpatterns = [
     path('', include('home.urls')),
