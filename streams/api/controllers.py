@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.utils import timezone
 from rest_framework import mixins, serializers
 from rest_framework.viewsets import GenericViewSet
@@ -34,6 +35,6 @@ class StreamsViewSet(mixins.ListModelMixin, GenericViewSet):
             model = Event
             fields = ['id', 'title', 'start', 'end', 'church', 'streams']
 
-    queryset = Event.objects.filter(start__gt=timezone.now(), live_stream=True)
+    queryset = Event.objects.filter(Q(start__gt=timezone.now(), live_stream=True) | Q(streams__live=True))
     serializer_class = EventSerializer
 
