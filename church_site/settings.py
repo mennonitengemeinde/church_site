@@ -122,7 +122,7 @@ LOGGING = {
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if env('PRODUCTION_DB', default=True):
+if env('PRODUCTION_DB', default=False):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -188,7 +188,10 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
+if DEBUG:
+    CORS_ORIGIN_ALLOW_ALL = True
+else:
+    CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS', default='')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

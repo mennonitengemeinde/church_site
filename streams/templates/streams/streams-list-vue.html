@@ -17,9 +17,16 @@
         <hr class="mx-5">
 
         <div id="live-app">
-            <div v-for="event in liveEvents" :key="event.id">
+            <div class="text-center">
+                <div class="badge badge-primary pr-3">I'll look again in:</div><span class="badge badge-secondary ml-n2">[[ countdown ]]</span>
+            </div>
+            <div class="text-center" v-if="liveEvents.length === 0">
+                <div><img class="img-responsive" :src="liveNotFound[countdownQuote].icon"></div>
+                <div class="card-text px-4">[[ liveNotFound[countdownQuote].message ]]</div>
+            </div>
+            <div class="py-4" v-for="event in liveEvents" :key="event.id">
                 <div v-for="stream in event.streams" :key="stream.id" v-if="stream['live']"
-                     class="card shadow bg-light my-5">
+                     class="card shadow bg-light">
                     <div class="card-body">
                         <h5 class="card-title mb-0"><i class="fas fa-circle text-danger mr-2"></i>[[stream.title]]</h5>
                         <div class="small">[[event.church.name]]</div>
@@ -83,7 +90,8 @@
 {% endblock %}
 
 {% block js %}
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 
     {% compress js inline %}
         <script>
@@ -91,12 +99,48 @@
                 delimiters: ['[[', ']]'],
                 el: '#live-app',
                 data: {
+                    countdown: 60,
+                    countdownQuote: 0,
                     scheduledEvents: [],
-                    liveEvents: []
+                    liveEvents: [],
+                    liveNotFound: [
+                        {
+                            icon: '/static/img/human-2412988_200.png',
+                            message: 'I don’t see any streams live at the moment, but don’t worry I will keep looking'
+                        },
+                        {
+                            icon: '/static/img/human-2412988_200.png',
+                            message: 'Go grab yourself a coffee it might take another minute'
+                        },
+                        {
+                            icon: '/static/img/human-2412988_200.png',
+                            message: 'Trust me, you don’t want to miss this'
+                        },
+                        {
+                            icon: '/static/img/human-2412988_200.png',
+                            message: 'Hang in there'
+                        },
+                        {
+                            icon: '/static/img/human-2412988_200.png',
+                            message: 'The secret of patience is to drink a coffee in the meantime'
+                        },
+                        {
+                            icon: '/static/img/human-2412988_200.png',
+                            message: 'Great things take time'
+                        }
+                    ]
                 },
                 mounted: function () {
                     this.getEvents();
-                    setInterval(() => this.getEvents(), 60000)
+                    setInterval(() => {
+                        if (this.countdown === 0) {
+                            this.countdown = 60;
+                            this.countdownQuote = Math.floor(Math.random() * 6);
+                            this.getEvents();
+                        } else {
+                            this.countdown -= 1;
+                        }
+                    }, 1000);
                 },
                 methods: {
                     getEvents: async function () {

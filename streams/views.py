@@ -18,7 +18,7 @@ class StreamsListView(View):
             'page_title': 'Live - Mennoniten Gemeinde',
             'current_page': 'live',
         }
-        return render(request, 'streams/streams-list-vue.html')
+        return render(request, 'streams/streams-list-vue.html', context)
 
 
 # class StreamsListView(BaseListView):
