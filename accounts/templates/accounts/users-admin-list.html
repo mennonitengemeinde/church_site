@@ -25,7 +25,7 @@
     {% for user_obj in users %}
         <tr>
             <td class="align-middle">{{ user_obj.username }}</td>
-            <td class="align-middle">{{ user_obj.first_name }} {{ user.last_name }}</td>
+            <td class="align-middle">{{ user_obj.first_name }} {{ user_obj.last_name }}</td>
             <td class="align-middle">{{ user_obj.email }}</td>
             <td class="align-middle">
                 {% for member in user_obj.member.all %}
