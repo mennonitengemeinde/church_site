@@ -145,27 +145,26 @@
                 methods: {
                     getEvents: async function () {
                         console.log('Getting events');
-                        let response = await fetch("/api/v1/streams");
+                        const response = await fetch("/api/v1/streams");
                         if (response.ok) {
                             const data = await response.json();
-                            let scheduledEvents = [];
-                            let liveEvents = [];
+                            const tempScheduledEvents = [];
+                            const tempLiveEvents = [];
                             for (const event of data) {
                                 let hasLive = false;
-                                {#let streams = [];#}
                                 for (const stream of event.streams) {
                                     if (stream['live'] === true) {
                                         hasLive = true;
                                     }
                                 }
                                 if (hasLive === true) {
-                                    liveEvents.push(event);
+                                    tempLiveEvents.push(event);
                                 } else {
-                                    scheduledEvents.push(event);
+                                    tempScheduledEvents.push(event);
                                 }
                             }
-                            this.liveEvents = [...liveEvents];
-                            this.scheduledEvents = [...scheduledEvents];
+                            this.liveEvents = tempLiveEvents;
+                            this.scheduledEvents = tempScheduledEvents;
                         }
                     },
                     getLocalTime: function (date) {
