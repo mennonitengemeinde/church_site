@@ -144,11 +144,9 @@
                 },
                 methods: {
                     getEvents: async function () {
-                        console.log('Getting events');
                         const response = await fetch("/api/v1/streams");
                         if (response.ok) {
                             const data = await response.json();
-                            console.log('Data:', data);
                             const tempScheduledEvents = [];
                             const tempLiveEvents = [];
                             for (const event of data) {
@@ -164,8 +162,6 @@
                                     tempScheduledEvents.push(event);
                                 }
                             }
-                            console.log('tempLiveEvents', tempLiveEvents);
-                            console.log('tempScheduledEvents', tempScheduledEvents);
                             this.liveEvents = tempLiveEvents;
                             this.scheduledEvents = tempScheduledEvents;
                         }
