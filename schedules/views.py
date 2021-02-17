@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
@@ -9,28 +9,42 @@ from django.views.generic import DeleteView
 
 from church_site.views import BaseListView, AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
 from churches.models import Church
+from schedules import selectors
 from .forms import EventForm, AttendantForm, AttendantAdminForm
 
 from .models import Event, Attendant
 
 
-class EventsListView(BaseListView):
+class EventsView(View):
     page_title = 'Events - Mennoniten Gemeinde'
     current_page = 'events'
-    model = Event
     template_name = 'schedules/event-list.html'
-    context_object_name = 'events'
 
-    def get_queryset(self):
-        if self.kwargs.get('church'):
-            return self.model.objects.filter(end__gt=timezone.now(), church__name=self.kwargs.get('church').replace('-', ' '))
-        return self.model.objects.filter(end__gt=timezone.now())
+    def get(self, request, *args, **kwargs):
+        context = {
+            'current_church': kwargs.get('church') if kwargs.get('church') else None,
+            'events': selectors.get_event_list(kwargs.get('church'))
+        }
+        return render(request, self.template_name, context)
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['current_church'] = self.kwargs.get('church') if self.kwargs.get('church') else None
-        context['churches'] = Church.objects.all()
-        return context
+
+# class EventsListView(BaseListView):
+#     page_title = 'Events - Mennoniten Gemeinde'
+#     current_page = 'events'
+#     model = Event
+#     template_name = 'schedules/event-list.html'
+#     context_object_name = 'events'
+#
+#     def get_queryset(self):
+#         if self.kwargs.get('church'):
+#             return self.model.objects.filter(end__gt=timezone.now(), church__name=self.kwargs.get('church').replace('-', ' '))
+#         return self.model.objects.filter(end__gt=timezone.now())
+#
+#     def get_context_data(self, *, object_list=None, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['current_church'] = self.kwargs.get('church') if self.kwargs.get('church') else None
+#         context['churches'] = Church.objects.all()
+#         return context
 
 
 class EventsAdminListView(PermissionRequiredMixin, AdminListView):
