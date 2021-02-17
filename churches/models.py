@@ -18,7 +18,7 @@ class Church(models.Model):
 
     @property
     def slug(self):
-        return self.name.replace(' ', '-')
+        return self.name.replace(' ', '-').lower()
 
     class Meta:
         ordering = ('country', 'name')

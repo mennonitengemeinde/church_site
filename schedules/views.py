@@ -3,53 +3,36 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.views import View
 from django.views.generic import DeleteView
 
-from church_site.views import BaseListView, AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
+from church_site.views import AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
 from churches.models import Church
 from schedules import selectors
+from shared.views import MgView
 from .forms import EventForm, AttendantForm, AttendantAdminForm
 
 from .models import Event, Attendant
 
 
-class EventsView(View):
+class EventsView(MgView):
     page_title = 'Events - Mennoniten Gemeinde'
     current_page = 'events'
     template_name = 'schedules/event-list.html'
 
     def get(self, request, *args, **kwargs):
         context = {
+            'page_title': self.page_title,
+            'current_page': self.current_page,
             'current_church': kwargs.get('church') if kwargs.get('church') else None,
-            'events': selectors.get_event_list(kwargs.get('church'))
+            'events': selectors.get_event_list(kwargs.get('church')),
+            'churches': Church.objects.all()
         }
         return render(request, self.template_name, context)
 
 
-# class EventsListView(BaseListView):
-#     page_title = 'Events - Mennoniten Gemeinde'
-#     current_page = 'events'
-#     model = Event
-#     template_name = 'schedules/event-list.html'
-#     context_object_name = 'events'
-#
-#     def get_queryset(self):
-#         if self.kwargs.get('church'):
-#             return self.model.objects.filter(end__gt=timezone.now(), church__name=self.kwargs.get('church').replace('-', ' '))
-#         return self.model.objects.filter(end__gt=timezone.now())
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['current_church'] = self.kwargs.get('church') if self.kwargs.get('church') else None
-#         context['churches'] = Church.objects.all()
-#         return context
-
-
 class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     permission_required = 'schedules.view_event'
-    model = Event
     ordering = ('-start',)
     context_object_name = 'events'
     template_name = 'schedules/events-admin-list.html'
@@ -57,14 +40,14 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     current_page = 'manage'
     btn_add_href = reverse_lazy('schedules:events-admin-create')
     paginate_by = 25
-    
+
     def get_queryset(self):
-        return self.model.objects.current_memeber_only_events(user=self.request.user)
+        return selectors.get_admin_member_only_events(self.request.user, True)
 
 
 class EventsAdminAllListView(EventsAdminListView):
     def get_queryset(self):
-        return self.model.objects.member_only_events(self.request.user)
+        return selectors.get_admin_member_only_events(self.request.user)
 
 
 class EventsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
@@ -92,7 +75,7 @@ class EventsAdminDetailView(PermissionRequiredMixin, BaseDetailView):
     current_page = 'manage'
 
     def get_queryset(self):
-        return self.model.objects.member_only_events(self.request.user)
+        return selectors.get_admin_member_only_events(self.request.user)
 
 
 class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
@@ -106,7 +89,7 @@ class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     btn_back_href = reverse_lazy('schedules:events-admin-list')
 
     def get_queryset(self):
-        return self.model.objects.member_only_events(self.request.user)
+        return selectors.get_admin_member_only_events(self.request.user)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -121,7 +104,7 @@ class EventsAdminDeleteView(PermissionRequiredMixin, DeleteView):
     success_message = 'Event was deleted successfully'
 
     def get_queryset(self):
-        return self.model.objects.member_only_events(user=self.request.user)
+        return selectors.get_admin_member_only_events(user=self.request.user)
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
@@ -164,7 +147,7 @@ class AttendantAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     page_title = 'Update Attendant - Admin'
 
     def get_queryset(self):
-        return self.model.objects.get_member_attendants(self.request.user)
+        return selectors.get_admin_member_attendants(self.request.user)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(AttendantAdminUpdateView, self).get_context_data(**kwargs)
@@ -185,7 +168,7 @@ class AttendantAdminDetailView(PermissionRequiredMixin, BaseDetailView):
     page_title = 'Attendant Detail - Admin'
 
     def get_queryset(self):
-        return self.model.objects.get_member_attendants(self.request.user)
+        return selectors.get_admin_member_attendants(self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super(AttendantAdminDetailView, self).get_context_data(**kwargs)
@@ -199,7 +182,7 @@ class AttendantAdminDeleteView(PermissionRequiredMixin, DeleteView):
     model = Attendant
 
     def get_queryset(self):
-        return self.model.objects.get_member_attendants(self.request.user)
+        return selectors.get_admin_member_attendants(self.request.user)
 
     def get_success_url(self):
         return reverse_lazy('schedules:events-admin-detail', kwargs={'pk': self.kwargs.get('event')})
