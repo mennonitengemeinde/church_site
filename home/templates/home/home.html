@@ -102,7 +102,9 @@
                                        class="btn btn-sm btn-round btn-primary shadow mr-2">Signup <i
                                             class="fas fa-pen ml-1"></i></a>
                                 {% endif %}
-                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-round btn-outline-primary shadow"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                                {% if event.live_stream %}
+                                    <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-round btn-outline-primary shadow"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
