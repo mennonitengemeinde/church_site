@@ -45,7 +45,7 @@
                 {% endif %}
             </td>
             <td class="align-middle">
-                <a href="{% url 'accounts:users-admin-update' pk=user.id %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'accounts:users-admin-update' pk=user_obj.id %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
             </td>
         </tr>
     {% endfor %}
