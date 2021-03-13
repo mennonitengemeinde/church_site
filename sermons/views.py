@@ -6,6 +6,7 @@ from church_site.views import BaseListView, BaseDetailView, BaseCreateView, Admi
 from churches.models import Church
 from sermons.forms import SermonCreateForm
 from sermons.models import Sermon
+from sermons.selectors import get_filtered_sermons, get_member_sermons
 from speakers.models import Speaker
 
 
@@ -18,10 +19,7 @@ class SermonsListView(BaseListView):
     paginate_by = 18
 
     def get_queryset(self):
-        return self.model.objects.filtered_sermons(
-            church=self.request.GET.get('church'),
-            speaker=self.request.GET.get('speaker')
-        )
+        return get_filtered_sermons(self.request.GET.get('church'), self.request.GET.get('speaker'))
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,9 +64,7 @@ class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
     paginate_by = 25
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.member_sermons(self.request.user).order_by('-event')
-        return queryset
+        return get_member_sermons(self.request.user, reverse_order=True)
 
 
 class SermonsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
@@ -98,7 +94,7 @@ class SermonAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     btn_back_href = reverse_lazy('sermons:sermons-admin-list')
 
     def get_queryset(self):
-        return self.model.objects.get_member_sermons(user=self.request.user)
+        return get_member_sermons(self.request.user)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

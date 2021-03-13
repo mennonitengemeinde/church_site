@@ -39,29 +39,6 @@ def high_audio_path(instance, filename):
         f'{uuid4()}-low.mp3')
 
 
-class SermonQuerySet(models.query.QuerySet):
-    def member_sermons(self, user):
-        return self.filter(event__church__members=user)
-
-
-class SermonManager(models.Manager):
-    def get_queryset(self):
-        return SermonQuerySet(self.model, self._db)
-
-    def get_member_sermons(self, user):
-        return self.filter(event__church__members=user)
-
-    def filtered_sermons(self, church: str = None, speaker: str = None):
-        if church and not speaker:
-            return self.filter(visible=True, event__church__name=church.replace('-', ' ')).order_by('-event')
-        elif not church and speaker:
-            return self.filter(visible=True, speakers=int(speaker)).order_by('-event')
-        elif church and speaker:
-            return self.filter(visible=True, event__church__name=church.replace('-', ' '), speakers=int(speaker)).order_by('-event')
-        else:
-            return self.filter(visible=True).order_by('-event')
-
-
 class Sermon(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='sermons')
     sermon_type = models.CharField(max_length=50, choices=sermon_types)
@@ -74,8 +51,6 @@ class Sermon(models.Model):
     video_url = models.URLField(blank=True, null=True)
     visible = models.BooleanField(default=True)
     views = models.IntegerField(default=0)
-
-    objects = SermonManager()
 
     class Meta:
         ordering = ('event', 'title')
