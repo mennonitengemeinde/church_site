@@ -2,8 +2,6 @@ from django.db import models
 
 from django_countries.fields import CountryField
 
-from churches.managers import ChurchManager
-
 
 class Church(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -13,8 +11,6 @@ class Church(models.Model):
     country = CountryField()
 
     mixlr_url = models.URLField(null=True, blank=True)
-
-    objects = ChurchManager()
 
     @property
     def slug(self):

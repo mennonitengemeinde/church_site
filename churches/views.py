@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from church_site.views import AdminListView, BaseCreateView, BaseUpdateView
 
 from churches.models import Church
+from churches.selectors import get_member_churches
 
 
 class ChurchesAdminListView(PermissionRequiredMixin, AdminListView):
@@ -38,4 +39,4 @@ class ChurchesAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     success_url = reverse_lazy('churches:churches-admin-list')
 
     def get_queryset(self):
-        return self.model.objects.get_member_churches(user=self.request.user)
+        return get_member_churches(user=self.request.user)

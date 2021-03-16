@@ -1,0 +1,14 @@
+[coverage:run]
+omit =
+   */node_modules/*
+   */.venv/*
+   manage.py
+
+[coverage:report]
+fail_under = 100
+show_missing = True
+skip_covered = True
+omit =
+   */node_modules/*
+   */venv/*
+   manage.py
