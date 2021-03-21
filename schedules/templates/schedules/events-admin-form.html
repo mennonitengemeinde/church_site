@@ -19,29 +19,15 @@
 {% block js %}
     {% compress js inline %}
         <script>
-            $(function() {
-                $('#id_start').daterangepicker({
-                    singleDatePicker: true,
-                    showDropdowns: true,
-                    timePicker: true,
-                    timePicker24Hour: true,
-                    minYear: 2000,
-                    locale: {
-                        format: "Y-MM-DD HH:mm"
-                    }
-                });
+            flatpickr('#id_start', {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                allowInput: true
             });
-            $(function() {
-                $('#id_end').daterangepicker({
-                    singleDatePicker: true,
-                    showDropdowns: true,
-                    timePicker: true,
-                    timePicker24Hour: true,
-                    minYear: 2000,
-                    locale: {
-                        format: "Y-MM-DD HH:mm"
-                    }
-                });
+            flatpickr('#id_end', {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                allowInput: true
             });
         </script>
     {% endcompress %}

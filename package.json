@@ -16,11 +16,11 @@
   },
   "homepage": "https://github.com/mennonitengemeinde/church_site#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.1",
-    "bootstrap": "^4.5.3",
-    "daterangepicker": "^3.1.0",
-    "dayjs": "^1.10.4",
-    "jquery": "^3.5.1",
-    "popper.js": "^1.16.1"
+    "@fortawesome/fontawesome-free": "5.15.2",
+    "bootstrap": "4.5.3",
+    "dayjs": "1.10.4",
+    "flatpickr": "^4.6.9",
+    "jquery": "3.5.1",
+    "popper.js": "1.16.1"
   }
 }

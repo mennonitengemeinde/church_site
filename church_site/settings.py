@@ -255,9 +255,13 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
-COMPRESS_OFFLINE = True
+if DEBUG:
+    COMPRESS_OFFLINE = False
+else:
+    COMPRESS_OFFLINE = True
 LIBSASS_OUTPUT_STYLE = 'compressed'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+LIBSASS_PRECISION = 8
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 COMPRESS_OFFLINE_CONTEXT = {
     'current_speaker': 1,
     'current_church': 1

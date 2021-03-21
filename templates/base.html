@@ -21,7 +21,7 @@
     {% compress css %}
         <link rel="stylesheet" href="{% static '@fortawesome/fontawesome-free/css/all.min.css' %}">
         <link type="text/x-scss" href="{% static 'bootstrap/scss/bootstrap.scss' %}" rel="stylesheet" media="screen">
-        <link rel="stylesheet" href="{% static 'daterangepicker/daterangepicker.css' %}">
+        <link rel="stylesheet" href="{% static 'flatpickr/dist/flatpickr.min.css' %}">
 
         <link type="text/x-scss" href="{% static 'css/theme.scss' %}" rel="stylesheet">
 
@@ -50,8 +50,7 @@
     <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'dayjs/dayjs.min.js' %}"></script>
     <script src="{% static 'js/timezoneService.js' %}"></script>
-    <script src="{% static 'daterangepicker/moment.min.js' %}"></script>
-    <script src="{% static 'daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'flatpickr/dist/flatpickr.min.js' %}"></script>
 
     <script>
         $(document).ready(function () {
