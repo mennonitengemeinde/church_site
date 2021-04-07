@@ -1,15 +1,13 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy, reverse
-from django.utils import timezone
+from django.urls import reverse_lazy
 from django.views import View
 
-from church_site.views import AdminListView, BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView
-from churches.models import Church
-from schedules.models import Event
+from church_site.views import AdminListView, BaseDetailView, BaseCreateView, BaseUpdateView
 from .forms import StreamCreateForm
 
 from .models import Stream
+from .selectors import get_live_streams, get_member_streams, get_member_stream
 
 
 class StreamsListView(View):
@@ -48,9 +46,10 @@ class LiveAudioView(BaseDetailView):
     model = Stream
     template_name = 'streams/live-audio.html'
     context_object_name = 'stream'
+    queryset = get_live_streams()
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(LiveAudioView, self).get_context_data(**kwargs)
         context['page_title'] = f'Live Audio - {self.object.title}'
         try:
             context['stream'].audio_views += 1
@@ -59,8 +58,8 @@ class LiveAudioView(BaseDetailView):
             print('Error', e)
         return context
 
-    def get_queryset(self):
-        return self.model.objects.filter(live=True)
+    # def get_queryset(self):
+    #     return self.model.objects.filter(live=True)
 
 
 class LiveVideoView(BaseDetailView):
@@ -69,6 +68,7 @@ class LiveVideoView(BaseDetailView):
     model = Stream
     template_name = 'streams/live-video.html'
     context_object_name = 'stream'
+    queryset = get_live_streams()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -80,8 +80,8 @@ class LiveVideoView(BaseDetailView):
             print('Error', e)
         return context
 
-    def get_queryset(self):
-        return self.model.objects.filter(live=True)
+    # def get_queryset(self):
+    #     return self.model.objects.filter(live=True)
 
 
 class StreamsAdminListView(PermissionRequiredMixin, AdminListView):
@@ -94,9 +94,7 @@ class StreamsAdminListView(PermissionRequiredMixin, AdminListView):
     btn_add_href = reverse_lazy('streams:streams-admin-create')
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.member_streams(self.request.user).order_by('-event')
-        return queryset
+        return get_member_streams(self.request.user, True)
 
 
 class StreamsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
@@ -110,7 +108,7 @@ class StreamsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     btn_back_href = reverse_lazy('streams:streams-admin-list')
 
     def get_queryset(self):
-        return self.model.objects.member_only_streams(user=self.request.user)
+        return get_member_streams(self.request.user)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -129,7 +127,7 @@ class StreamAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     btn_back_href = reverse_lazy('streams:streams-admin-list')
 
     def get_queryset(self):
-        return self.model.objects.member_only_streams(user=self.request.user)
+        return get_member_streams(self.request.user)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -142,8 +140,7 @@ class StreamAdminLiveUpdateView(PermissionRequiredMixin, View):
 
     # This will change the live status of the live stream
     def get(self, request, pk=None):
-        stream = Stream.objects.member_only_streams(user=self.request.user).filter(id=pk).first()
-        # stream = Stream.objects.filter(id=pk).member_events(user=self.request.user).first()
+        stream = get_member_stream(user=self.request.user, stream_id=pk)
         if stream:
             stream.live = not stream.live
             stream.save()

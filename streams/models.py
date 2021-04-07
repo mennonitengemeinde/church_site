@@ -1,20 +1,10 @@
+from uuid import uuid4
+from os import path
+
 from django.db import models
 
 from speakers.models import Speaker
 from schedules.models import Event
-
-
-class StreamQuerySet(models.query.QuerySet):
-    def member_streams(self, user):
-        return self.filter(event__church__members=user)
-
-
-class StreamManager(models.Manager):
-    def get_queryset(self):
-        return StreamQuerySet(self.model, self._db)
-
-    def member_only_streams(self, user):
-        return self.get_queryset().filter(event__church__members=user)
 
 
 class Stream(models.Model):
@@ -27,8 +17,6 @@ class Stream(models.Model):
     live = models.BooleanField(default=False)
     audio_views = models.IntegerField(default=0)
     video_views = models.IntegerField(default=0)
-
-    objects = StreamManager()
 
     class Meta:
         ordering = ('event', 'title')
