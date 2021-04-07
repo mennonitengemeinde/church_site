@@ -3,6 +3,7 @@ from django.views.generic import CreateView
 
 from contactus.forms import ContactUsForm
 from schedules.models import Event
+from schedules.selectors import get_event_list
 
 
 class HomeView(CreateView):
@@ -15,7 +16,7 @@ class HomeView(CreateView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
         context['current_page'] = 'home'
-        context['events'] = Event.objects.get_first_twelve()
+        context['events'] = get_event_list(limit=12)
         return context
 
     def get_initial(self):
