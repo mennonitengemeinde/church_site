@@ -17,21 +17,41 @@ import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-env = environ.Env(DEBUG=(bool, False))
+env = environ.Env(
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, '#xk&tivq8s*pq6ztb1%hj%kv_&h3620#n$qu+i8(xor@28wdma'),
+    ALLOWED_HOSTS=(list, ['*']),
+    ADMIN_URL=(str, 'admin/'),
+    PRODUCTION_DB=(bool, False),
+    DB_USER=(str, 'daniel'),
+    DB_PASS=(str, 'password'),
+    DB_HOST=(str, 'localhost'),
+    DB_PORT=(int, 5432),
+    CORS_ALLOWED_ORIGINS=(list, []),
+    SENDGRID_API_KEY=(str, ''),
+    DEFAULT_FROM_EMAIL=(str, ''),
+    AZURE_ACCOUNT_NAME=(str, ''),
+    AZURE_ACCOUNT_KEY=(str, ''),
+    AZURE_CONTAINER=(str, ''),
+    BOT_API_KEY=(str, ''),
+    BOT_URL=(str, ''),
+    WOL_EVENTS_BOT_TOKEN=(str, ''),
+    WOL_EVENTS_BOT_BASE_URL=(str, '')
+)
 environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY', default='#xk&tivq8s*pq6ztb1%hj%kv_&h3620#n$qu+i8(xor@28wdma')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG', default=False)
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS', default=[])
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
-ADMIN_URL = env('ADMIN_URL', default='admin/')
+ADMIN_URL = env('ADMIN_URL')
 
 # Application definition
 
@@ -122,15 +142,15 @@ LOGGING = {
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if env('PRODUCTION_DB', default=False):
+if env('PRODUCTION_DB'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'church_db',
             'USER': env('DB_USER'),
             'PASSWORD': env('DB_PASS'),
-            'HOST': env('DB_HOST', default='localhost'),
-            'PORT': env('DB_PORT', default=5432)
+            'HOST': env('DB_HOST'),
+            'PORT': env('DB_PORT')
         }
     }
 else:
@@ -193,7 +213,7 @@ REST_FRAMEWORK = {
 if DEBUG:
     CORS_ORIGIN_ALLOW_ALL = True
 else:
-    CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS', default='')
+    CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -272,15 +292,15 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
     EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = env('SENDGRID_API_KEY', default='')
+SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 SENDGRID_SANDBOX_MODE_IN_DEBUG = True
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 # Azure
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-AZURE_ACCOUNT_NAME = env('AZURE_ACCOUNT_NAME', default='')
-AZURE_ACCOUNT_KEY = env('AZURE_ACCOUNT_KEY', default='')
-AZURE_CONTAINER = env('AZURE_CONTAINER', default='')
+AZURE_ACCOUNT_NAME = env('AZURE_ACCOUNT_NAME')
+AZURE_ACCOUNT_KEY = env('AZURE_ACCOUNT_KEY')
+AZURE_CONTAINER = env('AZURE_CONTAINER')
 # AZURE_CUSTOM_DOMAIN = env('AZURE_CUSTOM_DOMAIN', default='')
 
 # Crispy Forms
@@ -353,3 +373,6 @@ PWA_APP_LANG = 'en-US'
 # Bot
 BOT_API_KEY = env('BOT_API_KEY')
 BOT_URL = env('BOT_URL')
+
+WOL_EVENTS_BOT_TOKEN = '219325259:AAGBwcfqQCTvLkKwKkcJDRrse0z3o95OznQ'
+WOL_EVENTS_BOT_BASE_URL = 'https://a3faf0281006.ngrok.io/'

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from telegram.models import LiveSubscription
+# from telegram.models import LiveSubscription
 
 
-admin.site.register(LiveSubscription)
+# admin.site.register(LiveSubscription)

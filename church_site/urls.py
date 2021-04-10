@@ -21,10 +21,10 @@ from django.urls import path, include
 from rest_framework import routers
 from allauth.account.views import confirm_email
 
-from telegram.api.controllers import LiveSubscriptionViewSet
+# from telegram.api.controllers import LiveSubscriptionViewSet
 
 router = routers.DefaultRouter()
-router.register(r'subscription/live', LiveSubscriptionViewSet)
+# router.register(r'subscription/live', LiveSubscriptionViewSet)
 # router.register(r'streams', StreamsViewSet)
 
 urlpatterns = [
@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     path('api/v1/', include(router.urls)),
     path('api/v1/streams/', include('streams.api.urls')),
+    path('api/v1/telegram/', include('telegram.api_urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
@@ -46,6 +47,7 @@ urlpatterns = [
     path('sermons/', include('sermons.urls')),
     path('streams/', include('streams.urls')),
     path('contactus/', include('contactus.urls')),
+    path('telegram/', include('telegram.urls')),
 ]
 
 if settings.DEBUG:
