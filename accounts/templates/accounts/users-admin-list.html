@@ -13,7 +13,7 @@
         <th>Username</th>
         <th>Name</th>
         <th>Email</th>
-        <th>Membership</th>
+        <th>Churches</th>
         <th>Group</th>
         <th>Validated</th>
         <th>Actions</th>
@@ -28,7 +28,7 @@
             <td class="align-middle">{{ user_obj.first_name }} {{ user_obj.last_name }}</td>
             <td class="align-middle">{{ user_obj.email }}</td>
             <td class="align-middle">
-                {% for member in user_obj.member.all %}
+                {% for member in user_obj.churches.all %}
                     {% if not forloop.last %}{{ member }} - {% else %}{{ member }}{% endif %}
                 {% endfor %}
             </td>

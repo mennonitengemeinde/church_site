@@ -16,13 +16,14 @@ class UpdateUserForm(UserChangeForm):
 
 
 class MgSignupForm(ASignUpForm):
+    """
+    Used for Django AllAuth
+    """
     first_name = CharField(max_length=30)
     last_name = CharField(max_length=150)
     country = CountryField().formfield()
 
     def save(self, request):
-        # Ensure you call the parent class's save.
-        # .save() returns a User object.
         user = super(MgSignupForm, self).save(request)
 
         user.first_name = self.cleaned_data['first_name']
@@ -30,7 +31,6 @@ class MgSignupForm(ASignUpForm):
         user.country = self.cleaned_data['country']
         user.save()
 
-        # You must return the original result.
         return user
 
 
