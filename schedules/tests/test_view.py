@@ -1,30 +1,45 @@
-from datetime import timedelta
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
+from django.urls import reverse
 
-from django.contrib.auth import get_user_model
-from django.test import TestCase
-from django.utils import timezone
-
-from churches.models import Church
 from schedules.models import Event
+from schedules.tests._setup import EventSetupTestCase
 
 
-class ScheduleViewTests(TestCase):
+class EventsViewTests(EventSetupTestCase):
 
-    def create_church(self, name='Church_1', street='street 1', city='City', province_state='State', country='CA'):
-        return Church.objects.create(name=name, street=street, city=city, province_state=province_state,
-                                     country=country)
+    def test_view_returns_200(self):
+        resp = self.client.get(reverse('schedules:events-list'))
+        self.assertEqual(resp.status_code, 200)
 
-    def create_event(self, start=timezone.now() + timedelta(days=1), end=timezone.now() + timedelta(days=2),
-                     title='Title 1', visibility='public'):
-        return Event.objects.create(start=start, end=end, title=title, visibility=visibility)
+    def test_events(self):
+        resp = self.client.get(reverse('schedules:events-list'))
+        self.assertEqual(len(resp.context['events']), 2)
 
-    def setUp(self):
-        self.church = self.create_church()
-        self.user = get_user_model().objects.create(username='test_user')
-        self.user.churches.add(self.church)
 
-    def test_event_admin_view(self):
-        event = self.create_event()
-        event.church = self.church
-        event.save()
-        return True
+class EventsAdminListViewTests(EventSetupTestCase):
+
+    def test_403_if_no_permission(self):
+        self.client.login(username='test_user', password='password')
+        url = reverse('schedules:events-admin-list')
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 403)
+
+    def test_redirect_anonymous(self):
+        url = reverse('schedules:events-admin-list')
+        resp = self.client.get(url)
+
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.url.split('?')[0], reverse('account_login'))
+
+    def test_view_with_permissions(self):
+        content_type = ContentType.objects.get_for_model(Event, for_concrete_model=True)
+        can_view_event = Permission.objects.filter(content_type=content_type, codename='view_event').first()
+        self.user.user_permissions.add(can_view_event)
+
+        self.client.login(username='test_user', password='password')
+        url = reverse('schedules:events-admin-list')
+        resp = self.client.get(url)
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(len(resp.context['events']), 2)
