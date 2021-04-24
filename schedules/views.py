@@ -42,7 +42,7 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     paginate_by = 25
 
     def get_queryset(self):
-        return selectors.get_member_only_events(self.request.user, True)
+        return selectors.get_current_member_only_events(self.request.user, True)
 
 
 class EventsAdminAllListView(EventsAdminListView):
