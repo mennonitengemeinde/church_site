@@ -47,7 +47,7 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
 
 class EventsAdminAllListView(EventsAdminListView):
     def get_queryset(self):
-        return selectors.get_member_only_events(self.request.user)
+        return selectors.get_member_only_events(self.request.user, reverse_order=True)
 
 
 class EventsAdminCreateView(PermissionRequiredMixin, BaseCreateView):

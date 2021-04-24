@@ -7,16 +7,16 @@ from schedules.models import Event, Attendant
 
 def get_current_member_only_events(user: int, reverse_order: bool = False) -> Iterable[Event]:
     if reverse_order:
-        return Event.objects.filter(church__members=user, end__gt=timezone.now()).order_by('start')
-    else:
         return Event.objects.filter(church__members=user, end__gt=timezone.now()).order_by('-start')
+    else:
+        return Event.objects.filter(church__members=user, end__gt=timezone.now()).order_by('start')
 
 
 def get_member_only_events(user: int, reverse_order: bool = False) -> Iterable[Event]:
     if reverse_order:
-        return Event.objects.filter(church__members=user).order_by('start')
-    else:
         return Event.objects.filter(church__members=user).order_by('-start')
+    else:
+        return Event.objects.filter(church__members=user).order_by('start')
 
 
 def get_admin_member_attendants(user: int) -> Iterable[Attendant]:
