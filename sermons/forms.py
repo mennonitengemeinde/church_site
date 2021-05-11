@@ -1,13 +1,13 @@
 from django.forms import ModelForm
 
-from schedules.selectors import get_member_only_events
+from schedules.selectors import get_admin_events
 from sermons.models import Sermon
 
 
 class SermonCreateForm(ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(SermonCreateForm, self).__init__(*args, **kwargs)
-        self.fields['event'].queryset = get_member_only_events(user=user, reverse_order=True)
+        self.fields['event'].queryset = get_admin_events(user=user, order_by_start='desc')
 
     class Meta:
         model = Sermon

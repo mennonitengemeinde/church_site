@@ -14,7 +14,7 @@ class EventsViewTests(EventSetupTestCase):
 
     def test_events(self):
         resp = self.client.get(reverse('schedules:events-list'))
-        self.assertEqual(len(resp.context['events']), 2)
+        self.assertEqual(len(resp.context['events']), 3)
 
 
 class EventsAdminListViewTests(EventSetupTestCase):
@@ -42,4 +42,4 @@ class EventsAdminListViewTests(EventSetupTestCase):
         resp = self.client.get(url)
 
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(len(resp.context['events']), 2)
+        self.assertEqual(len(resp.context['events']), 3)

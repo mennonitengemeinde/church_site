@@ -58,7 +58,7 @@ deactivate
 ```
 
 #### Install dependencies
-Make sure you activated the python virtual enviroment.
+Make sure you activated the python virtual environment.
 If you see (venv) then your good to continue.
 
 Install python packages:
@@ -97,3 +97,10 @@ python manage.py runserver
 
 At this point you can navigate with a web browser to the following: http://127.0.0.1:8000
 
+#### Test App
+To check coverage run:
+```
+coverage run manage.py test app_name -v 2
+
+coverage html
+```

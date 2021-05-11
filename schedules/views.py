@@ -25,7 +25,7 @@ class EventsView(MgView):
             'page_title': self.page_title,
             'current_page': self.current_page,
             'current_church': kwargs.get('church') if kwargs.get('church') else None,
-            'events': selectors.get_event_list(kwargs.get('church')),
+            'events': selectors.get_events(church_name=kwargs.get('church')),
             'churches': Church.objects.all()
         }
         return render(request, self.template_name, context)
@@ -42,12 +42,12 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     paginate_by = 25
 
     def get_queryset(self):
-        return selectors.get_current_member_only_events(self.request.user, True)
+        return selectors.get_admin_events(user=self.request.user, current_events_only=True, order_by_start='asc')
 
 
 class EventsAdminAllListView(EventsAdminListView):
     def get_queryset(self):
-        return selectors.get_member_only_events(self.request.user, reverse_order=True)
+        return selectors.get_admin_events(user=self.request.user, order_by_start='asc')
 
 
 class EventsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
@@ -75,7 +75,7 @@ class EventsAdminDetailView(PermissionRequiredMixin, BaseDetailView):
     current_page = 'manage'
 
     def get_queryset(self):
-        return selectors.get_member_only_events(self.request.user)
+        return selectors.get_admin_events(user=self.request.user)
 
 
 class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
@@ -89,7 +89,7 @@ class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     btn_back_href = reverse_lazy('schedules:events-admin-list')
 
     def get_queryset(self):
-        return selectors.get_member_only_events(self.request.user)
+        return selectors.get_admin_events(user=self.request.user)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -104,7 +104,7 @@ class EventsAdminDeleteView(PermissionRequiredMixin, DeleteView):
     success_message = 'Event was deleted successfully'
 
     def get_queryset(self):
-        return selectors.get_member_only_events(user=self.request.user)
+        return selectors.get_admin_events(user=self.request.user)
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)

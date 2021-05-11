@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from churches.models import Church
-from schedules.models import Event
+from schedules.models import Event, Attendant
 
 
 class EventSetupTestCase(TestCase):
@@ -24,8 +24,13 @@ class EventSetupTestCase(TestCase):
         self.user = get_user_model().objects.create_user(username='test_user', password='password')
         self.user.churches.add(church_1)
 
-        self.create_event(church_1)
+        self.create_event(church_1, start=timezone.now() + timedelta(days=1, hours=1))
+        event_1 = self.create_event(church_1, title='Title 5')
         self.create_event(church_1, title='Title 2', visibility='private')
         self.create_event(church_1, start=timezone.now() - timedelta(days=2), end=timezone.now() - timedelta(days=1),
                           title='Title 3', visibility='public')
-        self.create_event(church_2, title='Title 4')
+        event_2 = self.create_event(church_2, title='Title 4')
+
+        Attendant.objects.create(event=event_1, full_name='Attendant 1', amount=1)
+        Attendant.objects.create(event=event_1, full_name='Attendant 2', amount=2)
+        Attendant.objects.create(event=event_2, full_name='Attendant 3', amount=3)

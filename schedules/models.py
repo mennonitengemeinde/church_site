@@ -5,7 +5,6 @@ from django.db import models
 
 from churches.models import Church
 from speakers.models import Speaker
-from schedules.managers import AttendantManager, EventManager
 
 visibility_choices = (
     ('public', 'Public'),
@@ -28,8 +27,6 @@ class Event(models.Model):
     attendance_limit = models.IntegerField(default=0)
     attendance_signup = models.BooleanField(default=False)
     visibility = models.CharField(max_length=50, choices=visibility_choices)
-
-    objects = EventManager()
 
     @property
     def available_attendance(self):
@@ -61,8 +58,6 @@ class Attendant(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='attendants')
     full_name = models.CharField(max_length=150)
     amount = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-
-    objects = AttendantManager()
 
     class Meta:
         ordering = ('event', 'full_name')
