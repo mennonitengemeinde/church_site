@@ -29,7 +29,6 @@ class AttendantAdminForm(ModelForm):
         fields = ('event', 'full_name', 'amount')
 
     def clean_amount(self):
-        print(self.instance.amount)
         amount = self.cleaned_data.get('amount')
         event = self.cleaned_data.get('event')
         available = event.available_attendance + self.instance.amount
