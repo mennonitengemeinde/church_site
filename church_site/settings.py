@@ -142,6 +142,8 @@ LOGGING = {
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 if env('PRODUCTION_DB'):
     DATABASES = {
         'default': {
