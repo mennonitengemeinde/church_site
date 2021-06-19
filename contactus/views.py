@@ -13,6 +13,7 @@ class AdminContactMessageListView(PermissionRequiredMixin, AdminListView):
     model = ContactMessage
     context_object_name = 'contact_messages'
     queryset = ContactMessage.objects.all_existing()
+    ordering = ['-message_date']
     page_title = 'Contact Messages - Admin'
     current_page = 'manage'
 
