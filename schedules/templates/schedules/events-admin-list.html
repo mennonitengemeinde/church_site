@@ -10,12 +10,15 @@
     <div class="container">
         {% if btn_add_href and perms.schedules.add_event %}
             <div class="d-flex justify-content-between pt-3">
-                {% url 'schedules:events-admin-all-list' as all_events_url %}
-                {% if request.path == all_events_url %}
-                    <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-outline-default shadow">Show Current</a>
-                {% else %}
-                    <a href="{% url 'schedules:events-admin-all-list' %}" class="btn btn-outline-default shadow">Show All</a>
-                {% endif %}
+                <div>
+                    {% url 'schedules:events-admin-all-list' as all_events_url %}
+                    {% if request.path == all_events_url %}
+                        <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-outline-default shadow">Show Current</a>
+                    {% else %}
+                        <a href="{% url 'schedules:events-admin-all-list' %}" class="btn btn-outline-default shadow">Show All</a>
+                    {% endif %}
+                    <a href="{% url 'schedules:event-templates-admin-list' %}" class="btn btn-secondary ml-1 shadow">Templates</a>
+                </div>
                 <a href="{{ btn_add_href }}" class="btn btn-primary shadow"><i class="fas fa-plus"></i> Add</a>
             </div>
         {% endif %}

@@ -37,10 +37,11 @@
 
                     <hr>
 
-                    <div class="text-center">
-                        <a href="{% url 'account_change_password' %}" class="btn btn-warning shadow">Change Password</a>
-
-                    </div>
+                    {% if not user_obj.socialaccount_set.exists %}
+                        <div class="text-center">
+                            <a href="{% url 'account_change_password' %}" class="btn btn-warning shadow">Change Password</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

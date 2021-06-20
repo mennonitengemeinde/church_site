@@ -1,0 +1,29 @@
+{% extends 'admin-list-layout.html' %}
+
+{% block add_btn %}
+    {% if perms.schedules.add_eventtemplate %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block table_head %}
+    <tr>
+        <th>Title</th>
+        <th>Church</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+
+{% block table_body %}
+    {% for et in event_templates %}
+        <tr>
+            <td class="align-middle">{{ et.title }}</td>
+            <td class="align-middle">{{ et.church }}</td>
+            <td class="align-middle">
+                {% if perms.schedules.change_eventtemplate %}
+                    <a href="#" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

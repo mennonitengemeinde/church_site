@@ -12,7 +12,9 @@ from .views import (
     EventsAdminCreateView,
     EventsAdminUpdateView,
     EventsAdminDeleteView,
-    EventsView
+    EventsView,
+    EventTemplateAdminListView,
+    EventTemplateAdminCreateView,
 )
 
 app_name = 'schedules'
@@ -35,4 +37,6 @@ urlpatterns = [
          name='attendants-admin-delete'),
     path('manage/events/<int:pk>/attendants/signup/toggle/', AttendantAdminSignupToggle.as_view(),
          name='attendants-admin-signup-toggle'),
+    path('manage/event-templates/', EventTemplateAdminListView.as_view(), name='event-templates-admin-list'),
+    path('manage/event-templates/add/', EventTemplateAdminCreateView.as_view(), name='event-templates-admin-create'),
 ]

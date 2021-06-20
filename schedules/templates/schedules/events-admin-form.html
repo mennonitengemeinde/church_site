@@ -4,6 +4,19 @@
 {% load compress %}
 {% load crispy_forms_tags %}
 
+{% block form_header %}
+    <div class="form-group">
+        <label for="id_template">Template</label>
+        <select class="select form-control" name="template" id="id_template" onchange="addTemplateDate()">
+            <option value="None"{% if selected_template == 'None' %} selected{% endif %}>---------</option>
+            {% for et in event_templates %}
+                <option value="{{ et.id }}"{% if selected_template == et.id %} selected{% endif %}>{{ et }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <hr>
+{% endblock %}
+
 {% block form %}
     <form method="post">
         {% csrf_token %}
@@ -29,6 +42,15 @@
                 dateFormat: "Y-m-d H:i",
                 allowInput: true
             });
+
+            function addTemplateDate() {
+                let uri = "{% url 'schedules:events-admin-create' %}";
+                const templateSelect = document.getElementById('id_template');
+                if (templateSelect.value !== 'None') {
+                    uri = uri + '?template=' + templateSelect.value;
+                }
+                window.location.href = uri;
+            }
         </script>
     {% endcompress %}
 {% endblock %}

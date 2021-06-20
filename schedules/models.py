@@ -54,6 +54,25 @@ class Event(models.Model):
         return f'{local_date.strftime("%G-%m-%d %I:%M%p")} - {self.church.name} - {self.title}'
 
 
+class EventTemplate(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
+    map_search_query = models.CharField(max_length=300, blank=True, null=True)
+
+    in_person = models.BooleanField(default=True)
+    live_stream = models.BooleanField(default=False)
+    attendance_limit = models.IntegerField(default=0)
+    attendance_signup = models.BooleanField(default=False)
+    visibility = models.CharField(max_length=50, choices=visibility_choices)
+
+    class Meta:
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
+
+
 class Attendant(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='attendants')
     full_name = models.CharField(max_length=150)
