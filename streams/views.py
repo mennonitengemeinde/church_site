@@ -19,27 +19,6 @@ class StreamsListView(View):
         return render(request, 'streams/streams-list-vue.html', context)
 
 
-# class StreamsListView(BaseListView):
-#     page_title = 'Live - Mennoniten Gemeinde'
-#     current_page = 'live'
-#     model = Stream
-#     template_name = 'streams/streams-list.html'
-#     context_object_name = 'streams'
-#
-#     def get_queryset(self):
-#         if self.kwargs.get('church'):
-#             return self.model.objects.filter(live=True,
-#                                              event__church__name=self.kwargs.get('church').replace('-', ' '))
-#         return Stream.objects.filter(live=True)
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['churches'] = Church.objects.all()
-#         context['current_church'] = self.kwargs.get('church') if self.kwargs.get('church') else None
-#         context['schedule'] = Event.objects.filter(start__gt=timezone.now(), live_stream=True)
-#         return context
-
-
 class LiveAudioView(BaseDetailView):
     # page_title = 'Page Title'
     current_page = 'live'

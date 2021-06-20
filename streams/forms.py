@@ -8,7 +8,7 @@ from streams.models import Stream
 class StreamCreateForm(ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['event'].queryset = get_admin_events(user=user, order_by_start='desc')
+        self.fields['event'].queryset = get_admin_events(user=user, order_by_start='asc')
 
     class Meta:
         model = Stream
