@@ -151,8 +151,26 @@ class EventTemplateAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     btn_back_href = reverse_lazy('schedules:event-templates-admin-list')
     model = EventTemplate
     template_name = 'admin-form-view.html'
-    fields = ('church', 'title', 'description', 'address', 'map_search_query', 'in_person', 'live_stream',
+    fields = ('title', 'description', 'address', 'map_search_query', 'in_person', 'live_stream',
               'attendance_limit', 'attendance_signup', 'visibility')
+    success_url = reverse_lazy('schedules:event-templates-admin-list')
+
+
+class EventTemplateAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
+    permission_required = 'schedules.change_eventtemplate'
+    page_title = 'New Template - Admin'
+    current_page = 'manage'
+    btn_back_href = reverse_lazy('schedules:event-templates-admin-list')
+    model = EventTemplate
+    template_name = 'admin-form-view.html'
+    fields = ('title', 'description', 'address', 'map_search_query', 'in_person', 'live_stream',
+              'attendance_limit', 'attendance_signup', 'visibility')
+    success_url = reverse_lazy('schedules:event-templates-admin-list')
+
+
+class EventTemplateAdminDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'schedules.delete_eventtemplate'
+    model = EventTemplate
     success_url = reverse_lazy('schedules:event-templates-admin-list')
 
 

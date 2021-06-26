@@ -9,7 +9,6 @@
 {% block table_head %}
     <tr>
         <th>Title</th>
-        <th>Church</th>
         <th>Actions</th>
     </tr>
 {% endblock %}
@@ -18,10 +17,22 @@
     {% for et in event_templates %}
         <tr>
             <td class="align-middle">{{ et.title }}</td>
-            <td class="align-middle">{{ et.church }}</td>
-            <td class="align-middle">
+            <td class="d-flex align-items-center">
                 {% if perms.schedules.change_eventtemplate %}
-                    <a href="#" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'schedules:event-templates-admin-update' pk=et.id %}" class="btn btn-sm btn-secondary shadow">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                {% endif %}
+                {% if perms.schedules.delete_eventtemplate %}
+                    <form method="post" action="{% url 'schedules:event-templates-admin-delete' pk=et.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger shadow ml-2">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+{#                    <a href="{% url 'schedules:event-templates-admin-delete' pk=et.id %}" class="btn btn-sm btn-danger">#}
+{#                        <i class="fas fa-trash"></i>#}
+{#                    </a>#}
                 {% endif %}
             </td>
         </tr>
