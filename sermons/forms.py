@@ -7,7 +7,7 @@ from sermons.models import Sermon
 class SermonCreateForm(ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(SermonCreateForm, self).__init__(*args, **kwargs)
-        self.fields['event'].queryset = get_admin_events(user=user, order_by_start='desc')
+        self.fields['event'].queryset = get_admin_events(user=user, order_by_start='asc')
 
     class Meta:
         model = Sermon
