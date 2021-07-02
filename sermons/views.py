@@ -27,7 +27,17 @@ class SermonsListView(BaseListView):
         context['current_speaker'] = int(self.request.GET.get('speaker')) if self.request.GET.get('speaker') else None
         context['churches'] = Church.objects.all()
         context['speakers'] = Speaker.objects.all()
+        context['page_filter'] = self.get_page_filter()
         return context
+
+    def get_page_filter(self):
+        """keeps the filter in get request when paginating"""
+        if self.request_get.get('church') and self.request_get.get('speaker'):
+            return f"church={self.request_get.get('church')}&speaker={self.request_get.get('speaker')}"
+        elif self.request_get.get('church') and not self.request_get.get('speaker'):
+            return f"church={self.request_get.get('church')}"
+        elif self.request_get.get('speaker') and not self.request_get.get('church'):
+            return f"speaker={self.request_get.get('speaker')}"
 
 
 class SermonsDetailView(BaseDetailView):

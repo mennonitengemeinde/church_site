@@ -2,7 +2,7 @@
     {% if page_obj.paginator.num_pages > 1 %}
         <span>
             {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-outline-default">
+                <a href="?page={{ page_obj.previous_page_number }}{% if page_filter %}&{{ page_filter }}{% endif %}" class="btn btn-sm btn-outline-default">
                     <i class="fas fa-chevron-circle-left"></i>
                 </a>
             {% endif %}
@@ -12,7 +12,7 @@
         {% endif %}
         <span>
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-outline-default">
+                <a href="?page={{ page_obj.next_page_number }}{% if page_filter %}&{{ page_filter }}{% endif %}" class="btn btn-sm btn-outline-default">
                     <i class="fas fa-chevron-circle-right"></i>
                 </a>
             {% endif %}
