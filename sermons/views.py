@@ -1,13 +1,15 @@
+import logging
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 
 from church_site.views import BaseListView, BaseDetailView, BaseCreateView, AdminListView, BaseUpdateView
-
 from churches.models import Church
 from sermons.forms import SermonCreateForm
 from sermons.models import Sermon
 from sermons.selectors import get_filtered_sermons, get_member_sermons
 from speakers.models import Speaker
+
+logger = logging.getLogger(__name__)
 
 
 class SermonsListView(BaseListView):
@@ -32,12 +34,12 @@ class SermonsListView(BaseListView):
 
     def get_page_filter(self):
         """keeps the filter in get request when paginating"""
-        if self.request_get.get('church') and self.request_get.get('speaker'):
-            return f"church={self.request_get.get('church')}&speaker={self.request_get.get('speaker')}"
-        elif self.request_get.get('church') and not self.request_get.get('speaker'):
-            return f"church={self.request_get.get('church')}"
-        elif self.request_get.get('speaker') and not self.request_get.get('church'):
-            return f"speaker={self.request_get.get('speaker')}"
+        if self.request.GET.get('church') and self.request.GET.get('speaker'):
+            return f"church={self.request.GET.get('church')}&speaker={self.request.GET.get('speaker')}"
+        elif self.request.GET.get('church') and not self.request.GET.get('speaker'):
+            return f"church={self.request.GET.get('church')}"
+        elif self.request.GET.get('speaker') and not self.request.GET.get('church'):
+            return f"speaker={self.request.GET.get('speaker')}"
 
 
 class SermonsDetailView(BaseDetailView):
@@ -55,7 +57,7 @@ class SermonsDetailView(BaseDetailView):
             context['sermon'].views += 1
             context['sermon'].save()
         except Exception as e:
-            print('Error', e)
+            logger.error(e)
         return context
 
     def get_page_title(self) -> str:
