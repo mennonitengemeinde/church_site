@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 
 from accounts.forms import UpdateUserForm
 from accounts.models import User
+from accounts.selectors import get_users_from_same_church
 from church_site.views import AdminListView, BaseUpdateView, BaseCreateView, BaseDetailView
 
 
@@ -28,10 +29,7 @@ class UsersAdminListView(PermissionRequiredMixin, AdminListView):
     current_page = 'manage'
 
     def get_queryset(self):
-        if self.request.user.is_superuser:
-            return User.objects.all()
-        else:
-            return User.objects.filter(Q(member__in=self.request.user.churches.all()) | Q(member__isnull=True)).distinct()
+        return get_users_from_same_church(self.request.user)
 
 
 class UsersAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
