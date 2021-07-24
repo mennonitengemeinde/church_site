@@ -15,7 +15,8 @@
         <th>Email</th>
         <th>Churches</th>
         <th>Group</th>
-        <th>Validated</th>
+        <th>Last Login</th>
+        <th>V</th>
         <th>Actions</th>
     </tr>
 {% endblock %}
@@ -36,6 +37,9 @@
                 {% for group in user_obj.groups.all %}
                     {% if not forloop.last %}{{ group }} - {% else %}{{ group }}{% endif %}
                 {% endfor %}
+            </td>
+            <td class="align-middle">
+                {{ user_obj.last_login }}
             </td>
             <td class="align-middle">
                 {% if user_obj.is_verified %}
