@@ -16,9 +16,9 @@
   },
   "homepage": "https://github.com/mennonitengemeinde/church_site#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.15.3",
+    "@fortawesome/fontawesome-free": "5.15.4",
     "bootstrap": "4.5.3",
-    "dayjs": "1.10.4",
+    "dayjs": "1.10.7",
     "flatpickr": "4.6.9",
     "jquery": "3.5.1",
     "popper.js": "1.16.1"
