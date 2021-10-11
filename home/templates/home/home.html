@@ -10,7 +10,7 @@
 
 {% block css %}
     {% compress css inline %}
-        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <link type="text/x-scss" href="{% static 'scss/home.scss' %}" rel="stylesheet">
     {% endcompress %}
 {% endblock %}
 
@@ -18,7 +18,7 @@
     {{ block.super }}
 
     <div class="home-container">
-        <h3 class="card-title">Welcome to <span class="text-secondary">Mennoniten Gemeinde</span></h3>
+        <h3 class="card-title">Welcome to <span class="text-success">Mennoniten Gemeinde</span></h3>
 {#        <h6>Here you will find Sermons which could be a blessing for your Spiritual life</h6>#}
         <hr>
 {#        <p>Look not every man on his own things, but every man also on the things of others.#}
@@ -51,7 +51,7 @@
 {##}
 {#        </div>#}
 
-        <h4 class="mt-5 text-center text-mg-dark">Upcoming Events</h4>
+        <h4 class="mt-5 text-center text-dark">Upcoming Events</h4>
         <hr>
 
         <div class="row">
@@ -64,25 +64,25 @@
                                 <div class="small">{{ event.church|upper }}</div>
                             </div>
                             <div class="mb-1">
-                                <span class="small local-date mr-3" data-date="{{ event.start|date:'U' }}">
-                                    <i class="fas fa-calendar-alt mr-1"></i>
+                                <span class="small local-date me-3" data-date="{{ event.start|date:'U' }}">
+                                    <i class="fas fa-calendar-alt me-1"></i>
                                 </span>
                                 <span class="small local-time" data-time="{{ event.start|date:'U' }}">
-                                    <i class="fas fa-clock mr-1"></i>
+                                    <i class="fas fa-clock me-1"></i>
                                 </span>
                             </div>
 
                             {% if event.in_person or event.live_stream %}
                                 <div class="small">
                                     {% if event.in_person %}
-                                        <span class="text-secondary mr-3"><i
-                                                class="fas fa-church mr-1"></i>In Church</span>
+                                        <span class="text-secondary me-3"><i
+                                                class="fas fa-church me-1"></i>In Church</span>
                                     {% endif %}
                                     {% if event.live_stream %}
                                         <span class="text-info"><i
-                                                class="fas fa-video mr-1"></i>Live stream</span>
+                                                class="fas fa-video me-1"></i>Live stream</span>
 {#                                        <div class="text-center mt-3">#}
-{#                                            <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-round btn-mg-outline-primary"><i class="fas fa-circle text-danger mr-1"></i>Live</a>#}
+{#                                            <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-round btn-mg-outline-primary"><i class="fas fa-circle text-danger me-1"></i>Live</a>#}
 {#                                        </div>#}
                                         {% endif %}
                                 </div>
@@ -99,11 +99,11 @@
                             <div class="d-flex flex-grow-1 justify-content-around align-items-end">
                                 {% if event.available_attendance is not 0 and event.attendance_signup %}
                                     <a href="{% url 'schedules:attendants-create' church=event.church event=event.id %}"
-                                       class="btn btn-sm btn-round btn-primary shadow mr-2">Signup <i
-                                            class="fas fa-pen ml-1"></i></a>
+                                       class="btn btn-sm btn-round btn-primary shadow me-2">Signup <i
+                                            class="fas fa-pen ms-1"></i></a>
                                 {% endif %}
                                 {% if event.live_stream %}
-                                    <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-round btn-outline-primary shadow"><i class="fas fa-circle text-danger mr-1"></i>Live</a>
+                                    <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-round btn-outline-primary shadow"><i class="fas fa-circle text-danger me-1"></i>Live</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -113,34 +113,34 @@
         </div>
 
         <div class="text-center py-3">
-            <a href="{% url 'schedules:events-list' %}" class="btn btn-round btn-secondary shadow"><i
-                    class="fas fa-calendar-alt mr-2"></i>Show all Events</a>
+            <a href="{% url 'schedules:events-list' %}" class="btn btn-round btn-secondary text-light shadow"><i
+                    class="fas fa-calendar-alt me-2"></i>Show all Events</a>
         </div>
 
     </div>
 
 {#    <hr>#}
 
-    <div class="row bg-primary m-0 py-5">
-        <div class="card bg-warning text-light home-nav-card shadow col-8 offset-2 col-md-4 offset-md-1 col-lg-3 offset-lg-2 mb-5 mb-md-0">
+    <div class="row text-light bg-primary m-0 py-5">
+        <div class="card bg-warning home-nav-card shadow col-8 offset-2 col-md-4 offset-md-1 col-lg-3 offset-lg-2 mb-5 mb-md-0">
             <div class="card-body d-flex flex-column text-center">
                 <div class="card-icon"><i class="fas fa-microphone"></i></div>
                 <h4>Sermons</h4>
                 <p class="card-text">Watch or listen to past recorded sermons</p>
                 <a class="btn btn-round btn-outline-default shadow mt-auto" href="{% url 'sermons:sermons-list' %}">
-                    <i class="fas fa-microphone mr-1"></i>
+                    <i class="fas fa-microphone me-1"></i>
                     Sermons
                 </a>
             </div>
         </div>
 
-        <div class="card bg-info text-light home-nav-card shadow col-8 offset-2 col-md-4 offset-md-2 col-lg-3 offset-lg-2">
+        <div class="card bg-secondary home-nav-card shadow col-8 offset-2 col-md-4 offset-md-2 col-lg-3 offset-lg-2">
             <div class="card-body d-flex flex-column text-center">
                 <div class="card-icon"><i class="fas fa-camera"></i></div>
                 <h4>Live</h4>
                 <p class="card-text">Watch or listen to live sermons</p>
                 <a class="btn btn-round btn-outline-default shadow mt-auto" href="{% url 'streams:streams-list' %}">
-                    <i class="fas fa-circle mr-1"></i>
+                    <i class="fas fa-circle me-1"></i>
                     Live
                 </a>
             </div>

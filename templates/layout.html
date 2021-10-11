@@ -8,7 +8,7 @@
 
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-auto-dismiss {{ message.level|notify }} m-0" role="alert">
+            <div class="alert alert-auto-dismiss {{ message.level|notify }} fade show m-0" role="alert" data-bs-dismiss="alert">
                 {{ message }}
             </div>
         {% endfor %}
@@ -20,14 +20,14 @@
                  alt="Logo">
         </div>
 
-        <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-end">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-end px-3">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item {% if current_page == 'home' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'home:home' %}">Home</a>
                     </li>
@@ -78,24 +78,24 @@
                     {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {% if user.first_name %}
                                     {{ user.first_name }}
                                 {% else %}
                                     {% user_display user %}
                                 {% endif %}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{% url 'accounts:user-profile' %}">Profile</a>
-                                <form method="post" action="{% url 'account_logout' %}">
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="{% url 'accounts:user-profile' %}">Profile</a></li>
+                                <li><form method="post" action="{% url 'account_logout' %}">
                                     {% csrf_token %}
                                     {% if redirect_field_value %}
                                         <input type="hidden" name="{{ redirect_field_name }}"
                                                value="{{ redirect_field_value }}"/>
                                     {% endif %}
                                     <button type="submit" class="dropdown-item">Sign out</button>
-                                </form>
-                            </div>
+                                </form></li>
+                            </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
