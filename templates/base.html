@@ -20,12 +20,13 @@
 
     {% compress css %}
         <link rel="stylesheet" href="{% static '@fortawesome/fontawesome-free/css/all.min.css' %}">
-        <link type="text/x-scss" href="{% static 'bootstrap/scss/bootstrap.scss' %}" rel="stylesheet" media="screen">
+{#        <link type="text/x-scss" href="{% static 'bootstrap/scss/bootstrap.scss' %}" rel="stylesheet" media="screen">#}
         <link rel="stylesheet" href="{% static 'flatpickr/dist/flatpickr.min.css' %}">
 
-        <link type="text/x-scss" href="{% static 'css/theme.scss' %}" rel="stylesheet">
+        <link type="text/x-scss" href="{% static 'scss/theme.scss' %}" rel="stylesheet">
+        <link type="text/x-scss" href="{% static 'scss/site.scss' %}" rel="stylesheet">
 
-        <link rel="stylesheet" href="{% static 'css/shared/site.css' %}">
+{#        <link rel="stylesheet" href="{% static 'css/shared/site.css' %}">#}
     {% endcompress %}
 
     {% block css %}{% endblock %}
@@ -38,25 +39,31 @@
     <meta property="og:url" content="https://mennonitengemeinde.org{{ request.get_full_path }}" />
     <meta property="og:image" content="https://mennonitengemeinde.org{% static 'android-chrome-512x512.png' %}" />
 </head>
-<body>
+<body class="bg-light">
 
 {% block body %}{% endblock %}
 
 {% block content %}{% endblock %}
 
 {% compress js %}
-    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'popper.js/dist/umd/popper.min.js' %}"></script>
-    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+{#    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>#}
+{#    <script src="{% static 'popper.js/dist/umd/popper.min.js' %}"></script>#}
+    <script src="{% static 'bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'dayjs/dayjs.min.js' %}"></script>
     <script src="{% static 'js/timezoneService.js' %}"></script>
     <script src="{% static 'flatpickr/dist/flatpickr.min.js' %}"></script>
 
     <script>
-        $(document).ready(function () {
-            $(".alert-auto-dismiss").fadeTo(15000, 500).slideUp(500, function () {
-                $(".alert-auto-dismiss").slideUp(500);
+        window.addEventListener('load', function () {
+            const alertList = document.querySelectorAll('.alert')
+            const alerts =  [].slice.call(alertList).map(function (element) {
+                return new bootstrap.Alert(element);
             });
+            setTimeout(function () {
+                for (const al of alerts) {
+                    al.close();
+                }
+            }, 5000)
         });
     </script>
 {% endcompress %}

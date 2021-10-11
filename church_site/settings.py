@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'storages',
     'compressor',
     'crispy_forms',
+    'crispy_bootstrap5',
     'pwa',
     'django_countries',
     # Project
@@ -295,7 +296,7 @@ if DEBUG:
 else:
     EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = env('SENDGRID_API_KEY')
-SENDGRID_SANDBOX_MODE_IN_DEBUG = True
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 # Azure
@@ -306,7 +307,8 @@ AZURE_CONTAINER = env('AZURE_CONTAINER')
 # AZURE_CUSTOM_DOMAIN = env('AZURE_CUSTOM_DOMAIN', default='')
 
 # Crispy Forms
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # PWA settings
 PWA_APP_NAME = 'Mennoniten Gemeinde'

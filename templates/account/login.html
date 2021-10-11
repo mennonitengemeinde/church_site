@@ -12,6 +12,12 @@
 
     <div class="row m-0">
         <div class="col-12 col-md-6 offset-md-3">
+            <div class="row pt-4">
+                <div class="col-8 offset-2 col-lg-6 offset-lg-3">
+                    <img class="img-fluid" src="{% static 'img/mennonitengemeinde-text-round-logo-25.png' %}" alt="Logo">
+                </div>
+            </div>
+
             <div class="card mt-5">
                 <div class="card-body">
                     <h1>Sign In</h1>
@@ -32,7 +38,7 @@
                         {% endif %}
 {#                        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>#}
                         <div class="text-center">
-                            <a class="btn btn-outline-default shadow mr-2" href="{% url 'home:home' %}">Cancel</a>
+                            <a class="btn btn-outline-default shadow me-2" href="{% url 'home:home' %}">Cancel</a>
                             <button class="btn btn-primary shadow" type="submit">Sign In</button>
                         </div>
                     </form>
