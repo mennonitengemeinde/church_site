@@ -18,7 +18,7 @@
 
         <div id="live-app" v-cloak>
             <div class="text-center">
-                <div class="badge badge-primary pe-3">I'll look again in:</div><span class="badge badge-secondary ms-n2">[[ countdown ]]</span>
+                <div class="badge bg-primary pe-3">I'll look again in:</div><span class="badge bg-secondary ms-n2">[[ countdown ]]</span>
             </div>
             <div class="text-center" v-if="liveEvents.length === 0">
                 <div><img class="img-responsive" :src="liveNotFound[countdownQuote].icon"></div>
@@ -32,10 +32,10 @@
                         <div class="small">[[event.church.name]]</div>
                         <hr>
                         <div class="d-flex justify-content-between">
-                            <div class="badge badge-info">
+                            <div class="badge bg-info">
                                 <i class="fas fa-calendar-alt me-1"></i>[[new Date(event.start).toDateString()]]
                             </div>
-                            <div class="badge badge-info">
+                            <div class="badge bg-info">
                                 <i class="fas fa-clock me-1"></i>[[getLocalTime(event.start)]]
                             </div>
                         </div>
@@ -74,10 +74,10 @@
                     <hr>
 
                     <div class="d-flex justify-content-between">
-                        <div class="badge badge-info">
+                        <div class="badge bg-info">
                             <i class="fas fa-calendar-alt me-1"></i>[[new Date(schedule.start).toDateString()]]
                         </div>
-                        <div class="badge badge-info">
+                        <div class="badge bg-info">
                             <i class="fas fa-clock me-1"></i>[[getLocalTime(schedule.start)]]
                         </div>
                     </div>

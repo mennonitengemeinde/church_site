@@ -65,18 +65,18 @@
                             </div>
                             <div class="mb-1">
                                 <span class="small local-date me-3" data-date="{{ event.start|date:'U' }}">
-                                    <i class="fas fa-calendar-alt me-1"></i>
+                                    <i class="fas fa-calendar-alt"></i>
                                 </span>
                                 <span class="small local-time" data-time="{{ event.start|date:'U' }}">
-                                    <i class="fas fa-clock me-1"></i>
+                                    <i class="fas fa-clock"></i>
                                 </span>
                             </div>
 
                             {% if event.in_person or event.live_stream %}
                                 <div class="small">
                                     {% if event.in_person %}
-                                        <span class="text-secondary me-3"><i
-                                                class="fas fa-church me-1"></i>In Church</span>
+                                        <span class="text-secondary me-3">
+                                            <i class="fas fa-church me-1"></i>In Church</span>
                                     {% endif %}
                                     {% if event.live_stream %}
                                         <span class="text-info"><i

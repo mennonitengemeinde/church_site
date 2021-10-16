@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-12 col-sm">
                         <label for="churchFilter">Filter Church</label>
-                        <select id="churchFilter" class="custom-select" onchange="onFilter()">
+                        <select id="churchFilter" class="form-select" onchange="onFilter()">
                             <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
                             {% for for_church in churches %}
                                 <option value="{{ for_church.slug }}"{% if current_church == for_church.slug %}
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-12 col-sm mt-3 mt-sm-0">
                         <label for="speakerFilter">Filter Speaker</label>
-                        <select id="speakerFilter" class="custom-select" onchange="onFilter()">
+                        <select id="speakerFilter" class="form-select" onchange="onFilter()">
                             <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
                             {% for for_speaker in speakers %}
                                 <option value="{{ for_speaker.id }}"{% if for_speaker.id == current_speaker %}
