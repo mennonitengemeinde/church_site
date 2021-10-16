@@ -45,34 +45,46 @@
                     {% if perms.churches.view_church or perms.speakers.view_speaker or perms.schedules.view_event or perms.streams.view_stream or perms.sermons.view_sermon or perms.accounts.view_user %}
                         <li class="nav-item dropdown {% if current_page == 'manage' %}active{% endif %}">
                             <a class="nav-link dropdown-toggle" href="#" id="manageDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Manage
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="manageDropdown">
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="manageDropdown">
                                 {% if perms.churches.view_church %}
-                                    <a class="dropdown-item"
-                                       href="{% url 'churches:churches-admin-list' %}">Churches</a>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'churches:churches-admin-list' %}">Churches</a>
+                                    </li>
                                 {% endif %}
                                 {% if perms.speakers.view_speaker %}
-                                    <a class="dropdown-item"
-                                       href="{% url 'speakers:speakers-admin-list' %}">Speakers</a>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'speakers:speakers-admin-list' %}">Speakers</a>
+                                    </li>
                                 {% endif %}
                                 {% if perms.schedules.view_event %}
-                                    <a class="dropdown-item" href="{% url 'schedules:events-admin-list' %}">Events</a>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'schedules:events-admin-list' %}">Events</a>
+                                    </li>
                                 {% endif %}
                                 {% if perms.streams.view_stream %}
-                                    <a class="dropdown-item" href="{% url 'streams:streams-admin-list' %}">Streams</a>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'streams:streams-admin-list' %}">Streams</a>
+                                    </li>
                                 {% endif %}
                                 {% if perms.sermons.view_sermon %}
-                                    <a class="dropdown-item" href="{% url 'sermons:sermons-admin-list' %}">Sermons</a>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'sermons:sermons-admin-list' %}">Sermons</a>
+                                    </li>
                                 {% endif %}
                                 {% if perms.contactus.view_contact_message %}
-                                    <a class="dropdown-item" href="{% url 'contactus:admin-messages' %}">Messages</a>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'contactus:admin-messages' %}">Messages</a>
+                                    </li>
                                 {% endif %}
                                 {% if perms.accounts.view_user %}
-                                    <a class="dropdown-item" href="{% url 'accounts:users-admin-list' %}">Users</a>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'accounts:users-admin-list' %}">Users</a>
+                                    </li>
                                 {% endif %}
-                            </div>
+                            </ul>
                         </li>
                     {% endif %}
                     {% if user.is_authenticated %}

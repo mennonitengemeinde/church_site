@@ -7,6 +7,8 @@ $danger: #A81914;
 $light: #FAF9F9;
 $dark: #24211F;
 
+$enable-negative-margins: true;
+
 @import "./bootstrap/scss/bootstrap";
 
 .nav-container {
@@ -39,6 +41,27 @@ $dark: #24211F;
 .btn-round {
     border-radius: 1.7em;
     padding: .5em .9em;
+}
+
+.btn-secondary {
+    color: white;
+}
+.btn-secondary:hover {
+    color: white;
+}
+
+.btn-success {
+    color: white;
+}
+.btn-success:hover {
+    color: white;
+}
+
+.btn-warning {
+    color: white;
+}
+.btn-warning:hover {
+    color: white;
 }
 
 .btn-outline-default {
