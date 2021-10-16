@@ -18,7 +18,7 @@
 
         <div id="live-app" v-cloak>
             <div class="text-center">
-                <div class="badge badge-primary pr-3">I'll look again in:</div><span class="badge badge-secondary ml-n2">[[ countdown ]]</span>
+                <div class="badge badge-primary pe-3">I'll look again in:</div><span class="badge badge-secondary ms-n2">[[ countdown ]]</span>
             </div>
             <div class="text-center" v-if="liveEvents.length === 0">
                 <div><img class="img-responsive" :src="liveNotFound[countdownQuote].icon"></div>
@@ -28,21 +28,21 @@
                 <div v-for="stream in event.streams" :key="stream.id" v-if="stream['live']"
                      class="card shadow bg-light">
                     <div class="card-body">
-                        <h5 class="card-title mb-0"><i class="fas fa-circle text-danger mr-2"></i>[[stream.title]]</h5>
+                        <h5 class="card-title mb-0"><i class="fas fa-circle text-danger me-2"></i>[[stream.title]]</h5>
                         <div class="small">[[event.church.name]]</div>
                         <hr>
                         <div class="d-flex justify-content-between">
                             <div class="badge badge-info">
-                                <i class="fas fa-calendar-alt mr-1"></i>[[new Date(event.start).toDateString()]]
+                                <i class="fas fa-calendar-alt me-1"></i>[[new Date(event.start).toDateString()]]
                             </div>
                             <div class="badge badge-info">
-                                <i class="fas fa-clock mr-1"></i>[[getLocalTime(event.start)]]
+                                <i class="fas fa-clock me-1"></i>[[getLocalTime(event.start)]]
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div v-for="speaker in stream['speakers']" :key="speaker.name"
                                  class="col-12 col-md text-center my-2">
-                                <div><i class="fas fa-microphone text-secondary mr-1"></i>[[ speaker.name ]]</div>
+                                <div><i class="fas fa-microphone text-secondary me-1"></i>[[ speaker.name ]]</div>
                             </div>
                         </div>
                     </div>
@@ -51,12 +51,12 @@
                             <div v-if="stream['live_mixlr_audio']" class="col text-center">
                                 <a :href="`/streams/live/${event.church.slug}/${stream.id}/audio/`"
                                    class="btn btn-warning">
-                                    <i class="fas fa-music mr-2"></i>Live Audio
+                                    <i class="fas fa-music me-2"></i>Live Audio
                                 </a>
                             </div>
                             <div class="col text-center">
                                 <a :href="`/streams/live/${event.church.slug}/${stream.id}/video/`"
-                                   class="btn btn-info"><i class="fas fa-video mr-2"></i>Live Video</a>
+                                   class="btn btn-info"><i class="fas fa-video me-2"></i>Live Video</a>
                             </div>
                         </div>
                     </div>
@@ -75,10 +75,10 @@
 
                     <div class="d-flex justify-content-between">
                         <div class="badge badge-info">
-                            <i class="fas fa-calendar-alt mr-1"></i>[[new Date(schedule.start).toDateString()]]
+                            <i class="fas fa-calendar-alt me-1"></i>[[new Date(schedule.start).toDateString()]]
                         </div>
                         <div class="badge badge-info">
-                            <i class="fas fa-clock mr-1"></i>[[getLocalTime(schedule.start)]]
+                            <i class="fas fa-clock me-1"></i>[[getLocalTime(schedule.start)]]
                         </div>
                     </div>
 

@@ -33,24 +33,24 @@
             {% if live_stream.live %}
                 <div class="shadow bg-light my-5">
                     <div class="card-body">
-                        <h5 class="card-title mb-0"><i class="fas fa-circle text-danger mr-2"></i>{{ live_stream.title }}</h5>
+                        <h5 class="card-title mb-0"><i class="fas fa-circle text-danger me-2"></i>{{ live_stream.title }}</h5>
                         <div class="small">{{ live_stream.event.church|upper }}</div>
 
                         <hr>
 
                         <div class="d-flex justify-content-between">
                             <div class="badge badge-info local-date" data-date="{{ live_stream.event.start|date:'U' }}">
-                                <i class="fas fa-calendar-alt mr-1"></i>
+                                <i class="fas fa-calendar-alt me-1"></i>
                             </div>
                             <div class="badge badge-info local-time" data-time="{{ live_stream.event.start|date:"U" }}">
-                                <i class="fas fa-clock mr-1"></i>
+                                <i class="fas fa-clock me-1"></i>
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             {% for speaker in live_stream.speakers.all %}
                                 <div class="col-12 col-md text-center my-2">
-                                    <div><i class="fas fa-microphone text-secondary mr-1"></i>{{ speaker }}</div>
+                                    <div><i class="fas fa-microphone text-secondary me-1"></i>{{ speaker }}</div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -60,12 +60,12 @@
                         <div class="row">
                             {% if live_stream.live_mixlr_audio %}
                                 <div class="col text-center">
-                                    <a href="{% url 'streams:live-audio' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-warning"><i class="fas fa-music mr-2"></i>Live Audio</a>
+                                    <a href="{% url 'streams:live-audio' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-warning"><i class="fas fa-music me-2"></i>Live Audio</a>
                                 </div>
                             {% endif %}
                             {% if live_stream.live_url %}
                                 <div class="col text-center">
-                                    <a href="{% url 'streams:live-video' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-info"><i class="fas fa-video mr-2"></i>Live Video</a>
+                                    <a href="{% url 'streams:live-video' church=live_stream.event.church pk=live_stream.id %}" class="btn btn-info"><i class="fas fa-video me-2"></i>Live Video</a>
                                 </div>
                             {% endif %}
                         </div>
@@ -89,10 +89,10 @@
 
                         <div class="d-flex justify-content-between">
                             <div class="badge badge-info local-date" data-date="{{ s_stream.start|date:'U' }}">
-                                <i class="fas fa-calendar-alt mr-1"></i>
+                                <i class="fas fa-calendar-alt me-1"></i>
                             </div>
                             <div class="badge badge-info local-time" data-time="{{ s_stream.start|date:'U' }}">
-                                <i class="fas fa-clock mr-1"></i>
+                                <i class="fas fa-clock me-1"></i>
                             </div>
                         </div>
 

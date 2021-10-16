@@ -31,7 +31,7 @@
     <div class="container py-4">
 
         <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-outline-default"><i
-                class="fas fa-arrow-left mr-1"></i>Back</a>
+                class="fas fa-arrow-left me-1"></i>Back</a>
 
         <div class="card shadow my-4">
             <div class="card-body px-4 py-5">
@@ -104,13 +104,13 @@
 
                 <div class="text-center pt-4">
                     {% if perms.schedules.change_event %}
-                        <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-warning shadow mr-2">
-                            <i class="fas fa-edit mr-1"></i>Edit
+                        <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-warning shadow me-2">
+                            <i class="fas fa-edit me-1"></i>Edit
                         </a>
                     {% endif %}
                     {% if perms.schedules.delete_event %}
                         <button class="btn btn-danger shadow" data-toggle="modal" data-target="#delete-modal">
-                            <i class="fas fa-trash mr-1"></i>Delete
+                            <i class="fas fa-trash me-1"></i>Delete
                         </button>
                     {% endif %}
                 </div>

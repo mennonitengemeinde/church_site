@@ -17,7 +17,7 @@
                     {% else %}
                         <a href="{% url 'schedules:events-admin-all-list' %}" class="btn btn-outline-default shadow">Show All</a>
                     {% endif %}
-                    <a href="{% url 'schedules:event-templates-admin-list' %}" class="btn btn-secondary ml-1 shadow">Templates</a>
+                    <a href="{% url 'schedules:event-templates-admin-list' %}" class="btn btn-secondary ms-1 shadow">Templates</a>
                 </div>
                 <a href="{{ btn_add_href }}" class="btn btn-primary shadow"><i class="fas fa-plus"></i> Add</a>
             </div>
@@ -30,10 +30,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <h6 class="badge badge-info local-date" data-date="{{ event.start|date:'U' }}">
-                            <i class="fas fa-calendar mr-1"></i>
+                            <i class="fas fa-calendar me-1"></i>
                         </h6>
                         <h6 class="badge badge-info local-time" data-time="{{ event.start|date:'U' }}">
-                            <i class="fas fa-clock mr-1"></i>
+                            <i class="fas fa-clock me-1"></i>
                         </h6>
                     </div>
                     <h4 class="mb-0 text-primary">{{ event.title }}</h4>
@@ -69,8 +69,8 @@
 
                     <div class="text-center">
                         {% if perms.schedules.view_attendant %}
-                            <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-outline-primary mr-2">
-                                <i class="fas {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} mr-1"></i>Details
+                            <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-outline-primary me-2">
+                                <i class="fas {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} me-1"></i>Details
                             </a>
                         {% endif %}
                     </div>

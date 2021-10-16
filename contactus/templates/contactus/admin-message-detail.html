@@ -6,7 +6,7 @@
     <div class="container py-4">
 
         <a class="btn btn-outline-default shadow my-4" href="{% url 'contactus:admin-messages' %}">
-            <i class="fas fa-arrow-left mr-1"></i> Back
+            <i class="fas fa-arrow-left me-1"></i> Back
         </a>
 
         <div class="card shadow">
@@ -38,7 +38,7 @@
                 <p>{{ contact_msg.message|linebreaksbr }}</p>
 
                 <div class="text-center pt-3">
-                    <a class="btn btn-primary shadow mr-2" href="{% url 'contactus:admin-read-message' pk=contact_msg.id %}">
+                    <a class="btn btn-primary shadow me-2" href="{% url 'contactus:admin-read-message' pk=contact_msg.id %}">
                         {% if contact_msg.read %}
                             Mark Unread
                         {% else %}
@@ -46,7 +46,7 @@
                         {% endif %}
                     </a>
                     <button class="btn btn-danger shadow" data-toggle="modal" data-target="#delete-modal">
-                        <i class="fas fa-trash mr-1"></i> Delete
+                        <i class="fas fa-trash me-1"></i> Delete
                     </button>
                 </div>
             </div>
