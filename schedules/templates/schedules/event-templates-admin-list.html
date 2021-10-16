@@ -26,7 +26,7 @@
                 {% if perms.schedules.delete_eventtemplate %}
                     <form method="post" action="{% url 'schedules:event-templates-admin-delete' pk=et.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-danger shadow ml-2">
+                        <button type="submit" class="btn btn-sm btn-danger shadow ms-2">
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>

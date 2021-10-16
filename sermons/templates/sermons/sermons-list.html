@@ -63,18 +63,18 @@
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-info">{{ sermon.event.church }}</h6>
                                 <h6 class="badge badge-info local-date" data-date="{{ sermon.event.start|date:'U' }}">
-                                    <i class="fas fa-calendar mr-1"></i>
+                                    <i class="fas fa-calendar me-1"></i>
                                 </h6>
                             </div>
                             <h5 class="mb-0 text-mg-primary">{{ sermon.title|truncatechars:30 }}</h5>
                             <small>{{ sermon.sermon_type.title }}</small>
                             <br>
-                            {% if sermon.audio_low %}<small><i class="fas fa-music mr-1 text-warning"></i></small>{% endif %}
+                            {% if sermon.audio_low %}<small><i class="fas fa-music me-1 text-warning"></i></small>{% endif %}
                             {% if sermon.video_url %}<small><i class="fas fa-video text-danger"></i></small>{% endif %}
                             <hr>
                             <div class="d-flex justify-content-around flex-wrap">
                                 {% for speaker in sermon.speakers.all %}
-                                    <div class="text-center"><i class="fas fa-microphone text-secondary mr-1"></i>{{ speaker }}</div>
+                                    <div class="text-center"><i class="fas fa-microphone text-secondary me-1"></i>{{ speaker }}</div>
                                 {% endfor %}
                             </div>
 
