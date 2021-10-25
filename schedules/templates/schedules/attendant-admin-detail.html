@@ -30,7 +30,7 @@
                     </a>
                 {% endif %}
                 {% if perms.schedules.delete_attendant %}
-                    <button class="btn btn-danger shadow" data-toggle="modal" data-target="#delete-modal">
+                    <button class="btn btn-danger shadow" data-bs-toggle="modal" data-bs-target="#delete-modal">
                         <i class="fas fa-trash me-1"></i>Delete
                     </button>
                 {% endif %}
@@ -44,15 +44,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Delete {{ attendant.full_name }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p>Are you sure you want to delete {{ attendant.full_name }}?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-default" data-dismiss="modal" aria-label="Close">Close</button>
+                    <button type="button" class="btn btn-outline-default" data-bs-dismiss="modal" aria-label="Close">Close</button>
                     <form method="post" action="{% url 'schedules:attendants-admin-delete' event=attendant.event.pk pk=attendant.pk %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Delete</button>
