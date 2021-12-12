@@ -71,6 +71,7 @@ class StreamsAdminListView(PermissionRequiredMixin, AdminListView):
     page_title = 'Streams - Admin'
     current_page = 'manage'
     btn_add_href = reverse_lazy('streams:streams-admin-create')
+    paginate_by = 25
 
     def get_queryset(self):
         return get_member_streams(self.request.user, True)
