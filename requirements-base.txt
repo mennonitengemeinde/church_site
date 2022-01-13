@@ -17,6 +17,6 @@ django-sendgrid-v5==1.1.1
 django_storages[azure]==1.11.1
 pyTelegramBotAPI==4.1.0
 gunicorn==20.1.0
-Pillow==8.3.2
+Pillow==9.0.0
 psycopg2-binary==2.9.1
 requests==2.26.0
