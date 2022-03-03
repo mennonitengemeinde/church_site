@@ -1,0 +1,122 @@
+:root {
+    --bs-primary: #602627;
+    --bs-secondary: #8D9D80;
+    --bs-success: #11A03C;
+    --bs-info: #008093;
+    --bs-warning: #aa9a03;
+    --bs-danger: #A81914;
+    --bs-light: #FAF9F9;
+    --bs-dark: #24211F;
+    --bs-primary-rgb: 96, 38, 39;
+    --bs-secondary-rgb: 141, 157, 128;
+    --bs-success-rgb: 17, 160, 60;
+    --bs-info-rgb: 0, 128, 147;
+    --bs-warning-rgb: 170, 154, 3;
+    --bs-danger-rgb: 168, 25, 20;
+    --bs-light-rgb: 250, 249, 249;
+    --bs-dark-rgb: 36, 33, 31;
+}
+
+/* Vue */
+[v-cloak] {
+    display: none;
+}
+
+/* Navbar */
+.nav-container {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nav-logo {
+    max-height: 4em;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    opacity: 0.7;
+    padding: .3em .8em;
+    color: var(--bs-primary);
+}
+
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link {
+    opacity: 0.9;
+    border-bottom: .2em solid var(--bs-primary);
+    background-color: var(--bs-primary);
+     border-radius: .5em;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Buttons */
+.btn-round {
+    border-radius: 1.7em;
+    padding: .5em .9em;
+}
+
+.btn-secondary {
+    color: white;
+}
+.btn-secondary:hover {
+    color: white;
+}
+
+.btn-success {
+    color: white;
+}
+.btn-success:hover {
+    color: white;
+}
+
+.btn-warning {
+    color: white;
+}
+.btn-warning:hover {
+    color: white;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: var(--bs-info);
+    border-color: var(--bs-info);
+}
+
+.btn-outline-default {
+    background-color: var(--bs-light);
+    border-color: #DBD8D8;
+    color: var(--bs-primary);
+}
+    .btn-outline-default:hover,
+    .btn-outline-default:active {
+        background-color: #DBD8D8;
+        color: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+
+/*  Home  */
+.home-container {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/img/IMG_0331.jpeg") center center no-repeat;
+    color: white;
+    padding: 4em 2em;
+    text-align: center;
+}
+
+.home-container > h3 > span {
+    font-size: 2rem;
+}
+
+.home-event-card {
+    min-height: 14.5rem;
+}
+
+.home-nav-card {
+    height: 17em;
+}
+
+.home-nav-card > div > .card-icon {
+    font-size: 2.25rem;
+    padding-bottom: 0.5rem;
+}
+

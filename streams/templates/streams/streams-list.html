@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% load static %}
-{% load compress %}
+{#{% load compress %}#}
 
 {% block meta %}
     <meta name="robots" content="index, nofollow">
@@ -104,7 +104,7 @@
 {% endblock %}
 
 {% block js %}
-    {% compress js inline %}
+{#    {% compress js inline %}#}
         <script>
             function onStreamsChurchChange(church) {
                 if (church !== 'None') {
@@ -114,5 +114,5 @@
                 }
             }
         </script>
-    {% endcompress %}
+{#    {% endcompress %}#}
 {% endblock %}
