@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
     # Third party
@@ -74,7 +75,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'corsheaders',
     'storages',
-    'compressor',
+    # 'compressor',
     'crispy_forms',
     'crispy_bootstrap5',
     'pwa',
@@ -95,6 +96,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -264,33 +266,34 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets'),
     os.path.join(BASE_DIR, 'node_modules')
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # other finders..
-    'compressor.finders.CompressorFinder',
-)
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     # other finders..
+#     'compressor.finders.CompressorFinder',
+# )
+#
+# COMPRESS_PRECOMPILERS = (
+#     ('text/x-scss', 'django_libsass.SassCompiler'),
+# )
 
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-
-if DEBUG:
-    COMPRESS_OFFLINE = False
-else:
-    COMPRESS_OFFLINE = True
-LIBSASS_OUTPUT_STYLE = 'compressed'
-LIBSASS_PRECISION = 8
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-COMPRESS_OFFLINE_CONTEXT = {
-    'current_speaker': 1,
-    'current_church': 1
-}
+# if DEBUG:
+#     COMPRESS_OFFLINE = False
+# else:
+#     COMPRESS_OFFLINE = True
+# LIBSASS_OUTPUT_STYLE = 'compressed'
+# LIBSASS_PRECISION = 8
+# # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+# COMPRESS_OFFLINE_CONTEXT = {
+#     'current_speaker': 1,
+#     'current_church': 1
+# }
 
 # Send Grid
 if DEBUG:

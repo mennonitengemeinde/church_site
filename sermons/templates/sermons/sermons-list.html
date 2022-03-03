@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% load static %}
-{% load compress %}
+{#{% load compress %}#}
 
 {% block content %}
     {{ block.super }}
@@ -96,7 +96,7 @@
 {% endblock %}
 
 {% block js %}
-    {% compress js inline %}
+{#    {% compress js inline %}#}
         <script>
             function onFilter() {
                 let uri = "{% url 'sermons:sermons-list' %}";
@@ -115,5 +115,5 @@
                 window.location.href = uri;
             }
         </script>
-    {% endcompress %}
+{#    {% endcompress %}#}
 {% endblock %}

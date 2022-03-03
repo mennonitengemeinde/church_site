@@ -1,16 +1,16 @@
 {% extends 'layout.html' %}
 
 {% load static %}
-{% load compress %}
+{#{% load compress %}#}
 
 {% block meta %}
     <meta name="referrer" content="same-origin">
 {% endblock %}
 
 {% block css %}
-    {% compress css inline %}
+{#    {% compress css inline %}#}
         <link rel="stylesheet" href="{% static 'css/sermons-detail.css' %}">
-    {% endcompress %}
+{#    {% endcompress %}#}
 {% endblock %}
 
 {% block content %}

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% load static %}
-{% load compress %}
+{#{% load compress %}#}
 {% load math_tags %}
 
 {% block meta %}
@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block css %}
-    {% compress css inline %}
+{#    {% compress css inline %}#}
         <link type="text/x-scss" href="{% static 'scss/home.scss' %}" rel="stylesheet">
-    {% endcompress %}
+{#    {% endcompress %}#}
 {% endblock %}
 
 {% block content %}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 {% load static %}
-{% load compress %}
+{#{% load compress %}#}
 {% load pwa %}
 
 <html lang="en" prefix="og: https://ogp.me/ns#">
@@ -18,16 +18,18 @@
 
     {% progressive_web_app_meta %}
 
-    {% compress css %}
+{#    {% compress css %}#}
         <link rel="stylesheet" href="{% static '@fortawesome/fontawesome-free/css/all.min.css' %}">
 {#        <link type="text/x-scss" href="{% static 'bootstrap/scss/bootstrap.scss' %}" rel="stylesheet" media="screen">#}
         <link rel="stylesheet" href="{% static 'flatpickr/dist/flatpickr.min.css' %}">
 
-        <link type="text/x-scss" href="{% static 'scss/theme.scss' %}" rel="stylesheet">
-        <link type="text/x-scss" href="{% static 'scss/site.scss' %}" rel="stylesheet">
+{#        <link type="text/x-scss" href="{% static 'scss/theme.scss' %}" rel="stylesheet">#}
+        <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+{#        <link type="text/x-scss" href="{% static 'scss/site.scss' %}" rel="stylesheet">#}
+        <link rel="stylesheet" href="{% static 'css/site.css' %}">
 
 {#        <link rel="stylesheet" href="{% static 'css/shared/site.css' %}">#}
-    {% endcompress %}
+{#    {% endcompress %}#}
 
     {% block css %}{% endblock %}
 
@@ -45,7 +47,7 @@
 
 {% block content %}{% endblock %}
 
-{% compress js %}
+{#{% compress js %}#}
 {#    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>#}
 {#    <script src="{% static 'popper.js/dist/umd/popper.min.js' %}"></script>#}
     <script src="{% static 'bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
@@ -66,7 +68,7 @@
             }, 5000)
         });
     </script>
-{% endcompress %}
+{#{% endcompress %}#}
 
 {% block js %}{% endblock %}
 

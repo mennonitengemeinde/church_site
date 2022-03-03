@@ -1,7 +1,7 @@
 {% extends 'admin-form-layout.html' %}
 
 {% load static %}
-{% load compress %}
+{#{% load compress %}#}
 {% load crispy_forms_tags %}
 
 {% block form_header %}
@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block js %}
-    {% compress js inline %}
+{#    {% compress js inline %}#}
         <script>
             flatpickr('#id_start', {
                 enableTime: true,
@@ -52,5 +52,5 @@
                 window.location.href = uri;
             }
         </script>
-    {% endcompress %}
+{#    {% endcompress %}#}
 {% endblock %}

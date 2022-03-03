@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 
 {% load static %}
-{% load compress %}
+{#{% load compress %}#}
 {% load crispy_forms_tags %}
 
 {% block css %}
-    {% compress css inline %}
+{#    {% compress css inline %}#}
         <style>
             @media print {
                 nav {
@@ -21,7 +21,7 @@
                 }
             }
         </style>
-    {% endcompress %}
+{#    {% endcompress %}#}
 {% endblock %}
 
 {% block content %}

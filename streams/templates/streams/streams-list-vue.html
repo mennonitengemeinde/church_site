@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% load static %}
-{% load compress %}
+{#{% load compress %}#}
 
 {% block meta %}
     <meta name="robots" content="index, nofollow">
@@ -93,7 +93,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 
-    {% compress js inline %}
+{#    {% compress js inline %}#}
         <script>
             const app = new Vue({
                 delimiters: ['[[', ']]'],
@@ -175,5 +175,5 @@
                 }
             });
         </script>
-    {% endcompress %}
+{#    {% endcompress %}#}
 {% endblock %}
