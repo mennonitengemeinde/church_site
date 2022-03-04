@@ -23,6 +23,7 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, ['*']),
     ADMIN_URL=(str, 'admin/'),
     PRODUCTION_DB=(bool, False),
+    DB_NAME=(str, 'church_db'),
     DB_USER=(str, 'daniel'),
     DB_PASS=(str, 'password'),
     DB_HOST=(str, 'localhost'),
@@ -151,7 +152,7 @@ if env('PRODUCTION_DB'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'church_db',
+            'NAME': env('DB_NAME'),
             'USER': env('DB_USER'),
             'PASSWORD': env('DB_PASS'),
             'HOST': env('DB_HOST'),
