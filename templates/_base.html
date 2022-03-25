@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+{% load static %}
+{#{% load compress %}#}
+{% load pwa %}
+
+<html lang="en" prefix="og: https://ogp.me/ns#">
+
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block meta %}
+      <meta name="robots" content="noindex, nofollow">
+    {% endblock %}
+
+    {% progressive_web_app_meta %}
+
+    {#    {% compress css %}#}
+    <link rel="stylesheet" href="{% static '@fortawesome/fontawesome-free/css/all.min.css' %}">
+    {#        <link type="text/x-scss" href="{% static 'bootstrap/scss/bootstrap.scss' %}" rel="stylesheet" media="screen">#}
+    <link rel="stylesheet" href="{% static 'flatpickr/dist/flatpickr.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+
+    {#    {% endcompress %}#}
+
+    {% block css %}{% endblock %}
+
+    <title>
+      {% block head_title %}{{ page_title }}
+      {% endblock %}
+    </title>
+
+    <meta property="og:site_name" content="Mennoniten Gemeinde"/>
+    <meta property="og:title" content="{{ page_title }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://mennonitengemeinde.org{{ request.get_full_path }}"/>
+    <meta property="og:image" content="https://mennonitengemeinde.org{% static 'android-chrome-512x512.png' %}"/>
+
+    <script defer="true" src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body class="bg-light">
+
+    {% block body %}{% endblock %}
+
+    {#{% compress js %}#}
+    {#    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>#}
+    {#    <script src="{% static 'popper.js/dist/umd/popper.min.js' %}"></script>#}
+    {# <script src="{% static 'bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script> #}
+    <script src="{% static 'dayjs/dayjs.min.js' %}"></script>
+    <script src="{% static 'js/timezoneService.js' %}"></script>
+    <script src="{% static 'flatpickr/dist/flatpickr.min.js' %}"></script>
+    {# <script src="{% static 'petite-vue/dist/petite-vue.umd.js' %}" defer="true" init="true"></script> #}
+
+    <script>
+      window.addEventListener('load', function () {
+        const alertList = document.querySelectorAll('.alert')
+        const alerts = []
+          .slice
+          .call(alertList)
+          .map(function (element) {
+            return new bootstrap.Alert(element);
+          });
+        setTimeout(function () {
+          for (const al of alerts) {
+            al.close();
+          }
+        }, 5000)
+      });
+    </script>
+    {#{% endcompress %}#}
+
+    {% block js %}{% endblock %}
+
+  </body>
+
+</html>

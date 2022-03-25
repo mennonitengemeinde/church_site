@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "**Still in planning mode**",
   "scripts": {
+    "dev": "npx tailwindcss -i ./core/styles/tailwind.css -o ./assets/css/output.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,10 @@
     "@fortawesome/fontawesome-free": "5.15.4",
     "bootstrap": "5.1.3",
     "dayjs": "1.10.7",
-    "flatpickr": "4.6.9"
+    "flatpickr": "4.6.9",
+    "petite-vue": "^0.4.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.0.23"
   }
 }

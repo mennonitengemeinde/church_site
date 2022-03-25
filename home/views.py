@@ -6,7 +6,7 @@ from schedules.selectors import get_events
 
 
 class HomeView(CreateView):
-    template_name = 'home/home.html'
+    template_name = 'home/home_v2.html'
     form_class = ContactUsForm
     page_title = 'Mennoniten Gemeinde'
     success_url = reverse_lazy('home:home')

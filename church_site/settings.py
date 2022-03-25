@@ -82,6 +82,7 @@ INSTALLED_APPS = [
     'pwa',
     'django_countries',
     # Project
+    'core',
     'shared.apps.SharedConfig',
     'accounts.apps.AccountsConfig',
     'churches.apps.ChurchesConfig',
@@ -111,8 +112,7 @@ ROOT_URLCONF = 'church_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
