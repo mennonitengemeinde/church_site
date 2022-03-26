@@ -4,7 +4,7 @@
 {#{% load compress %}#}
 {% load pwa %}
 
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html class="h-full" lang="en" prefix="og: https://ogp.me/ns#">
 
   <head>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
@@ -41,10 +41,10 @@
     <meta property="og:url" content="https://mennonitengemeinde.org{{ request.get_full_path }}"/>
     <meta property="og:image" content="https://mennonitengemeinde.org{% static 'android-chrome-512x512.png' %}"/>
 
-    <script defer="true" src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
 
-  <body class="bg-light">
+  <body class="h-full bg-background-pattern">
 
     {% block body %}{% endblock %}
 
