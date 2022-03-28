@@ -5,15 +5,44 @@
 {% load math_tags %}
 
 {% block meta %}
-  <meta name="robots" content="index, follow"/>
+    <meta name="robots" content="index, follow"/>
 {% endblock %}
 
 {% block content %}
-    <div class="bg-hero-background flex flex-col items-center justify-center py-14 bg-cover bg-no-repeat bg-center">
-        <h3 class="text-3xl text-gray-200 text-center">
+    <div class="bg-hero-background flex flex-col items-center justify-center py-14 min-h-[20rem] bg-cover bg-no-repeat bg-center shadow">
+        <h1 class="text-3xl text-gray-200 text-center">
             Welcome to <span class="text-primary font-bold">Mennoniten Gemeinde</span>
-        </h3>
+        </h1>
         <hr class="text-white w-10/12 my-2">
-        <p class="text-white mx-24 text-center">For other foundation can no man lay than that is laid, which is Jesus Christ. 1 Corinthians 3:11</p>
+        <p class="text-white mx-24 text-center">For other foundation can no man lay than that is laid, which is Jesus
+            Christ. 1 Corinthians 3:11</p>
+    </div>
+
+    <div class="p-10">
+        <div class="flex items-center pb-10">
+            <img class="w-6/12" src="{% static 'img/booking_re_gw4j.svg' %}" alt="Events">
+            <div class="">
+                <h2 class="text-primary text-2xl font-bold">Events</h2>
+                <p class="">The following events are scheduled for the coming days</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-[auto,_1fr] items-center">
+            {% for event in events %}
+{#                <article class="flex">#}
+                    {% ifchanged %}
+                        <div class="flex text-white bg-primary px-3 my-1 rounded-full self-baseline">
+                            {{ event.start.date|date:"M j" }}
+                        </div>
+                    {% endifchanged %}
+{#                    <div class="col-start-2 overflow-hidden flex flex-col pt-1 pb-5 pl-7">#}
+                    <div class="col-start-2 overflow-hidden flex flex-col border-l border-primary -ml-7 mt-1 pb-5 pl-14">
+                        <p class="font-mono font-bold text-sm text-primary">{{ event.start.time }}</p>
+                        <h3 class="font-bold text-primary truncate">{{ event.title }}</h3>
+                        <p>{{ event.church }}</p>
+                    </div>
+{#                </article>#}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
