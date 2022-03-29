@@ -15,7 +15,7 @@ class HomeView(CreateView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
         context['current_page'] = 'home'
-        context['events'] = get_events(limit=12)
+        context['events'] = get_events(limit=5)
         return context
 
     def get_initial(self):

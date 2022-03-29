@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="bg-hero-background flex flex-col items-center justify-center py-14 min-h-[20rem] bg-cover bg-no-repeat bg-center shadow">
+    <div class="bg-hero-background flex flex-col items-center justify-center py-14 min-h-[20rem] bg-cover bg-no-repeat bg-center shadow rounded-b-2xl sm:rounded-xl">
         <h1 class="text-3xl text-gray-200 text-center">
             Welcome to <span class="text-primary font-bold">Mennoniten Gemeinde</span>
         </h1>
@@ -18,31 +18,35 @@
             Christ. 1 Corinthians 3:11</p>
     </div>
 
-    <div class="p-10">
-        <div class="flex items-center pb-10">
-            <img class="w-6/12" src="{% static 'img/booking_re_gw4j.svg' %}" alt="Events">
-            <div class="">
+    <div class="flex flex-col pt-16 px-10 w-full items-center md:flex-row md:justify-between">
+        <div class="flex items-center pb-10 md:flex-col md:justify-center md:w-1/2 md:pb-0">
+            <img class="w-1/2 md:w-3/4" src="{% static 'img/booking_re_gw4j.svg' %}" alt="Events">
+            <div class="ml-3 md:text-center md:ml-0 md:pt-10 md:w-1/2">
                 <h2 class="text-primary text-2xl font-bold">Events</h2>
                 <p class="">The following events are scheduled for the coming days</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-[auto,_1fr] items-center">
+        <div class="grid grid-cols-[auto,_1fr] w-fit md:w-1/2 items-center">
             {% for event in events %}
-{#                <article class="flex">#}
-                    {% ifchanged %}
-                        <div class="flex text-white bg-primary px-3 my-1 rounded-full self-baseline">
-                            {{ event.start.date|date:"M j" }}
-                        </div>
-                    {% endifchanged %}
-{#                    <div class="col-start-2 overflow-hidden flex flex-col pt-1 pb-5 pl-7">#}
-                    <div class="col-start-2 overflow-hidden flex flex-col border-l border-primary -ml-7 mt-1 pb-5 pl-14">
-                        <p class="font-mono font-bold text-sm text-primary">{{ event.start.time }}</p>
-                        <h3 class="font-bold text-primary truncate">{{ event.title }}</h3>
-                        <p>{{ event.church }}</p>
+                {#                <article class="flex">#}
+                {% ifchanged %}
+                    <div class="z-0 flex text-white bg-primary px-3 my-1 rounded-full self-baseline">
+                        {{ event.start.date|date:"M j" }}
                     </div>
-{#                </article>#}
+                {% endifchanged %}
+                {#                    <div class="col-start-2 overflow-hidden flex flex-col pt-1 pb-5 pl-7">#}
+                <div class="col-start-2 overflow-hidden flex flex-col border-l border-primary -ml-9 pb-5 pl-14{% if forloop.first %} mt-2{% elif forloop.last %} pb-0{% else %} pt-2{% endif %}">
+                    <p class="font-mono font-bold text-sm text-primary">{{ event.start.time }}</p>
+                    <h3 class="font-bold text-primary truncate">{{ event.title }}</h3>
+                    <p>{{ event.church }}</p>
+                </div>
+                {#                </article>#}
             {% endfor %}
         </div>
+    </div>
+
+    <div class="flex justify-center pt-8 pb-16">
+        <a href="{% url 'schedules:events-list' %}" class="btn btn-primary"><i class="fas fa-calendar mr-2"></i> All Events</a>
     </div>
 {% endblock %}
