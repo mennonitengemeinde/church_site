@@ -18,4 +18,8 @@
   .btn-outline-primary {
     @apply border-2 border-primary hover:border-amber-900 hover:bg-primary hover:text-white
   }
+
+  .card {
+    @apply p-8 bg-white rounded-lg shadow-lg
+  }
 }
