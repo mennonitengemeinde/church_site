@@ -15,6 +15,13 @@ def get_filtered_sermons(church: str = None, speaker: str = None):
         return Sermon.objects.filter(visible=True).order_by('-event')
 
 
+def get_random_sermons(church: str = None, speaker: str = None, limit: int = None):
+    queryset = get_filtered_sermons(church, speaker)
+    if limit:
+        return queryset.order_by('?')[:limit]
+    return queryset.order_by('?')
+
+
 def get_member_sermons(user: User, reverse_order: bool = False):
     queryset = Sermon.objects.filter(event__church__members=user)
     if reverse_order:

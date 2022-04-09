@@ -16,9 +16,10 @@ class SermonsListView(BaseListView):
     page_title = 'Sermons - Mennoniten Gemeinde'
     current_page = 'sermons'
     model = Sermon
-    template_name = 'sermons/sermons-list.html'
+    template_name = 'sermons/sermon-list.html'
     context_object_name = 'sermons'
-    paginate_by = 18
+    # paginate_by = 18
+    paginate_by = 1
 
     def get_queryset(self):
         return get_filtered_sermons(self.request.GET.get('church'), self.request.GET.get('speaker'))

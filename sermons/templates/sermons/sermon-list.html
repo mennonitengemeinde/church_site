@@ -1,0 +1,42 @@
+{% extends '_layout.html' %}
+
+{% block meta %}
+    <meta name="robots" content="index, nofollow">
+{% endblock %}
+
+{% block content %}
+    <div class="flex justify-center">
+        <div class="flex flex-col justify-center card my-5 mx-3 w-full lg:w-2/3">
+            <h5 class="text-center text-xl font-medium">Filter Sermons</h5>
+            <div class="flex flex-col pt-4 sm:flex-row sm:justify-center">
+                <div class="sm:px-5">
+                    <label for="churchFilter" class="block text-sm font-medium text-gray-700">Filter Church</label>
+                    <select id="churchFilter" name="churchFilter"
+                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
+                        {% for church in churches %}
+                            <option value="{{ church.id }}"{% if current_church == church %} selected{% endif %}>{{ church.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="pt-4 sm:pt-0 sm:px-5">
+                    <label for="speakerFilter" class="block text-sm font-medium text-gray-700">Filter Speaker</label>
+                    <select id="speakerFilter" name="speakerFilter"
+                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
+                        {% for speaker in speakers %}
+                            <option value="{{ speaker.id }}"{% if current_speaker == speaker %} selected{% endif %}>{{ speaker.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-5 pl-3">
+        <h1 class="text-2xl text-primary-default font-bold font-serif">Sermons</h1>
+
+        {% include "snippets/paginator_snippet.html" %}
+    </div>
+
+{% endblock %}

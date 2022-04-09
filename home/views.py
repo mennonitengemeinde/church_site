@@ -3,6 +3,7 @@ from django.views.generic import CreateView
 
 from contactus.forms import ContactUsForm
 from schedules.selectors import get_events
+from sermons.selectors import get_random_sermons
 
 
 class HomeView(CreateView):
@@ -16,6 +17,7 @@ class HomeView(CreateView):
         context['page_title'] = self.page_title
         context['current_page'] = 'home'
         context['events'] = get_events(limit=5)
+        context['sermons'] = get_random_sermons(limit=5)
         return context
 
     def get_initial(self):

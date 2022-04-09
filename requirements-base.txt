@@ -2,12 +2,12 @@ coreapi==2.3.3
 crispy-bootstrap5==0.6
 Django==3.2.12
 djangorestframework==3.13.1
-djangorestframework-simplejwt==5.0.0
-dj-rest-auth==2.2.3
-django-allauth==0.49.0
+djangorestframework-simplejwt==5.1.0
+dj-rest-auth==2.2.4
+django-allauth==0.50.0
 django_compressor==3.1
 django-cors-headers==3.11.0
-django-countries==7.2.1
+django-countries==7.3.2
 django-crispy-forms==1.14.0
 django-environ==0.8.1
 django-libsass==0.9
@@ -17,7 +17,7 @@ django-sendgrid-v5==1.2.0
 django_storages[azure]==1.12.3
 pyTelegramBotAPI==4.4.0
 gunicorn==20.1.0
-Pillow==9.0.1
+Pillow==9.1.0
 psycopg2-binary==2.9.3
 requests==2.27.1
 whitenoise==6.0.0
