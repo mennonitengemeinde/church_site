@@ -31,6 +31,7 @@ class SermonsListView(BaseListView):
         context['churches'] = Church.objects.all()
         context['speakers'] = Speaker.objects.all()
         context['page_filter'] = self.get_page_filter()
+        context['pagination_links'] = self.get_pagination_links(context)
         return context
 
     def get_page_filter(self):
@@ -41,6 +42,22 @@ class SermonsListView(BaseListView):
             return f"church={self.request.GET.get('church')}"
         elif self.request.GET.get('speaker') and not self.request.GET.get('church'):
             return f"speaker={self.request.GET.get('speaker')}"
+
+    @staticmethod
+    def get_pagination_links(context):
+        """returns pagination links for the sermons list"""
+        if context['page_obj'].paginator.num_pages > 5:
+            links = []
+            for page in context['page_obj'].paginator.page_range:
+                if 5 >= page > 3 > context['page_obj'].number:
+                    links.append(page)
+                elif page > context['page_obj'].paginator.count - 5 and context['page_obj'].number > context['page_obj'].paginator.count - 3:
+                    links.append(page)
+                elif (context['page_obj'].number + 2) >= page >= (context['page_obj'].number - 2):
+                    links.append(page)
+            return links
+        else:
+            return context['page_obj'].paginatior.page_range
 
 
 class SermonsDetailView(BaseDetailView):
