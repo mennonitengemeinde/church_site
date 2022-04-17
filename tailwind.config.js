@@ -16,6 +16,12 @@ module.exports = {
                     "shade": "#4d1d1e",
                     "tint": "#7b3a3b",
                 },
+                secondary: {
+                    "default": "#26605f",
+                    "shade": "#1d4d4e",
+                    "tint": "#3b7b7c",
+
+                },
             },
         },
     },

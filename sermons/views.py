@@ -18,8 +18,8 @@ class SermonsListView(BaseListView):
     model = Sermon
     template_name = 'sermons/sermon-list.html'
     context_object_name = 'sermons'
-    # paginate_by = 18
-    paginate_by = 1
+    paginate_by = 18
+    # paginate_by = 1
 
     def get_queryset(self):
         return get_filtered_sermons(self.request.GET.get('church'), self.request.GET.get('speaker'))
@@ -57,7 +57,7 @@ class SermonsListView(BaseListView):
                     links.append(page)
             return links
         else:
-            return context['page_obj'].paginatior.page_range
+            return context['page_obj'].paginator.page_range
 
 
 class SermonsDetailView(BaseDetailView):

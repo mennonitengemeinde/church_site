@@ -1,5 +1,5 @@
 {% if page_obj.paginator.num_pages > 1 %}
-    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 shadow rounded-lg sm:px-6">
         <div class="flex-1 flex justify-between sm:hidden">
             {% if page_obj.has_previous %}
                 <a href="?page={{ page_obj.previous_page_number }}{% if page_filter %}&{{ page_filter }}{% endif %}"
