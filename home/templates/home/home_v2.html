@@ -29,21 +29,28 @@
             </div>
 
             <div class="grid grid-cols-[auto,_1fr] w-fit md:w-1/2 items-center">
-                {% for event in events %}
-                    {#                <article class="flex">#}
-                    {% ifchanged %}
-                        <div class="z-0 flex text-white bg-primary-default px-3 my-1 rounded-full self-baseline justify-center">
-                            {{ event.start.date|date:"M j" }}
+                {% if events %}
+                    {% for event in events %}
+                        {#                <article class="flex">#}
+                        {% ifchanged %}
+                            <div class="z-0 flex text-white bg-primary-default px-3 my-1 rounded-full self-baseline justify-center">
+                                {{ event.start.date|date:"M j" }}
+                            </div>
+                        {% endifchanged %}
+                        {#                    <div class="col-start-2 overflow-hidden flex flex-col pt-1 pb-5 pl-7">#}
+                        <div class="col-start-2 overflow-hidden flex flex-col border-l border-primary-default -ml-9 pb-5 pl-14{% if forloop.first %} mt-2{% elif forloop.last %} pb-0{% else %} pt-2{% endif %}">
+                            <p class="font-mono font-bold text-sm text-primary-default">{{ event.start.time }}</p>
+                            <h3 class="font-bold text-primary-default truncate">{{ event.title }}</h3>
+                            <p>{{ event.church }}</p>
                         </div>
-                    {% endifchanged %}
-                    {#                    <div class="col-start-2 overflow-hidden flex flex-col pt-1 pb-5 pl-7">#}
-                    <div class="col-start-2 overflow-hidden flex flex-col border-l border-primary-default -ml-9 pb-5 pl-14{% if forloop.first %} mt-2{% elif forloop.last %} pb-0{% else %} pt-2{% endif %}">
-                        <p class="font-mono font-bold text-sm text-primary-default">{{ event.start.time }}</p>
-                        <h3 class="font-bold text-primary-default truncate">{{ event.title }}</h3>
-                        <p>{{ event.church }}</p>
+                        {#                </article>#}
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center text-lg">
+                        <p>Looks like there are no events planned at this moment.</p>
+                        <p>Check back later.</p>
                     </div>
-                    {#                </article>#}
-                {% endfor %}
+                {% endif %}
             </div>
         </div>
         <div class="flex justify-center pt-8">
@@ -83,7 +90,8 @@
 
         <div class="flex flex-col w-full md:w-1/2 md:pl-8">
             {% for sermon in sermons %}
-                <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}" class="flex flex-col card bg-primary-default text-white shadow overflow-hidden w-full my-3 hover:bg-primary-tint">
+                <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}"
+                   class="flex flex-col card bg-primary-default text-white shadow overflow-hidden w-full my-3 hover:bg-primary-tint">
                     <h3 class="font-bold pb-2 truncate">{{ sermon.title }}</h3>
                     <div class="flex flex-row items-center justify-start ">
                         {% for speaker in sermon.speakers.all %}
