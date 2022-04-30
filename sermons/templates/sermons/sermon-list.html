@@ -15,7 +15,8 @@
                             class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                         <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
                         {% for church in churches %}
-                            <option value="{{ church.slug }}"{% if current_church == church.slug %} selected{% endif %}>{{ church.name }}</option>
+                            <option value="{{ church.slug }}"{% if current_church == church.slug %}
+                                    selected{% endif %}>{{ church.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -25,7 +26,8 @@
                             class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                         <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
                         {% for speaker in speakers %}
-                            <option value="{{ speaker.id }}"{% if current_speaker == speaker.id %} selected{% endif %}>{{ speaker.name }}</option>
+                            <option value="{{ speaker.id }}"{% if current_speaker == speaker.id %}
+                                    selected{% endif %}>{{ speaker.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -36,16 +38,36 @@
     <div class="py-5 px-3">
         <h1 class="text-2xl text-primary-default font-bold font-serif">Sermons</h1>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
             {% for sermon in sermons %}
-                <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}" class="card relative">
-                    <h2 class="text-lg font-semibold truncate">{{ sermon.title }}</h2>
-                    <p class="text-sm">{{ sermon.sermon_type.title }}</p>
-                    <p class="text-sm local-date" data-date="{{ sermon.event.start|date:'U' }}">{{ sermon.event.start|date:'M j, Y' }}</p>
-                    <p class="text-xs">{{ sermon.event.church }}</p>
-                </a>
+                <li class="bg-white rounded-lg shadow divide-y relative">
+                    <div class="pt-5 pb-2 px-4">
+                        <h2 class="text-lg font-semibold truncate">{{ sermon.title }}</h2>
+                        <p class="text-sm local-date"
+                           data-date="{{ sermon.event.start|date:'U' }}">{{ sermon.event.start|date:'M j, Y' }}</p>
+                        <div class="absolute -top-2 right-3">
+                            <span class="flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary-tint rounded-full">{{ sermon.event.church }}</span>
+                        </div>
+                        <div class="pb-3">
+                            {% for speaker in sermon.speakers.all %}
+                                <span class="flex-shrink-0 inline-block px-2 py-0.5 text-red-50 text-xs font-medium bg-primary-tint rounded-full">{{ speaker }}</span>
+                            {% endfor %}
+                            <span class="flex-shrink-0 inline-block px-2 py-0.5 text-black text-xs font-medium bg-neutral-300 rounded-full">{{ sermon.sermon_type.title }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        {#                        <div class="flex">#}
+                        <div class="flex">
+                            <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}"
+                               class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
+                                Open
+                            </a>
+                        </div>
+                        {#                        </div>#}
+                    </div>
+                </li>
             {% endfor %}
-        </div>
+        </ul>
 
         {% include "snippets/paginator_snippet.html" %}
     </div>
@@ -53,24 +75,24 @@
 {% endblock %}
 
 {% block js %}
-{#    {% compress js inline %}#}
-        <script>
-            function onFilter() {
-                let uri = "{% url 'sermons:sermons-list' %}";
-                const churchFilter = document.getElementById('churchFilter');
-                const speakerFilter = document.getElementById('speakerFilter');
-                if (churchFilter.value !== 'None') {
-                    uri = uri + '?church=' + churchFilter.value;
-                    if (speakerFilter.value !== 'None') {
-                        uri = uri + '&speaker=' + speakerFilter.value;
-                    }
-                } else {
-                    if (speakerFilter.value !== 'None') {
-                        uri = uri + '?speaker=' + speakerFilter.value;
-                    }
+    {#    {% compress js inline %}#}
+    <script>
+        function onFilter() {
+            let uri = "{% url 'sermons:sermons-list' %}";
+            const churchFilter = document.getElementById('churchFilter');
+            const speakerFilter = document.getElementById('speakerFilter');
+            if (churchFilter.value !== 'None') {
+                uri = uri + '?church=' + churchFilter.value;
+                if (speakerFilter.value !== 'None') {
+                    uri = uri + '&speaker=' + speakerFilter.value;
                 }
-                window.location.href = uri;
+            } else {
+                if (speakerFilter.value !== 'None') {
+                    uri = uri + '?speaker=' + speakerFilter.value;
+                }
             }
-        </script>
-{#    {% endcompress %}#}
+            window.location.href = uri;
+        }
+    </script>
+    {#    {% endcompress %}#}
 {% endblock %}
