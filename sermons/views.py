@@ -19,6 +19,7 @@ class SermonsListView(BaseListView):
     template_name = 'sermons/sermon-list.html'
     context_object_name = 'sermons'
     paginate_by = 18
+
     # paginate_by = 1
 
     def get_queryset(self):
@@ -51,7 +52,8 @@ class SermonsListView(BaseListView):
             for page in context['page_obj'].paginator.page_range:
                 if 5 >= page > 3 > context['page_obj'].number:
                     links.append(page)
-                elif page > context['page_obj'].paginator.count - 5 and context['page_obj'].number > context['page_obj'].paginator.count - 3:
+                elif page > context['page_obj'].paginator.count - 5 and context['page_obj'].number > context[
+                    'page_obj'].paginator.count - 3:
                     links.append(page)
                 elif (context['page_obj'].number + 2) >= page >= (context['page_obj'].number - 2):
                     links.append(page)
@@ -64,7 +66,7 @@ class SermonsDetailView(BaseDetailView):
     current_page = 'sermons'
     btn_back_href = reverse_lazy('sermons:sermons-list')
     model = Sermon
-    template_name = 'sermons/sermons-detail.html'
+    template_name = 'sermons/sermon-detail.html'
     context_object_name = 'sermon'
 
     def get_context_data(self, **kwargs):

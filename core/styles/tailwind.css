@@ -3,23 +3,27 @@
 @tailwind utilities;
 
 [x-cloak] {
-  display: none;
+    display: none;
 }
 
 @layer components {
-  .btn {
-    @apply inline-flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-default
-  }
+    .btn {
+        @apply inline-flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-default
+    }
 
-  .btn-primary {
-    @apply bg-primary-default text-white hover:bg-primary-tint
-  }
+    .btn-default {
+        @apply border-gray-300 text-gray-700 bg-white hover:bg-gray-50
+    }
 
-  .btn-outline-primary {
-    @apply border-2 border-primary-default hover:border-amber-900 hover:bg-primary-default hover:text-white
-  }
+    .btn-primary {
+        @apply bg-primary-default text-white hover:bg-primary-tint
+    }
 
-  .card {
-    @apply p-4 md:p-8 bg-white rounded-lg shadow
-  }
+    .btn-outline-primary {
+        @apply border-2 border-primary-default hover:border-amber-900 hover:bg-primary-default hover:text-white
+    }
+
+    .card {
+        @apply p-4 md:p-8 bg-white rounded-lg shadow
+    }
 }
