@@ -7,53 +7,57 @@
 {% endblock %}
 
 {% block content %}
-    <div class="flex justify-start py-4 sm:pt-0 pl-4 sm:pl-0">
-        <button onclick="window.history.back()" class="btn btn-default">
-            <i class="fas fa-arrow-left mr-2"></i>Back
-        </button>
-    </div>
+    <div class="py-4">
 
-    <div class="card">
-        {% if sermon.video_url %}
-            <iframe class="aspect-video w-full" referrerpolicy="origin-when-cross-origin" src="{{ sermon.video_url }}"
-                    allowfullscreen></iframe>
-        {% endif %}
-
-        <h1 class="pt-4 text-xl font-bold font-serif">{{ sermon.title }}</h1>
-
-        <div class="flex flex-col sm:flex-row justify-between">
-            <div class="flex flex-col">
-                <p class="text-sm local-date"
-                   data-date="{{ sermon.event.start|date:'U' }}">{{ sermon.event.start|date:'M j, Y' }}</p>
-                <div>
-                    {% for speaker in sermon.speakers.all %}
-                        <span class="flex-shrink-0 inline-block px-2 py-0.5 text-red-50 text-xs font-medium bg-primary-tint rounded-full">{{ speaker }}</span>
-                    {% endfor %}
-                    <span class="flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary-tint rounded-full">{{ sermon.event.church }}</span>
-
-                </div>
-            </div>
-            <div class="flex justify-start sm:justify-center py-2 sm:py-0 items-center">
-                <button class="text-primary-tint hover:text-primary-default px-3 py-2 font-medium text-sm rounded-md">
-                    <i class="fas fa-download mr-2"></i>
-                    Download
-                </button>
-            </div>
+        <div class="flex justify-start py-4 sm:pt-0 pl-4 sm:pl-0">
+            <button onclick="window.history.back()" class="btn btn-default">
+                <i class="fas fa-arrow-left mr-2"></i>Back
+            </button>
         </div>
 
-        {% if sermon.description %}
-            <p class="py-1">{{ sermon.description }}</p>
-        {% endif %}
+        <div class="card">
+            {% if sermon.video_url %}
+                <iframe class="aspect-video w-full" referrerpolicy="origin-when-cross-origin"
+                        src="{{ sermon.video_url }}"
+                        allowfullscreen></iframe>
+            {% endif %}
 
+            <h1 class="pt-4 text-xl font-bold font-serif">{{ sermon.title }}</h1>
 
+            <div class="flex flex-col sm:flex-row justify-between">
+                <div class="flex flex-col">
+                    <p class="text-sm local-date"
+                       data-date="{{ sermon.event.start|date:'U' }}">{{ sermon.event.start|date:'M j, Y' }}</p>
+                    <div>
+                        {% for speaker in sermon.speakers.all %}
+                            <span class="flex-shrink-0 inline-block px-2 py-0.5 text-red-50 text-xs font-medium bg-primary-tint rounded-full">{{ speaker }}</span>
+                        {% endfor %}
+                        <span class="flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary-tint rounded-full">{{ sermon.event.church }}</span>
 
-        {% if sermon.audio_low %}
-            <div class="py-5">
-                <audio id="player" controls preload="none" class="w-full">
-                    <source src="{{ sermon.audio_low.url }}" type="audio/mpeg">
-                </audio>
+                    </div>
+                </div>
+                <div class="flex justify-start sm:justify-center py-2 sm:py-0 items-center">
+                    <button class="text-primary-tint hover:text-primary-default px-3 py-2 font-medium text-sm rounded-md">
+                        <i class="fas fa-download mr-2"></i>
+                        Download
+                    </button>
+                </div>
             </div>
-        {% endif %}
 
+            {% if sermon.description %}
+                <p class="py-1">{{ sermon.description }}</p>
+            {% endif %}
+
+
+
+            {% if sermon.audio_low %}
+                <div class="py-5">
+                    <audio id="player" controls preload="none" class="w-full">
+                        <source src="{{ sermon.audio_low.url }}" type="audio/mpeg">
+                    </audio>
+                </div>
+            {% endif %}
+
+        </div>
     </div>
 {% endblock %}

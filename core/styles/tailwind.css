@@ -26,4 +26,16 @@
     .card {
         @apply p-4 md:p-8 bg-white rounded-lg shadow
     }
+
+    .tailwind-checkbox {
+        @apply h-4 w-4 text-primary-default focus:ring-primary-tint border-gray-300 rounded;
+    }
+
+    .tailwind-input {
+        @apply shadow-sm focus:ring-primary-tint focus:border-primary-default block w-full sm:text-sm border-gray-300 rounded-md;
+    }
+
+    .tailwind-input-label {
+        @apply block text-sm font-medium text-gray-700;
+    }
 }

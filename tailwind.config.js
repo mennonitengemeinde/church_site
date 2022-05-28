@@ -4,6 +4,11 @@ module.exports = {
         "./home/templates/**/*.{html,js}",
         "./sermons/templates/**/*.{html,js}"
     ],
+    safelist: [
+        "tailwind-input",
+        "tailwind-input-label",
+        "tailwind-checkbox",
+    ],
     theme: {
         extend: {
             backgroundImage: {

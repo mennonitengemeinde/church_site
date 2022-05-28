@@ -21,6 +21,7 @@
     "bootstrap": "5.1.3",
     "dayjs": "1.10.7",
     "flatpickr": "4.6.9",
+    "htmx.org": "1.7.0",
     "petite-vue": "^0.4.1"
   },
   "devDependencies": {

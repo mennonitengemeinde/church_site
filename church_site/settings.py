@@ -142,7 +142,6 @@ LOGGING = {
     },
 }
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -180,6 +179,7 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_AUTO_SIGNUP = False
 ACCOUNT_FORMS = {
+    'login': 'accounts.forms.MgLoginForm',
     'signup': 'accounts.forms.MgSignupForm'
 }
 SOCIALACCOUNT_FORMS = {
@@ -243,7 +243,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -256,7 +255,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
