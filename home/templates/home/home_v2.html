@@ -20,95 +20,104 @@
                 Christ. 1 Corinthians 3:11</p>
         </div>
 
-        <div class="card mt-10">
-            <div class="flex flex-col w-full items-center md:flex-row md:justify-between">
-                <div class="flex items-center pb-8 md:flex-col md:justify-center md:w-1/2 md:pb-0">
-                    <img class="w-1/2 md:w-3/4" src="{% static 'img/booking_re_gw4j.svg' %}" alt="Events">
-                    <div class="ml-3 md:text-center md:ml-0 md:pt-8 md:w-1/2">
-                        <h2 class="text-primary-default text-2xl font-bold font-serif">Events</h2>
-                        <p class="pt-1">The following events are scheduled for the coming days</p>
+        <div class="space-y-12 py-10">
+            <div class="card">
+                <div class="flex flex-col w-full items-center md:flex-row md:justify-between">
+                    <div class="flex items-center pb-8 md:flex-col md:justify-center md:w-1/2 md:pb-0">
+                        <img class="w-1/2 md:w-3/4" src="{% static 'img/booking_re_gw4j.svg' %}" alt="Events">
+                        <div class="ml-3 md:text-center md:ml-0 md:pt-8 md:w-1/2">
+                            <h2 class="text-primary-default text-2xl font-bold font-serif">Events</h2>
+                            <p class="pt-1">The following events are scheduled for the coming days</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-[auto,_1fr] w-fit md:w-1/2 items-center">
+                        {% if events %}
+                            {% for event in events %}
+                                {#                <article class="flex">#}
+                                {% ifchanged %}
+                                    <div class="z-0 flex text-white bg-primary-default px-3 my-1 rounded-full self-baseline justify-center">
+                                        {{ event.start.date|date:"M j" }}
+                                    </div>
+                                {% endifchanged %}
+                                {#                    <div class="col-start-2 overflow-hidden flex flex-col pt-1 pb-5 pl-7">#}
+                                <div class="col-start-2 overflow-hidden flex flex-col border-l border-primary-default -ml-9 pb-5 pl-14{% if forloop.first %} mt-2{% elif forloop.last %} pb-0{% else %} pt-2{% endif %}">
+                                    <p class="font-mono font-bold text-sm text-primary-default">{{ event.start.time }}</p>
+                                    <h3 class="font-bold text-primary-default truncate">{{ event.title }}</h3>
+                                    <p>{{ event.church }}</p>
+                                </div>
+                                {#                </article>#}
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center text-lg">
+                                <p>Looks like there are no events planned at this moment.</p>
+                                <p>Check back later.</p>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
-
-                <div class="grid grid-cols-[auto,_1fr] w-fit md:w-1/2 items-center">
-                    {% if events %}
-                        {% for event in events %}
-                            {#                <article class="flex">#}
-                            {% ifchanged %}
-                                <div class="z-0 flex text-white bg-primary-default px-3 my-1 rounded-full self-baseline justify-center">
-                                    {{ event.start.date|date:"M j" }}
-                                </div>
-                            {% endifchanged %}
-                            {#                    <div class="col-start-2 overflow-hidden flex flex-col pt-1 pb-5 pl-7">#}
-                            <div class="col-start-2 overflow-hidden flex flex-col border-l border-primary-default -ml-9 pb-5 pl-14{% if forloop.first %} mt-2{% elif forloop.last %} pb-0{% else %} pt-2{% endif %}">
-                                <p class="font-mono font-bold text-sm text-primary-default">{{ event.start.time }}</p>
-                                <h3 class="font-bold text-primary-default truncate">{{ event.title }}</h3>
-                                <p>{{ event.church }}</p>
-                            </div>
-                            {#                </article>#}
-                        {% endfor %}
-                    {% else %}
-                        <div class="text-center text-lg">
-                            <p>Looks like there are no events planned at this moment.</p>
-                            <p>Check back later.</p>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="flex justify-center pt-8">
-                <a href="{% url 'schedules:events-list' %}" class="btn btn-primary"><i class="fas fa-calendar mr-2"></i>
-                    All
-                    Events</a>
-            </div>
-        </div>
-        {# Live stream section #}
-        <div class="flex flex-col-reverse items-center justify-center justify-around my-16 md:py-16 md:flex-row">
-            <div class="card flex flex-col justify-center items-center w-1/2 md:w-1/3">
-                <h2 class="text-primary-default text-2xl font-bold font-serif">Live Stream</h2>
-                <p class="pt-1 text-center">If you are not able to assist in person, We also livestream some of our
-                    events</p>
-                <div class="my-4">
+                <div class="flex justify-center pt-8">
                     <a href="{% url 'schedules:events-list' %}" class="btn btn-primary"><i
-                            class="fas fa-circle mr-2"></i>
-                        Live
-                    </a>
+                            class="fas fa-calendar mr-2"></i>
+                        All
+                        Events</a>
                 </div>
             </div>
-            <img class="w-1/2 md:w-1/3" src="{% static 'img/video_streaming_re_v3qg.svg' %}" alt="Live">
-        </div>
-        {# Sermons section #}
-        <div class="card flex flex-col items-center md:flex-row justify-around">
-            <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-8">
-                <img class="w-3/4" src="{% static 'img/media_player_re_rdd2.svg' %}" alt="Live">
-                <div class="flex flex-col justify-center items-center pt-8">
-                    <h2 class="text-primary-default text-2xl font-bold font-serif">Sermons</h2>
-                    <p class="pt-1 text-center">Browse through our historical sermons that we have recorded</p>
+            {# Live stream section #}
+            <div class="flex flex-col-reverse items-center justify-center justify-around md:flex-row">
+                <div class="card flex flex-col justify-center items-center w-1/2 md:w-1/3">
+                    <h2 class="text-primary-default text-2xl font-bold font-serif">Live Stream</h2>
+                    <p class="pt-1 text-center">If you are not able to assist in person, We also livestream some of our
+                        events</p>
                     <div class="my-4">
                         <a href="{% url 'schedules:events-list' %}" class="btn btn-primary"><i
                                 class="fas fa-circle mr-2"></i>
-                            Sermons
+                            Live
                         </a>
                     </div>
                 </div>
+                <img class="w-1/2 md:w-1/3" src="{% static 'img/video_streaming_re_v3qg.svg' %}" alt="Live">
             </div>
-
-            <div class="flex flex-col w-full md:w-1/2 md:pl-8">
-                {% for sermon in sermons %}
-                    <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}"
-                       class="flex flex-col card bg-primary-default text-white shadow overflow-hidden w-full my-3 hover:bg-primary-tint">
-                        <h3 class="font-bold pb-2 truncate">{{ sermon.title }}</h3>
-                        <div class="flex flex-row items-center justify-start ">
-                            {% for speaker in sermon.speakers.all %}
-                                <p class="text-sm mr-2">
-                                    {% if forloop.first %}<i class="fas fa-microphone mr-1"></i>{% endif %}
-                                    {{ speaker.name }}
-                                    {{ speaker.name }}{% if not forloop.last %},{% endif %}
-                                </p>
-                            {% endfor %}
+            {# Sermons section #}
+            <div class="card flex flex-col items-center md:flex-row justify-around">
+                <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-8">
+                    <img class="w-3/4" src="{% static 'img/media_player_re_rdd2.svg' %}" alt="Live">
+                    <div class="flex flex-col justify-center items-center pt-8">
+                        <h2 class="text-primary-default text-2xl font-bold font-serif">Sermons</h2>
+                        <p class="pt-1 text-center">Browse through our historical sermons that we have recorded</p>
+                        <div class="my-4">
+                            <a href="{% url 'schedules:events-list' %}" class="btn btn-primary"><i
+                                    class="fas fa-circle mr-2"></i>
+                                Sermons
+                            </a>
                         </div>
-                        <p class="text-sm">{{ sermon.event.start.date|date:"M j, Y" }}</p>
-                    </a>
-                {% endfor %}
+                    </div>
+                </div>
+
+                <div class="flex flex-col w-full md:w-1/2 md:pl-8">
+                    {% for sermon in sermons %}
+                        <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}"
+                           class="flex flex-col card bg-primary-default text-white shadow overflow-hidden w-full my-3 hover:bg-primary-tint">
+                            <h3 class="font-bold pb-2 truncate">{{ sermon.title }}</h3>
+                            <div class="flex flex-row items-center justify-start ">
+                                {% for speaker in sermon.speakers.all %}
+                                    <p class="text-sm mr-2">
+                                        {% if forloop.first %}<i class="fas fa-microphone mr-1"></i>{% endif %}
+                                        {{ speaker.name }}
+                                        {{ speaker.name }}{% if not forloop.last %},{% endif %}
+                                    </p>
+                                {% endfor %}
+                            </div>
+                            <p class="text-sm">{{ sermon.event.start.date|date:"M j, Y" }}</p>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {# Contact form #}
+            <div class="flex flex-col items-center md:justify-around md:flex-row">
+                <img class="w-3/4 md:w-1/2" src="{% static 'img/personal_text_re_vqj3.svg' %}"
+                     alt="Person looking at a messages">
+                {% include "contactus/contact-form.html" %}
             </div>
         </div>
     </div>

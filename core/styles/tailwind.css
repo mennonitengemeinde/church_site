@@ -6,6 +6,21 @@
     [x-cloak] {
         display: none;
     }
+
+    label {
+        @apply block py-1 text-sm font-medium text-gray-700;
+    }
+
+    input[type=text],
+    input[type=password],
+    input[type=email],
+    input[type=url],
+    input[type=tel],
+    input[type=number],
+    input[type=search],
+    textarea {
+        @apply mb-3 shadow-sm focus:ring-primary-default focus:border-primary-default block w-full sm:text-sm border-gray-300 rounded-md;
+    }
 }
 
 @layer components {

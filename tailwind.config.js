@@ -2,7 +2,8 @@ module.exports = {
     content: [
         "./templates/**/*.{html,js}",
         "./home/templates/**/*.{html,js}",
-        "./sermons/templates/**/*.{html,js}"
+        "./sermons/templates/**/*.{html,js}",
+        "./contactus/templates/**/*.{html,js}",
     ],
     safelist: [
         "tailwind-input",
