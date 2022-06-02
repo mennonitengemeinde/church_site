@@ -23,18 +23,18 @@
         </div>
 
         <div class="card w-10/12 sm:w-1/2 lg:w-1/3">
-            <form class="space-y-4" method="POST" action="{% url 'account_login' %}">
+            <form method="POST" action="{% url 'account_login' %}">
                 {% csrf_token %}
                 {% for field in form %}
                     {% if field.name != 'remember' %}
-                        <div class="space-y-1">
-                            <label for="{{ field.html_name }}" class="tailwind-input-label">{{ field.label }}</label>
-                            {{ field }}
-                        </div>
+                        {#                        <div class="space-y-1">#}
+                        <label for="{{ field.html_name }}">{{ field.label }}</label>
+                        {{ field }}
+                        {#                        </div>#}
                     {% else %}
-                        <div class="flex items-center space-x-2 pt-2">
+                        <div class="flex items-center space-x-2 py-2">
                             {{ field }}
-                            <label for="{{ field.html_name }}" class="tailwind-input-label">{{ field.label }}</label>
+                            <label for="{{ field.html_name }}">{{ field.label }}</label>
                         </div>
                     {% endif %}
                 {% endfor %}

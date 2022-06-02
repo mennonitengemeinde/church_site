@@ -179,7 +179,7 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_AUTO_SIGNUP = False
 ACCOUNT_FORMS = {
-    'login': 'accounts.forms.MgLoginForm',
+    # 'login': 'accounts.forms.MgLoginForm',
     'signup': 'accounts.forms.MgSignupForm'
 }
 SOCIALACCOUNT_FORMS = {

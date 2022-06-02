@@ -21,6 +21,15 @@
     textarea {
         @apply mb-3 shadow-sm focus:ring-primary-default focus:border-primary-default block w-full sm:text-sm border-gray-300 rounded-md;
     }
+
+    input[type=checkbox],
+    input[type=radio] {
+        @apply focus:ring-primary-default h-4 w-4 text-primary-shade border-gray-300 rounded;
+    }
+
+    select {
+        @apply mb-3 mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-default focus:border-primary-default sm:text-sm rounded-md;
+    }
 }
 
 @layer components {
@@ -41,18 +50,6 @@
     }
 
     .card {
-        @apply p-4 md:p-8 bg-white rounded-lg shadow
-    }
-
-    .tailwind-checkbox {
-        @apply h-4 w-4 text-primary-default focus:ring-primary-tint border-gray-300 rounded;
-    }
-
-    .tailwind-input {
-        @apply shadow-sm focus:ring-primary-tint focus:border-primary-default block w-full sm:text-sm border-gray-300 rounded-md;
-    }
-
-    .tailwind-input-label {
-        @apply block text-sm font-medium text-gray-700;
+        @apply bg-white px-4 py-5 border-b border-gray-200 sm:px-6 rounded;
     }
 }

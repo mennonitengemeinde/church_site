@@ -6,12 +6,12 @@ from django.forms import CharField
 from django_countries.fields import CountryField
 
 
-class MgLoginForm(LoginForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["login"].widget.attrs["class"] = "tailwind-input"
-        self.fields["password"].widget.attrs["class"] = "tailwind-input"
-        self.fields["remember"].widget.attrs["class"] = "tailwind-checkbox"
+# class MgLoginForm(LoginForm):
+# def __init__(self, *args, **kwargs):
+#     super().__init__(*args, **kwargs)
+#     self.fields["login"].widget.attrs["class"] = "tailwind-input"
+#     self.fields["password"].widget.attrs["class"] = "tailwind-input"
+#     self.fields["remember"].widget.attrs["class"] = "tailwind-checkbox"
 
 
 class UpdateUserForm(UserChangeForm):

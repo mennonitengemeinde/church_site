@@ -4,7 +4,7 @@
 {#{% load compress %}#}
 {% load pwa %}
 
-<html class="min-h-full" lang="en" prefix="og: https://ogp.me/ns#">
+<html class="h-full bg-background-pattern bg-no-repeat bg-fixed" lang="en" prefix="og: https://ogp.me/ns#">
 
 <head>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
@@ -44,7 +44,7 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="flex flex-col min-h-screen bg-background-pattern bg-no-repeat bg-fixed font-sans">
+<body class="flex flex-col h-full font-sans">
 
 {% block body %}{% endblock %}
 
