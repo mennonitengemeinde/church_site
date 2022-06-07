@@ -41,7 +41,8 @@
     <meta property="og:url" content="https://mennonitengemeinde.org{{ request.get_full_path }}"/>
     <meta property="og:image" content="https://mennonitengemeinde.org{% static 'android-chrome-512x512.png' %}"/>
 
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {#    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>#}
+    <script defer src="{% static 'alpinejs/dist/cdn.min.js' %}"></script>
 </head>
 
 <body class="flex flex-col h-full font-sans">

@@ -7,6 +7,10 @@
         display: none;
     }
 
+    [v-cloak] {
+        display: none;
+    }
+
     label {
         @apply block py-1 text-sm font-medium text-gray-700;
     }
