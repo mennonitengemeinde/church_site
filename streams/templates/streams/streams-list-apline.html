@@ -15,8 +15,8 @@
         <hr class="mx-5">
 
         <div id="live-app"
-             x-data="appLiveStreamComponent()"
-             x-init="init()"
+             x-data="appLiveStreamComponent"
+             x-init="start"
              x-cloak>
             <div class="flex justify-center text-white py-4">
                 <span class="bg-primary-default pl-2 pr-5 rounded-lg">I'll look again in:</span>
@@ -113,8 +113,8 @@
 
 {% block js %}
     <script>
-        function appLiveStreamComponent() {
-            return {
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('appLiveStreamComponent', () => ({
                 countdown: 10,
                 countdownQuote: 0,
                 liveEvents: [],
@@ -172,7 +172,7 @@
                             this.scheduledEvents = tempScheduledEvents;
                         });
                 },
-                init() {
+                start() {
                     this.getEvents();
                     setInterval(() => {
                         if (this.countdown === 0) {
@@ -190,7 +190,7 @@
                     const [hours, minutes, seconds] = dAmPm[0].split(':')
                     return `${hours}:${minutes} ${dAmPm[1]}`
                 }
-            }
-        }
+            }));
+        });
     </script>
 {% endblock %}

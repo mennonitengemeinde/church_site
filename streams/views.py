@@ -16,7 +16,7 @@ class StreamsListView(View):
             'page_title': 'Live - Mennoniten Gemeinde',
             'current_page': 'live',
         }
-        return render(request, 'streams/streams-list-vue3.html', context)
+        return render(request, 'streams/streams-list-apline.html', context)
 
 
 class LiveAudioView(BaseDetailView):
