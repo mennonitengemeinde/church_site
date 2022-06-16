@@ -74,11 +74,19 @@
                                  role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                  tabindex="-1"
                             >
+                                {% if perms.schedules.view_event %}
+                                    <a href="{% url 'schedules:events-admin-list' %}"
+                                       class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                       tabindex="-1"
+                                       id="user-menu-item-0">
+                                        Manage
+                                    </a>
+                                {% endif %}
                                 <!-- Active: "bg-gray-100", Not Active: "" -->
                                 <a href="{% url 'accounts:user-profile' %}"
                                    class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                                    tabindex="-1"
-                                   id="user-menu-item-0">
+                                   id="user-menu-item-1">
                                     Your Profile
                                 </a>
 
