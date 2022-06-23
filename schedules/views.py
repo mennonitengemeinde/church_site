@@ -24,8 +24,22 @@ class EventsView(MgView):
         context = {
             'page_title': self.page_title,
             'current_page': self.current_page,
-            'current_church': kwargs.get('church') if kwargs.get('church') else None,
-            'events': selectors.get_events(church_name=kwargs.get('church')),
+            'current_church': request.GET.get('church') if request.GET.get('church') else None,
+            'events': selectors.get_events(church_name=request.GET.get('church')),
+            'churches': Church.objects.all()
+        }
+        print(context['events'].count())
+        return render(request, self.template_name, context)
+
+
+class EventsPartialView(View):
+    template_name = 'schedules/partials/event-list-partial.html'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'current_church': request.GET.get('church') if request.GET.get('church') else None,
+            'events': selectors.get_events(
+                church_name=request.GET.get('church') if request.GET.get('church') != 'None' else None),
             'churches': Church.objects.all()
         }
         return render(request, self.template_name, context)
@@ -63,7 +77,8 @@ class EventsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(EventsAdminCreateView, self).get_context_data(object_list=object_list, **kwargs)
         context['event_templates'] = EventTemplate.objects.all()
-        context['selected_template'] = int(self.request.GET.get('template')) if self.request.GET.get('template') else None
+        context['selected_template'] = int(self.request.GET.get('template')) if self.request.GET.get(
+            'template') else None
         return context
 
     def get_form_kwargs(self):

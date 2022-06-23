@@ -2,6 +2,7 @@ module.exports = {
     content: [
         "./templates/**/*.{html,js}",
         "./home/templates/**/*.{html,js}",
+        "./schedules/templates/**/*.{html,js}",
         "./sermons/templates/**/*.{html,js}",
         "./streams/templates/**/*.{html,js}",
         "./contactus/templates/**/*.{html,js}",

@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends '_layout.html' %}
 
 {% load static %}
 {#{% load compress %}#}
@@ -9,105 +9,40 @@
 
 {% block content %}
 
-    {{ block.super }}
-
-    <div class="container">
-        {# filters #}
-        <div class="col-md-6 offset-md-3 mt-5">
-            <label for="churchFilter">Filter Church</label>
-            <select id="churchFilter" class="form-select" onchange="onEventsChurchChange(this.value)">
-                <option value="None"{% if current_church == 'None' %} selected{% endif %}>All Churches</option>
-                {% for church in churches %}
-                    <option value="{{ church.slug }}"{% if current_church == church.slug %} selected{% endif %}>{{ church.name }}</option>
-                {% endfor %}
-            </select>
+    <div class="flex flex-col md:flex-row py-5">
+        <div class="flex justify-center w-full md:w-1/2">
+            <img class="w-fit max-w-sm h-auto mx-5" src="{% static 'img/booking_re_gw4j.svg' %}"
+                 alt="illustration of a calendar">
         </div>
-
-        {% for event in events %}
-            {% ifchanged event.start.date %}
-                <h4 class="mt-5 text-primary local-date" data-date="{{ event.start.date|date:'U' }}"></h4>
-            {% endifchanged %}
-
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h5 class="card-title mb-0">{{ event.title }}</h5>
-                        <span class="badge badge-info local-time" data-time="{{ event.start|date:'U' }}">
-                            <i class="fas fa-clock me-1"></i>
-                        </span>
-                    </div>
-                    <div class="small">{{ event.church|upper }}</div>
-
-                    {% if event.in_person or event.live_stream %}
-                        <div class="small">
-                            {% if event.in_person %}
-                                <span class="text-secondary me-3"><i class="fas fa-church me-1"></i>In Church</span>
-                            {% endif %}
-                            {% if event.live_stream %}
-                                <span class="text-primary"><i class="fas fa-video me-1"></i>Live Stream</span>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-
-                    {% if event.attendance_limit != 0 and event.attendance_signup %}
-                        <div class="font-weight-bold mt-2">
-                            Space available: <span
-                                class="{% if event.available_attendance == 0 %}text-danger{% else %}text-success{% endif %}">{{ event.available_attendance }}</span>
-                        </div>
-                    {% endif %}
-
-                    {% if event.description or event.address or event.map_search_query %}
-                        <hr>
-                    {% endif %}
-
-                    {% if event.description %}
-                        <h6>Description:</h6>
-                        <p>{{ event.description }}</p>
-                    {% endif %}
-
-                    {% if event.address %}
-                        <h6>Address:</h6>
-                        <p>{{ event.address }}</p>
-                    {% endif %}
-
-                    {# TODO: Map intagration #}
-                </div>
-                {% if event.live_stream or event.available_attendance is not 0 and event.attendance_signup %}
-                    <div class="card-footer">
-                        <div class="text-center">
-{#                            {% if event.in_person %}#}
-{#                                <a href="" class="btn btn-sm btn-light"><i#}
-{#                                        class="fas fa-map-marked me-1 text-mg-primary"></i> Directions</a>#}
-{#                            {% endif %}#}
-                            {% if event.available_attendance is not 0 and event.attendance_signup %}
-                                <a href="{% url 'schedules:attendants-create' church=event.church event=event.id %}"
-                                       class="btn btn-sm btn-round btn-primary me-2">Signup <i
-                                            class="fas fa-pen ms-1"></i></a>
-                            {% endif %}
-                            {% if event.live_stream %}
-                                <a href="{% url 'streams:streams-list' %}" class="btn btn-sm btn-round btn-outline-primary"><i class="fas fa-circle text-danger me-1"></i>Live</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endif %}
+        <div class="flex flex-col items-center justify-center md:w-1/2 px-5">
+            <h1 class="text-3xl font-bold text-gray-800">
+                Scheduled Events
+            </h1>
+            <p class="py-3 max-w-sm text-center text-gray-500">
+                The schedule is periodically. If you don't see any events come back later.
+            </p>
+            <div class="w-full max-w-sm pt-3">
+                <label for="church" class="block text-sm font-medium text-gray-700">Church</label>
+                <select id="church" name="church"
+                        hx-get="{% url 'schedules:events-list-partial' %}"
+                        hx-trigger="change"
+                        hx-target="#eventList"
+                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-default focus:border-primary-default sm:text-sm rounded-md">
+                    <option value="None"{% if current_church == 'None' %} selected{% endif %}>
+                        All Churches
+                    </option>
+                    {% for church in churches %}
+                        <option value="{{ church.slug }}"
+                                {% if current_church == church.slug %}selected{% endif %}
+                        >{{ church.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
-
-        {% endfor %}
-
+        </div>
     </div>
 
-{% endblock %}
+    <div id="eventList" class="flex justify-center md:pt-8">
+        {% include 'schedules/partials/event-list-partial.html' %}
+    </div>
 
-{% block js %}
-{#    {% compress js inline %}#}
-        <script>
-            function onEventsChurchChange(church) {
-                if (church !== 'None') {
-                    window.location.href = "{% url 'schedules:events-list' %}" + church + "/";
-                } else {
-                    window.location.href = "{% url 'schedules:events-list' %}";
-                }
-            }
-        </script>
-{#    {% endcompress %}#}
 {% endblock %}

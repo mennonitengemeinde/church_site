@@ -16,7 +16,7 @@ from .views import (
     EventTemplateAdminListView,
     EventTemplateAdminCreateView,
     EventTemplateAdminUpdateView,
-    EventTemplateAdminDeleteView,
+    EventTemplateAdminDeleteView, EventsPartialView,
 )
 
 app_name = 'schedules'
@@ -25,6 +25,7 @@ urlpatterns = [
     path('', EventsView.as_view(), name='events-list'),
     path('<str:church>/', EventsView.as_view(), name='events-list-filtered'),
     path('<str:church>/<int:event>/attendants/add', AttendantCreateView.as_view(), name='attendants-create'),
+    path('partials/events/', EventsPartialView.as_view(), name='events-list-partial'),
     path('manage/events/', EventsAdminListView.as_view(), name='events-admin-list'),
     path('manage/events/all/', EventsAdminAllListView.as_view(), name='events-admin-all-list'),
     path('manage/events/add/', EventsAdminCreateView.as_view(), name='events-admin-create'),
