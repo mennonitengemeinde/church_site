@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import QuerySet
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
@@ -10,8 +11,8 @@ from church_site.views import AdminListView, BaseCreateView, BaseUpdateView, Bas
 from churches.models import Church
 from schedules import selectors
 from shared.views import MgView
-from .forms import EventForm, AttendantForm, AttendantAdminForm
 
+from .forms import EventForm, AttendantForm, AttendantAdminForm
 from .models import Event, Attendant, EventTemplate
 
 
@@ -22,13 +23,17 @@ class EventsView(MgView):
 
     def get(self, request, *args, **kwargs):
         context = {
-            'page_title': self.page_title,
-            'current_page': self.current_page,
             'current_church': request.GET.get('church') if request.GET.get('church') else None,
-            'events': selectors.get_events(church_name=request.GET.get('church')),
+            'events': selectors.get_events_formatted_by_date(
+                church_name=request.GET.get('church') if request.GET.get('church') != 'all' else None),
             'churches': Church.objects.all()
         }
-        print(context['events'].count())
+
+        if request.htmx:
+            return render(request, 'schedules/partials/event-list-partial.html', context)
+
+        context['page_title'] = self.page_title
+        context['current_page'] = self.current_page
         return render(request, self.template_name, context)
 
 
@@ -36,6 +41,8 @@ class EventsPartialView(View):
     template_name = 'schedules/partials/event-list-partial.html'
 
     def get(self, request, *args, **kwargs):
+        if request.htmx:
+            print('htmx')
         context = {
             'current_church': request.GET.get('church') if request.GET.get('church') else None,
             'events': selectors.get_events(

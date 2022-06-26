@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'pwa',
     'django_countries',
+    'django_htmx',
     # Project
     'core',
     'shared.apps.SharedConfig',
@@ -105,6 +106,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'church_site.urls'

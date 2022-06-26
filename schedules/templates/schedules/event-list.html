@@ -24,11 +24,12 @@
             <div class="w-full max-w-sm pt-3">
                 <label for="church" class="block text-sm font-medium text-gray-700">Church</label>
                 <select id="church" name="church"
-                        hx-get="{% url 'schedules:events-list-partial' %}"
+                        hx-get="{% url 'schedules:events-list' %}"
                         hx-trigger="change"
                         hx-target="#eventList"
+                        hx-push-url="true"
                         class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-default focus:border-primary-default sm:text-sm rounded-md">
-                    <option value="None"{% if current_church == 'None' %} selected{% endif %}>
+                    <option value="all"{% if current_church == 'all' %} selected{% endif %}>
                         All Churches
                     </option>
                     {% for church in churches %}
