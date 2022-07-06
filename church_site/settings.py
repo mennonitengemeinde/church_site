@@ -81,7 +81,9 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'pwa',
     'django_countries',
+    'django_htmx',
     # Project
+    'core',
     'shared.apps.SharedConfig',
     'accounts.apps.AccountsConfig',
     'churches.apps.ChurchesConfig',
@@ -104,6 +106,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'church_site.urls'
@@ -111,8 +114,7 @@ ROOT_URLCONF = 'church_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,7 +143,6 @@ LOGGING = {
         'level': 'WARNING',
     },
 }
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -180,6 +181,7 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_AUTO_SIGNUP = False
 ACCOUNT_FORMS = {
+    'login': 'accounts.forms.MgLoginForm',
     'signup': 'accounts.forms.MgSignupForm'
 }
 SOCIALACCOUNT_FORMS = {
@@ -243,7 +245,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -256,7 +257,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.forms import ModelForm, ValidationError, HiddenInput
+from django.forms import ModelForm, ValidationError, HiddenInput, Select, TextInput, Textarea, CheckboxInput
 
 from churches.models import Church
 from schedules.models import Event, Attendant
@@ -15,6 +15,20 @@ class EventForm(ModelForm):
         model = Event
         fields = ('church', 'start', 'end', 'title', 'description', 'address', 'map_search_query',
                   'in_person', 'live_stream', 'attendance_limit', 'attendance_signup', 'visibility')
+        widgets = {
+            'church': Select(attrs={'class': 'select select-bordered w-full max-w-sm'}),
+            'start': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'end': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'title': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'description': Textarea(attrs={'class': 'textarea textarea-bordered w-full h-20 max-w-sm'}),
+            'address': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'map_search_query': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'in_person': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
+            'live_stream': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
+            'attendance_limit': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'attendance_signup': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
+            'visibility': Select(attrs={'class': 'select select-bordered w-full max-w-sm'}),
+        }
 
     def clean_end(self):
         data = self.cleaned_data['end']

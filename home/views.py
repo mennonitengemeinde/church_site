@@ -3,10 +3,11 @@ from django.views.generic import CreateView
 
 from contactus.forms import ContactUsForm
 from schedules.selectors import get_events
+from sermons.selectors import get_random_sermons
 
 
 class HomeView(CreateView):
-    template_name = 'home/home.html'
+    template_name = 'home/home_v2.html'
     form_class = ContactUsForm
     page_title = 'Mennoniten Gemeinde'
     success_url = reverse_lazy('home:home')
@@ -15,7 +16,8 @@ class HomeView(CreateView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
         context['current_page'] = 'home'
-        context['events'] = get_events(limit=12)
+        context['events'] = get_events(limit=5)
+        context['sermons'] = get_random_sermons(limit=5)
         return context
 
     def get_initial(self):
