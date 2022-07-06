@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "**Still in planning mode**",
   "scripts": {
+    "build": "npx tailwindcss -i ./core/styles/tailwind.css -o ./assets/css/output.css --minify",
     "dev": "npx tailwindcss -i ./core/styles/tailwind.css -o ./assets/css/output.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
