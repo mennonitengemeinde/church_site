@@ -1,19 +1,18 @@
 {% extends 'admin-form-layout.html' %}
 
-{% load crispy_forms_tags %}
-
 {% block form %}
-    <div class="card">
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
+    <form method="post">
+        {% csrf_token %}
 
-                {{ form|crispy }}
+        {% for f in form %}
+            <label for="{{ f.auto_id }}" class="label">
+                <span class="label-text">{{ f.label }}</span>
+            </label>
+            {{ f }}
+        {% endfor %}
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary shadow">Save</button>
-                </div>
-            </form>
+        <div class="flex justify-center pt-5">
+            <button type="submit" class="btn btn-primary shadow">Save</button>
         </div>
-    </div>
+    </form>
 {% endblock %}

@@ -4,13 +4,13 @@
 
     <div x-data class="px-3 md:px-0">
         <div class="pb-5 pt-3 border-b border-gray-200 sm:pb-0">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Manage</h3>
+            <h3 class="text-lg leading-6 font-medium text-primary">Manage</h3>
             <div class="mt-3 sm:mt-4">
                 {# Dropdown menu on small screens #}
                 <div class="md:hidden">
                     <label for="current-tab" class="sr-only">Select a tab</label>
                     <select id="current-tab" name="current-tab" @change="window.location.href = $event.target.value"
-                            class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-default focus:border-primary-default sm:text-sm rounded-md">
+                            class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
                         <option value="{% url 'churches:churches-admin-list' %}"
                                 {% if current_page == 'admin_churches' %} selected{% endif %}>
                             Churches
@@ -45,31 +45,31 @@
                 <div class="hidden md:block">
                     <nav class="-mb-px flex space-x-8">
                         <a href="{% url 'churches:churches-admin-list' %}"
-                           class="{% if current_page == 'admin_churches' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                           class="{% if current_page == 'admin_churches' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                             Churches </a>
 
                         <a href="{% url 'speakers:speakers-admin-list' %}"
-                           class="{% if current_page == 'admin_speakers' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                           class="{% if current_page == 'admin_speakers' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                             Speakers </a>
 
                         <a href="{% url 'schedules:events-admin-list' %}"
-                           class="{% if current_page == 'admin_events' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                           class="{% if current_page == 'admin_events' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                             Events </a>
 
                         <a href="{% url 'streams:streams-admin-list' %}"
-                           class="{% if current_page == 'admin_streams' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                           class="{% if current_page == 'admin_streams' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                             Streams </a>
 
                         <a href="{% url 'sermons:sermons-admin-list' %}"
-                           class="{% if current_page == 'admin_sermons' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                           class="{% if current_page == 'admin_sermons' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                             Sermons </a>
 
                         <a href="{% url 'contactus:admin-messages' %}"
-                           class="{% if current_page == 'admin_messages' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                           class="{% if current_page == 'admin_messages' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                             Messages </a>
 
                         <a href="{% url 'accounts:users-admin-list' %}"
-                           class="{% if current_page == 'admin_users' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                           class="{% if current_page == 'admin_users' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                             Users </a>
                     </nav>
                 </div>

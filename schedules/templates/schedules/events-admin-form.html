@@ -4,26 +4,91 @@
 {#{% load compress %}#}
 
 {% block form_header %}
-    <div class="w-full max-w-sm">
-        <label for="id_template">Template</label>
-        <select name="template" id="id_template" onchange="addTemplateDate()">
-            <option value="None"{% if selected_template == 'None' %} selected{% endif %}>---------</option>
-            {% for et in event_templates %}
-                <option value="{{ et.id }}"{% if selected_template == et.id %} selected{% endif %}>{{ et }}</option>
-            {% endfor %}
-        </select>
+    <div class="flex flex-col items-center w-full max-w-sm">
+        <div class="flex flex-col w-full max-w-xs pb-3">
+            <label for="id_template" class="label">
+                <span class="label-text">Template</span>
+            </label>
+            <select name="template" id="id_template" onchange="addTemplateDate()"
+                    class="select select-bordered w-full max-w-xs">
+                <option value="None"{% if selected_template == 'None' %} selected{% endif %}>---------</option>
+                {% for et in event_templates %}
+                    <option value="{{ et.id }}"{% if selected_template == et.id %} selected{% endif %}>{{ et }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
     <hr>
 {% endblock %}
 
 {% block form %}
-    <form method="post">
+    <form method="post" class="flex flex-col items-center w-full max-w-sm">
         {% csrf_token %}
+        <div>
 
-        {{ form }}
+            <label for="id_church" class="label">
+                <span class="label-text">{{ form.church.label }}</span>
+            </label>
+            {{ form.church }}
 
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary shadow">Save</button>
+            <label for="id_start" class="label">
+                <span class="label-text">{{ form.start.label }}</span>
+            </label>
+            {{ form.start }}
+
+            <label for="id_end" class="label">
+                <span class="label-text">{{ form.end.label }}</span>
+            </label>
+            {{ form.end }}
+
+            <label for="id_title" class="label">
+                <span class="label-text">{{ form.title.label }}</span>
+            </label>
+            {{ form.title }}
+
+            <label for="id_description" class="label">
+                <span class="label-text">{{ form.description.label }}</span>
+            </label>
+            {{ form.description }}
+
+            <label for="id_address" class="label">
+                <span class="label-text">{{ form.address.label }}</span>
+            </label>
+            {{ form.address }}
+
+            <label for="id_map_search_query" class="label">
+                <span class="label-text">{{ form.map_search_query.label }}</span>
+            </label>
+            {{ form.map_search_query }}
+
+            <label for="id_in_person" class="label">
+                <span class="label-text">{{ form.in_person.label }}</span>
+            </label>
+            {{ form.in_person }}
+
+            <label for="id_live_stream" class="label">
+                <span class="label-text">{{ form.live_stream.label }}</span>
+            </label>
+            {{ form.live_stream }}
+
+            <label for="id_attendance_limit" class="label">
+                <span class="label-text">{{ form.attendance_limit.label }}</span>
+            </label>
+            {{ form.attendance_limit }}
+
+            <label for="id_attendance_signup" class="label">
+                <span class="label-text">{{ form.attendance_signup.label }}</span>
+            </label>
+            {{ form.attendance_signup }}
+
+            <label for="id_visibility" class="label">
+                <span class="label-text">{{ form.visibility.label }}</span>
+            </label>
+            {{ form.visibility }}
+        </div>
+
+        <div class="flex justify-center pt-5">
+            <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </form>
 {% endblock %}

@@ -2,8 +2,9 @@ from allauth.account.forms import SignupForm as ASignUpForm, LoginForm
 from allauth.socialaccount.forms import SignupForm as SaSignUpForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm
-from django.forms import CharField
+from django.forms import CharField, TextInput, Textarea, CheckboxInput, Select, ModelForm, SelectMultiple
 from django_countries.fields import CountryField
+from django_countries.widgets import CountrySelectWidget
 
 
 # class MgLoginForm(LoginForm):
@@ -21,6 +22,19 @@ class UpdateUserForm(UserChangeForm):
             'username', 'first_name', 'last_name', 'email', 'churches', 'groups', 'is_superuser',
             'is_staff', 'is_active', 'date_joined', 'last_login'
         )
+        widgets = {
+            'username': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'first_name': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'last_name': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'email': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'churches': SelectMultiple(attrs={'class': 'select select-bordered select-multiple w-full max-w-xs'}),
+            'groups': SelectMultiple(attrs={'class': 'select select-bordered select-multiple w-full max-w-xs'}),
+            'is_superuser': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
+            'is_staff': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
+            'is_active': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
+            'date_joined': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'last_login': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+        }
 
 
 class MgSignupForm(ASignUpForm):

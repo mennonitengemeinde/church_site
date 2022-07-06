@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 
 from church_site.views import AdminListView, BaseCreateView, BaseUpdateView
+from churches.forms import ChurchCreateForm
 
 from churches.models import Church
 from churches.selectors import get_member_churches
@@ -24,7 +25,7 @@ class ChurchesAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     btn_back_href = reverse_lazy('churches:churches-admin-list')
     model = Church
     template_name = 'admin-form-view.html'
-    fields = ('name', 'street', 'city', 'province_state', 'country', 'mixlr_url')
+    form_class = ChurchCreateForm
     success_url = reverse_lazy('churches:churches-admin-list')
 
 

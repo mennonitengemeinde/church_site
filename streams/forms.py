@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Select, TextInput, Textarea, CheckboxInput
 
 from schedules.models import Event
 from schedules.selectors import get_admin_events
@@ -13,3 +13,12 @@ class StreamCreateForm(ModelForm):
     class Meta:
         model = Stream
         fields = ('event', 'title', 'description', 'speakers', 'live_url', 'live_mixlr_audio', 'live')
+        widgets = {
+            'event': Select(attrs={'class': 'select select-bordered w-full max-w-xs'}),
+            'title': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'description': Textarea(attrs={'class': 'textarea textarea-bordered w-full h-20 max-w-xs'}),
+            'speakers': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'live_url': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'live_mixlr_audio': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
+            'live': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
+        }

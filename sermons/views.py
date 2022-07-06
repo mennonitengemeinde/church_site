@@ -102,7 +102,7 @@ class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
 class SermonsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     permission_required = 'sermons.add_sermon'
     model = Sermon
-    template_name = 'sermons/sermons-admin-form.html'
+    template_name = 'admin-form-view.html'
     form_class = SermonCreateForm
     success_url = reverse_lazy('sermons:sermons-admin-list')
     page_title = 'New Sermon - Admin'
@@ -118,7 +118,7 @@ class SermonsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
 class SermonAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     permission_required = 'sermons.change_sermon'
     model = Sermon
-    template_name = 'sermons/sermons-admin-form.html'
+    template_name = 'admin-form-view.html'
     form_class = SermonCreateForm
     success_url = reverse_lazy('sermons:sermons-admin-list')
     page_title = 'Update Sermon - Admin'
