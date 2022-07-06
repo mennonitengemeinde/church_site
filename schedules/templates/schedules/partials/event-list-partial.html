@@ -8,12 +8,12 @@
                     {% endif %}
                     <div class="relative flex items-start space-x-3">
                         <div class="relative">
-                                <span class="h-10 w-10 rounded-full bg-primary-default flex flex-col items-center justify-center font-bold text-white ring-8 ring-white">
+                                <span class="h-10 w-10 rounded-full bg-primary flex flex-col items-center justify-center font-bold text-base-100 ring-8 ring-base-100">
                                     <span class="-mb-0.5">{{ scheduleEvent.date|date:"j" }}</span>
                                     <span class="-mt-0.5 text-[0.6rem]">{{ scheduleEvent.date|date:"M" }}</span>
                                 </span>
 
-                            <span class="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px"></span>
+                            <span class="absolute -bottom-0.5 -right-1 bg-base-100 rounded-tl px-0.5 py-px"></span>
                         </div>
                         <div class="min-w-0 flex-1">
                             <div class="font-medium text-gray-900">
@@ -21,12 +21,14 @@
                             </div>
                             <ul class="divide-y divide-gray-200">
                                 {% for eventDetail in scheduleEvent.events %}
-                                    <li class="card rounded-xl mt-2 text-sm text-gray-700">
-                                        <p class="mt-0.5 text-sm font-semibold">{{ eventDetail.title }}</p>
-                                        <p class="text-sm text-gray-500">{{ eventDetail.start|date:"f a" }}
-                                            - {{ eventDetail.end|date:"f a" }}</p>
-                                        <p>{{ eventDetail.description }}</p>
-                                        <p class="mt-0.5 flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary-tint rounded-full">{{ eventDetail.church }}</p>
+                                    <li class="card bg-base-100 mt-2 text-sm text-gray-700">
+                                        <div class="card-body">
+                                            <p class="mt-0.5 text-sm font-semibold">{{ eventDetail.title }}</p>
+                                            <p class="text-sm text-gray-500">{{ eventDetail.start|date:"f a" }}
+                                                - {{ eventDetail.end|date:"f a" }}</p>
+                                            <p>{{ eventDetail.description }}</p>
+                                            <p class="mt-0.5 flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary-tint rounded-full">{{ eventDetail.church }}</p>
+                                        </div>
                                     </li>
                                 {% endfor %}
                             </ul>

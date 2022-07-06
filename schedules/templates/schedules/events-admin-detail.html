@@ -1,119 +1,121 @@
-{% extends 'layout.html' %}
+{% extends '_layout.html' %}
 
 {% load static %}
 {#{% load compress %}#}
 {% load crispy_forms_tags %}
 
 {% block css %}
-{#    {% compress css inline %}#}
-        <style>
-            @media print {
-                nav {
-                    visibility: hidden;
-                }
-
-                .btn {
-                    visibility: hidden;
-                }
-                a {
-                    text-decoration: none;
-                    color: inherit;
-                }
+    {#    {% compress css inline %}#}
+    <style>
+        @media print {
+            nav {
+                visibility: hidden;
             }
-        </style>
-{#    {% endcompress %}#}
+
+            .btn {
+                visibility: hidden;
+            }
+
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+        }
+    </style>
+    {#    {% endcompress %}#}
 {% endblock %}
 
 {% block content %}
 
-    {{ block.super }}
+    <div class="px-3 md:px-0 py-4">
 
-    <div class="container py-4">
+        <button onclick="window.history.back()" class="btn btn-outline-primary"><i
+                class="fas fa-arrow-left mr-1"></i>Back
+        </button>
 
-        <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-outline-default"><i
-                class="fas fa-arrow-left me-1"></i>Back</a>
-
-        <div class="card shadow my-4">
-            <div class="card-body px-4 py-5">
-                <h3>{{ event.title }}</h3>
-                <h5 class="small">{{ event.church }}</h5>
-                <div class="d-flex justify-content-between py-2">
-                    <div class="text-center">
-                        <small>Start</small>
-                        <h6 class="mb-3">
-                            <span class="local-date" data-date="{{ event.start|date:'U' }}"></span> <span class="local-time" data-time="{{ event.start|date:'U' }}"></span>
-                        </h6>
-                    </div>
-                    <div class="text-center">
-                        <small>End</small>
-                        <h6 class="mb-3">
-                            <span class="local-date" data-date="{{ event.start|date:'U' }}"></span> <span class="local-time" data-time="{{ event.end|date:'U' }}"></span>
-                        </h6>
-                    </div>
+        <div class="card my-4">
+            <h3>{{ event.title }}</h3>
+            <h5 class="small">{{ event.church }}</h5>
+            <div class="flex justify-between py-2">
+                <div class="text-center">
+                    <small>Start</small>
+                    <h6 class="mb-3">
+                        <span class="local-date" data-date="{{ event.start|date:'U' }}"></span> <span
+                            class="local-time" data-time="{{ event.start|date:'U' }}"></span>
+                    </h6>
                 </div>
+                <div class="text-center">
+                    <small>End</small>
+                    <h6 class="mb-3">
+                        <span class="local-date" data-date="{{ event.start|date:'U' }}"></span> <span
+                            class="local-time" data-time="{{ event.end|date:'U' }}"></span>
+                    </h6>
+                </div>
+            </div>
 
-                {% if not event.attendants.all %}
-                    <div><span class="font-weight-bold">Space Limit:</span> {{ event.attendance_limit }}</div>
-                    <div><span class="font-weight-bold">Signed up Total:</span> {{ event.total_attendants }}</div>
-                    <div class="mb-3"><span
-                            class="font-weight-bold">Space Available:</span> {{ event.available_attendance }}</div>
-                {% endif %}
+            {% if not event.attendants.all %}
+                <div><span class="font-bold">Space Limit:</span> {{ event.attendance_limit }}</div>
+                <div><span class="font-bold">Signed up Total:</span> {{ event.total_attendants }}</div>
+                <div class="mb-3"><span
+                        class="font-bold">Space Available:</span> {{ event.available_attendance }}</div>
+            {% endif %}
 
-                {% if event.attendants.all %}
-                    <div class="table-responsive-md">
-                        <table class="table table-bordered table-striped mb-0">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Amount</th>
-                                <th class="d-print-none">Actions</th>
+            {% if event.attendants.all %}
+                <div class="table-responsive-md">
+                    <table class="table table-bordered table-striped mb-0">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th class="d-print-none">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for attendant in event.attendants.all %}
+                            <tr class="text-nowrap">
+                                <td>
+                                    {{ attendant.full_name }}
+                                </td>
+                                <td>{{ attendant.amount }}</td>
+                                <td class="d-print-none">
+                                    <a href="{% url 'schedules:attendants-admin-detail' event=event.pk pk=attendant.pk %}"
+                                       class="btn btn-sm btn-outline-default shadow">
+                                        <i class="fas fa-clipboard-list"></i>
+                                    </a>
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            {% for attendant in event.attendants.all %}
-                                <tr class="text-nowrap">
-                                    <td>
-                                        {{ attendant.full_name }}
-                                    </td>
-                                    <td>{{ attendant.amount }}</td>
-                                    <td class="d-print-none">
-                                        <a href="{% url 'schedules:attendants-admin-detail' event=event.pk pk=attendant.pk %}" class="btn btn-sm btn-outline-default shadow">
-                                            <i class="fas fa-clipboard-list"></i>
-                                        </a>
-                                    </td>
+                            {% if forloop.last %}
+                                <tr>
+                                    <td class="text-right">Limit</td>
+                                    <td>{{ event.attendance_limit }}</td>
                                 </tr>
-                                {% if forloop.last %}
-                                    <tr>
-                                        <td class="text-right">Limit</td>
-                                        <td>{{ event.attendance_limit }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-right">Total</td>
-                                        <td>{{ event.total_attendants }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-right font-weight-bold">Space available</td>
-                                        <td>{{ event.available_attendance }}</td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                {% endif %}
-
-                <div class="text-center pt-4">
-                    {% if perms.schedules.change_event %}
-                        <a href="{% url 'schedules:events-admin-update' pk=event.id %}" class="btn btn-warning shadow me-2">
-                            <i class="fas fa-edit me-1"></i>Edit
-                        </a>
-                    {% endif %}
-                    {% if perms.schedules.delete_event %}
-                        <button class="btn btn-danger shadow" data-bs-toggle="modal" data-bs-target="#delete-modal">
-                            <i class="fas fa-trash me-1"></i>Delete
-                        </button>
-                    {% endif %}
+                                <tr>
+                                    <td class="text-right">Total</td>
+                                    <td>{{ event.total_attendants }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right font-weight-bold">Space available</td>
+                                    <td>{{ event.available_attendance }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
+            {% endif %}
+
+            <div class="text-center pt-4">
+                {% if perms.schedules.change_event %}
+                    <a href="{% url 'schedules:events-admin-update' pk=event.id %}"
+                       class="btn btn-warning shadow me-2">
+                        <i class="fas fa-edit me-1"></i>Edit
+                    </a>
+                {% endif %}
+                {% if perms.schedules.delete_event %}
+                    <button class="btn btn-danger shadow" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                        <i class="fas fa-trash me-1"></i>Delete
+                    </button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -129,7 +131,9 @@
                     <p>Are you sure you want to delete {{ event.title }}?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-default shadow" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                    <button type="button" class="btn btn-outline-default shadow" data-bs-dismiss="modal"
+                            aria-label="Close">Close
+                    </button>
                     <form method="post" action="{% url 'schedules:events-admin-delete' pk=event.pk %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger shadow">Delete</button>

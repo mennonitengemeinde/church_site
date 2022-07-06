@@ -69,7 +69,7 @@ class StreamsAdminListView(PermissionRequiredMixin, AdminListView):
     context_object_name = 'streams'
     template_name = 'streams/streams-admin-list.html'
     page_title = 'Streams - Admin'
-    current_page = 'manage'
+    current_page = 'admin_streams'
     btn_add_href = reverse_lazy('streams:streams-admin-create')
     paginate_by = 25
 
@@ -84,7 +84,7 @@ class StreamsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     form_class = StreamCreateForm
     success_url = reverse_lazy('streams:streams-admin-list')
     page_title = 'New Stream - Admin'
-    current_page = 'manage'
+    current_page = 'admin_streams'
     btn_back_href = reverse_lazy('streams:streams-admin-list')
 
     def get_queryset(self):
@@ -103,7 +103,7 @@ class StreamAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     form_class = StreamCreateForm
     success_url = reverse_lazy('streams:streams-admin-list')
     page_title = 'Update Stream - Admin'
-    current_page = 'manage'
+    current_page = 'admin_streams'
     btn_back_href = reverse_lazy('streams:streams-admin-list')
 
     def get_queryset(self):

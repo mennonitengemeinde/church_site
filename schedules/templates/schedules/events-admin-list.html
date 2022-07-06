@@ -1,84 +1,82 @@
-{% extends 'layout.html' %}
+{% extends '_manage_layout.html' %}
 
 {% load static %}
 {#{% load compress %}#}
 
-{% block content %}
+{% block tab_content %}
 
-    {{ block.super }}
-
-    <div class="container">
-        {% if btn_add_href and perms.schedules.add_event %}
-            <div class="d-flex justify-content-between pt-3">
-                <div>
-                    {% url 'schedules:events-admin-all-list' as all_events_url %}
-                    {% if request.path == all_events_url %}
-                        <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-outline-default shadow">Show Current</a>
-                    {% else %}
-                        <a href="{% url 'schedules:events-admin-all-list' %}" class="btn btn-outline-default shadow">Show All</a>
-                    {% endif %}
-                    <a href="{% url 'schedules:event-templates-admin-list' %}" class="btn btn-secondary ms-1 shadow">Templates</a>
-                </div>
-                <a href="{{ btn_add_href }}" class="btn btn-primary shadow"><i class="fas fa-plus"></i> Add</a>
+    {% if btn_add_href and perms.schedules.add_event %}
+        <div class="flex justify-between pt-3">
+            <div>
+                {% url 'schedules:events-admin-all-list' as all_events_url %}
+                {% if request.path == all_events_url %}
+                    <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-default">Show
+                        Current</a>
+                {% else %}
+                    <a href="{% url 'schedules:events-admin-all-list' %}" class="btn btn-default">Show
+                        All</a>
+                {% endif %}
+                <a href="{% url 'schedules:event-templates-admin-list' %}" class="btn btn-secondary ms-1 shadow">Templates</a>
             </div>
-        {% endif %}
+            <a href="{{ btn_add_href }}" class="btn btn-primary"><i class="fas fa-plus mr-1"></i>Add</a>
+        </div>
+    {% endif %}
 
-        {% include 'snippets/paginator_snippet.html' %}
+    {% include 'snippets/paginator_snippet.html' %}
 
-        {% for event in events %}
-            <div class="card shadow my-3">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="badge badge-info local-date" data-date="{{ event.start|date:'U' }}">
-                            <i class="fas fa-calendar me-1"></i>
-                        </h6>
-                        <h6 class="badge badge-info local-time" data-time="{{ event.start|date:'U' }}">
-                            <i class="fas fa-clock me-1"></i>
-                        </h6>
+    {% for event in events %}
+        <div class="card my-3">
+            <div class="flex justify-between">
+                <h6 class="badge bg-secondary-default text-white local-date" data-date="{{ event.start|date:'U' }}">
+                    <i class="fas fa-calendar me-1"></i>
+                </h6>
+                <h6 class="badge bg-secondary-default text-white local-time" data-time="{{ event.start|date:'U' }}">
+                    <i class="fas fa-clock me-1"></i>
+                </h6>
+            </div>
+            <h4 class="mb-0 text-primary-default text-lg">{{ event.title }}</h4>
+            <small>{{ event.church.name }}</small>
+
+            <hr class="my-3">
+
+            {% if event.attendance_limit > 0 %}
+                <h6>Attendance Signup</h6>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <small class="font-weight-bold">Limit</small>
+                        <div class="text-center">{{ event.attendance_limit }}</div>
                     </div>
-                    <h4 class="mb-0 text-primary">{{ event.title }}</h4>
-                    <small>{{ event.church.name }}</small>
-
-                    <hr>
-
-                    {% if event.attendance_limit > 0 %}
-                        <h6>Attendance Signup</h6>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <small class="font-weight-bold">Limit</small>
-                                <div class="text-center">{{ event.attendance_limit }}</div>
-                            </div>
-                            <div>
-                                <small class="font-weight-bold">Signed up</small>
-                                <div class="text-center">{{ event.total_attendants }}</div>
-                            </div>
-                            {% if perms.schedules.change_event and event.attendance_limit > 0 %}
-                                <div>
-                                    <a href="{% url  'schedules:attendants-admin-signup-toggle' pk=event.pk %}" class="btn {% if event.attendance_signup %}btn-danger{% else %}btn-success{% endif %}">
-                                        {% if event.attendance_signup %}
-                                            End
-                                        {% else %}
-                                            Start
-                                        {% endif %}
-                                    </a>
-                                </div>
-                            {% endif %}
-                        </div>
-                        <hr>
-                    {% endif %}
-
-                    <div class="text-center">
-                        {% if perms.schedules.view_attendant %}
-                            <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}" class="btn btn-outline-primary me-2">
-                                <i class="fas {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} me-1"></i>Details
+                    <div>
+                        <small class="font-bold">Signed up</small>
+                        <div class="text-center">{{ event.total_attendants }}</div>
+                    </div>
+                    {% if perms.schedules.change_event and event.attendance_limit > 0 %}
+                        <div>
+                            <a href="{% url  'schedules:attendants-admin-signup-toggle' pk=event.pk %}"
+                               class="btn {% if event.attendance_signup %}btn-danger{% else %}btn-success{% endif %}">
+                                {% if event.attendance_signup %}
+                                    End
+                                {% else %}
+                                    Start
+                                {% endif %}
                             </a>
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% endif %}
                 </div>
-            </div>
-        {% endfor %}
+                <hr class="my-3">
+            {% endif %}
 
-        {% include 'snippets/paginator_snippet.html' %}
-    </div>
+            <div class="text-center">
+                {% if perms.schedules.view_attendant %}
+                    <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}"
+                       class="btn btn-outline-primary mr-2">
+                        <i class="fas {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} mr-1"></i>Details
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% include 'snippets/paginator_snippet.html' %}
 
 {% endblock %}

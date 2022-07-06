@@ -37,28 +37,13 @@ class EventsView(MgView):
         return render(request, self.template_name, context)
 
 
-class EventsPartialView(View):
-    template_name = 'schedules/partials/event-list-partial.html'
-
-    def get(self, request, *args, **kwargs):
-        if request.htmx:
-            print('htmx')
-        context = {
-            'current_church': request.GET.get('church') if request.GET.get('church') else None,
-            'events': selectors.get_events(
-                church_name=request.GET.get('church') if request.GET.get('church') != 'None' else None),
-            'churches': Church.objects.all()
-        }
-        return render(request, self.template_name, context)
-
-
 class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     permission_required = 'schedules.view_event'
     ordering = ('-start',)
     context_object_name = 'events'
     template_name = 'schedules/events-admin-list.html'
     page_title = 'Events - Admin'
-    current_page = 'manage'
+    current_page = 'admin_events'
     btn_add_href = reverse_lazy('schedules:events-admin-create')
     paginate_by = 25
 
@@ -78,7 +63,7 @@ class EventsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     form_class = EventForm
     success_url = reverse_lazy('schedules:events-admin-list')
     page_title = 'New Event - Admin'
-    current_page = 'manage'
+    current_page = 'admin_events'
     btn_back_href = reverse_lazy('schedules:events-admin-list')
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -117,7 +102,7 @@ class EventsAdminDetailView(PermissionRequiredMixin, BaseDetailView):
     context_object_name = 'event'
     template_name = 'schedules/events-admin-detail.html'
     page_title = 'Event Details - Admin'
-    current_page = 'manage'
+    current_page = 'admin_events'
 
     def get_queryset(self):
         return selectors.get_admin_events(user=self.request.user)
@@ -130,7 +115,7 @@ class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     form_class = EventForm
     success_url = reverse_lazy('schedules:events-admin-list')
     page_title = 'Update Event - Admin'
-    current_page = 'manage'
+    current_page = 'admin_events'
     btn_back_href = reverse_lazy('schedules:events-admin-list')
 
     def get_queryset(self):
@@ -162,14 +147,14 @@ class EventTemplateAdminListView(PermissionRequiredMixin, AdminListView):
     context_object_name = 'event_templates'
     template_name = 'schedules/event-templates-admin-list.html'
     page_title = 'Event Templates - Admin'
-    current_page = 'manage'
+    current_page = 'admin_events'
     btn_add_href = reverse_lazy('schedules:event-templates-admin-create')
 
 
 class EventTemplateAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     permission_required = 'schedules.add_eventtemplate'
     page_title = 'New Template - Admin'
-    current_page = 'manage'
+    current_page = 'admin_events'
     btn_back_href = reverse_lazy('schedules:event-templates-admin-list')
     model = EventTemplate
     template_name = 'admin-form-view.html'
@@ -181,7 +166,7 @@ class EventTemplateAdminCreateView(PermissionRequiredMixin, BaseCreateView):
 class EventTemplateAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     permission_required = 'schedules.change_eventtemplate'
     page_title = 'New Template - Admin'
-    current_page = 'manage'
+    current_page = 'admin_events'
     btn_back_href = reverse_lazy('schedules:event-templates-admin-list')
     model = EventTemplate
     template_name = 'admin-form-view.html'
@@ -202,7 +187,7 @@ class AttendantCreateView(SuccessMessageMixin, BaseCreateView):
     form_class = AttendantForm
     success_url = reverse_lazy('home:home')
     page_title = 'Signup attendance'
-    current_page = 'events'
+    current_page = 'admin_events'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(AttendantCreateView, self).get_context_data(**kwargs)

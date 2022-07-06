@@ -91,7 +91,7 @@ class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
     context_object_name = 'sermons'
     template_name = 'sermons/sermons-admin-list.html'
     page_title = 'Sermons - Admin'
-    current_page = 'manage'
+    current_page = 'admin_sermons'
     btn_add_href = reverse_lazy('sermons:sermons-admin-create')
     paginate_by = 25
 
@@ -106,7 +106,7 @@ class SermonsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     form_class = SermonCreateForm
     success_url = reverse_lazy('sermons:sermons-admin-list')
     page_title = 'New Sermon - Admin'
-    current_page = 'manage'
+    current_page = 'admin_sermons'
     btn_back_href = reverse_lazy('sermons:sermons-admin-list')
 
     def get_form_kwargs(self):
@@ -122,7 +122,7 @@ class SermonAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     form_class = SermonCreateForm
     success_url = reverse_lazy('sermons:sermons-admin-list')
     page_title = 'Update Sermon - Admin'
-    current_page = 'manage'
+    current_page = 'admin_sermons'
     btn_back_href = reverse_lazy('sermons:sermons-admin-list')
 
     def get_queryset(self):

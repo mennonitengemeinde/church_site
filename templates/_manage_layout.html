@@ -1,0 +1,82 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+
+    <div x-data class="px-3 md:px-0">
+        <div class="pb-5 pt-3 border-b border-gray-200 sm:pb-0">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Manage</h3>
+            <div class="mt-3 sm:mt-4">
+                {# Dropdown menu on small screens #}
+                <div class="md:hidden">
+                    <label for="current-tab" class="sr-only">Select a tab</label>
+                    <select id="current-tab" name="current-tab" @change="window.location.href = $event.target.value"
+                            class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-default focus:border-primary-default sm:text-sm rounded-md">
+                        <option value="{% url 'churches:churches-admin-list' %}"
+                                {% if current_page == 'admin_churches' %} selected{% endif %}>
+                            Churches
+                        </option>
+                        <option value="{% url 'speakers:speakers-admin-list' %}"
+                                {% if current_page == 'admin_speakers' %} selected{% endif %}>
+                            Speakers
+                        </option>
+                        <option value="{% url 'schedules:events-admin-list' %}"{% if current_page == 'admin_events' %}
+                                selected{% endif %}>
+                            Events
+                        </option>
+                        <option value="{% url 'streams:streams-admin-list' %}"{% if current_page == 'admin_streams' %}
+                                selected{% endif %}>
+                            Streams
+                        </option>
+                        <option value="{% url 'sermons:sermons-admin-list' %}"{% if current_page == 'admin_sermons' %}
+                                selected{% endif %}>
+                            Sermons
+                        </option>
+                        <option value="{% url 'contactus:admin-messages' %}"{% if current_page == 'admin_messages' %}
+                                selected{% endif %}>
+                            Messages
+                        </option>
+                        <option value="{% url 'accounts:users-admin-list' %}"{% if current_page == 'admin_users' %}
+                                selected{% endif %}>
+                            Users
+                        </option>
+                    </select>
+                </div>
+                {# Tabs at small breakpoint and up #}
+                <div class="hidden md:block">
+                    <nav class="-mb-px flex space-x-8">
+                        <a href="{% url 'churches:churches-admin-list' %}"
+                           class="{% if current_page == 'admin_churches' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                            Churches </a>
+
+                        <a href="{% url 'speakers:speakers-admin-list' %}"
+                           class="{% if current_page == 'admin_speakers' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                            Speakers </a>
+
+                        <a href="{% url 'schedules:events-admin-list' %}"
+                           class="{% if current_page == 'admin_events' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                            Events </a>
+
+                        <a href="{% url 'streams:streams-admin-list' %}"
+                           class="{% if current_page == 'admin_streams' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                            Streams </a>
+
+                        <a href="{% url 'sermons:sermons-admin-list' %}"
+                           class="{% if current_page == 'admin_sermons' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                            Sermons </a>
+
+                        <a href="{% url 'contactus:admin-messages' %}"
+                           class="{% if current_page == 'admin_messages' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                            Messages </a>
+
+                        <a href="{% url 'accounts:users-admin-list' %}"
+                           class="{% if current_page == 'admin_users' %}border-primary-default text-primary-shade {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                            Users </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        {% block tab_content %}{% endblock %}
+    </div>
+
+{% endblock %}

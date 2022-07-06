@@ -8,9 +8,13 @@ module.exports = {
         "./contactus/templates/**/*.{html,js}",
     ],
     safelist: [
-        "tailwind-input",
-        "tailwind-input-label",
-        "tailwind-checkbox",
+        "input",
+        "input-bordered",
+        "w-full",
+        "max-w-xs",
+        "textarea",
+        "textarea-bordered",
+        "h-20"
     ],
     theme: {
         extend: {
@@ -18,22 +22,40 @@ module.exports = {
                 "background-pattern": "url('/static/img/background.svg')",
                 "hero-background": "url('/static/img/hero-texture-33-4.jpg')",
             },
-            colors: {
-                primary: {
-                    "default": "#602627",
-                    "shade": "#4d1d1e",
-                    "tint": "#7b3a3b",
-                },
-                secondary: {
-                    "default": "#26605f",
-                    "shade": "#1d4d4e",
-                    "tint": "#3b7b7c",
-
-                },
-            },
+            // colors: {
+            //     primary: {
+            //         "default": "#602627",
+            //         "shade": "#4d1d1e",
+            //         "tint": "#7b3a3b",
+            //     },
+            //     secondary: {
+            //         "default": "#26605f",
+            //         "shade": "#1d4d4e",
+            //         "tint": "#3b7b7c",
+            //
+            //     },
+            // },
         },
     },
+    daisyui: {
+        themes: [
+            {
+                mgtheme: {
+                    "primary": "#602627",
+                    "primary-content": "#fbffff",
+                    "secondary": "#e45c12",
+                    "accent": "#1e1290",
+                    "neutral": "#271C27",
+                    "base-100": "#fbffff",
+                    "info": "#5590D8",
+                    "success": "#36CE85",
+                    "warning": "#D77409",
+                    "error": "#EC2233",
+                },
+            },
+        ],
+    },
     plugins: [
-        require('@tailwindcss/forms'),
+        require("daisyui"),
     ],
 };

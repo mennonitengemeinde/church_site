@@ -10,7 +10,7 @@ from churches.selectors import get_member_churches
 class ChurchesAdminListView(PermissionRequiredMixin, AdminListView):
     permission_required = 'churches.view_church'
     page_title = 'Churches - Admin'
-    current_page = 'manage'
+    current_page = 'admin_churches'
     btn_add_href = reverse_lazy('churches:churches-admin-create')
     model = Church
     context_object_name = 'churches'
@@ -20,7 +20,7 @@ class ChurchesAdminListView(PermissionRequiredMixin, AdminListView):
 class ChurchesAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     permission_required = 'churches.add_church'
     page_title = 'New Church - Admin'
-    current_page = 'manage'
+    current_page = 'admin_churches'
     btn_back_href = reverse_lazy('churches:churches-admin-list')
     model = Church
     template_name = 'admin-form-view.html'
@@ -31,7 +31,7 @@ class ChurchesAdminCreateView(PermissionRequiredMixin, BaseCreateView):
 class ChurchesAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     permission_required = 'churches.change_church'
     page_title = 'Update Church - Admin'
-    current_page = 'manage'
+    current_page = 'admin_churches'
     btn_back_href = reverse_lazy('churches:churches-admin-list')
     model = Church
     template_name = 'admin-form-view.html'

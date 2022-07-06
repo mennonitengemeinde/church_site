@@ -6,59 +6,67 @@
 
 {% block content %}
     <div class="flex justify-center">
-        <div class="flex flex-col justify-center card my-5 mx-3 w-full lg:w-2/3">
-            <h5 class="text-center text-xl font-medium">Filter Sermons</h5>
-            <div class="flex flex-col pt-4 sm:flex-row sm:justify-center">
-                <div class="sm:px-5">
-                    <label for="churchFilter" class="block text-sm font-medium text-gray-700">Filter Church</label>
-                    <select id="churchFilter" name="churchFilter" onchange="onFilter()"
-                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                        <option value="None"{% if current_church == None %} selected{% endif %}>All Churches</option>
-                        {% for church in churches %}
-                            <option value="{{ church.slug }}"{% if current_church == church.slug %}
-                                    selected{% endif %}>{{ church.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="pt-4 sm:pt-0 sm:px-5">
-                    <label for="speakerFilter" class="block text-sm font-medium text-gray-700">Filter Speaker</label>
-                    <select id="speakerFilter" name="speakerFilter" onchange="onFilter()"
-                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                        <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers</option>
-                        {% for speaker in speakers %}
-                            <option value="{{ speaker.id }}"{% if current_speaker == speaker.id %}
-                                    selected{% endif %}>{{ speaker.name }}</option>
-                        {% endfor %}
-                    </select>
+        <div class="card bg-base-100 my-5 mx-3 w-full lg:w-2/3">
+            <div class="card-body">
+                <h5 class="card-title justify-center">Filter Sermons</h5>
+                <div class="flex pt-4 justify-center">
+                    <div class="px-5">
+                        <label for="churchFilter" class="label">
+                            <span class="label-text">Filter Church</span>
+                        </label>
+                        <select id="churchFilter" name="churchFilter" onchange="onFilter()"
+                                class="select select-bordered">
+                            <option value=" None"{% if current_church == None %} selected{% endif %}>All Churches
+                            </option>
+                            {% for church in churches %}
+                                <option value="{{ church.slug }}"{% if current_church == church.slug %}
+                                        selected{% endif %}>{{ church.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="sm:pt-0 sm:px-5">
+                        <label for="speakerFilter" class="label">
+                            <span class="label-text">Filter Speaker</span>
+                        </label>
+                        <select id="speakerFilter" name="speakerFilter" onchange="onFilter()"
+                                class="select select-bordered">
+                            <option value="None"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers
+                            </option>
+                            {% for speaker in speakers %}
+                                <option value="{{ speaker.id }}"{% if current_speaker == speaker.id %}
+                                        selected{% endif %}>{{ speaker.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="py-5 px-3">
-        <h1 class="text-2xl text-primary-default font-bold font-serif">Sermons</h1>
+        <h1 class="text-2xl text-primary font-bold font-serif">Sermons</h1>
 
         <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
             {% for sermon in sermons %}
-                <li class="bg-white rounded-lg shadow divide-y relative">
+                <li class="bg-base-100 rounded-lg shadow divide-y relative">
                     <div class="pt-5 pb-2 px-4">
                         <h2 class="text-lg font-semibold truncate">{{ sermon.title }}</h2>
                         <p class="text-sm local-date"
                            data-date="{{ sermon.event.start|date:'U' }}">{{ sermon.event.start|date:'M j, Y' }}</p>
                         <div class="absolute -top-2 right-3">
-                            <span class="flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary-tint rounded-full">{{ sermon.event.church }}</span>
+                            <span class="badge badge-secondary">{{ sermon.event.church }}</span>
                         </div>
                         <div class="pb-3">
                             {% for speaker in sermon.speakers.all %}
-                                <span class="flex-shrink-0 inline-block px-2 py-0.5 text-red-50 text-xs font-medium bg-primary-tint rounded-full">{{ speaker }}</span>
+                                <span class="badge badge-primary">{{ speaker }}</span>
                             {% endfor %}
-                            <span class="flex-shrink-0 inline-block px-2 py-0.5 text-black text-xs font-medium bg-neutral-300 rounded-full">{{ sermon.sermon_type.title }}</span>
+                            <span class="badge badge-ghost">{{ sermon.sermon_type.title }}</span>
                         </div>
                     </div>
                     <div>
                         <div class="flex">
                             <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}"
-                               class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-primary-default font-medium border border-transparent rounded-bl-lg hover:text-primary-shade">
+                               class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-primary font-medium border border-transparent rounded-bl-lg hover:text-primary-focus">
                                 Open
                             </a>
                         </div>

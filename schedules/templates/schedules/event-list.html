@@ -15,20 +15,23 @@
                  alt="illustration of a calendar">
         </div>
         <div class="flex flex-col items-center justify-center md:w-1/2 px-5">
-            <h1 class="text-3xl font-bold text-gray-800">
+            <h1 class="text-3xl font-bold text-primary">
                 Scheduled Events
             </h1>
             <p class="py-3 max-w-sm text-center text-gray-500">
                 The schedule is periodically. If you don't see any events come back later.
             </p>
             <div class="w-full max-w-sm pt-3">
-                <label for="church" class="block text-sm font-medium text-gray-700">Church</label>
+                {#                <label for="church" class="block text-sm font-medium text-gray-700">Church</label>#}
+                <label for="church" class="label">
+                    <span class="label-text">Church</span>
+                </label>
                 <select id="church" name="church"
                         hx-get="{% url 'schedules:events-list' %}"
                         hx-trigger="change"
                         hx-target="#eventList"
                         hx-push-url="true"
-                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-default focus:border-primary-default sm:text-sm rounded-md">
+                        class="select select-bordered w-full">
                     <option value="all"{% if current_church == 'all' %} selected{% endif %}>
                         All Churches
                     </option>
