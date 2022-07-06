@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+
+{% get_providers as socialaccount_providers %}
+
+{% block head_title %}Sign In - Mennoniten Gemeinde{% endblock %}
+
+{% block content %}
+
+    <div class="row m-0">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="row pt-4">
+                <div class="col-8 offset-2 col-lg-6 offset-lg-3">
+                    <img class="img-fluid" src="{% static 'img/mennonitengemeinde-text-round-logo-25.png' %}" alt="Logo">
+                </div>
+            </div>
+
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h1>Sign In</h1>
+
+                    <hr>
+
+                    <div class="my-4 text-center">
+                        <a href="{% provider_login_url 'google' %}"><img src="{% static 'img/social/btn_google_signin_dark_normal_web.png' %}" alt="Sign in with Google"></a>
+                    </div>
+
+                    <hr>
+
+                    <form class="login" method="POST" action="{% url 'account_login' %}">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                        {% endif %}
+{#                        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>#}
+                        <div class="text-center">
+                            <a class="btn btn-outline-default shadow me-2" href="{% url 'home:home' %}">Cancel</a>
+                            <button class="btn btn-primary shadow" type="submit">Sign In</button>
+                        </div>
+                    </form>
+
+                    <hr>
+
+                    <p class="mt-4">Don't have an account? <a href="{{ signup_url }}" class="btn btn-info shadow">Sign Up</a></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

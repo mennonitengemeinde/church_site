@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends '_layout.html' %}
 
 {% block meta %}
     <meta name="referrer" content="origin-when-cross-origin">
@@ -6,26 +6,26 @@
 
 {% block content %}
 
-    {{ block.super }}
+    <div class="px-3 md:px-0">
+        <button onclick="window.history.back()" class="btn btn-outline mt-3"><i
+                class="fas fa-arrow-left mr-2"></i>Back
+        </button>
 
-    <div class="container">
-        <a href="{% url 'streams:streams-list' %}" class="btn btn-outline-default mt-3"><i class="fas fa-arrow-left me-2"></i>Back</a>
-
-        <div class="card mt-3">
+        <div class="card bg-base-100 mt-3">
             <div class="card-body">
-                <h4 class="card-title mb-0">{{ stream.title }}</h4>
-                <small>{{ stream.event.church }}</small>
 
-                <div class="row my-3">
+                <iframe class="aspect-video w-full" referrerpolicy="origin-when-cross-origin"
+                        src="{{ stream.live_url }}"
+                        allowfullscreen></iframe>
+
+                <h4 class="card-title">{{ stream.title }}</h4>
+                <span class="badge badge-secondary">{{ stream.event.church }}</span>
+
+                <div class="flex space-x-2 mb-2">
                     {% for speaker in stream.speakers.all %}
-                        <div class="col text-center">
-                            <div><i class="fas fa-microphone me-1 text-secondary"></i> {{ speaker }}</div>
-                        </div>
+                        <div class="badge badge-primary"><i
+                                class="fas fa-microphone mr-2"></i>{{ speaker }}</div>
                     {% endfor %}
-                </div>
-
-                <div class="ratio ratio-16x9 mt-3">
-                    <iframe referrerpolicy="origin-when-cross-origin" src="{{ stream.live_url }}" allowfullscreen></iframe>
                 </div>
             </div>
         </div>

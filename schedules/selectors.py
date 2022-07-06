@@ -1,4 +1,5 @@
-from typing import Iterable
+from datetime import date
+from typing import Iterable, List, Dict, Union
 
 from django.db.models import QuerySet
 from django.utils import timezone
@@ -19,6 +20,24 @@ def get_events(church_name: str = None, limit: int = None, order_by_start: str =
     if limit:
         return event_list[:limit]
     return event_list
+
+
+def get_events_formatted_by_date(church_name: str = None, limit: int = None, order_by_start: str = None) -> List[
+    Dict[str, Union[date, List[Event]]]]:
+    formatted_events = []
+    result = get_events(church_name, limit, order_by_start)
+    for e in result:
+        index = -1
+        for i, item in enumerate(formatted_events):
+            if item['date'] == e.start.date():
+                index = i
+                break
+
+        if index != -1:
+            formatted_events[index]['events'].append(e)
+        else:
+            formatted_events.append({'date': e.start.date(), 'events': [e]})
+    return formatted_events
 
 
 def get_admin_events(user: User, current_events_only: bool = False, order_by_start: str = None) -> QuerySet[Event]:

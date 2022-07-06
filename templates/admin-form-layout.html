@@ -1,17 +1,21 @@
-{% extends 'layout.html' %}
+{% extends '_layout.html' %}
 
 {% block content %}
-    {{ block.super }}
 
-    <div class="container py-4">
+    <div class="flex flex-col px-3 md:px-0 py-4 items-center">
         {% if btn_back_href %}
-            <div class="mb-3">
-                <a id="btn-back" href="{{ btn_back_href }}" class="btn btn-outline-default"><i class="fas fa-arrow-left"></i> Back</a>
+            <div class="flex w-full justify-start mb-3">
+                <button id="btn-back" onclick="window.history.back()" class="btn btn-outline"><i
+                        class="fas fa-arrow-left mr-1"></i> Back
+                </button>
             </div>
         {% endif %}
 
-        {% block form_header %}{% endblock %}
-
-        {% block form %}{% endblock %}
+        <div class="card bg-base-100 w-full max-w-md">
+            <div class="card-body">
+                {% block form_header %}{% endblock %}
+                {% block form %}{% endblock %}
+            </div>
+        </div>
     </div>
 {% endblock %}

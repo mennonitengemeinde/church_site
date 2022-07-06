@@ -15,7 +15,7 @@ class AdminContactMessageListView(PermissionRequiredMixin, AdminListView):
     queryset = ContactMessage.objects.all_existing()
     ordering = ['-message_date']
     page_title = 'Contact Messages - Admin'
-    current_page = 'manage'
+    current_page = 'admin_messages'
 
 
 class AdminContactMessageDetailView(PermissionRequiredMixin, BaseDetailView):
@@ -25,7 +25,7 @@ class AdminContactMessageDetailView(PermissionRequiredMixin, BaseDetailView):
     context_object_name = 'contact_msg'
     # queryset = ContactMessage.objects.all_existing
     page_title = 'Contact Message - Admin'
-    current_page = 'manage'
+    current_page = 'admin_messages'
 
 
 class AdminContactMessageDeleteView(PermissionRequiredMixin, View):

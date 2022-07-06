@@ -1,12 +1,20 @@
-{% extends "account/base.html" %}
+{#{% extends "account/base.html" %}#}
+{% extends '_layout.html' %}
 
 {% load i18n %}
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
 {% block content %}
-    <h1>{% trans "Verify Your E-mail Address" %}</h1>
+    <div class="flex flex-col items-center p-5 space-y-5">
+        <h1 class="text-3xl">{% trans "Verify Your E-mail Address" %}</h1>
 
-    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please check your spam folder if you do not receive it within a few minutes.{% endblocktrans %}</p>
+        <p class="text-center max-w-md">
+            {% blocktrans %}
+                We have sent an e-mail to you for verification. Follow the link provided to finalize the signup
+                process. Please check your spam folder if you do not receive it within a few minutes.
+            {% endblocktrans %}
+        </p>
+    </div>
 
 {% endblock %}

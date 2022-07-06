@@ -1,24 +1,20 @@
-{% extends 'layout.html' %}
+{% extends '_manage_layout.html' %}
 
-{% load crispy_forms_tags %}
-
-{% block content %}
-
-    {{ block.super }}
-    <div class="container-fluid mt-3">
+{% block tab_content %}
+    <div class="px-3 md:px-0 mt-3">
 
         {% block add_btn %}
-            <div class="d-flex justify-content-end mb-3">
+            <div class="flex justify-end mb-3">
                 {% if btn_add_href %}
-                    <a href="{{ btn_add_href }}" class="btn btn-primary shadow"><i class="fas fa-plus"></i> Add</a>
+                    <a href="{{ btn_add_href }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add</a>
                 {% endif %}
             </div>
         {% endblock %}
 
-        <div class="card">
-            <div class="card-body px-4 py-5">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped mb-0 mb-3">
+        <div class="card bg-base-100">
+            <div class="card-body">
+                <div class="overflow-x-auto">
+                    <table class="table w-full">
                         <thead>
                         {% block table_head %}{% endblock %}
                         </thead>
@@ -28,7 +24,7 @@
                     </table>
                 </div>
 
-            {% include "snippets/paginator_snippet.html" %}
+                {% include "snippets/paginator_snippet.html" %}
             </div>
         </div>
     </div>

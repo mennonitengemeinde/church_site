@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from allauth.account.views import confirm_email
+from allauth.account.views import confirm_email, email_verification_sent
 
 # from telegram.api.controllers import LiveSubscriptionViewSet
 
@@ -31,15 +31,17 @@ urlpatterns = [
     path('', include('home.urls')),
     url('', include('pwa.urls')),
     path(settings.ADMIN_URL, admin.site.urls),
-    url(r'^accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
     path('api/v1/', include(router.urls)),
     path('api/v1/streams/', include('streams.api.urls')),
     # path('api/v1/telegram/', include('telegram.api_urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('auth/', include('dj_rest_auth.urls')),
-    path('auth/registration/', include('dj_rest_auth.registration.urls')),
     url(r"^rest-auth/registration/account-confirm-email/(?P<key>[\s\d\w().+-_',:&]+)/$", confirm_email,
         name="account_confirm_email"),
+    path('rest-auth/registration/account-email-verification-sent/', email_verification_sent,
+         name='account_email_verification_sent'),
+    path('rest-auth/', include('dj_rest_auth.urls')),
+    path('rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('users/', include('accounts.urls')),
     path('churches/', include('churches.urls')),
     path('speakers/', include('speakers.urls')),

@@ -135,6 +135,9 @@ dmypy.json
 # npm
 node_modules/
 
+# tailwind output
+output.css
+
 # Ide
 .idea
 .vscode

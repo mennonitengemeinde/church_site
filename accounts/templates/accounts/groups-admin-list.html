@@ -2,13 +2,13 @@
 
 {% block add_btn %}
     <div class="py-3">
-        <div class="d-flex justify-content-between">
-            <a href="{% url 'accounts:users-admin-list' %}" class="btn btn-outline-default">
-                <i class="fas fa-arrow-left me-1"></i>Back
-            </a>
+        <div class="flex justify-between">
+            <button onclick="window.history.back()" class="btn btn-outline">
+                <i class="fas fa-arrow-left mr-1"></i>Back
+            </button>
             {% if btn_add_href %}
                 {% if perms.auth.add_group %}
-                    <a href="{{ btn_add_href }}" class="btn btn-primary shadow"><i class="fas fa-plus"></i> Add</a>
+                    <a href="{{ btn_add_href }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add</a>
                 {% endif %}
             {% endif %}
         </div>
@@ -28,7 +28,8 @@
             <td class="align-middle">{{ group.name }}</td>
             <td class="align-middle">
                 {% if perms.auth.change_group %}
-                    <a href="{% url 'accounts:groups-admin-update' pk=group.pk %}" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'accounts:groups-admin-update' pk=group.pk %}" class="btn btn-sm btn-secondary"><i
+                            class="fas fa-edit"></i></a>
                 {% endif %}
             </td>
         </tr>

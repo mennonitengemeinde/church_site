@@ -1,15 +1,33 @@
-{% load crispy_forms_tags %}
-
-<div class="card shadow">
+<div class="card bg-base-100">
     <div class="card-body">
-        <h2 class="text-center text-primary pb-3"><i class="fas fa-envelope"></i> Contact Us</h2>
+        <h2 class="text-2xl text-center text-primary pb-4"><i class="fas fa-envelope"></i> Contact Us</h2>
         <form method="post">
             {% csrf_token %}
 
-            {{ form|crispy }}
+            {{ form.page_title }}
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane me-1"></i> Send</button>
+            <label for="id_name" class="label">
+                <span class="label-text">{{ form.name.label }}</span>
+            </label>
+            {{ form.name }}
+
+            <label for="id_email" class="label">
+                <span class="label-text">{{ form.email.label }}</span>
+            </label>
+            {{ form.email }}
+
+            <label for="id_phone_number" class="label">
+                <span class="label-text">{{ form.phone_number.label }}</span>
+            </label>
+            {{ form.phone_number }}
+
+            <label for="id_message" class="label">
+                <span class="label-text">{{ form.message.label }}</span>
+            </label>
+            {{ form.message }}
+
+            <div class="flex justify-center pt-2">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane mr-2"></i> Send</button>
             </div>
         </form>
     </div>
