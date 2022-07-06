@@ -14,14 +14,14 @@ class SermonCreateForm(ModelForm):
         fields = ('event', 'sermon_type', 'title', 'description', 'speakers', 'video_url',
                   'audio_low', 'audio_med', 'audio_high', 'visible')
         widgets = {
-            'event': Select(attrs={'class': 'select select-bordered w-full max-w-xs'}),
-            'sermon_type': Select(attrs={'class': 'select select-bordered w-full max-w-xs'}),
-            'title': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
-            'description': Textarea(attrs={'class': 'textarea textarea-bordered w-full h-20 max-w-xs'}),
-            'speakers': SelectMultiple(attrs={'class': 'select select-bordered select-multiple w-full max-w-xs'}),
-            'video_url': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
-            'audio_low': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
-            'audio_med': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
-            'audio_high': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'event': Select(attrs={'class': 'select select-bordered w-full max-w-sm'}),
+            'sermon_type': Select(attrs={'class': 'select select-bordered w-full max-w-sm'}),
+            'title': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'description': Textarea(attrs={'class': 'textarea textarea-bordered w-full h-20 max-w-sm'}),
+            'speakers': SelectMultiple(attrs={'class': 'select select-bordered select-multiple w-full max-w-sm'}),
+            'video_url': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'audio_low': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'audio_med': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'audio_high': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
             'visible': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
         }

@@ -1,18 +1,19 @@
 {% extends 'admin-form-layout.html' %}
 
 {% block form %}
-    <form method="post">
+    <form method="post" class="flex flex-col items-center">
         {% csrf_token %}
-
-        {% for f in form %}
-            <label for="{{ f.auto_id }}" class="label">
-                <span class="label-text">{{ f.label }}</span>
-            </label>
-            {{ f }}
-        {% endfor %}
+        <div class="w-full max-w-sm">
+            {% for f in form %}
+                <label for="{{ f.auto_id }}" class="label">
+                    <span class="label-text">{{ f.label }}</span>
+                </label>
+                {{ f }}
+            {% endfor %}
+        </div>
 
         <div class="flex justify-center pt-5">
-            <button type="submit" class="btn btn-primary shadow">Save</button>
+            <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </form>
 {% endblock %}

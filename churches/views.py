@@ -36,7 +36,7 @@ class ChurchesAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     btn_back_href = reverse_lazy('churches:churches-admin-list')
     model = Church
     template_name = 'admin-form-view.html'
-    fields = ('name', 'street', 'city', 'province_state', 'country', 'mixlr_url')
+    form_class = ChurchCreateForm
     success_url = reverse_lazy('churches:churches-admin-list')
 
     def get_queryset(self):

@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.db.models import Q
 from django.urls import reverse_lazy
 
-from accounts.forms import UpdateUserForm
+from accounts.forms import UpdateUserForm, GroupCreateForm
 from accounts.models import User
 from accounts.selectors import get_users_from_same_church
 from church_site.views import AdminListView, BaseUpdateView, BaseCreateView, BaseDetailView
@@ -47,7 +47,8 @@ class UsersAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
         if self.request.user.is_superuser:
             return User.objects.all()
         else:
-            return User.objects.filter(Q(member__in=self.request.user.churches.all()) | Q(member__isnull=True)).distinct()
+            return User.objects.filter(
+                Q(member__in=self.request.user.churches.all()) | Q(member__isnull=True)).distinct()
 
 
 class GroupsAdminListView(PermissionRequiredMixin, AdminListView):
@@ -63,7 +64,7 @@ class GroupsAdminListView(PermissionRequiredMixin, AdminListView):
 class GroupsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     permission_required = 'auth.add_group'
     model = Group
-    fields = ['name', 'permissions']
+    form_class = GroupCreateForm
     template_name = 'admin-form-view.html'
     success_url = reverse_lazy('accounts:groups-admin-list')
     page_title = 'New Group - Admin'

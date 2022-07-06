@@ -1,6 +1,7 @@
 module.exports = {
     content: [
         "./templates/**/*.{html,js}",
+        "./accounts/templates/**/*.{html,js}",
         "./home/templates/**/*.{html,js}",
         "./schedules/templates/**/*.{html,js}",
         "./sermons/templates/**/*.{html,js}",
@@ -17,6 +18,7 @@ module.exports = {
         "toggle-primary",
         "w-full",
         "max-w-xs",
+        "max-w-sm",
         "textarea",
         "textarea-bordered",
         "h-20"

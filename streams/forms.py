@@ -14,11 +14,11 @@ class StreamCreateForm(ModelForm):
         model = Stream
         fields = ('event', 'title', 'description', 'speakers', 'live_url', 'live_mixlr_audio', 'live')
         widgets = {
-            'event': Select(attrs={'class': 'select select-bordered w-full max-w-xs'}),
-            'title': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
-            'description': Textarea(attrs={'class': 'textarea textarea-bordered w-full h-20 max-w-xs'}),
-            'speakers': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
-            'live_url': TextInput(attrs={'class': 'input input-bordered w-full max-w-xs'}),
+            'event': Select(attrs={'class': 'select select-bordered w-full max-w-sm'}),
+            'title': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'description': Textarea(attrs={'class': 'textarea textarea-bordered w-full h-20 max-w-sm'}),
+            'speakers': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'live_url': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
             'live_mixlr_audio': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
             'live': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
         }
