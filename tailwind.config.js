@@ -50,10 +50,10 @@ module.exports = {
                 mgtheme: {
                     "primary": "#602627",
                     "primary-content": "#fbffff",
-                    "secondary": "#e45c12",
-                    "accent": "#1e1290",
+                    "secondary": "#e45126",
+                    "accent": "#3c7693",
                     "neutral": "#271C27",
-                    "base-100": "#fbffff",
+                    "base-100": "#fffeff",
                     "base-200": "#f5f5f5",
                     "base-300": "#ebebeb",
                     "info": "#5590D8",
