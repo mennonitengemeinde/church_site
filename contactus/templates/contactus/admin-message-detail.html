@@ -1,52 +1,53 @@
-{% extends 'layout.html' %}
+{% extends '_layout.html' %}
 
 {% block content %}
     {{ block.super }}
 
-    <div class="container py-4">
+    <div class="px-3 py-4">
 
-        <a class="btn btn-outline-default shadow my-4" href="{% url 'contactus:admin-messages' %}">
-            <i class="fas fa-arrow-left me-1"></i> Back
-        </a>
+        <button class="btn btn-outline my-4" onclick="window.history.back()">
+            <i class="fas fa-arrow-left mr-2"></i> Back
+        </button>
 
-        <div class="card shadow">
+        <div class="card bg-base-100">
             <div class="card-body">
-                <h1>Message</h1>
+                <h1 class="card-title text-2xl">Message</h1>
                 <hr>
-                <h5>Date & Time</h5>
+                <h5 class="font-semibold">Date & Time</h5>
                 <p>{{ contact_msg.message_date }}</p>
 
-                <h5>Sent from page</h5>
+                <h5 class="pt-3 font-semibold">Sent from page</h5>
                 <p>{{ contact_msg.page_title }}</p>
 
-{#                {% if contact_msg.name %}#}
-                    <h5>Name</h5>
-                    <p>{{ contact_msg.name }}</p>
-{#                {% endif %}#}
+                {#                {% if contact_msg.name %}#}
+                <h5 class="pt-3 font-semibold">Name</h5>
+                <p>{{ contact_msg.name }}</p>
+                {#                {% endif %}#}
 
                 {% if contact_msg.email %}
-                    <h5>Email</h5>
+                    <h5 class="pt-3 font-semibold">Email</h5>
                     <p>{{ contact_msg.email }}</p>
                 {% endif %}
 
                 {% if contact_msg.phone_number %}
-                    <h5>Phone Number</h5>
+                    <h5 class="pt-3 font-semibold">Phone Number</h5>
                     <p>{{ contact_msg.phone_number }}</p>
                 {% endif %}
 
-                <h5>Message</h5>
+                <h5 class="pt-3 font-semibold">Message</h5>
                 <p>{{ contact_msg.message|linebreaksbr }}</p>
 
                 <div class="text-center pt-3">
-                    <a class="btn btn-primary shadow me-2" href="{% url 'contactus:admin-read-message' pk=contact_msg.id %}">
+                    <a class="btn btn-primary mr-2"
+                       href="{% url 'contactus:admin-read-message' pk=contact_msg.id %}">
                         {% if contact_msg.read %}
                             Mark Unread
                         {% else %}
                             Mark Read
                         {% endif %}
                     </a>
-                    <button class="btn btn-danger shadow" data-bs-toggle="modal" data-bs-target="#delete-modal">
-                        <i class="fas fa-trash me-1"></i> Delete
+                    <button class="btn btn-error" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                        <i class="fas fa-trash mr-2"></i>Delete
                     </button>
                 </div>
             </div>
@@ -64,7 +65,9 @@
                     <p>Are you sure you want to delete {{ contact_msg.message_date }}?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-default" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                    <button type="button" class="btn btn-outline-default" data-bs-dismiss="modal" aria-label="Close">
+                        Close
+                    </button>
                     <form method="post" action="{% url 'contactus:admin-delete-message' pk=contact_msg.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Delete</button>
