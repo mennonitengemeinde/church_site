@@ -6,9 +6,24 @@
             <div class="card-body items-center h-full">
                 <h1 class="card-title text-2xl">{{ form.name }}</h1>
 
-                <iframe class="w-full h-full" referrerpolicy="origin-when-cross-origin"
-                        src="{{ form.embed_url }}"
-                        allowfullscreen></iframe>
+                <label for="id_translations" class="label">
+                    <span class="label-text">Language</span>
+                </label>
+                <select id="id_translations" class="select select-bordered w-full max-w-sm" name="translations">
+                    <option value="0"{% if translation.id == form.current_translation %}
+                            selected{% endif %}>
+                        {{ form.get_language_display }}
+                    </option>
+                    {% for translation in form.translations.all %}
+                        <option value="{{ translation.id }}"{% if translation.id == form.current_translation %}
+                                selected{% endif %}>
+                            {{ translation.get_language_display }}
+                        </option>
+                    {% endfor %}
+
+                    <iframe class="w-full h-full" referrerpolicy="origin-when-cross-origin"
+                            src="{{ form.embed_url }}"
+                            allowfullscreen></iframe>
             </div>
         </div>
     </div>

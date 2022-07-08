@@ -10,6 +10,8 @@
 
 {% block card_content %}
     <h1 class="card-title">{{ form.name }}</h1>
+    <p>{% if request.is_secure %}https://{% else %}
+        http://{% endif %}{{ request.get_host }}{% url 'forms:forms-detail' slug=form.slug %}</p>
 {% endblock %}
 
 {% block table_head %}
