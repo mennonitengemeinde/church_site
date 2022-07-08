@@ -11,74 +11,103 @@
                     <label for="current-tab" class="sr-only">Select a tab</label>
                     <select id="current-tab" name="current-tab" @change="window.location.href = $event.target.value"
                             class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
-                        <option value="{% url 'churches:churches-admin-list' %}"
-                                {% if current_page == 'admin_churches' %} selected{% endif %}>
-                            Churches
-                        </option>
-                        <option value="{% url 'speakers:speakers-admin-list' %}"
-                                {% if current_page == 'admin_speakers' %} selected{% endif %}>
-                            Speakers
-                        </option>
-                        <option value="{% url 'schedules:events-admin-list' %}"{% if current_page == 'admin_events' %}
-                                selected{% endif %}>
-                            Events
-                        </option>
-                        <option value="{% url 'streams:streams-admin-list' %}"{% if current_page == 'admin_streams' %}
-                                selected{% endif %}>
-                            Streams
-                        </option>
-                        <option value="{% url 'sermons:sermons-admin-list' %}"{% if current_page == 'admin_sermons' %}
-                                selected{% endif %}>
-                            Sermons
-                        </option>
-                        <option value="{% url 'contactus:admin-messages' %}"{% if current_page == 'admin_messages' %}
-                                selected{% endif %}>
-                            Messages
-                        </option>
-                        <option value="{% url 'forms:admin-forms-list' %}"{% if current_page == 'admin_forms' %}
-                                selected{% endif %}>
-                            Forms
-                        </option>
-                        <option value="{% url 'accounts:users-admin-list' %}"{% if current_page == 'admin_users' %}
-                                selected{% endif %}>
-                            Users
-                        </option>
+                        {% if perms.churches.view_church %}
+                            <option value="{% url 'churches:churches-admin-list' %}"
+                                    {% if current_page == 'admin_churches' %} selected{% endif %}>
+                                Churches
+                            </option>
+                        {% endif %}
+                        {% if perms.speakers.view_speaker %}
+                            <option value="{% url 'speakers:speakers-admin-list' %}"
+                                    {% if current_page == 'admin_speakers' %} selected{% endif %}>
+                                Speakers
+                            </option>
+                        {% endif %}
+                        {% if perms.schedules.view_event %}
+                            <option value="{% url 'schedules:events-admin-list' %}"
+                                    {% if current_page == 'admin_events' %}
+                                    selected{% endif %}>
+                                Events
+                            </option>
+                        {% endif %}
+                        {% if perms.streams.view_stream %}
+                            <option value="{% url 'streams:streams-admin-list' %}"
+                                    {% if current_page == 'admin_streams' %}
+                                    selected{% endif %}>
+                                Streams
+                            </option>
+                        {% endif %}
+                        {% if perms.sermons.view_sermon %}
+                            <option value="{% url 'sermons:sermons-admin-list' %}"
+                                    {% if current_page == 'admin_sermons' %}
+                                    selected{% endif %}>
+                                Sermons
+                            </option>
+                        {% endif %}
+                        {% if perms.contactus.view_contact_message %}
+                            <option value="{% url 'contactus:admin-messages' %}"
+                                    {% if current_page == 'admin_messages' %}
+                                    selected{% endif %}>
+                                Messages
+                            </option>
+                        {% endif %}
+                        {% if perms.forms.view_form %}
+                            <option value="{% url 'forms:admin-forms-list' %}"{% if current_page == 'admin_forms' %}
+                                    selected{% endif %}>
+                                Forms
+                            </option>
+                        {% endif %}
+                        {% if perms.accounts.view_user %}
+                            <option value="{% url 'accounts:users-admin-list' %}"{% if current_page == 'admin_users' %}
+                                    selected{% endif %}>
+                                Users
+                            </option>
+                        {% endif %}
                     </select>
                 </div>
                 {# Tabs at small breakpoint and up #}
                 <div class="hidden md:block">
                     <nav class="-mb-px flex space-x-8">
-                        <a href="{% url 'churches:churches-admin-list' %}"
-                           class="{% if current_page == 'admin_churches' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                            Churches </a>
-
-                        <a href="{% url 'speakers:speakers-admin-list' %}"
-                           class="{% if current_page == 'admin_speakers' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                            Speakers </a>
-
-                        <a href="{% url 'schedules:events-admin-list' %}"
-                           class="{% if current_page == 'admin_events' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                            Events </a>
-
-                        <a href="{% url 'streams:streams-admin-list' %}"
-                           class="{% if current_page == 'admin_streams' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                            Streams </a>
-
-                        <a href="{% url 'sermons:sermons-admin-list' %}"
-                           class="{% if current_page == 'admin_sermons' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                            Sermons </a>
-
-                        <a href="{% url 'contactus:admin-messages' %}"
-                           class="{% if current_page == 'admin_messages' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                            Messages </a>
-
-                        <a href="{% url 'forms:admin-forms-list' %}"
-                           class="{% if current_page == 'admin_forms' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                            Forms </a>
-
-                        <a href="{% url 'accounts:users-admin-list' %}"
-                           class="{% if current_page == 'admin_users' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                            Users </a>
+                        {% if perms.churches.view_church %}
+                            <a href="{% url 'churches:churches-admin-list' %}"
+                               class="{% if current_page == 'admin_churches' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                                Churches </a>
+                        {% endif %}
+                        {% if perms.speakers.view_speaker %}
+                            <a href="{% url 'speakers:speakers-admin-list' %}"
+                               class="{% if current_page == 'admin_speakers' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                                Speakers </a>
+                        {% endif %}
+                        {% if perms.schedules.view_event %}
+                            <a href="{% url 'schedules:events-admin-list' %}"
+                               class="{% if current_page == 'admin_events' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                                Events </a>
+                        {% endif %}
+                        {% if perms.streams.view_stream %}
+                            <a href="{% url 'streams:streams-admin-list' %}"
+                               class="{% if current_page == 'admin_streams' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                                Streams </a>
+                        {% endif %}
+                        {% if perms.sermons.view_sermon %}
+                            <a href="{% url 'sermons:sermons-admin-list' %}"
+                               class="{% if current_page == 'admin_sermons' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                                Sermons </a>
+                        {% endif %}
+                        {% if perms.contactus.view_contact_message %}
+                            <a href="{% url 'contactus:admin-messages' %}"
+                               class="{% if current_page == 'admin_messages' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                                Messages </a>
+                        {% endif %}
+                        {% if perms.forms.view_form %}
+                            <a href="{% url 'forms:admin-forms-list' %}"
+                               class="{% if current_page == 'admin_forms' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                                Forms </a>
+                        {% endif %}
+                        {% if perms.accounts.view_user %}
+                            <a href="{% url 'accounts:users-admin-list' %}"
+                               class="{% if current_page == 'admin_users' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                                Users </a>
+                        {% endif %}
                     </nav>
                 </div>
             </div>
