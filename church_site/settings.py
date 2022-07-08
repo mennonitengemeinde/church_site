@@ -93,6 +93,7 @@ INSTALLED_APPS = [
     'streams.apps.StreamsConfig',
     'home.apps.HomeConfig',
     'contactus.apps.ContactusConfig',
+    'forms.apps.FormsConfig',
     'telegram.apps.TelegramConfig',
 ]
 

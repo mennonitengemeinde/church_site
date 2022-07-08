@@ -35,6 +35,10 @@
                                 selected{% endif %}>
                             Messages
                         </option>
+                        <option value="{% url 'forms:admin-forms-list' %}"{% if current_page == 'admin_forms' %}
+                                selected{% endif %}>
+                            Forms
+                        </option>
                         <option value="{% url 'accounts:users-admin-list' %}"{% if current_page == 'admin_users' %}
                                 selected{% endif %}>
                             Users
@@ -67,6 +71,10 @@
                         <a href="{% url 'contactus:admin-messages' %}"
                            class="{% if current_page == 'admin_messages' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                             Messages </a>
+
+                        <a href="{% url 'forms:admin-forms-list' %}"
+                           class="{% if current_page == 'admin_forms' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                            Forms </a>
 
                         <a href="{% url 'accounts:users-admin-list' %}"
                            class="{% if current_page == 'admin_users' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">

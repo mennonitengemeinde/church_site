@@ -1,0 +1,15 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+    <div class="h-full px-3 md:px-0 py-5">
+        <div class="card bg-base-100 h-full">
+            <div class="card-body items-center h-full">
+                <h1 class="card-title text-2xl">{{ form.name }}</h1>
+
+                <iframe class="w-full h-full" referrerpolicy="origin-when-cross-origin"
+                        src="{{ form.embed_url }}"
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+{% endblock %}

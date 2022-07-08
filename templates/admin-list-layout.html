@@ -4,7 +4,12 @@
     <div class="px-3 md:px-0 mt-3">
 
         {% block add_btn %}
-            <div class="flex justify-end mb-3">
+            <div class="flex {% if btn_back_href %}justify-between{% else %}justify-end{% endif %} mb-3">
+                {% if btn_back_href %}
+                    <button class="btn btn-outline" onclick="window.history.back()">
+                        <i class="fas fa-arrow-left mr-2"></i>Back
+                    </button>
+                {% endif %}
                 {% if btn_add_href %}
                     <a href="{{ btn_add_href }}" class="btn btn-primary"><i class="fas fa-plus mr-2"></i>Add</a>
                 {% endif %}
@@ -13,6 +18,8 @@
 
         <div class="card bg-base-100">
             <div class="card-body">
+                {% block card_content %}{% endblock %}
+
                 <div class="overflow-x-auto">
                     <table class="table w-full">
                         <thead>
