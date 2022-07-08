@@ -78,7 +78,7 @@ class AdminTranslationCreateView(PermissionRequiredMixin, BaseCreateView):
     btn_back_href = reverse_lazy('forms:admin-forms-list')
 
     def get_success_url(self):
-        return reverse_lazy('forms:admin-translation-list', kwargs={'slug': self.kwargs['slug']})
+        return reverse_lazy('forms:admin-forms-detail', kwargs={'slug': self.kwargs['slug']})
 
     def form_valid(self, form):
         form.instance.form = Form.objects.filter(slug=self.kwargs['slug']).first()

@@ -2,8 +2,8 @@ from django.db import models
 
 LANGUAGES = (
     ('en', 'English'),
-    ('es', 'Spanish'),
-    ('de', 'German'),
+    ('es', 'Español'),
+    ('de', 'Deutsch'),
 )
 
 
@@ -25,7 +25,7 @@ class Form(models.Model):
 
 
 class Translation(models.Model):
-    form = models.ForeignKey(Form, on_delete=models.CASCADE)
+    form = models.ForeignKey(Form, on_delete=models.CASCADE, related_name='translations')
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     language = models.CharField(max_length=2, choices=LANGUAGES, default='en')
