@@ -49,6 +49,7 @@ urlpatterns = [
     path('sermons/', include('sermons.urls')),
     path('streams/', include('streams.urls')),
     path('contactus/', include('contactus.urls')),
+    path('forms/', include('forms.urls')),
     # path('telegram/', include('telegram.urls')),
 ]
 
