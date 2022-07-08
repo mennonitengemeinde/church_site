@@ -1,0 +1,36 @@
+<h1 class="card-title pb-3 text-2xl">
+    {% if translation %}
+        {{ translation.name }}
+    {% else %}
+        {{ form.name }}
+    {% endif %}
+</h1>
+
+<label for="id_translations" class="label">
+    <span class="label-text">Language</span>
+</label>
+<select id="id_translations" name="lang"
+        hx-get="{% url 'forms:forms-detail' slug=form.slug %}"
+        hx-trigger="change"
+        hx-target="#formContainer"
+        hx-push-url="true"
+        class="select select-bordered w-full max-w-sm">
+    <option value="{{ form.language }}"
+            {% if current_translation == form.language or current_translation == None %}
+            selected{% endif %}>
+        {{ form.get_language_display }}
+    </option>
+    {% for translation in form.translations.all %}
+        <option value="{{ translation.language }}"
+                {% if translation.language == current_translation %}
+                selected{% endif %}>
+            {{ translation.get_language_display }}
+        </option>
+    {% endfor %}
+</select>
+
+<div class="divider"></div>
+
+<iframe class="w-full h-full mt-3" referrerpolicy="origin-when-cross-origin"
+        src="{% if translation %}{{ translation.embed_url }}{% else %}{{ form.embed_url }}{% endif %}"
+        allowfullscreen></iframe>

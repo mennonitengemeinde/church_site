@@ -1,17 +1,59 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views import View
 
 from church_site.views import AdminListView, BaseDetailView, BaseCreateView, BaseUpdateView
 from forms.forms import FormCreateForm, TranslationCreateForm
 from forms.models import Form, Translation
+from shared.views import MgView
 
 
-class FormsDetailView(BaseDetailView):
+class FormsDetailView(View):
     model = Form
     template_name = 'forms/forms-detail.html'
     context_object_name = 'form'
     page_title = 'Form'
     current_page = 'forms'
+    current_translation = None
+    translation = None
+
+    def get(self, request, *args, **kwargs):
+        form = self.model.objects.filter(slug=kwargs['slug']).first()
+        if form:
+            if not form.is_active:
+                context = {
+                    'page_title': self.page_title,
+                    'current_page': self.current_page,
+                    'form': form,
+                }
+                if request.htmx:
+                    return render(request, 'forms/partials/form-inactive-partial.html', context)
+                return render(request, 'forms/form_inactive.html', context)
+
+            if request.GET.get('lang'):
+                if request.GET.get('lang') == form.language:
+                    self.translation = None
+                else:
+                    self.translation = form.translations.filter(language=request.GET.get('lang')).first()
+                self.current_translation = request.GET.get('lang')
+
+            context = {
+                'form': form,
+                'translation': self.translation,
+                'current_translation': self.current_translation,
+                'page_title': self.page_title,
+                'current_page': self.current_page,
+            }
+
+            if request.htmx:
+                return render(request, 'forms/partials/form-card-body-partial.html', context)
+
+            return render(request, self.template_name, context)
+        
+        if request.htmx:
+            return render(request, 'forms/partials/404-partial.html')
+        return render(request, 'forms/404-form.html', {})
 
 
 class AdminFormListView(PermissionRequiredMixin, AdminListView):
