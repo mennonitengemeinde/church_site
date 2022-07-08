@@ -20,8 +20,6 @@ class SermonsListView(BaseListView):
     context_object_name = 'sermons'
     paginate_by = 18
 
-    # paginate_by = 1
-
     def get_queryset(self):
         return get_filtered_sermons(self.request.GET.get('church'), self.request.GET.get('speaker'))
 
