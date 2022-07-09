@@ -22,7 +22,7 @@ class FormsDetailView(View):
         if form:
             if not form.is_active:
                 context = {
-                    'page_title': self.page_title,
+                    'page_title': f'{form.name} form',
                     'current_page': self.current_page,
                     'form': form,
                 }
