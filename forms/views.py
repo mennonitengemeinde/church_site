@@ -13,7 +13,6 @@ class FormsDetailView(View):
     model = Form
     template_name = 'forms/forms-detail.html'
     context_object_name = 'form'
-    page_title = 'Form'
     current_page = 'forms'
     current_translation = None
     translation = None
@@ -42,7 +41,7 @@ class FormsDetailView(View):
                 'form': form,
                 'translation': self.translation,
                 'current_translation': self.current_translation,
-                'page_title': self.page_title,
+                'page_title': f'{form.name} form',
                 'current_page': self.current_page,
             }
 
@@ -50,7 +49,7 @@ class FormsDetailView(View):
                 return render(request, 'forms/partials/form-card-body-partial.html', context)
 
             return render(request, self.template_name, context)
-        
+
         if request.htmx:
             return render(request, 'forms/partials/404-partial.html')
         return render(request, 'forms/404-form.html', {})
