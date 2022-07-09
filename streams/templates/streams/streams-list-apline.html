@@ -11,7 +11,7 @@
 
     <div class="py-5 px-3">
 
-        <h1 class="text-2xl text-primary-default font-bold font-serif">Live Streams</h1>
+        <h1 class="text-2xl text-primary font-bold font-serif">Live Streams</h1>
         <hr class="mx-5">
 
         <div id="live-app"
@@ -19,8 +19,8 @@
              x-init="start"
              x-cloak>
             <div class="flex justify-center text-white py-4">
-                <span class="bg-primary-default pl-2 pr-5 rounded-lg">I'll look again in:</span>
-                <span class="bg-secondary-tint rounded-lg px-2 -ml-4" x-text="countdown"></span>
+                <span class="badge badge-primary pl-2 pr-5 rounded-lg">I'll look again in:</span>
+                <span class="badge badge-accent rounded-lg px-2 -ml-3" x-text="countdown"></span>
             </div>
             <template x-if="liveEvents.length === 0">
                 <div class="flex flex-col items-center justify-center">
@@ -82,7 +82,7 @@
             </ul>
 
 
-            <h2 class="mt-10 text-2xl text-primary-default font-bold font-serif">Scheduled Live Streams</h2>
+            <h2 class="mt-10 text-2xl text-primary font-bold font-serif">Scheduled Live Streams</h2>
             <hr class="mb-3 mx-5">
 
 
@@ -92,7 +92,7 @@
                         <div class="pt-5 pb-2 px-4">
                             <h3 class="text-lg font-semibold truncate" x-text="schedule.title"></h3>
                             <div class="absolute -top-2 right-3">
-                                <span class="flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary-tint rounded-full"
+                                <span class="flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary rounded-full"
                                       x-text="schedule.church.name"></span>
                             </div>
                         </div>
