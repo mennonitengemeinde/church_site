@@ -1,9 +1,13 @@
-from django.forms import ModelForm, HiddenInput, TextInput, Textarea
+from datetime import datetime, timedelta
+from django.forms import ModelForm, HiddenInput, TextInput, Textarea, DateTimeField
+from django.utils import timezone
 
 from contactus.models import ContactMessage
 
 
 class ContactUsForm(ModelForm):
+    form_no = DateTimeField(widget=HiddenInput(), initial=timezone.now)
+
     class Meta:
         model = ContactMessage
         fields = ('page_title', 'name', 'email', 'phone_number', 'message')
@@ -17,10 +21,9 @@ class ContactUsForm(ModelForm):
                 attrs={'placeholder': 'Message', 'class': 'textarea textarea-bordered h-20 w-full max-w-sm'}),
         }
 
-    def is_valid(self):
-        valid = super(ContactUsForm, self).is_valid()
-        if valid:
-            print('is valid')
-        else:
-            print('not valid')
-        return valid
+    def save(self, commit=False):
+        form_no_plus_five = datetime.strptime(self.data['form_no'],
+                                              '%Y-%m-%d %H:%M:%S.%f') + timedelta(seconds=5)
+        if self.cleaned_data['form_no'] is None or form_no_plus_five > datetime.now():
+            return super().save(commit=False)
+        return super().save(commit=True)

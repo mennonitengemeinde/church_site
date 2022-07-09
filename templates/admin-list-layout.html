@@ -21,7 +21,7 @@
                 {% block card_content %}{% endblock %}
 
                 <div class="overflow-x-auto">
-                    <table class="table w-full">
+                    <table id="admin-table" class="table w-full">
                         <thead>
                         {% block table_head %}{% endblock %}
                         </thead>
@@ -35,5 +35,7 @@
             </div>
         </div>
     </div>
+
+    <div id="table-modal" class="modal modal-bottom sm:modal-middle"></div>
 
 {% endblock %}

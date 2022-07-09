@@ -46,33 +46,23 @@
                             Mark Read
                         {% endif %}
                     </a>
-                    <button class="btn btn-error" data-bs-toggle="modal" data-bs-target="#delete-modal">
-                        <i class="fas fa-trash mr-2"></i>Delete
-                    </button>
+                    <label for="delete-modal" class="btn btn-error"><i class="fas fa-trash mr-2"></i>Delete</label>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="delete-modal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Delete {{ contact_msg.message_date }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete {{ contact_msg.message_date }}?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-default" data-bs-dismiss="modal" aria-label="Close">
-                        Close
-                    </button>
-                    <form method="post" action="{% url 'contactus:admin-delete-message' pk=contact_msg.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
+    <input type="checkbox" id="delete-modal" class="modal-toggle"/>
+    <div class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box bg-base-100">
+            <h3 class="font-bold text-lg">Delete {{ contact_msg.message_date }}</h3>
+            <p class="py-4">Are you sure you want to delete {{ contact_msg.message_date }}?</p>
+            <div class="modal-action">
+                <label for="delete-modal" class="btn">Cancel</label>
+                <form method="post" action="{% url 'contactus:admin-delete-message' pk=contact_msg.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-error">Delete</button>
+                </form>
             </div>
         </div>
     </div>
