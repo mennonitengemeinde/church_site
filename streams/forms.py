@@ -1,4 +1,4 @@
-from django.forms import ModelForm, Select, TextInput, Textarea, CheckboxInput
+from django.forms import ModelForm, Select, TextInput, Textarea, CheckboxInput, SelectMultiple
 
 from schedules.models import Event
 from schedules.selectors import get_admin_events
@@ -17,7 +17,7 @@ class StreamCreateForm(ModelForm):
             'event': Select(attrs={'class': 'select select-bordered w-full max-w-sm'}),
             'title': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
             'description': Textarea(attrs={'class': 'textarea textarea-bordered w-full h-20 max-w-sm'}),
-            'speakers': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
+            'speakers': SelectMultiple(attrs={'class': 'select select-bordered select-multiple w-full max-w-sm'}),
             'live_url': TextInput(attrs={'class': 'input input-bordered w-full max-w-sm'}),
             'live_mixlr_audio': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
             'live': CheckboxInput(attrs={'class': 'toggle toggle-primary'}),
