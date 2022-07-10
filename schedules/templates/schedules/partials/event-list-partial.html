@@ -27,7 +27,15 @@
                                             <p class="text-sm text-gray-500">{{ eventDetail.start|date:"f a" }}
                                                 - {{ eventDetail.end|date:"f a" }}</p>
                                             <p>{{ eventDetail.description }}</p>
-                                            <p class="mt-0.5 flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary rounded-full">{{ eventDetail.church }}</p>
+                                            <p class="badge badge-secondary">{{ eventDetail.church }}</p>
+                                            {% if eventDetail.live_stream %}
+                                                <div class="pt-1">
+                                                    <a href="{% url 'streams:streams-list' %}"
+                                                       class="btn btn-sm btn-outline btn-primary">
+                                                        <i class="fas fa-circle mr-1"></i>Live
+                                                    </a>
+                                                </div>
+                                            {% endif %}
                                         </div>
                                     </li>
                                 {% endfor %}

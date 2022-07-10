@@ -46,7 +46,15 @@
                                     <div class="col-start-2 overflow-hidden flex flex-col border-l border-primary -ml-9 pb-5 pl-14{% if forloop.first %} mt-2{% elif forloop.last %} pb-0{% else %} pt-2{% endif %}">
                                         <p class="font-mono font-bold text-sm text-primary">{{ event.start.time }}</p>
                                         <h3 class="font-bold text-primary truncate">{{ event.title }}</h3>
-                                        <p>{{ event.church }}</p>
+                                        <p class="badge badge-secondary">{{ event.church }}</p>
+                                        {% if event.live_stream %}
+                                            <div class="pt-1">
+                                                <a href="{% url 'streams:streams-list' %}"
+                                                   class="btn btn-xs btn-outline btn-primary">
+                                                    <i class="fas fa-circle mr-1"></i>Live
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                     {#                </article>#}
                                 {% endfor %}
