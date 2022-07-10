@@ -59,22 +59,6 @@
 <script src="{% static 'flatpickr/dist/flatpickr.min.js' %}"></script>
 {# <script src="{% static 'petite-vue/dist/petite-vue.umd.js' %}" defer="true" init="true"></script> #}
 
-<script>
-    window.addEventListener('load', function () {
-        const alertList = document.querySelectorAll('.alert')
-        const alerts = []
-            .slice
-            .call(alertList)
-            .map(function (element) {
-                return new bootstrap.Alert(element);
-            });
-        setTimeout(function () {
-            for (const al of alerts) {
-                al.close();
-            }
-        }, 5000)
-    });
-</script>
 {#{% endcompress %}#}
 
 {% block js %}{% endblock %}

@@ -84,7 +84,6 @@ INSTALLED_APPS = [
     'django_htmx',
     # Project
     'core',
-    'shared.apps.SharedConfig',
     'accounts.apps.AccountsConfig',
     'churches.apps.ChurchesConfig',
     'speakers.apps.SpeakersConfig',

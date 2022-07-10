@@ -10,13 +10,12 @@ from django.views.generic import DeleteView
 from church_site.views import AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
 from churches.models import Church
 from schedules import selectors
-from shared.views import MgView
 
 from .forms import EventForm, AttendantForm, AttendantAdminForm
 from .models import Event, Attendant, EventTemplate
 
 
-class EventsView(MgView):
+class EventsView(View):
     page_title = 'Events - Mennoniten Gemeinde'
     current_page = 'events'
     template_name = 'schedules/event-list.html'

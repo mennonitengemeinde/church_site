@@ -21,7 +21,11 @@ module.exports = {
         "max-w-sm",
         "textarea",
         "textarea-bordered",
-        "h-20"
+        "h-20",
+        "alert-info",
+        "alert-success",
+        "alert-warning",
+        "alert-error",
     ],
     theme: {
         extend: {

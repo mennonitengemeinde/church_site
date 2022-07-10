@@ -6,7 +6,6 @@ from django.views import View
 from church_site.views import AdminListView, BaseDetailView, BaseCreateView, BaseUpdateView
 from forms.forms import FormCreateForm, TranslationCreateForm
 from forms.models import Form, Translation
-from shared.views import MgView
 
 
 class FormsDetailView(View):
