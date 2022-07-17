@@ -42,7 +42,7 @@
                                     {% endifchanged %}
                                     {#                    <div class="col-start-2 overflow-hidden flex flex-col pt-1 pb-5 pl-7">#}
                                     <div class="col-start-2 overflow-hidden flex flex-col border-l border-primary -ml-9 pb-5 pl-14{% if forloop.first %} mt-2{% elif forloop.last %} pb-0{% else %} pt-2{% endif %}">
-                                        <p class="font-mono font-bold text-sm text-primary">{{ event.start.time }}</p>
+                                        <p class="font-mono font-bold text-sm text-primary">{{ event.start|date:"f a" }}</p>
                                         <h3 class="font-bold text-primary truncate">{{ event.title }}</h3>
                                         <p class="badge badge-secondary">{{ event.church }}</p>
                                         {% if event.live_stream %}
