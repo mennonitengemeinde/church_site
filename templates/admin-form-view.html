@@ -9,6 +9,11 @@
                     <span class="label-text">{{ f.label }}</span>
                 </label>
                 {{ f }}
+                {% if f.errors %}
+                    <label class="label">
+                        <span class="label-text-alt text-red-500">{{ f.errors|first }}</span>
+                    </label>
+                {% endif %}
             {% endfor %}
         </div>
 

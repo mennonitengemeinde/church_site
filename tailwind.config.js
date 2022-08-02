@@ -9,6 +9,7 @@ module.exports = {
         "./contactus/templates/**/*.{html,js}",
     ],
     safelist: [
+        "file-input",
         "input",
         "input-bordered",
         "select",

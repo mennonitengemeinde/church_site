@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
-from django.forms import ModelForm, HiddenInput, TextInput, Textarea, DateTimeField
+from django.forms import HiddenInput, DateTimeField
 from django.utils import timezone
 
 from contactus.models import ContactMessage
+from core.forms import CoreModelForm
 
 
-class ContactUsForm(ModelForm):
+class ContactUsForm(CoreModelForm):
     form_no = DateTimeField(widget=HiddenInput(), initial=timezone.now)
 
     class Meta:
@@ -13,12 +14,6 @@ class ContactUsForm(ModelForm):
         fields = ('page_title', 'name', 'email', 'phone_number', 'message')
         widgets = {
             'page_title': HiddenInput(),
-            'name': TextInput(attrs={'placeholder': 'Name', 'class': 'input input-bordered w-full max-w-sm'}),
-            'email': TextInput(attrs={'placeholder': 'Email', 'class': 'input input-bordered w-full max-w-sm'}),
-            'phone_number': TextInput(
-                attrs={'placeholder': 'Phone Number', 'class': 'input input-bordered w-full max-w-sm'}),
-            'message': Textarea(
-                attrs={'placeholder': 'Message', 'class': 'textarea textarea-bordered h-20 w-full max-w-sm'}),
         }
 
     def save(self, commit=False):
