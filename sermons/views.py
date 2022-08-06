@@ -18,22 +18,26 @@ class SermonsListView(BaseListView):
     model = Sermon
     template_name = 'sermons/sermon-list.html'
     context_object_name = 'sermons'
-    # paginate_by = 18
-    paginate_by = 2
+    paginate_by = 18
 
     def get_queryset(self):
-        return get_filtered_sermons(self.request.GET.get('church'), self.request.GET.get('speaker'))
+        return get_filtered_sermons(
+            church=self.request.GET.get('church') if self.request.GET.get('church') != 'all' else None,
+            speaker=self.request.GET.get('speaker') if self.request.GET.get('speaker') != 'all' else None
+        )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['current_church'] = self.request.GET.get('church') if self.request.GET.get('church') else None
-        context['current_speaker'] = int(self.request.GET.get('speaker')) if self.request.GET.get('speaker') else None
+        context['current_church'] = self.request.GET.get('church') if self.request.GET.get('church') != 'all' else None
+        if self.request.GET.get('speaker') and self.request.GET.get('speaker') != 'all':
+            context['current_speaker'] = int(self.request.GET.get('speaker'))
+        else:
+            context['current_speaker'] = None
         context['churches'] = Church.objects.all()
         context['speakers'] = Speaker.objects.all()
         context['page_filter'] = self.get_page_filter()
         context['pagination_links'] = self.get_pagination_links(context)
         if self.request.htmx:
-            print(context)
             self.template_name = 'sermons/partials/sermon-list-partial.html'
         return context
 
