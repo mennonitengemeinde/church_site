@@ -114,6 +114,7 @@ class SermonsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     page_title = 'New Sermon - Admin'
     current_page = 'admin_sermons'
     btn_back_href = reverse_lazy('sermons:sermons-admin-list')
+    form_has_files = True
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -130,6 +131,7 @@ class SermonAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     page_title = 'Update Sermon - Admin'
     current_page = 'admin_sermons'
     btn_back_href = reverse_lazy('sermons:sermons-admin-list')
+    form_has_files = True
 
     def get_queryset(self):
         return get_member_sermons(self.request.user)

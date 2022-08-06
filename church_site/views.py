@@ -6,6 +6,10 @@ class PageProperties:
     current_page = None
 
 
+class FormProperties:
+    form_has_files = False
+
+
 class BaseListView(PageProperties, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -15,7 +19,7 @@ class BaseListView(PageProperties, ListView):
         return context
 
 
-class BaseCreateView(PageProperties, CreateView):
+class BaseCreateView(PageProperties, FormProperties, CreateView):
     btn_back_href = None
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -23,6 +27,7 @@ class BaseCreateView(PageProperties, CreateView):
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
         context['btn_back_href'] = self.btn_back_href
+        context['form_has_files'] = self.form_has_files
         return context
 
 
@@ -37,7 +42,7 @@ class BaseDetailView(PageProperties, DetailView):
         return context
 
 
-class BaseUpdateView(PageProperties, UpdateView):
+class BaseUpdateView(PageProperties, FormProperties, UpdateView):
     btn_back_href = None
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -45,6 +50,7 @@ class BaseUpdateView(PageProperties, UpdateView):
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
         context['btn_back_href'] = self.btn_back_href
+        context['form_has_files'] = self.form_has_files
         return context
 
 
