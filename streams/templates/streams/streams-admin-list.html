@@ -4,56 +4,20 @@
 {#{% load compress %}#}
 
 {% block table_head %}
-    <tr>
-        <th>Title</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Speakers</th>
-        {% if user.is_superuser %}
-            <th><i class="fas fa-music"></i></th>
-            <th><i class="fas fa-video"></i></th>
-        {% endif %}
-        <th>Actions</th>
-    </tr>
+  <tr>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Speakers</th>
+    {% if user.is_superuser %}
+      <th><i class="fas fa-music"></i></th>
+      <th><i class="fas fa-video"></i></th>
+    {% endif %}
+    <th>Actions</th>
+  </tr>
 {% endblock %}
 
 
 {% block table_body %}
-    {% for stream in streams %}
-        <tr>
-            <td class="align-middle">{{ stream.title }}</td>
-            <td class="align-middle local-date" data-date="{{ stream.event.start|date:'U' }}"></td>
-            <td class="align-middle local-time" data-time="{{ stream.event.start|date:'U' }}"></td>
-            <td class="align-middle">
-                {% for speaker in stream.speakers.all %}
-                    {% if not forloop.first %}, {% endif %}{{ speaker.name }}
-                {% endfor %}
-            </td>
-            {% if user.is_superuser %}
-                <td class="align-middle">
-                    {% if stream.live_mixlr_audio %}
-                        {{ stream.audio_views }}
-                    {% endif %}
-                </td>
-
-                <td class="align-middle">
-                    {{ stream.video_views }}
-                </td>
-            {% endif %}
-            <td class="align-middle">
-                {% if perms.streams.change_stream %}
-                    <a href="{% url 'streams:streams-admin-update-live' pk=stream.id %}"
-                       class="btn btn-sm btn-error">
-                        {% if stream.live %}
-                            <i class="fas fa-circle mr-2"></i>Live
-                        {% else %}
-                            Go Live
-                        {% endif %}
-                    </a>
-                    <a href="{% url 'streams:streams-admin-update' pk=stream.id %}" class="btn btn-sm btn-secondary"><i
-                            class="fas fa-edit"></i></a>
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
+  {% include 'streams/partials/streams-admin-table-partial.html' %}
 {% endblock %}

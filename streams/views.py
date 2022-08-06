@@ -124,4 +124,7 @@ class StreamAdminLiveUpdateView(PermissionRequiredMixin, View):
         if stream:
             stream.live = not stream.live
             stream.save()
-        return redirect('streams:streams-admin-list')
+        context = {
+            'streams': get_member_streams(self.request.user, True),
+        }
+        return render(request, 'streams/partials/streams-admin-table-partial.html', context)

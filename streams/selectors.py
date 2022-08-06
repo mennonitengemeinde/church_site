@@ -7,7 +7,7 @@ def get_live_streams():
 
 
 def get_member_streams(user: User, reverse_order: bool = None):
-    queryset = Stream.objects.filter(event__church__members=user)
+    queryset = Stream.objects.filter(event__church__members=user).prefetch_related('event')
     if reverse_order:
         return queryset.order_by('-event')
     return queryset
