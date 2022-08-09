@@ -76,6 +76,11 @@ class StreamsAdminListView(PermissionRequiredMixin, AdminListView):
     def get_queryset(self):
         return get_member_streams(self.request.user, True)
 
+    def get_template_names(self):
+        if self.request.htmx:
+            self.template_name = 'streams/partials/streams-admin-table-partial.html'
+        return super().get_template_names()
+
 
 class StreamsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     permission_required = 'streams.add_stream'
@@ -115,16 +120,12 @@ class StreamAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
         return kwargs
 
 
-class StreamAdminLiveUpdateView(PermissionRequiredMixin, View):
+class StreamAdminLiveUpdateView(PermissionRequiredMixin, BaseUpdateView):
     permission_required = 'streams.change_stream'
+    http_method_names = ['post']
+    model = Stream
+    fields = ['live']
+    success_url = reverse_lazy('streams:streams-admin-list')
 
-    # This will change the live status of the live stream
-    def get(self, request, pk=None):
-        stream = get_member_stream(user=self.request.user, stream_id=pk)
-        if stream:
-            stream.live = not stream.live
-            stream.save()
-        context = {
-            'streams': get_member_streams(self.request.user, True),
-        }
-        return render(request, 'streams/partials/streams-admin-table-partial.html', context)
+    def get_queryset(self):
+        return get_member_streams(self.request.user)
