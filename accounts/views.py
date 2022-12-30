@@ -75,7 +75,7 @@ class GroupsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
 class GroupsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     permission_required = 'auth.change_group'
     model = Group
-    fields = ['name', 'permissions']
+    form_class = GroupCreateForm
     template_name = 'admin-form-view.html'
     success_url = reverse_lazy('accounts:groups-admin-list')
     page_title = 'Update Group - Admin'

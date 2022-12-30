@@ -10,8 +10,8 @@ CHECKBOX_FIELD_TYPES = ('CheckboxInput', 'CheckboxSelectMultiple')
 class CoreModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields:
-            print(self.fields[field].widget.__class__.__name__)
+        # for field in self.fields:
+        #     print(self.fields[field].widget.__class__.__name__)
         self.style_fields()
 
     def style_fields(self):
