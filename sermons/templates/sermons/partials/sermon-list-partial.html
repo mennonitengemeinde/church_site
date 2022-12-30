@@ -1,32 +1,32 @@
 <div id="paginated-content">
-    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
-        {% for sermon in sermons %}
-            <li class="bg-base-100 rounded-lg shadow divide-y relative">
-                <div class="pt-5 pb-2 px-4">
-                    <h2 class="text-lg font-semibold truncate">{{ sermon.title }}</h2>
-                    <p class="text-sm local-date"
-                       data-date="{{ sermon.event.start|date:'U' }}">{{ sermon.event.start|date:'M j, Y' }}</p>
-                    <div class="absolute -top-2 right-3">
-                        <span class="badge badge-secondary">{{ sermon.event.church }}</span>
-                    </div>
-                    <div class="pb-3">
-                        {% for speaker in sermon.speakers.all %}
-                            <span class="badge badge-primary">{{ speaker }}</span>
-                        {% endfor %}
-                        <span class="badge badge-ghost">{{ sermon.sermon_type.title }}</span>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex">
-                        <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}"
-                           class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-primary font-medium border border-transparent rounded-bl-lg hover:text-primary-focus">
-                            Open
-                        </a>
-                    </div>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+  <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
+    {% for sermon in sermons %}
+      <li class="bg-base-100 rounded-lg shadow divide-y relative">
+        <div class="pt-5 pb-2 px-4">
+          <h2 class="text-lg font-semibold truncate">{{ sermon.title }}</h2>
+          <p class="text-sm local-date"
+             data-date="{{ sermon.event.start|date:'U' }}">{{ sermon.event.start|date:'M j, Y' }}</p>
+          <div class="absolute -top-2 right-3">
+            <span class="badge badge-secondary">{{ sermon.event.church }}</span>
+          </div>
+          <div class="pb-3">
+            {% for speaker in sermon.speakers.all %}
+              <span class="badge badge-primary">{{ speaker }}</span>
+            {% endfor %}
+            <span class="badge badge-ghost">{{ sermon.sermon_type.title }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex">
+            <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church.slug %}"
+               class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-primary font-medium border border-transparent rounded-bl-lg hover:text-primary-focus">
+              Open
+            </a>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
 
-    {% include "snippets/paginator_snippet.html" %}
+  {% include "snippets/paginator_snippet.html" %}
 </div>

@@ -1,5 +1,6 @@
 import logging
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
 
 from church_site.views import BaseListView, BaseDetailView, BaseCreateView, AdminListView, BaseUpdateView
@@ -140,3 +141,13 @@ class SermonAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+
+def download_sermon(request, pk):
+    sermon = Sermon.objects.filter(id=pk).first()
+    if sermon:
+        response = HttpResponse(sermon.audio_low, content_type='audio/mpeg')
+        response['Content-Disposition'] = f'attachment; filename={sermon.title}.mp3'
+        return response
+    else:
+        raise Http404('Sermon not found')
