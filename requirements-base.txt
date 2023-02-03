@@ -1,6 +1,6 @@
 coreapi==2.3.3
 crispy-bootstrap5==0.6
-Django==3.2.14
+Django==3.2.17
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.2.0
 dj-rest-auth==2.2.5
