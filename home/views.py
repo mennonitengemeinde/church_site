@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import CreateView
 
 from contactus.forms import ContactUsForm
@@ -16,7 +17,11 @@ class HomeView(CreateView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
         context['current_page'] = 'home'
-        context['events'] = get_events(limit=5)
+        events = get_events(limit=5)
+        local_timezone = timezone.get_current_timezone()
+        for event in events:
+            event.start = event.start.astimezone(local_timezone)
+        context['events'] = events
         context['sermons'] = get_random_sermons(limit=5)
         return context
 

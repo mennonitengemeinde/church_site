@@ -26,17 +26,18 @@ def get_events_formatted_by_date(church_name: str = None, limit: int = None, ord
     Dict[str, Union[date, List[Event]]]]:
     formatted_events = []
     result = get_events(church_name, limit, order_by_start)
+    local_timezone = timezone.get_current_timezone()
     for e in result:
         index = -1
         for i, item in enumerate(formatted_events):
-            if item['date'] == e.start.date():
+            if item['date'] == e.start.astimezone(local_timezone).date():
                 index = i
                 break
 
         if index != -1:
             formatted_events[index]['events'].append(e)
         else:
-            formatted_events.append({'date': e.start.date(), 'events': [e]})
+            formatted_events.append({'date': e.start.astimezone(local_timezone).date(), 'events': [e]})
     return formatted_events
 
 
