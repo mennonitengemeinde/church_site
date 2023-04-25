@@ -29,6 +29,8 @@ env = Env(
     DB_HOST=(str, 'localhost'),
     DB_PORT=(int, 5432),
     CORS_ALLOWED_ORIGINS=(list, []),
+    GOOGLE_CLIENT_ID=(str, ''),
+    GOOGLE_CLIENT_SECRET=(str, ''),
     SENDGRID_API_KEY=(str, ''),
     DEFAULT_FROM_EMAIL=(str, ''),
     AZURE_ACCOUNT_NAME=(str, ''),
@@ -195,6 +197,10 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'APP': {
+            'client_id': env('GOOGLE_CLIENT_ID'),
+            'secret': env('GOOGLE_CLIENT_SECRET')
+        },
         'SCOPE': [
             'profile',
             'email',
