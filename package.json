@@ -22,8 +22,7 @@
     "alpinejs": "3.12.0",
     "dayjs": "1.11.7",
     "flatpickr": "4.6.13",
-    "htmx.org": "1.9.0",
-    "petite-vue": "0.4.1"
+    "htmx.org": "1.9.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
