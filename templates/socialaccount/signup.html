@@ -1,30 +1,36 @@
-{% extends "layout.html" %}
+{% extends "_layout.html" %}
 
-{% load crispy_forms_tags %}
+{% load tailwind %}
+
+{% block head_title %}Sign up{% endblock %}
 
 {% block content %}
-    <div class="row m-0">
-        <div class="col-12 col-md-6 offset-md-3">
-            <div class="card mt-5">
-                <div class="card-body">
-                    <h1>Sign Up</h1>
+  <div class="flex flex-col px-3 md:px-0 py-4 items-center">
+    <div class="card bg-base-100 w-full max-w-md">
+      <div class="card-body">
+        <p class="text-center">As a final step, please complete the following form:</p>
 
-                    <p>As a final step, please complete the following form:</p>
+        <form class="flex flex-col items-center" id="signup_form" method="POST"
+              action="{% url 'socialaccount_signup' %}">
+          {% csrf_token %}
+          <div class="w-full max-w-xs">
+            {% for f in form %}
+              <label for="{{ f.auto_id }}" class="label">
+                <span class="label-text">{{ f.label }}</span>
+              </label>
+              {{ f|tailwind_input }}
+            {% endfor %}
 
-                    <form class="signup" id="signup_form" method="POST" action="{% url 'socialaccount_signup' %}">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        {% if redirect_field_value %}
-                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-                        {% endif %}
-                        <div class="text-center">
-                            <button class="btn btn-mg-primary" type="submit">Sign Up</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+          </div>
+          <div class="text-center pt-5">
+            <button class="btn btn-primary" type="submit">Sign Up</button>
+          </div>
+        </form>
+      </div>
     </div>
-
+  </div>
+  
 {% endblock %}
