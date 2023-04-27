@@ -2,7 +2,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from pwa.views import service_worker, manifest
 from rest_framework import routers
 from allauth.account.views import confirm_email, email_verification_sent
 from dj_rest_auth.registration.views import VerifyEmailView
@@ -14,9 +13,7 @@ router = routers.DefaultRouter()
 # router.register(r'streams', StreamsViewSet)
 
 urlpatterns = [
-    path('', include('home.urls')),
-    path('serviceworker.js/', service_worker),
-    path('manifest.json', manifest),
+    path('', include('core.urls')),
     path(settings.ADMIN_URL, admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('api/v1/', include(router.urls)),
