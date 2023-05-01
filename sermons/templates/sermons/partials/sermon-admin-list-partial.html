@@ -1,0 +1,55 @@
+<div id="paginated-content" class="overflow-x-auto">
+  <table x-data id="admin-table" class="table table-compact w-full">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Sermon Type</th>
+      <th>Speakers</th>
+      <th>Files</th>
+      {% if user.is_superuser %}
+        <th><i class="fas fa-video"></i></th>
+      {% endif %}
+      <th>Visible</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+    {% for sermon in sermons %}
+      <tr>
+        <td class="align-middle max-w-xs truncate">{{ sermon.title }}</td>
+        <td class="align-middle local-date" data-date="{{ sermon.event.start|date:'U' }}"></td>
+        <td class="align-middle local-time" data-time="{{ sermon.event.start|date:'U' }}"></td>
+        <td class="align-middle">{{ sermon.sermon_type }}</td>
+        <td class="align-middle">
+          {% for speaker in sermon.speakers.all %}
+            {% if not forloop.first %}, {% endif %}{{ speaker.name }}
+          {% endfor %}
+        </td>
+        <td class="align-middle text-sm">
+          {% if sermon.audio_low %}<i class="fas fa-music mr-2"></i>{% endif %}
+          {% if sermon.video_url %}<i class="fas fa-video"></i>{% endif %}
+        </td>
+        {% if user.is_superuser %}
+          <td class="align-middle">{{ sermon.views }}</td>
+        {% endif %}
+        <td class="align-middle">{% if sermon.visible %}<i class="fas fa-check"></i>{% endif %}</td>
+        <td class="align-middle">
+          {% if perms.sermons.change_sermon %}
+            <a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}" class="btn btn-sm btn-secondary">
+              <i class="fas fa-edit"></i>
+            </a>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if request.htmx %}
+  <div id="paginator" hx-swap-oob="innerHTML">
+    {% include 'snippets/paginator_snippet.html' %}
+  </div>
+{% endif %}

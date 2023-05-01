@@ -92,7 +92,6 @@ INSTALLED_APPS = [
     'schedules.apps.SchedulesConfig',
     'sermons.apps.SermonsConfig',
     'streams.apps.StreamsConfig',
-    'home.apps.HomeConfig',
     'contactus.apps.ContactusConfig',
     'forms.apps.FormsConfig',
     'telegram.apps.TelegramConfig',
