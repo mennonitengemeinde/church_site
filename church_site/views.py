@@ -1,3 +1,4 @@
+from django.core.paginator import Page
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 
@@ -17,6 +18,22 @@ class BaseListView(PageProperties, ListView):
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
         return context
+
+    @staticmethod
+    def get_pagination_links(page: Page):
+        """returns pagination links for the sermons list"""
+        if page.paginator.num_pages > 5:
+            links = []
+            for p in page.paginator.page_range:
+                if 5 >= p > 3 > page.number:
+                    links.append(p)
+                elif p > page.paginator.count - 5 and page.number > page.paginator.count - 3:
+                    links.append(p)
+                elif (page.number + 2) >= p >= (page.number - 2):
+                    links.append(p)
+            return links
+        else:
+            return page.paginator.page_range
 
 
 class BaseCreateView(PageProperties, FormProperties, CreateView):
