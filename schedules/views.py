@@ -49,6 +49,11 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     def get_queryset(self):
         return selectors.get_admin_events(user=self.request.user, current_events_only=True, order_by_start='asc')
 
+    def get_template_names(self):
+        if self.request.htmx:
+            return 'schedules/partials/event-admin-list-partial.html'
+        return self.template_name
+
 
 class EventsAdminAllListView(EventsAdminListView):
     def get_queryset(self):

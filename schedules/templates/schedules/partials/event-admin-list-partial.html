@@ -1,0 +1,58 @@
+{% for event in events %}
+  <div class="card bg-base-100 my-3">
+    <div class="card-body gap-0">
+      <div class="flex justify-between pb-3">
+        <h6 class="badge badge-ghost">
+          <i class="fas fa-calendar mr-1"></i>
+          {{ event.start|date:"SHORT_DATE_FORMAT" }}
+        </h6>
+        <h6 class="badge badge-ghost">
+          <i class="fas fa-clock mr-1"></i>
+          {{ event.start|time }}
+        </h6>
+      </div>
+      <h4 class="card-title text-primary">{{ event.title }}</h4>
+      <span class="badge badge-secondary">{{ event.church.name }}</span>
+
+      <hr class="my-3">
+
+      {% if event.attendance_limit > 0 %}
+        <h6>Attendance Signup</h6>
+        <div class="flex justify-between items-center">
+          <div>
+            <small class="font-bold">Limit</small>
+            <div class="text-center">{{ event.attendance_limit }}</div>
+          </div>
+          <div>
+            <small class="font-bold">Signed up</small>
+            <div class="text-center">{{ event.total_attendants }}</div>
+          </div>
+          {% if perms.schedules.change_event and event.attendance_limit > 0 %}
+            <div>
+              <a href="{% url  'schedules:attendants-admin-signup-toggle' pk=event.pk %}"
+                 class="btn {% if event.attendance_signup %}btn-error{% else %}btn-success{% endif %}">
+                {% if event.attendance_signup %}
+                  End
+                {% else %}
+                  Start
+                {% endif %}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        <hr class="my-3">
+      {% endif %}
+
+      <div class="text-center">
+        {% if perms.schedules.view_attendant %}
+          <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}"
+             class="btn btn-outline mr-2">
+            <i class="fas {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} mr-1"></i>Details
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% include 'snippets/paginator_snippet.html' %}
