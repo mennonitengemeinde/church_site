@@ -1,23 +1,5 @@
-{% extends 'admin-list-layout.html' %}
+{% extends 'admin-htmx-list-layout.html' %}
 
-{% load static %}
-{#{% load compress %}#}
-
-{% block table_head %}
-  <tr>
-    <th>Title</th>
-    <th>Date</th>
-    <th>Time</th>
-    <th>Speakers</th>
-    {% if user.is_superuser %}
-      <th><i class="fas fa-music"></i></th>
-      <th><i class="fas fa-video"></i></th>
-    {% endif %}
-    <th>Actions</th>
-  </tr>
-{% endblock %}
-
-
-{% block table_body %}
-  {% include 'streams/partials/streams-admin-table-partial.html' %}
+{% block card_content %}
+  {% include 'streams/partials/stream-admin-list-partial.html' %}
 {% endblock %}

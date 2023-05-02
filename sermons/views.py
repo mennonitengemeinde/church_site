@@ -1,5 +1,6 @@
 import logging
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Page
 from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
 
@@ -37,7 +38,7 @@ class SermonsListView(BaseListView):
         context['churches'] = Church.objects.all()
         context['speakers'] = Speaker.objects.all()
         context['page_filter'] = self.get_page_filter()
-        context['pagination_links'] = self.get_pagination_links(context)
+        context['pagination_links'] = self.get_pagination_links(context['page_obj'])
         if self.request.htmx:
             self.template_name = 'sermons/partials/sermon-list-partial.html'
         return context
@@ -51,22 +52,21 @@ class SermonsListView(BaseListView):
         elif self.request.GET.get('speaker') and not self.request.GET.get('church'):
             return f"speaker={self.request.GET.get('speaker')}"
 
-    @staticmethod
-    def get_pagination_links(context):
-        """returns pagination links for the sermons list"""
-        if context['page_obj'].paginator.num_pages > 5:
-            links = []
-            for page in context['page_obj'].paginator.page_range:
-                if 5 >= page > 3 > context['page_obj'].number:
-                    links.append(page)
-                elif page > context['page_obj'].paginator.count - 5 and context['page_obj'].number > context[
-                    'page_obj'].paginator.count - 3:
-                    links.append(page)
-                elif (context['page_obj'].number + 2) >= page >= (context['page_obj'].number - 2):
-                    links.append(page)
-            return links
-        else:
-            return context['page_obj'].paginator.page_range
+    # @staticmethod
+    # def get_pagination_links(page: Page):
+    #     """returns pagination links for the sermons list"""
+    #     if page.paginator.num_pages > 5:
+    #         links = []
+    #         for p in page.paginator.page_range:
+    #             if 5 >= p > 3 > page.number:
+    #                 links.append(p)
+    #             elif p > page.paginator.count - 5 and page.number > page.paginator.count - 3:
+    #                 links.append(p)
+    #             elif (page.number + 2) >= p >= (page.number - 2):
+    #                 links.append(p)
+    #         return links
+    #     else:
+    #         return page.paginator.page_range
 
 
 class SermonsDetailView(BaseDetailView):
@@ -100,10 +100,21 @@ class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
     page_title = 'Sermons - Admin'
     current_page = 'admin_sermons'
     btn_add_href = reverse_lazy('sermons:sermons-admin-create')
-    paginate_by = 25
+    paginate_by = 5
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return 'sermons/partials/sermon-admin-list-partial.html'
+        else:
+            return self.template_name
 
     def get_queryset(self):
         return get_member_sermons(self.request.user, reverse_order=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pagination_links'] = self.get_pagination_links(context['page_obj'])
+        return context
 
 
 class SermonsAdminCreateView(PermissionRequiredMixin, BaseCreateView):

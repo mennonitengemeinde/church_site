@@ -35,13 +35,11 @@
             <div class="grid grid-cols-[auto,_1fr] w-fit md:w-1/2 items-center">
               {% if events %}
                 {% for event in events %}
-                  {#                <article class="flex">#}
                   {% ifchanged %}
                     <div class="z-0 flex text-white bg-primary px-3 my-1 rounded-full self-baseline justify-center">
                       {{ event.start.date|date:"M j" }}
                     </div>
                   {% endifchanged %}
-                  {#                    <div class="col-start-2 overflow-hidden flex flex-col pt-1 pb-5 pl-7">#}
                   <div
                       class="col-start-2 overflow-hidden flex flex-col border-l border-primary -ml-9 pb-5 pl-14{% if forloop.first %} mt-2{% elif forloop.last %} pb-0{% else %} pt-2{% endif %}">
                     <p class="font-mono font-bold text-sm text-primary">{{ event.start|date:"f a" }}</p>
@@ -56,7 +54,6 @@
                       </div>
                     {% endif %}
                   </div>
-                  {#                </article>#}
                 {% endfor %}
               {% else %}
                 <div class="text-center text-lg">
