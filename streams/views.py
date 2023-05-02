@@ -71,15 +71,20 @@ class StreamsAdminListView(PermissionRequiredMixin, AdminListView):
     page_title = 'Streams - Admin'
     current_page = 'admin_streams'
     btn_add_href = reverse_lazy('streams:streams-admin-create')
-    paginate_by = 25
+    paginate_by = 5
 
     def get_queryset(self):
         return get_member_streams(self.request.user, True)
 
     def get_template_names(self):
         if self.request.htmx:
-            self.template_name = 'streams/partials/streams-admin-table-partial.html'
+            self.template_name = 'streams/partials/stream-admin-list-partial.html'
         return super().get_template_names()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pagination_links'] = self.get_pagination_links(context['page_obj'])
+        return context
 
 
 class StreamsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
