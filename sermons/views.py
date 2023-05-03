@@ -38,7 +38,7 @@ class SermonsListView(BaseListView):
         context['churches'] = Church.objects.all()
         context['speakers'] = Speaker.objects.all()
         context['page_filter'] = self.get_page_filter()
-        context['pagination_links'] = self.get_pagination_links(context['page_obj'])
+        # context['pagination_links'] = self.get_pagination_links(context['page_obj'])
         if self.request.htmx:
             self.template_name = 'sermons/partials/sermon-list-partial.html'
         return context
@@ -113,7 +113,7 @@ class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pagination_links'] = self.get_pagination_links(context['page_obj'])
+        # context['pagination_links'] = self.get_pagination_links(context['page_obj'])
         return context
 
 

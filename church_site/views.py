@@ -1,3 +1,5 @@
+from typing import List
+
 from django.core.paginator import Page
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
@@ -17,11 +19,12 @@ class BaseListView(PageProperties, ListView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
+        context['pagination_links'] = self.get_pagination_links(context['page_obj'])
         return context
 
     @staticmethod
-    def get_pagination_links(page: Page):
-        """returns pagination links for the sermons list"""
+    def get_pagination_links(page: Page) -> List[int]:
+        """returns pagination links for paginated lists"""
         if page.paginator.num_pages > 5:
             links = []
             for p in page.paginator.page_range:

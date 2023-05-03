@@ -40,7 +40,7 @@ class HomeView(CreateView):
     template_name = 'core/home.html'
     form_class = ContactUsForm
     page_title = 'Mennoniten Gemeinde'
-    success_url = reverse_lazy('home:home')
+    success_url = reverse_lazy('core:home')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

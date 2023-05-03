@@ -2,7 +2,7 @@ module.exports = {
     content: [
         "./templates/**/*.{html,js}",
         "./accounts/templates/**/*.{html,js}",
-        "./home/templates/**/*.{html,js}",
+        "./core/templates/**/*.{html,js}",
         "./schedules/templates/**/*.{html,js}",
         "./sermons/templates/**/*.{html,js}",
         "./streams/templates/**/*.{html,js}",

@@ -40,7 +40,7 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
     permission_required = 'schedules.view_event'
     ordering = ('-start',)
     context_object_name = 'events'
-    template_name = 'schedules/events-admin-list.html'
+    template_name = 'schedules/admin/events-admin-list.html'
     page_title = 'Events - Admin'
     current_page = 'admin_events'
     btn_add_href = reverse_lazy('schedules:events-admin-create')
@@ -51,7 +51,7 @@ class EventsAdminListView(PermissionRequiredMixin, AdminListView):
 
     def get_template_names(self):
         if self.request.htmx:
-            return 'schedules/partials/event-admin-list-partial.html'
+            return 'schedules/admin/event-admin-list-partial.html'
         return self.template_name
 
 
@@ -189,7 +189,7 @@ class AttendantCreateView(SuccessMessageMixin, BaseCreateView):
     model = Attendant
     template_name = 'schedules/attendant-create-form.html'
     form_class = AttendantForm
-    success_url = reverse_lazy('home:home')
+    success_url = reverse_lazy('core:home')
     page_title = 'Signup attendance'
     current_page = 'admin_events'
 
