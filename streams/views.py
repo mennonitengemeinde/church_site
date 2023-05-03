@@ -83,7 +83,7 @@ class StreamsAdminListView(PermissionRequiredMixin, AdminListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pagination_links'] = self.get_pagination_links(context['page_obj'])
+        # context['pagination_links'] = self.get_pagination_links(context['page_obj'])
         return context
 
 
