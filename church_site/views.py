@@ -19,7 +19,8 @@ class BaseListView(PageProperties, ListView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
-        context['pagination_links'] = self.get_pagination_links(context['page_obj'])
+        if context['page_obj']:
+            context['pagination_links'] = self.get_pagination_links(context['page_obj'])
         return context
 
     @staticmethod
