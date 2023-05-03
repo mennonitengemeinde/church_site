@@ -189,7 +189,7 @@ class AttendantCreateView(SuccessMessageMixin, BaseCreateView):
     model = Attendant
     template_name = 'schedules/attendant-create-form.html'
     form_class = AttendantForm
-    success_url = reverse_lazy('home:home')
+    success_url = reverse_lazy('core:home')
     page_title = 'Signup attendance'
     current_page = 'admin_events'
 
