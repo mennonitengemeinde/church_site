@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView
 
-from church_site.views import AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
+from core.views.base import AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
 from churches.models import Church
 from schedules import selectors
 

@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.views import View
 
-from church_site.views import AdminListView, BaseDetailView
+from core.views.base import AdminListView, BaseDetailView
 
 from contactus.models import ContactMessage
 

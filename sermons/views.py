@@ -4,7 +4,7 @@ from django.core.paginator import Page
 from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
 
-from church_site.views import BaseListView, BaseDetailView, BaseCreateView, AdminListView, BaseUpdateView
+from core.views.base import BaseListView, BaseDetailView, BaseCreateView, AdminListView, BaseUpdateView
 from churches.models import Church
 from sermons.forms import SermonCreateForm
 from sermons.models import Sermon

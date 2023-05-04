@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from accounts.forms import UpdateUserForm, GroupCreateForm
 from accounts.models import User
 from accounts.selectors import get_users_from_same_church
-from church_site.views import AdminListView, BaseUpdateView, BaseCreateView, BaseDetailView
+from core.views.base import AdminListView, BaseUpdateView, BaseCreateView, BaseDetailView
 
 
 class UserProfileView(LoginRequiredMixin, BaseDetailView):
