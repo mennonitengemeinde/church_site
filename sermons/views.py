@@ -1,6 +1,5 @@
 import logging
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.paginator import Page
 from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
 

@@ -19,17 +19,6 @@
     <div class="card bg-base-100 mb-4">
       <div class="card-body p-4">
         {% block card_content %}{% endblock %}
-
-        <div id="paginated-content" class="overflow-x-auto">
-          <table x-data id="admin-table" class="table table-compact w-full">
-            <thead>
-            {% block table_head %}{% endblock %}
-            </thead>
-            <tbody id="tableBody">
-            {% block table_body %}{% endblock %}
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
 
