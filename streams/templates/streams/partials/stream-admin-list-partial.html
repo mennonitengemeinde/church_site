@@ -42,10 +42,11 @@
         <td class="align-middle flex flex-nowrap space-x-2">
           {% if perms.streams.change_stream %}
             <form hx-post="{% url 'streams:streams-admin-update-live' pk=stream.id %}"
-                  hx-target="#tableBody">
+                  hx-target="#paginated-content">
               {% csrf_token %}
               <input type="hidden" id="id_live" name="live" value="{% if stream.live %}False{% else %}True{% endif %}">
-              <button type="submit" class="btn btn-sm{% if not stream.live %} btn-outline{% endif %} btn-error">
+              <button type="submit"
+                      class="btn btn-sm{% if not stream.live %} btn-outline{% endif %} btn-error flex-nowrap">
                 {% if stream.live %}
                   <i class="fas fa-circle mr-2"></i>Live
                 {% else %}
