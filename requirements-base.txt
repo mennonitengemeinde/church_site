@@ -1,5 +1,5 @@
 coreapi==2.3.3
-Django==4.2.6
+Django==4.2.7
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.0
 dj-rest-auth==5.0.1
@@ -7,7 +7,6 @@ django-allauth==0.58.0
 django_compressor==4.4
 django-cors-headers==4.3.0
 django-countries==7.5.1
-# django-crispy-forms==2.0
 django-environ==0.11.2
 django_htmx==1.17.0
 django-libsass==0.9
