@@ -1,69 +1,69 @@
 {% extends '_layout.html' %}
 
 {% block content %}
-    {{ block.super }}
+  {{ block.super }}
 
-    <div class="px-3 py-4">
+  <div class="px-3 py-4">
 
-        <button class="btn btn-outline my-4" onclick="window.history.back()">
-            <i class="fas fa-arrow-left mr-2"></i> Back
-        </button>
+    <button class="btn btn-outline my-4" onclick="window.history.back()">
+      <i class="fa-solid fa-arrow-left mr-2"></i> Back
+    </button>
 
-        <div class="card bg-base-100">
-            <div class="card-body">
-                <h1 class="card-title text-2xl">Message</h1>
-                <hr>
-                <h5 class="font-semibold">Date & Time</h5>
-                <p>{{ contact_msg.message_date }}</p>
+    <div class="card bg-base-100">
+      <div class="card-body">
+        <h1 class="card-title text-2xl">Message</h1>
+        <hr>
+        <h5 class="font-semibold">Date & Time</h5>
+        <p>{{ contact_msg.message_date }}</p>
 
-                <h5 class="pt-3 font-semibold">Sent from page</h5>
-                <p>{{ contact_msg.page_title }}</p>
+        <h5 class="pt-3 font-semibold">Sent from page</h5>
+        <p>{{ contact_msg.page_title }}</p>
 
-                {#                {% if contact_msg.name %}#}
-                <h5 class="pt-3 font-semibold">Name</h5>
-                <p>{{ contact_msg.name }}</p>
-                {#                {% endif %}#}
+        {#                {% if contact_msg.name %}#}
+        <h5 class="pt-3 font-semibold">Name</h5>
+        <p>{{ contact_msg.name }}</p>
+        {#                {% endif %}#}
 
-                {% if contact_msg.email %}
-                    <h5 class="pt-3 font-semibold">Email</h5>
-                    <p>{{ contact_msg.email }}</p>
-                {% endif %}
+        {% if contact_msg.email %}
+          <h5 class="pt-3 font-semibold">Email</h5>
+          <p>{{ contact_msg.email }}</p>
+        {% endif %}
 
-                {% if contact_msg.phone_number %}
-                    <h5 class="pt-3 font-semibold">Phone Number</h5>
-                    <p>{{ contact_msg.phone_number }}</p>
-                {% endif %}
+        {% if contact_msg.phone_number %}
+          <h5 class="pt-3 font-semibold">Phone Number</h5>
+          <p>{{ contact_msg.phone_number }}</p>
+        {% endif %}
 
-                <h5 class="pt-3 font-semibold">Message</h5>
-                <p>{{ contact_msg.message|linebreaksbr }}</p>
+        <h5 class="pt-3 font-semibold">Message</h5>
+        <p>{{ contact_msg.message|linebreaksbr }}</p>
 
-                <div class="text-center pt-3">
-                    <a class="btn btn-primary mr-2"
-                       href="{% url 'contactus:admin-read-message' pk=contact_msg.id %}">
-                        {% if contact_msg.read %}
-                            Mark Unread
-                        {% else %}
-                            Mark Read
-                        {% endif %}
-                    </a>
-                    <label for="delete-modal" class="btn btn-error"><i class="fas fa-trash mr-2"></i>Delete</label>
-                </div>
-            </div>
+        <div class="text-center pt-3">
+          <a class="btn btn-primary mr-2"
+             href="{% url 'contactus:admin-read-message' pk=contact_msg.id %}">
+            {% if contact_msg.read %}
+              Mark Unread
+            {% else %}
+              Mark Read
+            {% endif %}
+          </a>
+          <label for="delete-modal" class="btn btn-error"><i class="fa-solid fa-trash mr-2"></i>Delete</label>
         </div>
+      </div>
     </div>
+  </div>
 
-    <input type="checkbox" id="delete-modal" class="modal-toggle"/>
-    <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box bg-base-100">
-            <h3 class="font-bold text-lg">Delete {{ contact_msg.message_date }}</h3>
-            <p class="py-4">Are you sure you want to delete {{ contact_msg.message_date }}?</p>
-            <div class="modal-action">
-                <label for="delete-modal" class="btn">Cancel</label>
-                <form method="post" action="{% url 'contactus:admin-delete-message' pk=contact_msg.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-error">Delete</button>
-                </form>
-            </div>
-        </div>
+  <input type="checkbox" id="delete-modal" class="modal-toggle" />
+  <div class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box bg-base-100">
+      <h3 class="font-bold text-lg">Delete {{ contact_msg.message_date }}</h3>
+      <p class="py-4">Are you sure you want to delete {{ contact_msg.message_date }}?</p>
+      <div class="modal-action">
+        <label for="delete-modal" class="btn">Cancel</label>
+        <form method="post" action="{% url 'contactus:admin-delete-message' pk=contact_msg.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-error">Delete</button>
+        </form>
+      </div>
     </div>
+  </div>
 {% endblock %}

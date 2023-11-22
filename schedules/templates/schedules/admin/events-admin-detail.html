@@ -1,0 +1,88 @@
+{% extends '_layout.html' %}
+
+{% load static %}
+{% block content %}
+
+  <div class="px-3 md:px-0 py-4">
+
+    <a href="{% url 'schedules:events-admin-list' %}" class="btn btn-outline"><i
+        class="fa-solid fa-arrow-left mr-1"></i>Back
+    </a>
+
+    <div class="card bg-base-100 my-4">
+      <div class="card-body">
+        <h3 class="card-title">{{ event.title }}</h3>
+        <span class="badge badge-secondary">{{ event.church }}</span>
+        <div class="flex justify-between py-2">
+          <div class="text-center">
+            <small class="font-bold">Start</small>
+            <h6 class="mb-3">
+              {{ event.start|date:'D, d M Y g:i a' }}
+            </h6>
+          </div>
+          <div class="text-center">
+            <small class="font-bold">End</small>
+            <h6 class="mb-3">
+              {{ event.end|date:'D, d M Y g:i a' }}
+            </h6>
+          </div>
+        </div>
+
+        <div class="flex justify-center space-x-3 pt-4">
+          {% if perms.schedules.change_event %}
+            <a href="{% url 'schedules:events-admin-update' pk=event.id %}"
+               class="btn btn-warning">
+              <i class="fa-solid fa-edit mr-1"></i>Edit
+            </a>
+          {% endif %}
+          {% if perms.schedules.delete_event %}
+            <button class="btn btn-error" onclick="delete_modal.showModal()">
+              <i class="fa-solid fa-trash mr-1"></i>Delete
+            </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <dialog id="delete_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Delete {{ event.title }}</h3>
+      <p class="py-4">Are you sure you want to delete {{ event.title }}?</p>
+      <div class="modal-action">
+        <form method="dialog">
+          <!-- if there is a button in form, it will close the modal -->
+          <button class="btn">Cancel</button>
+        </form>
+        <form method="post" action="{% url 'schedules:events-admin-delete' pk=event.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-error">Delete</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  {#  <div id="delete-modal" class="modal" tabindex="-1" role="dialog">#}
+  {#    <div class="modal-dialog" role="document">#}
+  {#      <div class="modal-content">#}
+  {#        <div class="modal-header">#}
+  {#          <h5 class="modal-title">Delete {{ event.title }}</h5>#}
+  {#          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+  {#        </div>#}
+  {#        <div class="modal-body">#}
+  {#          <p>Are you sure you want to delete {{ event.title }}?</p>#}
+  {#        </div>#}
+  {#        <div class="modal-footer">#}
+  {#          <button type="button" class="btn btn-outline-default shadow" data-bs-dismiss="modal"#}
+  {#                  aria-label="Close">Close#}
+  {#          </button>#}
+  {#          <form method="post" action="{% url 'schedules:events-admin-delete' pk=event.pk %}">#}
+  {#            {% csrf_token %}#}
+  {#            <button type="submit" class="btn btn-danger shadow">Delete</button>#}
+  {#          </form>#}
+  {#        </div>#}
+  {#      </div>#}
+  {#    </div>#}
+  {#  </div>#}
+
+{% endblock %}

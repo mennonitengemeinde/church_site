@@ -9,7 +9,7 @@
       <th>Speakers</th>
       <th>Files</th>
       {% if user.is_superuser %}
-        <th><i class="fas fa-video"></i></th>
+        <th><i class="fa-solid fa-video"></i></th>
       {% endif %}
       <th>Visible</th>
       <th></th>
@@ -28,17 +28,17 @@
           {% endfor %}
         </td>
         <td class="align-middle text-sm">
-          {% if sermon.audio_low %}<i class="fas fa-music mr-2"></i>{% endif %}
-          {% if sermon.video_url %}<i class="fas fa-video"></i>{% endif %}
+          {% if sermon.audio_low %}<i class="fa-solid fa-music mr-2"></i>{% endif %}
+          {% if sermon.video_url %}<i class="fa-solid fa-video"></i>{% endif %}
         </td>
         {% if user.is_superuser %}
           <td class="align-middle">{{ sermon.views }}</td>
         {% endif %}
-        <td class="align-middle">{% if sermon.visible %}<i class="fas fa-check"></i>{% endif %}</td>
+        <td class="align-middle">{% if sermon.visible %}<i class="fa-solid fa-check"></i>{% endif %}</td>
         <td class="align-middle">
           {% if perms.sermons.change_sermon %}
             <a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}" class="btn btn-sm btn-secondary">
-              <i class="fas fa-edit"></i>
+              <i class="fa-solid fa-edit"></i>
             </a>
           {% endif %}
         </td>
