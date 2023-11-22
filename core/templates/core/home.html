@@ -3,137 +3,149 @@
 {% load static %}
 
 {% block meta %}
-  <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow"/>
 {% endblock %}
 
 {% block content %}
-  <div class="pb-4 sm:pt-4">
-    <div
-        class="bg-hero-background flex flex-col items-center justify-center py-14 min-h-[20rem] bg-cover bg-no-repeat bg-center shadow rounded-b-2xl sm:rounded-xl">
-      <h1 class="text-3xl text-gray-200 text-center">
-        Welcome to <span class="text-primary font-bold font-serif">Mennoniten Gemeinde</span>
-      </h1>
-      <hr class="text-white w-10/12 my-2">
-      <p class="text-white mx-24 text-center">For other foundation can no man lay than that is laid, which is
-        Jesus
-        Christ. 1 Corinthians 3:11</p>
-    </div>
+    <div class="pb-4 sm:pt-4">
+        <div
+                class="bg-hero-background flex flex-col items-center justify-center py-14 min-h-[20rem] bg-cover bg-no-repeat bg-center shadow rounded-b-2xl sm:rounded-xl">
+            <h1 class="text-3xl text-gray-200 text-center">
+                Welcome to <span class="text-primary font-bold font-serif">Mennoniten Gemeinde</span>
+            </h1>
+            <hr class="text-white w-10/12 my-2">
+            <p class="text-white mx-24 text-center">For other foundation can no man lay than that is laid, which is
+                Jesus
+                Christ. 1 Corinthians 3:11</p>
+        </div>
 
-    <div class="space-y-12 py-10">
-      <div class="card bg-base-100">
-        <div class="card-body">
-          <div class="flex flex-col w-full items-center md:flex-row md:justify-between">
-            <div class="flex items-center pb-8 md:flex-col md:justify-center md:w-1/2 md:pb-0">
-              <img class="w-1/2 md:w-3/4" src="{% static 'img/booking_re_gw4j.svg' %}" alt="Events">
-              <div class="ml-3 md:text-center md:ml-0 md:pt-8 md:w-1/2">
-                <h2 class="card-title md:justify-center text-primary font-serif">
-                  Events</h2>
-                <p class="pt-1">The following events are scheduled for the coming days</p>
-              </div>
-            </div>
+        <div class="space-y-12 py-10">
+            <div class="card bg-base-100">
+                <div class="card-body">
+                    <div class="flex flex-col w-full items-center md:flex-row md:justify-between">
+                        <div class="flex items-center pb-8 md:flex-col md:justify-center md:w-1/2 md:pb-0">
+                            <img class="w-1/2 md:w-3/4" src="{% static 'img/booking_re_gw4j.svg' %}" alt="Events">
+                            <div class="ml-3 md:text-center md:ml-0 md:pt-8 md:w-1/2">
+                                <h2 class="card-title md:justify-center text-primary font-serif">
+                                    Events</h2>
+                                <p class="pt-1">The following events are scheduled for the coming days</p>
+                            </div>
+                        </div>
 
-            <div class="grid grid-cols-[auto,_1fr] w-fit md:w-1/2 items-center">
-              {% if events %}
-                {% for event in events %}
-                  {% ifchanged %}
-                    <div class="z-0 flex text-white bg-primary px-3 my-1 rounded-full self-baseline justify-center">
-                      {{ event.start.date|date:"M j" }}
+                        <div class="md:w-1/2">
+                            {% if events %}
+                                <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+                                    {% for event in events %}
+                                        <li>
+                                            {% if not forloop.counter == 1 %}
+                                                <hr/>
+                                            {% endif %}
+                                            <div class="timeline-middle">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                     fill="currentColor" class="h-5 w-5">
+                                                    <path fill-rule="evenodd"
+                                                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="{% if forloop.counter0|divisibleby:2 %}timeline-start md:text-end{% else %}timeline-end{% endif %} mb-10">
+                                                <time class="italic">
+                                                    {{ event.start|date:"M j, f a" }}</time>
+                                                <div class="text-lg font-bold">{{ event.title }}</div>
+                                                <p class="badge badge-secondary">{{ event.church }}</p>
+                                                {% if event.live_stream %}
+                                                    <div class="pt-1">
+                                                        <a href="{% url 'streams:streams-list' %}"
+                                                           class="btn btn-xs btn-outline btn-primary">
+                                                            <i class="fa-solid fa-circle mr-1"></i>Live
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <hr/>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <div class="text-center text-lg">
+                                    <p>Looks like there are no events planned at this moment.</p>
+                                    <p>Check back later.</p>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
-                  {% endifchanged %}
-                  <div
-                      class="col-start-2 overflow-hidden flex flex-col border-l border-primary -ml-9 pb-5 pl-14{% if forloop.first %} mt-2{% elif forloop.last %} pb-0{% else %} pt-2{% endif %}">
-                    <p class="font-mono font-bold text-sm text-primary">{{ event.start|date:"f a" }}</p>
-                    <h3 class="font-bold text-primary truncate">{{ event.title }}</h3>
-                    <p class="badge badge-secondary">{{ event.church }}</p>
-                    {% if event.live_stream %}
-                      <div class="pt-1">
-                        <a href="{% url 'streams:streams-list' %}"
-                           class="btn btn-xs btn-outline btn-primary">
-                          <i class="fa-solid fa-circle mr-1"></i>Live
-                        </a>
-                      </div>
-                    {% endif %}
-                  </div>
-                {% endfor %}
-              {% else %}
-                <div class="text-center text-lg">
-                  <p>Looks like there are no events planned at this moment.</p>
-                  <p>Check back later.</p>
+                    <div class="flex justify-center pt-8">
+                        <a href="{% url 'schedules:events-list' %}" class="btn btn-primary"><i
+                                class="fa-solid fa-calendar mr-2"></i>
+                            All
+                            Events</a>
+                    </div>
                 </div>
-              {% endif %}
             </div>
-          </div>
-          <div class="flex justify-center pt-8">
-            <a href="{% url 'schedules:events-list' %}" class="btn btn-primary"><i
-                class="fa-solid fa-calendar mr-2"></i>
-              All
-              Events</a>
-          </div>
-        </div>
-      </div>
-      {# Live stream section #}
-      <div class="flex flex-col-reverse items-center justify-center justify-around md:flex-row">
-        <div class="card bg-base-100 w-1/2 md:w-1/3">
-          <div class="card-body">
-            <h2 class="card-title text-primary justify-center font-serif">Live Stream</h2>
-            <p class="pt-1 text-center">If you are not able to assist in person, We also livestream some of
-              our
-              events</p>
-            <div class="my-4 text-center">
-              <a href="{% url 'streams:streams-list' %}" class="btn btn-primary"><i
-                  class="fa-solid fa-circle mr-2"></i>
-                Live
-              </a>
+            {# Live stream section #}
+            <div class="flex flex-col-reverse items-center justify-center justify-around md:flex-row">
+                <div class="card bg-base-100 w-1/2 md:w-1/3">
+                    <div class="card-body">
+                        <h2 class="card-title text-primary justify-center font-serif">Live Stream</h2>
+                        <p class="pt-1 text-center">If you are not able to assist in person, We also livestream some of
+                            our
+                            events</p>
+                        <div class="my-4 text-center">
+                            <a href="{% url 'streams:streams-list' %}" class="btn btn-primary"><i
+                                    class="fa-solid fa-circle mr-2"></i>
+                                Live
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <img class="w-1/2 md:w-1/3" src="{% static 'img/video_streaming_re_v3qg.svg' %}" alt="Live">
             </div>
-          </div>
-        </div>
-        <img class="w-1/2 md:w-1/3" src="{% static 'img/video_streaming_re_v3qg.svg' %}" alt="Live">
-      </div>
-      {# Sermons section #}
-      <div class="card bg-base-100">
-        <div class="card-body flex-col items-center md:flex-row justify-around">
-          <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-8">
-            <img class="w-3/4" src="{% static 'img/media_player_re_rdd2.svg' %}" alt="Live">
-            <div class="flex flex-col justify-center items-center pt-8">
-              <h2 class="card-title text-primary font-serif">Sermons</h2>
-              <p class="pt-1 text-center">Browse through our historical sermons that we have recorded</p>
-              <div class="my-4">
-                <a href="{% url 'schedules:events-list' %}" class="btn btn-primary"><i
-                    class="fa-solid fa-circle mr-2"></i>
-                  Sermons
-                </a>
-              </div>
-            </div>
-          </div>
+            {# Sermons section #}
+            <div class="card bg-base-100">
+                <div class="card-body flex-col items-center md:flex-row justify-around">
+                    <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-8">
+                        <img class="w-3/4" src="{% static 'img/media_player_re_rdd2.svg' %}" alt="Live">
+                        <div class="flex flex-col justify-center items-center pt-8">
+                            <h2 class="card-title text-primary font-serif">Sermons</h2>
+                            <p class="pt-1 text-center">Browse through our historical sermons that we have recorded</p>
+                            <div class="my-4">
+                                <a href="{% url 'schedules:events-list' %}" class="btn btn-primary"><i
+                                        class="fa-solid fa-circle mr-2"></i>
+                                    Sermons
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-          <div class="flex flex-col w-full md:w-1/2 md:pl-8">
-            {% for sermon in sermons %}
-              <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}"
-                 class="flex flex-col card bg-secondary text-white shadow overflow-hidden w-full my-3 hover:bg-secondary-focus">
-                <div class="card-body px-4 py-2 gap-0">
-                  <h3 class="font-bold pb-2 truncate">{{ sermon.title }}</h3>
-                  <p class="text-sm">{{ sermon.event.start.date|date:"M j, Y" }}</p>
-                  <div class="divider my-1"></div>
-                  <div class="flex flex-row items-center justify-start">
-                    {% for speaker in sermon.speakers.all %}
-                      <p class="text-sm mr-2 grow-0">
-                        {% if forloop.first %}<i class="fa-solid fa-microphone mr-1"></i>{% endif %}
-                        {{ speaker.name }}{% if not forloop.last %},{% endif %}
-                      </p>
-                    {% endfor %}
-                  </div>
+                    <div class="flex flex-col w-full md:w-1/2 md:pl-8">
+                        {% for sermon in sermons %}
+                            <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}"
+                               class="flex flex-col card bg-secondary text-white shadow overflow-hidden w-full my-3 hover:bg-secondary-focus">
+                                <div class="card-body px-4 py-2 gap-0">
+                                    <h3 class="font-bold pb-2 truncate">{{ sermon.title }}</h3>
+                                    <p class="text-sm">{{ sermon.event.start.date|date:"M j, Y" }}</p>
+                                    <div class="divider my-1"></div>
+                                    <div class="flex flex-row items-center justify-start">
+                                        {% for speaker in sermon.speakers.all %}
+                                            <p class="text-sm mr-2 grow-0">
+                                                {% if forloop.first %}
+                                                    <i class="fa-solid fa-microphone mr-1"></i>{% endif %}
+                                                {{ speaker.name }}{% if not forloop.last %},{% endif %}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
                 </div>
-              </a>
-            {% endfor %}
-          </div>
+            </div>
+            {# Contact form #}
+            <div class="flex flex-col items-center md:justify-around md:flex-row">
+                <img class="w-3/4 md:w-1/2" src="{% static 'img/personal_text_re_vqj3.svg' %}"
+                     alt="Person looking at a messages">
+                {% include "contactus/contact-form.html" %}
+            </div>
         </div>
-      </div>
-      {# Contact form #}
-      <div class="flex flex-col items-center md:justify-around md:flex-row">
-        <img class="w-3/4 md:w-1/2" src="{% static 'img/personal_text_re_vqj3.svg' %}"
-             alt="Person looking at a messages">
-        {% include "contactus/contact-form.html" %}
-      </div>
     </div>
-  </div>
 {% endblock %}
