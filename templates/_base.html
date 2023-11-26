@@ -32,14 +32,15 @@
     {% block head_title %}{{ page_title }}{% endblock %}
   </title>
 
-  <meta property="og:site_name" content="Mennoniten Gemeinde"/>
-  <meta property="og:title" content="{{ page_title }}"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://mennonitengemeinde.org{{ request.get_full_path }}"/>
-  <meta property="og:image" content="https://mennonitengemeinde.org{% static 'android-chrome-512x512.png' %}"/>
+  <meta property="og:site_name" content="Mennoniten Gemeinde" />
+  <meta property="og:title" content="{{ page_title }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mennonitengemeinde.org{{ request.get_full_path }}" />
+  <meta property="og:image" content="https://mennonitengemeinde.org{% static 'android-chrome-512x512.png' %}" />
 
   <script src="{% static 'htmx.org/dist/htmx.min.js' %}"></script>
   <script defer src="{% static 'alpinejs/dist/cdn.min.js' %}"></script>
+  {#  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>#}
 </head>
 
 <body class="flex flex-col h-full font-sans">

@@ -244,18 +244,20 @@
   <main class="flex-1 flex flex-col max-w-7xl mx-auto sm:px-6 lg:px-8 w-full">
     {% block content %}{% endblock %}
   </main>
+
   {% if messages %}
-    <div class="absolute top-2 right-2">
+    <div class="absolute bottom-2 right-2 space-y-2">
       {% for message in messages %}
         <div x-data="{
-                    open: true,
-                    init() {
-                        setTimeout(() => {
-                            this.open = false;
-                        }, 5000);
-                    }
-                }"
+            open: true,
+            init() {
+                setTimeout(() => {
+                    this.open = false;
+                }, 5000);
+            }
+          }"
              x-show="open"
+             role="alert"
              class="alert {{ message.level|notify }} shadow-lg">
           <div>
             {% if message.level == 25 %}
