@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView
 
-from church_site.views import AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
+from core.views.base import AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
 from churches.models import Church
 from schedules import selectors
 
@@ -63,7 +63,7 @@ class EventsAdminAllListView(EventsAdminListView):
 class EventsAdminCreateView(PermissionRequiredMixin, BaseCreateView):
     permission_required = 'schedules.add_event'
     model = Event
-    template_name = 'schedules/events-admin-form.html'
+    template_name = 'schedules/admin/events-admin-form.html'
     form_class = EventForm
     success_url = reverse_lazy('schedules:events-admin-list')
     page_title = 'New Event - Admin'
@@ -104,7 +104,7 @@ class EventsAdminDetailView(PermissionRequiredMixin, BaseDetailView):
     permission_required = 'schedules.view_attendant'
     model = Event
     context_object_name = 'event'
-    template_name = 'schedules/events-admin-detail.html'
+    template_name = 'schedules/admin/events-admin-detail.html'
     page_title = 'Event Details - Admin'
     current_page = 'admin_events'
 
@@ -115,7 +115,7 @@ class EventsAdminDetailView(PermissionRequiredMixin, BaseDetailView):
 class EventsAdminUpdateView(PermissionRequiredMixin, BaseUpdateView):
     permission_required = 'schedules.change_event'
     model = Event
-    template_name = 'schedules/events-admin-form.html'
+    template_name = 'schedules/admin/events-admin-form.html'
     form_class = EventForm
     success_url = reverse_lazy('schedules:events-admin-list')
     page_title = 'Update Event - Admin'
@@ -149,7 +149,7 @@ class EventTemplateAdminListView(PermissionRequiredMixin, AdminListView):
     permission_required = 'schedules.view_eventtemplate'
     model = EventTemplate
     context_object_name = 'event_templates'
-    template_name = 'schedules/event-templates-admin-list.html'
+    template_name = 'schedules/admin/event-templates-admin-list.html'
     page_title = 'Event Templates - Admin'
     current_page = 'admin_events'
     btn_add_href = reverse_lazy('schedules:event-templates-admin-create')

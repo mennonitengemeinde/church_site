@@ -2,36 +2,36 @@
 
 {% block add_btn %}
 
-    {% if perms.forms.add_forms %}
-        {{ block.super }}
-    {% endif %}
+  {% if perms.forms.add_forms %}
+    {{ block.super }}
+  {% endif %}
 
 {% endblock %}
 
 {% block table_head %}
-    <tr>
-        <th>Name</th>
-        <th>Language</th>
-        <th>Active</th>
-        <th>Actions</th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Language</th>
+    <th>Active</th>
+    <th>Actions</th>
+  </tr>
 {% endblock %}
 
 {% block table_body %}
-    {% for f in forms %}
-        <tr>
-            <td class="align-middle">{{ f.name }}</td>
-            <td class="align-middle">{{ f.language }}</td>
-            <td class="align-middle">{{ f.is_active }}</td>
-            <td>
-                <a href="{% url 'forms:admin-forms-detail' slug=f.slug %}" class="btn btn-outline btn-primary btn-sm">
-                    <i class="fa fa-eye"></i>
-                </a>
-                {% if perms.forms.change_form %}
-                    <a href="{% url 'forms:admin-forms-update' slug=f.slug %}"
-                       class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
+  {% for f in forms %}
+    <tr>
+      <td class="align-middle">{{ f.name }}</td>
+      <td class="align-middle">{{ f.language }}</td>
+      <td class="align-middle">{{ f.is_active }}</td>
+      <td>
+        <a href="{% url 'forms:admin-forms-detail' slug=f.slug %}" class="btn btn-outline btn-primary btn-sm">
+          <i class="fa fa-eye"></i>
+        </a>
+        {% if perms.forms.change_form %}
+          <a href="{% url 'forms:admin-forms-update' slug=f.slug %}"
+             class="btn btn-sm btn-secondary"><i class="fa-solid fa-edit"></i></a>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
 {% endblock %}

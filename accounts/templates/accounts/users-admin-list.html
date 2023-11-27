@@ -1,58 +1,58 @@
 {% extends 'admin-list-layout.html' %}
 
 {% block add_btn %}
-    {% if perms.auth.view_group %}
-        <div class="py-3">
-            <a href="{% url 'accounts:groups-admin-list' %}" class="btn btn-primary shadow"><i
-                    class="fas fa-users mr-2"></i>Groups</a>
-        </div>
-    {% endif %}
+  {% if perms.auth.view_group %}
+    <div class="py-3">
+      <a href="{% url 'accounts:groups-admin-list' %}" class="btn btn-primary shadow"><i
+          class="fa-solid fa-users mr-2"></i>Groups</a>
+    </div>
+  {% endif %}
 {% endblock %}
 
 {% block table_head %}
-    <tr>
-        <th>Username</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Churches</th>
-        <th>Group</th>
-        <th>Last Login</th>
-        <th>V</th>
-        <th>Actions</th>
-    </tr>
+  <tr>
+    <th>Username</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Churches</th>
+    <th>Group</th>
+    <th>Last Login</th>
+    <th>V</th>
+    <th>Actions</th>
+  </tr>
 {% endblock %}
 
 
 {% block table_body %}
-    {% for user_obj in users %}
-        <tr>
-            <td class="align-middle">{{ user_obj.username }}</td>
-            <td class="align-middle">{{ user_obj.first_name }} {{ user_obj.last_name }}</td>
-            <td class="align-middle">{{ user_obj.email }}</td>
-            <td class="align-middle">
-                {% for member in user_obj.churches.all %}
-                    {% if not forloop.last %}{{ member }} - {% else %}{{ member }}{% endif %}
-                {% endfor %}
-            </td>
-            <td class="align-middle">
-                {% for group in user_obj.groups.all %}
-                    {% if not forloop.last %}{{ group }} - {% else %}{{ group }}{% endif %}
-                {% endfor %}
-            </td>
-            <td class="align-middle">
-                {{ user_obj.last_login }}
-            </td>
-            <td class="align-middle">
-                {% if user_obj.is_verified %}
-                    <i class="fas fa-check text-success"></i>
-                {% else %}
-                    <i class="fas fa-times text-danger"></i>
-                {% endif %}
-            </td>
-            <td class="align-middle">
-                <a href="{% url 'accounts:users-admin-update' pk=user_obj.id %}" class="btn btn-sm btn-warning"><i
-                        class="fas fa-edit"></i></a>
-            </td>
-        </tr>
-    {% endfor %}
+  {% for user_obj in users %}
+    <tr>
+      <td class="align-middle">{{ user_obj.username }}</td>
+      <td class="align-middle">{{ user_obj.first_name }} {{ user_obj.last_name }}</td>
+      <td class="align-middle">{{ user_obj.email }}</td>
+      <td class="align-middle">
+        {% for member in user_obj.churches.all %}
+          {% if not forloop.last %}{{ member }} - {% else %}{{ member }}{% endif %}
+        {% endfor %}
+      </td>
+      <td class="align-middle">
+        {% for group in user_obj.groups.all %}
+          {% if not forloop.last %}{{ group }} - {% else %}{{ group }}{% endif %}
+        {% endfor %}
+      </td>
+      <td class="align-middle">
+        {{ user_obj.last_login }}
+      </td>
+      <td class="align-middle">
+        {% if user_obj.is_verified %}
+          <i class="fa-solid fa-check text-success"></i>
+        {% else %}
+          <i class="fa-solid fa-times text-danger"></i>
+        {% endif %}
+      </td>
+      <td class="align-middle">
+        <a href="{% url 'accounts:users-admin-update' pk=user_obj.id %}" class="btn btn-sm btn-warning"><i
+            class="fa-solid fa-edit"></i></a>
+      </td>
+    </tr>
+  {% endfor %}
 {% endblock %}

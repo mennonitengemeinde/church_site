@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
-from church_site.views import AdminListView, BaseDetailView, BaseCreateView, BaseUpdateView
+from core.views.base import AdminListView, BaseCreateView, BaseUpdateView
 from forms.forms import FormCreateForm, TranslationCreateForm
 from forms.models import Form, Translation
 

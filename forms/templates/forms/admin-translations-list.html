@@ -2,37 +2,37 @@
 
 {% block add_btn %}
 
-    {% if perms.forms.add_translations %}
-        {{ block.super }}
-    {% endif %}
+  {% if perms.forms.add_translations %}
+    {{ block.super }}
+  {% endif %}
 
 {% endblock %}
 
 {% block card_content %}
-    <h1 class="card-title">{{ form.name }}</h1>
-    <p>{% if request.is_secure %}https://{% else %}
-        http://{% endif %}{{ request.get_host }}{% url 'forms:forms-detail' slug=form.slug %}</p>
+  <h1 class="card-title">{{ form.name }}</h1>
+  <p>{% if request.is_secure %}https://{% else %}
+    http://{% endif %}{{ request.get_host }}{% url 'forms:forms-detail' slug=form.slug %}</p>
 {% endblock %}
 
 {% block table_head %}
-    <tr>
-        <th>Name</th>
-        <th>Language</th>
-        <th>Actions</th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Language</th>
+    <th>Actions</th>
+  </tr>
 {% endblock %}
 
 {% block table_body %}
-    {% for translation in translations %}
-        <tr>
-            <td class="align-middle">{{ translation.name }}</td>
-            <td class="align-middle">{{ translation.language }}</td>
-            <td>
-                {% if perms.forms.change_translation %}
-                    <a href="{% url 'forms:admin-translation-update' slug=form.slug pk=translation.id %}"
-                       class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
+  {% for translation in translations %}
+    <tr>
+      <td class="align-middle">{{ translation.name }}</td>
+      <td class="align-middle">{{ translation.language }}</td>
+      <td>
+        {% if perms.forms.change_translation %}
+          <a href="{% url 'forms:admin-translation-update' slug=form.slug pk=translation.id %}"
+             class="btn btn-sm btn-secondary"><i class="fa-solid fa-edit"></i></a>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
 {% endblock %}

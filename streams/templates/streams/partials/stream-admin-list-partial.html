@@ -7,8 +7,8 @@
       <th>Time</th>
       <th>Speakers</th>
       {% if user.is_superuser %}
-        <th><i class="fas fa-music"></i></th>
-        <th><i class="fas fa-video"></i></th>
+        <th><i class="fa-solid fa-music"></i></th>
+        <th><i class="fa-solid fa-video"></i></th>
       {% endif %}
       <th>Actions</th>
     </tr>
@@ -42,19 +42,20 @@
         <td class="align-middle flex flex-nowrap space-x-2">
           {% if perms.streams.change_stream %}
             <form hx-post="{% url 'streams:streams-admin-update-live' pk=stream.id %}"
-                  hx-target="#tableBody">
+                  hx-target="#paginated-content">
               {% csrf_token %}
               <input type="hidden" id="id_live" name="live" value="{% if stream.live %}False{% else %}True{% endif %}">
-              <button type="submit" class="btn btn-sm{% if not stream.live %} btn-outline{% endif %} btn-error">
+              <button type="submit"
+                      class="btn btn-sm{% if not stream.live %} btn-outline{% endif %} btn-error flex-nowrap">
                 {% if stream.live %}
-                  <i class="fas fa-circle mr-2"></i>Live
+                  <i class="fa-solid fa-circle mr-2"></i>Live
                 {% else %}
                   Go Live
                 {% endif %}
               </button>
             </form>
             <a href="{% url 'streams:streams-admin-update' pk=stream.id %}" class="btn btn-sm btn-secondary"><i
-                class="fas fa-edit"></i></a>
+                class="fa-solid fa-edit"></i></a>
           {% endif %}
         </td>
       </tr>

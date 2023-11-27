@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 
-from church_site.views import AdminListView, BaseCreateView, BaseUpdateView
+from core.views.base import AdminListView, BaseCreateView, BaseUpdateView
 from churches.forms import ChurchCreateForm
 
 from churches.models import Church

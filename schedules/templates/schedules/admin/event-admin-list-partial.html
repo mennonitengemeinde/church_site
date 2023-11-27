@@ -3,11 +3,11 @@
     <div class="card-body gap-0">
       <div class="flex justify-between pb-3">
         <h6 class="badge badge-ghost">
-          <i class="fas fa-calendar mr-1"></i>
+          <i class="fa-solid fa-calendar mr-1"></i>
           {{ event.start|date:"SHORT_DATE_FORMAT" }}
         </h6>
         <h6 class="badge badge-ghost">
-          <i class="fas fa-clock mr-1"></i>
+          <i class="fa-solid fa-clock mr-1"></i>
           {{ event.start|time }}
         </h6>
       </div>
@@ -47,7 +47,7 @@
         {% if perms.schedules.view_attendant %}
           <a href="{% url  'schedules:events-admin-detail' pk=event.pk %}"
              class="btn btn-outline mr-2">
-            <i class="fas {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} mr-1"></i>Details
+            <i class="fa-solid {% if event.attendance_limit == 0 %}fa-clipboard{% else %}fa-chair{% endif %} mr-1"></i>Details
           </a>
         {% endif %}
       </div>
