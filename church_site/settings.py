@@ -9,6 +9,7 @@ env = Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, 'django-insecure-7l#y#y5f@qulo0&48tt(=&2xbx_69&sb67vmk+a9uh&t_2j833'),
     ALLOWED_HOSTS=(list, ['*']),
+    CSRF_ORIGINS=(list, ['*']),
     ADMIN_URL=(str, 'admin/'),
     PRODUCTION_DB=(bool, False),
     DB_NAME=(str, 'church_db'),
@@ -41,6 +42,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+CSRF_TRUSTED_ORIGINS = env('CSRF_ORIGINS')
 
 ADMIN_URL = env('ADMIN_URL')
 
