@@ -14,6 +14,7 @@ WORKDIR /app
 
 RUN npm install
 RUN npm run build
+RUN npm install --omit=dev
 
 FROM base AS final
 
