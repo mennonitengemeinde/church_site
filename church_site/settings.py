@@ -9,7 +9,7 @@ env = Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, 'django-insecure-7l#y#y5f@qulo0&48tt(=&2xbx_69&sb67vmk+a9uh&t_2j833'),
     ALLOWED_HOSTS=(list, ['*']),
-    CSRF_ORIGINS=(list, ['*']),
+    CSRF_ORIGINS=(list, ['http://localhost:8000']),
     ADMIN_URL=(str, 'admin/'),
     PRODUCTION_DB=(bool, False),
     DB_NAME=(str, 'church_db'),
@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'streams.apps.StreamsConfig',
     'contactus.apps.ContactusConfig',
     'forms.apps.FormsConfig',
+    'songs.apps.SongsConfig',
     'telegram.apps.TelegramConfig',
 ]
 

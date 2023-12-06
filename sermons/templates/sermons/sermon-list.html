@@ -19,7 +19,7 @@
                 <span class="label-text">Filter Church</span>
               </label>
               <select id="churchFilter" name="church"
-                      x-on:change="$refs.filterForm.submit()"
+                      @change="$refs.filterForm.submit()"
                       class="select select-bordered">
                 <option value="all"{% if current_church == None %} selected{% endif %}>All Churches
                 </option>
@@ -34,7 +34,7 @@
                 <span class="label-text">Filter Speaker</span>
               </label>
               <select id="speakerFilter" name="speaker"
-                      x-on:change="$refs.filterForm.submit()"
+                      @change="$refs.filterForm.submit()"
                       class="select select-bordered">
                 <option value="all"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers
                 </option>
