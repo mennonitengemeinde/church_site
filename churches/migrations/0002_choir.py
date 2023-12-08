@@ -5,44 +5,38 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-    initial = True
-
     dependencies = [
-        ("churches", "0002_choir"),
-        ("schedules", "0004_eventtemplate"),
+        ("churches", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="Song",
+            name="Choir",
             fields=[
                 (
                     "id",
-                    models.BigAutoField(
+                    models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
                         verbose_name="ID",
                     ),
                 ),
-                ("title", models.CharField(max_length=255)),
-                ("video_url", models.URLField(blank=True, null=True)),
+                ("name", models.CharField(max_length=255)),
+                ("description", models.TextField(blank=True, null=True)),
+                ("image", models.ImageField(blank=True, null=True, upload_to="choirs")),
                 (
-                    "choir",
+                    "church",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
-                        related_name="songs",
-                        to="churches.choir",
-                    ),
-                ),
-                (
-                    "event",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT,
-                        related_name="songs",
-                        to="schedules.event",
+                        related_name="choirs",
+                        to="churches.church",
                     ),
                 ),
             ],
+            options={
+                "ordering": ("name",),
+                "unique_together": {("name", "church")},
+            },
         ),
     ]

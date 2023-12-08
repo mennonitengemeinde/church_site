@@ -1,0 +1,45 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+  <div class="px-3 md:px-0 py-4">
+
+    <a href="{% url 'churches:churches-admin-list' %}" class="btn btn-outline"><i
+        class="fa-solid fa-arrow-left mr-1"></i>Back
+    </a>
+
+    <div class="card bg-base-100 my-4">
+      <div class="card-body">
+        <h3 class="card-title">{{ event.title }}</h3>
+        <span class="badge badge-secondary">{{ event.church }}</span>
+        <div class="flex justify-between py-2">
+          <div class="text-center">
+            <small class="font-bold">Start</small>
+            <h6 class="mb-3">
+              {{ event.start|date:'D, d M Y g:i a' }}
+            </h6>
+          </div>
+          <div class="text-center">
+            <small class="font-bold">End</small>
+            <h6 class="mb-3">
+              {{ event.end|date:'D, d M Y g:i a' }}
+            </h6>
+          </div>
+        </div>
+
+        <div class="flex justify-center space-x-3 pt-4">
+          {% if perms.schedules.change_event %}
+            <a href="{% url 'schedules:events-admin-update' pk=event.id %}"
+               class="btn btn-warning">
+              <i class="fa-solid fa-edit mr-1"></i>Edit
+            </a>
+          {% endif %}
+          {% if perms.schedules.delete_event %}
+            <button class="btn btn-error" onclick="delete_modal.showModal()">
+              <i class="fa-solid fa-trash mr-1"></i>Delete
+            </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
