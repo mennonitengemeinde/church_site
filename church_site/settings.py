@@ -257,12 +257,19 @@ TIME_ZONE = 'America/Toronto'
 
 USE_I18N = True
 
-USE_L10N = True
+# USE_L10N = True
 
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+STORAGES = {
+    'default': {
+        "BACKEND": "storages.backends.azure_storage.AzureStorage",
+    },
+    'staticfiles': {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    }
+}
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
@@ -270,34 +277,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'assets',
     BASE_DIR / 'node_modules'
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
-
-# STATICFILES_FINDERS = (
-#     'django.contrib.staticfiles.finders.FileSystemFinder',
-#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#     # other finders..
-#     'compressor.finders.CompressorFinder',
-# )
-#
-# COMPRESS_PRECOMPILERS = (
-#     ('text/x-scss', 'django_libsass.SassCompiler'),
-# )
-
-# if DEBUG:
-#     COMPRESS_OFFLINE = False
-# else:
-#     COMPRESS_OFFLINE = True
-# LIBSASS_OUTPUT_STYLE = 'compressed'
-# LIBSASS_PRECISION = 8
-# # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-# COMPRESS_OFFLINE_CONTEXT = {
-#     'current_speaker': 1,
-#     'current_church': 1
-# }
 
 # Send Grid
 if DEBUG:
@@ -309,7 +292,6 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 # Azure
-DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 AZURE_ACCOUNT_NAME = env('AZURE_ACCOUNT_NAME')
 AZURE_ACCOUNT_KEY = env('AZURE_ACCOUNT_KEY')
 AZURE_CONTAINER = env('AZURE_CONTAINER')

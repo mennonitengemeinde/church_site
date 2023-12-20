@@ -6,7 +6,7 @@
 
 {% block body %}
 
-  <nav x-data="{ open: false }" class="bg-base-100 bg-opacity-75 border-b border-gray-200">
+    <nav x-data="{ open: false }" class="bg-base-100 bg-opacity-75 border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex">
@@ -62,45 +62,47 @@
               </div>
 
               {# Dropdown menu #}
-              <div x-show="profileOpen"
-                   x-cloak
-                   x-transition:enter="transition ease-out duration-200 transform"
-                   x-transition:enter-start="transform opacity-0 scale-95"
-                   x-transition:enter-end="transform opacity-100 scale-100"
-                   x-transition:leave="transition ease-in duration-75 transform"
-                   x-transition:leave-start="transform opacity-100 scale-100"
-                   x-transition:leave-end="transform opacity-0 scale-95"
-                   class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-base-100 ring-1 ring-black ring-opacity-5 focus:outline-none z-40"
-                   role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                   tabindex="-1"
-              >
-                {% if perms.schedules.view_event %}
-                  <a href="{% url 'schedules:events-admin-list' %}"
-                     class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                <div x-show="profileOpen"
+                     x-cloak
+                     x-transition:enter="transition ease-out duration-200 transform"
+                     x-transition:enter-start="transform opacity-0 scale-95"
+                     x-transition:enter-end="transform opacity-100 scale-100"
+                     x-transition:leave="transition ease-in duration-75 transform"
+                     x-transition:leave-start="transform opacity-100 scale-100"
+                     x-transition:leave-end="transform opacity-0 scale-95"
+                     class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-base-100 ring-1 ring-black ring-opacity-5 focus:outline-none z-40"
+                     role="menu"
+                     aria-orientation="vertical"
+                     aria-labelledby="user-menu-button"
                      tabindex="-1"
-                     id="user-menu-item-0">
-                    Manage
-                  </a>
-                {% endif %}
-                {# Active: "bg-gray-100", Not Active: "" #}
-                <a href="{% url 'accounts:user-profile' %}"
-                   class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                   tabindex="-1"
-                   id="user-menu-item-1">
-                  Your Profile
-                </a>
+                >
+                    {% if perms.schedules.view_event %}
+                    <a href="{% url 'schedules:events-admin-list' %}"
+                       class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                       tabindex="-1"
+                       id="user-menu-item-0">
+                        Manage
+                    </a>
+                    {% endif %}
+                    {# Active: "bg-gray-100", Not Active: "" #}
+                    <a href="{% url 'accounts:user-profile' %}"
+                       class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                       tabindex="-1"
+                       id="user-menu-item-1">
+                        Your Profile
+                    </a>
 
-                <form method="post" action="{% url 'account_logout' %}">
-                  {% csrf_token %}
-                  {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}"
-                           value="{{ redirect_field_value }}" />
-                  {% endif %}
-                  <button type="submit" class="block px-4 py-2 text-sm text-gray-700"
-                          role="menuitem" tabindex="-1">Sign out
-                  </button>
-                </form>
-              </div>
+                    <form method="post" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}"
+                               value="{{ redirect_field_value }}"/>
+                        {% endif %}
+                        <button type="submit" class="block px-4 py-2 text-sm text-gray-700"
+                                role="menuitem" tabindex="-1">Sign out
+                        </button>
+                    </form>
+                </div>
             </div>
           {% else %}
             <div class="ml-3 relative">
