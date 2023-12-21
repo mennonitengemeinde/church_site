@@ -1,22 +1,27 @@
+import json
+
+from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import CreateView
+from django.views.decorators.csrf import csrf_exempt
 
 from contactus.forms import ContactUsForm
+from core.views.base import BaseCreateView
 from schedules.selectors import get_events
 from sermons.selectors import get_random_sermons
 
 
-class HomeView(CreateView):
+class HomeView(BaseCreateView):
     template_name = 'core/home.html'
     form_class = ContactUsForm
     page_title = 'Mennoniten Gemeinde'
+    current_page = 'home'
     success_url = reverse_lazy('core:home')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = self.page_title
-        context['current_page'] = 'home'
+        # context['page_title'] = self.page_title
+        # context['current_page'] = 'home'
         events = get_events(limit=5)
         local_timezone = timezone.get_current_timezone()
         for event in events:
@@ -29,3 +34,12 @@ class HomeView(CreateView):
         initial = super(HomeView, self).get_initial()
         initial['page_title'] = self.page_title
         return initial
+
+
+@csrf_exempt
+def set_timezone(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print('received timezone from js', data["timezone"])
+        request.session["user_timezone"] = data["timezone"]
+        return JsonResponse({"success": True}, status=200)

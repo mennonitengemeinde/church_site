@@ -10,3 +10,25 @@ window.addEventListener("load", function (e) {
         el.textContent = unixDate.format("h:mm a");
     }
 });
+
+/**
+ * @param {string} timezone
+ */
+function setTimezone(timezone) {
+    fetch('/set_timezone/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({timezone}),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success === true) {
+                window.location.reload();
+            } else {
+                console.error(data);
+            }
+        })
+        .catch((error) => console.error('Error:', error));
+}

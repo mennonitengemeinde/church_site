@@ -8,6 +8,7 @@ from django.views.generic import ListView, UpdateView, DetailView, CreateView
 class PageProperties:
     page_title = None
     current_page = None
+    user_timezone = None
 
 
 class FormProperties:
@@ -46,6 +47,7 @@ class BaseListView(PageProperties, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['user_timezone'] = self.request.session.get('user_timezone')
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
         if context['page_obj']:
@@ -74,6 +76,7 @@ class BaseCreateView(PageProperties, FormProperties, CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['user_timezone'] = self.request.session.get('user_timezone')
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
         context['btn_back_href'] = self.btn_back_href
@@ -86,6 +89,7 @@ class BaseDetailView(PageProperties, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['user_timezone'] = self.request.session.get('user_timezone')
         context['btn_back_href'] = self.btn_back_href
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
@@ -97,6 +101,7 @@ class BaseUpdateView(PageProperties, FormProperties, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['user_timezone'] = self.request.session.get('user_timezone')
         context['page_title'] = self.page_title
         context['current_page'] = self.current_page
         context['btn_back_href'] = self.btn_back_href

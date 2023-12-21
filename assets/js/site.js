@@ -1,14 +1,8 @@
 navigator.serviceWorker.getRegistrations().then(function (registrations) {
-    for (let registration of registrations) {
-        registration.unregister().then(r => console.log(r));
-    }
+    registrations.forEach(registration => registration.unregister().then(console.log));
 });
 
 if ('caches' in window) {
     caches.keys()
-        .then(function (keyList) {
-            return Promise.all(keyList.map(function (key) {
-                return caches.delete(key);
-            }));
-        })
+        .then(keyList => Promise.all(keyList.map(caches.delete)));
 }

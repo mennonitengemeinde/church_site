@@ -100,6 +100,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'core.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'church_site.urls'
@@ -256,8 +257,6 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Toronto'
 
 USE_I18N = True
-
-# USE_L10N = True
 
 USE_TZ = True
 
