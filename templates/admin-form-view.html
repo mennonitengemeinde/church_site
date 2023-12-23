@@ -1,25 +1,36 @@
 {% extends 'admin-form-layout.html' %}
 
 {% block form %}
-  <form method="post" class="flex flex-col items-center"{% if form_has_files %}
-        enctype="multipart/form-data"{% endif %}>
-    {% csrf_token %}
-    <div class="w-full max-w-sm">
-      {% for f in form %}
-        <label for="{{ f.auto_id }}" class="label">
-          <span class="label-text">{{ f.label }}</span>
-        </label>
-        {{ f }}
-        {% if f.errors %}
-          <label class="label">
-            <span class="label-text-alt text-red-500">{{ f.errors|first }}</span>
-          </label>
-        {% endif %}
-      {% endfor %}
-    </div>
+    <form method="post" class="flex flex-col items-center"{% if form_has_files %}
+          enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
 
-    <div class="flex justify-center pt-5">
-      <button type="submit" class="btn btn-primary">Save</button>
-    </div>
-  </form>
+        {% if form.errors %}
+            <ul class="w-full">
+                {% for err in form.non_field_errors %}
+                    <li class="text-sm text-error">- {{ err }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="w-full max-w-sm">
+            {% for f in form %}
+                {% if f.field.widget.input_type != 'hidden' %}
+                    <label for="{{ f.auto_id }}" class="label">
+                        <span class="label-text">{{ f.label }}</span>
+                    </label>
+                {% endif %}
+                {{ f }}
+                {% if f.errors %}
+                    <label class="label">
+                        <span class="label-text-alt text-red-500">{{ f.errors|first }}</span>
+                    </label>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="flex justify-center pt-5">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
 {% endblock %}

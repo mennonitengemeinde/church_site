@@ -1,26 +1,22 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views import View
 
-from core.views.base import AdminListView, BaseDetailView, BaseCreateView, BaseUpdateView
+from core.views.base import AdminListView, BaseDetailView, BaseCreateView, BaseUpdateView, CoreView
 from .forms import StreamCreateForm
-
 from .models import Stream
-from .selectors import get_live_streams, get_member_streams, get_member_stream
+from .selectors import get_live_streams, get_member_streams
 
 
-class StreamsListView(View):
+class StreamsListView(CoreView):
+    page_title = 'Live - Mennoniten Gemeinde'
+    current_page = 'live'
+    
     def get(self, request):
-        context = {
-            'page_title': 'Live - Mennoniten Gemeinde',
-            'current_page': 'live',
-        }
-        return render(request, 'streams/streams-list-apline.html', context)
+        return render(request, 'streams/streams-list-apline.html', self.get_context_data())
 
 
 class LiveAudioView(BaseDetailView):
-    # page_title = 'Page Title'
     current_page = 'live'
     model = Stream
     template_name = 'streams/live-audio.html'

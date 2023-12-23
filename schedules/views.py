@@ -1,38 +1,33 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import QuerySet
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView
 
-from core.views.base import AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView
 from churches.models import Church
+from core.views.base import AdminListView, BaseCreateView, BaseUpdateView, BaseDetailView, CoreView
 from schedules import selectors
-
 from .forms import EventForm, AttendantForm, AttendantAdminForm
 from .models import Event, Attendant, EventTemplate
 
 
-class EventsView(View):
+class EventsView(CoreView):
     page_title = 'Events - Mennoniten Gemeinde'
     current_page = 'events'
     template_name = 'schedules/event-list.html'
 
     def get(self, request, *args, **kwargs):
-        context = {
-            'current_church': request.GET.get('church') if request.GET.get('church') else None,
-            'events': selectors.get_events_formatted_by_date(
-                church_name=request.GET.get('church') if request.GET.get('church') != 'all' else None),
-            'churches': Church.objects.all()
-        }
+        context = self.get_context_data()
+        context['current_church'] = request.GET.get('church') if request.GET.get('church') else None
+        context['events'] = selectors.get_events_formatted_by_date(
+            church_name=request.GET.get('church') if request.GET.get('church') != 'all' else None)
+        context['churches'] = Church.objects.all()
 
         if request.htmx:
             return render(request, 'schedules/partials/event-list-partial.html', context)
-
-        context['page_title'] = self.page_title
-        context['current_page'] = self.current_page
+        
         return render(request, self.template_name, context)
 
 

@@ -1,9 +1,11 @@
 import json
 
+from django.conf import settings
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 from contactus.forms import ContactUsForm
 from core.views.base import BaseCreateView
@@ -20,8 +22,6 @@ class HomeView(BaseCreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['page_title'] = self.page_title
-        # context['current_page'] = 'home'
         events = get_events(limit=5)
         local_timezone = timezone.get_current_timezone()
         for event in events:
@@ -37,9 +37,15 @@ class HomeView(BaseCreateView):
 
 
 @csrf_exempt
+@require_http_methods(["POST"])
 def set_timezone(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        print('received timezone from js', data["timezone"])
-        request.session["user_timezone"] = data["timezone"]
-        return JsonResponse({"success": True}, status=200)
+    data = json.loads(request.body)
+    active_timezone = timezone.get_current_timezone()
+    server_timezone = settings.TIME_ZONE
+    if active_timezone == data["timezone"]:
+        return JsonResponse({"success": True, "redirect": False}, status=200)
+    
+    request.session["user_timezone"] = data["timezone"]
+    if server_timezone == data["timezone"] and active_timezone == data["timezone"]:
+        return JsonResponse({"success": True, "reload": False}, status=200)
+    return JsonResponse({"success": True, "reload": True}, status=200)

@@ -12,23 +12,28 @@ window.addEventListener("load", function (e) {
 });
 
 /**
- * @param {string} timezone
+ * @param {string} serverTimezone
  */
-function setTimezone(timezone) {
-    fetch('/set_timezone/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({timezone}),
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success === true) {
-                window.location.reload();
-            } else {
-                console.error(data);
-            }
+function setTimezone(serverTimezone) {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (serverTimezone !== timezone) {
+        fetch('/set_timezone/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({timezone}),
         })
-        .catch((error) => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    if (data.reload === true) {
+                        window.location.reload();
+                    }
+                } else {
+                    console.error(data);
+                }
+            })
+            .catch((error) => console.error('Error:', error));
+    }
 }

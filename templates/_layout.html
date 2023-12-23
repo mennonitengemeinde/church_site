@@ -6,11 +6,11 @@
 
 {% block body %}
     <nav x-data="{ open: false }"
-         class="bg-base-100 bg-opacity-75 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+         class="border-b border-gray-200 bg-opacity-75 bg-base-100">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 justify-between">
                 <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
+                    <div class="flex flex-shrink-0 items-center">
                         <img height="48"
                              width="48"
                              class="block lg:hidden"
@@ -22,21 +22,29 @@
                              src="{% static 'img/logos/text-round-logo-10.png' %}"
                              alt="Mennoniten Gemeinde">
                     </div>
-                    <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                    <div class="hidden sm:space-x-8 sm:-my-px sm:ml-6 sm:flex">
                         <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
                         <a href="{% url 'core:home' %}"
-                           class="{% if current_page == 'home' %}border-primary text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                           aria-current="page">Home</a>
+                           class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 aria-current:text-gray-900 aria-current:border-primary hover:border-gray-300 hover:text-gray-700"
+                           {% if current_page == 'home' %}aria-current="page"{% endif %}>Home</a>
                         <a href="{% url 'schedules:events-list' %}"
-                           class="{% if current_page == 'events' %}border-primary text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                           class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 aria-current:text-gray-900 aria-current:border-primary hover:border-gray-300 hover:text-gray-700"
+                           {% if current_page == 'events' %}aria-current="page"{% endif %}>
                             Events
                         </a>
                         <a href="{% url 'sermons:sermons-list' %}"
-                           class="{% if current_page == 'sermons' %}border-primary text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                           class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 aria-current:text-gray-900 aria-current:border-primary hover:border-gray-300 hover:text-gray-700"
+                           {% if current_page == 'sermons' %}aria-current="page"{% endif %}>
                             Sermons
                         </a>
+                        <a href="{% url 'sermons:sermons-list' %}"
+                           class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 aria-current:text-gray-900 aria-current:border-primary hover:border-gray-300 hover:text-gray-700"
+                           {% if current_page == 'songs' %}aria-current="page"{% endif %}>
+                            Songs
+                        </a>
                         <a href="{% url 'streams:streams-list' %}"
-                           class="{% if current_page == 'live' %}border-primary text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                           class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 aria-current:text-gray-900 aria-current:border-primary hover:border-gray-300 hover:text-gray-700"
+                           {% if current_page == 'live' %}aria-current="page"{% endif %}>
                             Live
                         </a>
                     </div>
@@ -44,16 +52,17 @@
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
                     {# Profile dropdown #}
                     {% if user.is_authenticated %}
-                        <div x-data="{ profileOpen: false }" class="ml-3 relative">
+                        <div x-data="{ profileOpen: false }" class="relative ml-3">
                             <div>
                                 <button type="button"
                                         @click="profileOpen = ! profileOpen"
-                                        class="max-w-xs bg-base-100 flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                                        class="flex max-w-xs items-center rounded-full text-sm bg-base-100 focus:ring-primary focus:outline-none focus:ring-2 focus:ring-offset-2"
                                         id="user-menu-button"
                                         aria-expanded="false"
                                         aria-haspopup="true">
                                     <span class="sr-only">Open user menu</span>
-                                    <span class="flex justify-center items-center h-8 w-8 bg-primary text-base-100 font-bold text-lg rounded-full">
+                                    <span
+                                        class="flex h-8 w-8 items-center justify-center rounded-full text-lg font-bold bg-primary text-base-100">
                                         {% if user.first_name %}
                                             {{ user.first_name|make_list|first|upper }}
                                         {% else %}
@@ -71,7 +80,7 @@
                                  x-transition:leave="transition ease-in duration-75 transform"
                                  x-transition:leave-start="transform opacity-100 scale-100"
                                  x-transition:leave-end="transform opacity-0 scale-95"
-                                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-base-100 ring-1 ring-black ring-opacity-5 focus:outline-none z-40"
+                                 class="absolute right-0 z-40 mt-2 w-48 origin-top-right rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 bg-base-100 focus:outline-none"
                                  role="menu"
                                  aria-orientation="vertical"
                                  aria-labelledby="user-menu-button"
@@ -99,15 +108,16 @@
                                     <button type="submit"
                                             class="block px-4 py-2 text-sm text-gray-700"
                                             role="menuitem"
-                                            tabindex="-1">Sign out</button>
+                                            tabindex="-1">Sign out
+                                    </button>
                                 </form>
                             </div>
                         </div>
                     {% else %}
-                        <div class="ml-3 relative">
+                        <div class="relative ml-3">
                             <div>
                                 <a href="{% url 'account_login' %}"
-                                   class="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                   class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-700">
                                     Login
                                     <span class="ml-1">
                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +126,8 @@
                                              viewBox="0 0 24 24"
                                              stroke="currentColor"
                                              stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
                                             </path>
                                         </svg>
                                     </span>
@@ -129,7 +140,7 @@
                     {# Mobile menu button #}
                     <button type="button"
                             @click="open = ! open"
-                            class="bg-base-100 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                            class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 bg-base-100 hover:bg-gray-100 hover:text-gray-500 focus:ring-primary focus:outline-none focus:ring-2 focus:ring-offset-2"
                             aria-controls="mobile-menu"
                             aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
@@ -141,7 +152,8 @@
                                  viewBox="0 0 24 24"
                                  stroke="currentColor"
                                  aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M4 6h16M4 12h16M4 18h16"></path>
                             </svg>
                         </span>
                         {# Heroicon name: outline/x #}
@@ -152,7 +164,8 @@
                                  viewBox="0 0 24 24"
                                  stroke="currentColor"
                                  aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
                         </span>
                     </button>
@@ -180,11 +193,12 @@
                     Live
                 </a>
             </div>
-            <div class="pt-4 pb-3 border-t border-gray-200">
+            <div class="border-t border-gray-200 pt-4 pb-3">
                 {% if user.is_authenticated %}
                     <div class="flex items-center px-4">
                         <div class="flex-shrink-0">
-                            <span class="flex justify-center items-center h-8 w-8 bg-primary text-base-100 font-bold text-lg rounded-full">
+                            <span
+                                class="flex h-8 w-8 items-center justify-center rounded-full text-lg font-bold bg-primary text-base-100">
                                 {% if user.first_name %}
                                     {{ user.first_name|make_list|first|upper }}
                                 {% else %}
@@ -212,23 +226,23 @@
                     <div class="mt-3 space-y-1">
                         {% if perms.schedules.view_event %}
                             <a href="{% url 'schedules:events-admin-list' %}"
-                               class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                               class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
                                tabindex="-1"
                                id="user-menu-item-0">Manage</a>
                         {% endif %}
                         <a href="{% url 'accounts:user-profile' %}"
-                           class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                           class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
                             Your Profile
                         </a>
                         <a href="{% url 'account_logout' %}"
-                           class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                           class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
                             Sign out
                         </a>
                     </div>
                 {% else %}
                     <div class="ml-3">
                         <a href="{% url 'account_login' %}"
-                           class="flex px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                           class="flex px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
                             Login
                             <span class="ml-1">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +251,8 @@
                                      viewBox="0 0 24 24"
                                      stroke="currentColor"
                                      stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
                                     </path>
                                 </svg>
                             </span>
@@ -248,13 +263,13 @@
         </div>
     </nav>
 
-    <main class="flex-1 flex flex-col max-w-7xl mx-auto sm:px-6 lg:px-8 w-full">
+    <main class="mx-auto flex w-full max-w-7xl flex-1 flex-col sm:px-6 lg:px-8">
         {% block content %}
         {% endblock content %}
     </main>
 
     {% if messages %}
-        <div class="absolute bottom-2 right-2 space-y-2">
+        <div class="absolute right-2 bottom-2 space-y-2">
             {% for message in messages %}
                 <div x-data="{ open: true, init() { setTimeout(() => { this.open = false; }, 5000); } }"
                      x-show="open"
@@ -263,34 +278,38 @@
                     <div>
                         {% if message.level == 25 %}
                             <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="stroke-current flex-shrink-0 h-6 w-6"
+                                 class="h-6 w-6 flex-shrink-0 stroke-current"
                                  fill="none"
                                  viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
                                 </path>
                             </svg>
                         {% elif message.level == 30 %}
                             <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="stroke-current flex-shrink-0 h-6 w-6"
+                                 class="h-6 w-6 flex-shrink-0 stroke-current"
                                  fill="none"
                                  viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
                                 </path>
                             </svg>
                         {% elif message.level == 40 %}
                             <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="stroke-current flex-shrink-0 h-6 w-6"
+                                 class="h-6 w-6 flex-shrink-0 stroke-current"
                                  fill="none"
                                  viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z">
                                 </path>
                             </svg>
                         {% else %}
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  fill="none"
                                  viewBox="0 0 24 24"
-                                 class="stroke-info flex-shrink-0 w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                 class="h-6 w-6 flex-shrink-0 stroke-info">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                                 </path>
                             </svg>
                         {% endif %}

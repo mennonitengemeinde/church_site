@@ -149,3 +149,11 @@
         </div>
     </div>
 {% endblock %}
+
+{% block js %}
+<script>
+    window.addEventListener("load", () => {
+        setTimezone('{{ user_timezone }}');    
+    });
+</script>
+{% endblock js %}

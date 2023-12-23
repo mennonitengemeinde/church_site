@@ -30,6 +30,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            aria: {
+                current: 'current="page"'
+            },
             backgroundImage: {
                 "background-pattern": "url('/static/img/background.svg')",
                 "hero-background": "url('/static/img/hero-texture-33-4.jpg')",
