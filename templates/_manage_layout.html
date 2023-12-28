@@ -10,43 +10,50 @@
                 <div class="md:hidden">
                     <label for="current-tab" class="sr-only">Select a tab</label>
                     <select id="current-tab" name="current-tab" @change="window.location.href = $event.target.value"
-                            class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
+                            class="select select-bordered w-full">
                         {% if perms.churches.view_church %}
                             <option value="{% url 'churches:churches-admin-list' %}"
-                                    {% if current_page == 'admin_churches' %} selected{% endif %}>
+                                {% if current_page == 'admin_churches' %} selected{% endif %}>
                                 Churches
                             </option>
                         {% endif %}
                         {% if perms.speakers.view_speaker %}
                             <option value="{% url 'speakers:speakers-admin-list' %}"
-                                    {% if current_page == 'admin_speakers' %} selected{% endif %}>
+                                {% if current_page == 'admin_speakers' %} selected{% endif %}>
                                 Speakers
                             </option>
                         {% endif %}
                         {% if perms.schedules.view_event %}
                             <option value="{% url 'schedules:events-admin-list' %}"
-                                    {% if current_page == 'admin_events' %}
+                                {% if current_page == 'admin_events' %}
                                     selected{% endif %}>
                                 Events
                             </option>
                         {% endif %}
                         {% if perms.streams.view_stream %}
                             <option value="{% url 'streams:streams-admin-list' %}"
-                                    {% if current_page == 'admin_streams' %}
+                                {% if current_page == 'admin_streams' %}
                                     selected{% endif %}>
                                 Streams
                             </option>
                         {% endif %}
                         {% if perms.sermons.view_sermon %}
                             <option value="{% url 'sermons:sermons-admin-list' %}"
-                                    {% if current_page == 'admin_sermons' %}
+                                {% if current_page == 'admin_sermons' %}
                                     selected{% endif %}>
                                 Sermons
                             </option>
                         {% endif %}
+                        {% if perms.songs.view_song %}
+                            <option value="{% url 'songs:manage_choirs' %}"
+                                {% if current_page == 'admin_songs' %}
+                                    selected{% endif %}>
+                                Songs
+                            </option>
+                        {% endif %}
                         {% if perms.contactus.view_contact_message %}
                             <option value="{% url 'contactus:admin-messages' %}"
-                                    {% if current_page == 'admin_messages' %}
+                                {% if current_page == 'admin_messages' %}
                                     selected{% endif %}>
                                 Messages
                             </option>
@@ -92,6 +99,11 @@
                             <a href="{% url 'sermons:sermons-admin-list' %}"
                                class="{% if current_page == 'admin_sermons' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                                 Sermons </a>
+                        {% endif %}
+                        {% if perms.sermons.view_sermon %}
+                            <a href="{% url 'songs:manage_choirs' %}"
+                               class="{% if current_page == 'admin_songs' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                                Songs </a>
                         {% endif %}
                         {% if perms.contactus.view_contact_message %}
                             <a href="{% url 'contactus:admin-messages' %}"

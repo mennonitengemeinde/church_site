@@ -1,10 +1,9 @@
+from allauth.account.views import confirm_email, email_verification_sent
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from allauth.account.views import confirm_email, email_verification_sent
-from dj_rest_auth.registration.views import VerifyEmailView
 
 # from telegram.api.controllers import LiveSubscriptionViewSet
 
@@ -31,6 +30,7 @@ urlpatterns = [
     path('speakers/', include('speakers.urls')),
     path('schedules/', include('schedules.urls')),
     path('sermons/', include('sermons.urls')),
+    path('songs/', include('songs.urls')),
     path('streams/', include('streams.urls')),
     path('contactus/', include('contactus.urls')),
     path('forms/', include('forms.urls')),
