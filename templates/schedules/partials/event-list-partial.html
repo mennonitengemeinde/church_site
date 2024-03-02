@@ -22,7 +22,7 @@
               </div>
               <ul class="divide-y divide-gray-200">
                 {% for eventDetail in scheduleEvent.events %}
-                  <li class="card bg-base-100 mt-2 text-sm text-gray-700">
+                  <li class="card bg-base-100 shadow-xl mt-2 text-sm text-gray-700">
                     <div class="card-body">
                       <p class="mt-0.5 text-sm font-semibold">{{ eventDetail.title }}</p>
                       <p class="text-sm text-gray-500">{{ eventDetail.start|date:"f a" }}

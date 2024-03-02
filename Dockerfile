@@ -1,4 +1,4 @@
-FROM python:3.11 AS base
+FROM python:3.12 AS base
 WORKDIR /app
 #EXPOSE 5432
 EXPOSE 8000
@@ -8,13 +8,21 @@ ENV PYTHONUNBUFFERED 1
 
 RUN pip install --upgrade pip
 
-FROM node:20 AS build
-COPY . app
+FROM base AS build
+COPY poetry.lock pyproject.toml ./
+RUN pip install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-dev
+
+FROM node:20 AS buildjs
 WORKDIR /app
+COPY package-lock.json package.json templates ./
 
 RUN npm install
 RUN npm run build
 RUN npm install --omit=dev
+
+COPY assets/css assets/css
 
 FROM base AS final
 

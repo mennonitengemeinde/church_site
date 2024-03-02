@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="pb-4 sm:pt-4">
-        <div class="bg-hero-background flex flex-col items-center justify-center py-14 min-h-[20rem] bg-cover bg-no-repeat bg-center shadow rounded-b-2xl sm:rounded-xl">
+        <div class="bg-hero-background flex flex-col items-center justify-center py-14 min-h-[20rem] bg-cover bg-no-repeat bg-center shadow-xl rounded-b-2xl sm:rounded-xl">
             <h1 class="text-3xl text-gray-200 text-center">
                 Welcome to <span class="text-primary font-bold font-serif">Mennoniten Gemeinde</span>
             </h1>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="space-y-12 py-10">
-            <div class="card bg-base-100">
+            <div class="card glass">
                 <div class="card-body">
                     <div class="flex flex-col w-full items-center md:flex-row md:justify-between">
                         <div class="flex items-center pb-8 md:flex-col md:justify-center md:w-1/2 md:pb-0">
@@ -83,7 +83,7 @@
             </div>
             {# Live stream section #}
             <div class="flex flex-col-reverse items-center justify-around md:flex-row">
-                <div class="card bg-base-100 w-1/2 md:w-1/3">
+                <div class="card glass w-1/2 md:w-1/3">
                     <div class="card-body">
                         <h2 class="card-title text-primary justify-center font-serif">Live Stream</h2>
                         <p class="pt-1 text-center">
@@ -104,7 +104,7 @@
                      alt="Live">
             </div>
             {# Sermons section #}
-            <div class="card bg-base-100">
+            <div class="card glass">
                 <div class="card-body flex-col items-center md:flex-row justify-around">
                     <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-8">
                         <img class="w-3/4"
@@ -125,7 +125,7 @@
                     <div class="flex flex-col w-full md:w-1/2 md:pl-8">
                         {% for sermon in sermons %}
                             <a href="{% url 'sermons:sermons-detail' pk=sermon.pk church=sermon.event.church %}"
-                               class="flex flex-col card bg-secondary text-white shadow overflow-hidden w-full my-3 hover:bg-secondary-focus">
+                               class="flex flex-col card bg-neutral text-neutral-content shadow overflow-hidden w-full my-3 hover:bg-secondary-focus">
                                 <div class="card-body px-4 py-2 gap-0">
                                     <h3 class="font-bold pb-2 truncate">{{ sermon.title }}</h3>
                                     <p class="text-sm">{{ sermon.event.start.date|date:"M j, Y" }}</p>
