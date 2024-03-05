@@ -1,22 +1,21 @@
-coreapi==2.3.3
 Django==4.2.10
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.1
 dj-rest-auth==5.0.2
 django-allauth==0.61.1
-django_compressor==4.1
+# django_compressor==4.1
 django-cors-headers==4.3.1
 django-countries==7.5.1
 django-environ==0.11.2
-django_htmx==1.17.2
-django-libsass==0.9
+django_htmx==1.17.3
 django-pwa==1.1.0
 django-rest-swagger==2.2.0
 django-sendgrid-v5==1.2.3
 django_storages[azure]==1.14.2
 pyTelegramBotAPI==4.16.1
 gunicorn==21.2.0
-Pillow==10.2.0
+# Pillow==10.2.0
 psycopg2-binary==2.9.9
-requests==2.31.0
+# requests==2.31.0
+setuptools==69.1.1 # needed for django_contries in python3.12
 whitenoise==6.6.0

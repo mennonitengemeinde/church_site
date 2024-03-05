@@ -33,7 +33,7 @@ env = Env(
     WOL_EVENTS_BOT_TOKEN=(str, ""),
     WOL_EVENTS_BOT_BASE_URL=(str, ""),
 )
-Env.read_env()
+Env.read_env(BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
