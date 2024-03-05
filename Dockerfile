@@ -62,7 +62,7 @@ WORKDIR /code
 COPY package-lock.json package.json tailwind.config.js ./
 COPY templates templates
 COPY core/styles core/styles
-COPY ./**/forms.py forms
+COPY ./**/forms.py forms/
 COPY assets assets
 
 RUN npm install && npm run build
