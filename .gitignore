@@ -144,3 +144,6 @@ output.css
 
 # OS generated files
 .DS_Store
+
+assets/vendor/
+assets/webfonts/

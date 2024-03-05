@@ -271,7 +271,7 @@ STORAGES = {
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_DIRS = [BASE_DIR / "assets", BASE_DIR / "node_modules"]
+STATICFILES_DIRS = [BASE_DIR / "assets"]
 
 if DEBUG:
     MEDIA_URL = "/media/"
