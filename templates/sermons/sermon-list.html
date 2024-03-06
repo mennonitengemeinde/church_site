@@ -1,67 +1,50 @@
 {% extends '_layout.html' %}
 
-{% block meta %}
-  <meta name="robots" content="index, nofollow">
-{% endblock %}
+{% block meta %}<meta name="robots" content="index, nofollow">{% endblock %}
 
 {% block content %}
-  <div class="flex justify-center">
-    <div class="card glass my-5 mx-3 w-full lg:w-2/3">
-      <div class="card-body">
-        <h5 class="card-title justify-center">Filter Sermons</h5>
-        <form x-data x-ref="filterForm"
-              hx-target="#paginated-content"
-              hx-get="{% url 'sermons:sermons-list' %}">
-          <div class="flex pt-4 justify-center">
-
-            <div class="px-5">
-              <label for="churchFilter" class="label">
-                <span class="label-text">Filter Church</span>
-              </label>
-              <select id="churchFilter" name="church"
-                      x-on:change="$refs.filterForm.submit()"
-                      class="select select-bordered">
-                <option value="all"{% if current_church == None %} selected{% endif %}>All Churches
-                </option>
-                {% for church in churches %}
-                  <option value="{{ church.slug }}"{% if current_church == church.slug %}
-                          selected{% endif %}>{{ church.name }}</option>
-                {% endfor %}
-              </select>
-            </div>
-            <div class="sm:pt-0 sm:px-5">
-              <label for="speakerFilter" class="label">
-                <span class="label-text">Filter Speaker</span>
-              </label>
-              <select id="speakerFilter" name="speaker"
-                      x-on:change="$refs.filterForm.submit()"
-                      class="select select-bordered">
-                <option value="all"{% if current_speaker == 'None' %} selected{% endif %}>All Speakers
-                </option>
-                {% for speaker in speakers %}
-                  <option value="{{ speaker.id }}"{% if current_speaker == speaker.id %}
-                          selected{% endif %}>{{ speaker.name }}</option>
-                {% endfor %}
-              </select>
-            </div>
-
-          </div>
-        </form>
-      </div>
+    <div class="flex justify-end">
+        <!-- <form x-data -->
+        <!--       x-ref="filterForm" -->
+        <!--       hx-target="#paginated-content" -->
+        <!--       hx-get="{% url 'sermons:sermons-list' %}"> -->
+        <select name="church"
+                hx-get="{% url 'sermons:sermons-list' %}"
+                hx-include="#church-filters"
+                hx-target="#paginated-content"
+                class="select select-accent select-bordered select-sm w-40">
+            <option disabled selected>Filter by Church</option>
+            {% for church in churches %}
+                <option value="{{ church.slug }}"
+                        {% if current_church == church.slug %}selected{% endif %}>{{ church.name }}</option>
+            {% endfor %}
+        </select>
+        <select id="speaker-filter"
+                name="speaker"
+                class="select select-accent select-bordered select-sm w-40">
+            <option disabled selected>Filter by Speaker</option>
+            {% for speaker in speakers %}
+                <option value="{{ speaker.id }}"
+                        {% if current_speaker == speaker.id %}selected{% endif %}>{{ speaker.name }}</option>
+            {% endfor %}
+        </select>
+        <div id="church-filters">
+            <input name="speaker" value="2" class="btn btn-primary">
+        </div>
     </div>
-  </div>
 
-  <div class="py-5 px-3">
-    <h1 class="text-2xl text-primary font-bold font-serif">Sermons</h1>
+    <div class="py-5 px-3">
+        <h1 class="text-2xl text-primary font-bold font-serif">Sermons</h1>
 
-    {% include "sermons/partials/sermon-list-partial.html" %}
-  </div>
+        {% include "sermons/partials/sermon-list-partial.html" %}
+
+    </div>
 
 {% endblock %}
 
 {% block js %}
-  {#    {% compress js inline %}#}
-  <script>
+    {#    {% compress js inline %}#}
+    <script>
       function onFilter() {
           let uri = "{% url 'sermons:sermons-list' %}";
           const churchFilter = document.getElementById('churchFilter');
@@ -78,6 +61,7 @@
           }
           window.location.href = uri;
       }
-  </script>
-  {#    {% endcompress %}#}
+    </script>
+    {#    {% endcompress %}#}
 {% endblock %}
+
