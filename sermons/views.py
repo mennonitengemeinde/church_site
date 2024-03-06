@@ -1,20 +1,25 @@
 import logging
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import HttpResponse, Http404
-from django.urls import reverse_lazy
+from typing import List
 
+from churches.models import Church
 from core.views.base import (
-    BaseListView,
-    BaseDetailView,
-    BaseCreateView,
     AdminListView,
+    BaseCreateView,
+    BaseDetailView,
+    BaseListView,
     BaseUpdateView,
 )
-from churches.models import Church
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import Http404, HttpResponse
+from django.urls import reverse_lazy
+from speakers.models import Speaker
+
 from sermons.forms import SermonCreateForm
 from sermons.models import Sermon
-from sermons.selectors import get_filtered_sermons, get_member_sermons
-from speakers.models import Speaker
+from sermons.selectors import (
+    get_member_sermons,
+    get_filtered_sermon_list,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -27,46 +32,94 @@ class SermonsListView(BaseListView):
     context_object_name = "sermons"
     paginate_by = 18
 
+    def get(self, request, *args, **kwargs):
+        res = super().get(request, *args, **kwargs)
+        if (
+            request.GET.get("church")
+            or request.GET.get("drop-church")
+            or request.GET.get("speaker")
+            or request.GET.get("drop-speaker")
+        ):
+            if self.get_query_url():
+                res["HX-Push-Url"] = f"?{self.get_query_url()}"
+            else:
+                res["HX-Push-Url"] = "/"
+        return res
+
     def get_queryset(self):
-        return get_filtered_sermons(
-            church=(
-                self.request.GET.get("church")
-                if self.request.GET.get("church") != "all"
-                else None
-            ),
-            speaker=(
-                self.request.GET.get("speaker")
-                if self.request.GET.get("speaker") != "all"
-                else None
-            ),
+        filter_churches_q = self.serialize_filter_query(
+            "churches", "church", "drop-church"
         )
+        filter_speakers_q = self.serialize_filter_query(
+            "speakers", "speaker", "drop-speaker"
+        )
+        return get_filtered_sermon_list(filter_churches_q, filter_speakers_q)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_church"] = (
-            self.request.GET.get("church")
-            if self.request.GET.get("church") != "all"
-            else None
-        )
-        if self.request.GET.get("speaker") and self.request.GET.get("speaker") != "all":
-            context["current_speaker"] = int(self.request.GET.get("speaker"))
-        else:
-            context["current_speaker"] = None
         context["churches"] = Church.objects.all()
         context["speakers"] = Speaker.objects.all()
-        context["page_filter"] = self.get_page_filter()
-        if self.request.htmx:
-            self.template_name = "sermons/partials/sermon-list-partial.html"
+        context["page_filter"] = self.get_query_url()
+        context["active_church_filter"] = context["churches"].filter(
+            id__in=self.serialize_filter_query("churches", "church", "drop-church")
+        )
+        context["active_speaker_filter"] = context["speakers"].filter(
+            id__in=self.serialize_filter_query("speakers", "speaker", "drop-speaker")
+        )
         return context
 
-    def get_page_filter(self):
-        """keeps the filter in get request when paginating"""
-        if self.request.GET.get("church") and self.request.GET.get("speaker"):
-            return f"church={self.request.GET.get('church')}&speaker={self.request.GET.get('speaker')}"
-        elif self.request.GET.get("church") and not self.request.GET.get("speaker"):
-            return f"church={self.request.GET.get('church')}"
-        elif self.request.GET.get("speaker") and not self.request.GET.get("church"):
-            return f"speaker={self.request.GET.get('speaker')}"
+    def serialize_filter_query(
+        self, active_list_key: str, add_filter_key: str, drop_filter_key: str
+    ) -> List[int]:
+        data: List[int] = []
+        if self.request.GET.get(active_list_key):
+            data = self.request.GET.get(active_list_key).split(",")
+            data = [int(d) for d in data]
+        if self.request.GET.get(add_filter_key):
+            data.append(int(self.request.GET.get(add_filter_key)))
+        if self.request.GET.get(drop_filter_key):
+            data.remove(int(self.request.GET.get(drop_filter_key)))
+        return data
+
+    def get_query_url(self) -> str | None:
+        churches = self.serialize_filter_query("churches", "church", "drop-church")
+        speakers = self.serialize_filter_query("speakers", "speaker", "drop-speaker")
+
+        if churches and speakers:
+            return f"churches={','.join(str(x) for x in churches)}&speakers={','.join(str(x) for x in speakers)}"
+        if churches and not speakers:
+            return f"churches={','.join(str(x) for x in churches)}"
+        if speakers and not churches:
+            return f"speakers={','.join(str(x) for x in speakers)}"
+        return None
+
+    #
+    # def get_request_filter(self, key: str) -> List[int]:
+    #     data = []
+    #     if self.request.GET.get(key) and self.request.GET.get(key) != [""]:
+    #         data = self.request.GET.get(key).split(",")
+    #         data = [int(d) for d in data]
+    #     return data
+    #
+    # def get_filter_list(self, filter_list: str, filter_key: str) -> list[int]:
+    #     f_list = self.get_request_filter(filter_list)
+    #     if self.request.GET.get(filter_key):
+    #         f_list.append(int(self.request.GET.get(filter_key)))
+    #     return f_list
+    #
+    # def get_filter_list_string(self, filter_list: str, filter_key: str) -> str:
+    #     f_list = self.get_filter_list(filter_list, filter_key)
+    #     return ",".join(str(x) for x in f_list)
+    #
+    # def get_page_filter(self) -> str | None:
+    #     """keeps the filter in get request when paginating"""
+    #     if self.request.GET.get("churches") and self.request.GET.get("speakers"):
+    #         return f"churches={self.request.GET.get('churches')}&speakers={self.request.GET.get('speakers')}"
+    #     elif self.request.GET.get("churches") and not self.request.GET.get("speakers"):
+    #         return f"churches={self.request.GET.get('churches')}"
+    #     elif self.request.GET.get("speakers") and not self.request.GET.get("churches"):
+    #         return f"speakers={self.request.GET.get('speakers')}"
+    #     return None
 
 
 class SermonsDetailView(BaseDetailView):

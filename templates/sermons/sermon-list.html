@@ -3,65 +3,105 @@
 {% block meta %}<meta name="robots" content="index, nofollow">{% endblock %}
 
 {% block content %}
-    <div class="flex justify-end">
-        <!-- <form x-data -->
-        <!--       x-ref="filterForm" -->
-        <!--       hx-target="#paginated-content" -->
-        <!--       hx-get="{% url 'sermons:sermons-list' %}"> -->
+    <h1 class="text-3xl text-center text-primary font-bold font-serif mt-2">Sermons</h1>
+    <div class="flex flex-wrap items-end justify-center md:justify-end py-2 space-x-1 space-y-1">
+        <div id="active-filters">
+            {% if active_church_filter %}
+                <input name="churches"
+                       type="hidden"
+                       value="{% for c in active_church_filter %}{{ c.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
+            {% endif %}
+            {% if active_speaker_filter %}
+                <input name="speakers"
+                       type="hidden"
+                       value="{% for s in active_speaker_filter %}{{ s.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
+            {% endif %}
+        </div>
+        {% if active_church_filter or active_speaker_filter %}
+            <span class="text-sm font-bold">Filtering by:</span>
+            {% for church in active_church_filter %}
+                <button name="drop-church"
+                        value="{{ church.id }}"
+                        hx-get="{% url 'sermons:sermons-list' %}"
+                        hx-include="#active-filters"
+                        hx-select-oob="#main-content"
+                        class="badge badge-accent flex-nowrap m-0">
+                    {{ church.name }}<i class="fa-solid fa-xmark text-xs ml-1"></i>
+                </button>
+            {% endfor %}
+            {% for speaker in active_speaker_filter %}
+                <button name="drop-speaker"
+                        value="{{ speaker.id }}"
+                        hx-get="{% url 'sermons:sermons-list' %}"
+                        hx-include="#active-filters"
+                        hx-select-oob="#main-content"
+                        class="badge badge-primary flex-nowrap m-0">
+                    {{ speaker.name }}<i class="fa-solid fa-xmark text-xs ml-1"></i>
+                </button>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="flex justify-center md:justify-end space-x-1 pb-2">
         <select name="church"
                 hx-get="{% url 'sermons:sermons-list' %}"
-                hx-include="#church-filters"
-                hx-target="#paginated-content"
+                hx-include="#active-filters"
+                hx-select-oob="#main-content"
                 class="select select-accent select-bordered select-sm w-40">
             <option disabled selected>Filter by Church</option>
             {% for church in churches %}
-                <option value="{{ church.slug }}"
-                        {% if current_church == church.slug %}selected{% endif %}>{{ church.name }}</option>
+                {% if church not in active_church_filter %}<option value="{{ church.id }}">{{ church.name }}</option>{% endif %}
             {% endfor %}
         </select>
-        <select id="speaker-filter"
-                name="speaker"
+        <select name="speaker"
+                hx-get="{% url 'sermons:sermons-list' %}"
+                hx-include="#active-filters"
+                hx-select-oob="#main-content"
                 class="select select-accent select-bordered select-sm w-40">
             <option disabled selected>Filter by Speaker</option>
             {% for speaker in speakers %}
-                <option value="{{ speaker.id }}"
-                        {% if current_speaker == speaker.id %}selected{% endif %}>{{ speaker.name }}</option>
+                {% if speaker not in active_church_filter %}<option value="{{ speaker.id }}">{{ speaker.name }}</option>{% endif %}
             {% endfor %}
         </select>
-        <div id="church-filters">
-            <input name="speaker" value="2" class="btn btn-primary">
+    </div>
+
+    <div class="pb-5 px-3">
+        <div id="paginated-content">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
+                {% for sermon in sermons %}
+                    <li class="card card-compact shadow bg-base-100 relative">
+                        <div class="card-body overflow-hidden">
+                            <h2 class="card-title">
+                                <span class="truncate">{{ sermon.title }}</span>
+                            </h2>
+                            <p class="badge badge-ghost">{{ sermon.sermon_type.title }}</p>
+                            <div class="text-sm text-base-content">
+                                <span class="text-sm local-date"
+                                      data-date="{{ sermon.event.start|date:'U' }}">
+                                    {{ sermon.event.start|date:'M j, Y' }}
+                                </span>
+
+                                <div class="absolute -top-2 right-3">
+                                    <span class="badge badge-accent">{{ sermon.event.church }}</span>
+                                </div>
+
+                                <div class="pb-3">
+                                    {% for speaker in sermon.speakers.all %}<span class="badge badge-primary">{{ speaker }}</span>{% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="card-actions justify-center">
+                                <a class="btn btn-wide">Open</a>
+                            </div>
+                        </div>
+
+                    </li>
+                {% endfor %}
+            </ul>
+
+            {% include "snippets/paginator_snippet.html" %}
+
         </div>
-    </div>
-
-    <div class="py-5 px-3">
-        <h1 class="text-2xl text-primary font-bold font-serif">Sermons</h1>
-
-        {% include "sermons/partials/sermon-list-partial.html" %}
 
     </div>
 
 {% endblock %}
-
-{% block js %}
-    {#    {% compress js inline %}#}
-    <script>
-      function onFilter() {
-          let uri = "{% url 'sermons:sermons-list' %}";
-          const churchFilter = document.getElementById('churchFilter');
-          const speakerFilter = document.getElementById('speakerFilter');
-          if (churchFilter.value !== 'None') {
-              uri = uri + '?church=' + churchFilter.value;
-              if (speakerFilter.value !== 'None') {
-                  uri = uri + '&speaker=' + speakerFilter.value;
-              }
-          } else {
-              if (speakerFilter.value !== 'None') {
-                  uri = uri + '?speaker=' + speakerFilter.value;
-              }
-          }
-          window.location.href = uri;
-      }
-    </script>
-    {#    {% endcompress %}#}
-{% endblock %}
-
