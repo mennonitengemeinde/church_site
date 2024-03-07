@@ -4,7 +4,8 @@
 
 {#{% load compress %}#}
 
-{% block meta %}<meta name="robots" content="index, nofollow">{% endblock %}
+{% block meta %}
+    <meta name="robots" content="index, nofollow">{% endblock %}
 
 {% block content %}
 
@@ -72,116 +73,118 @@
 
                         </template>
                     </template>
-                </ul>
+                </template>
+            </ul>
 
-                <h2 class="mt-10 text-2xl text-primary font-bold font-serif">Scheduled Live Streams</h2>
-                <hr class="mb-3 mx-5">
+            <h2 class="mt-10 text-2xl text-primary font-bold font-serif">Scheduled Live Streams</h2>
+            <hr class="mb-3 mx-5">
 
-                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
-                    <template x-for="schedule in scheduledEvents" :key="schedule.id">
-                        <li class="bg-white rounded-lg shadow divide-y relative">
-                            <div class="pt-5 pb-2 px-4">
-                                <h3 class="text-lg font-semibold truncate" x-text="schedule.title"></h3>
-                                <div class="absolute -top-2 right-3">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
+                <template x-for="schedule in scheduledEvents" :key="schedule.id">
+                    <li class="bg-white rounded-lg shadow divide-y relative">
+                        <div class="pt-5 pb-2 px-4">
+                            <h3 class="text-lg font-semibold truncate" x-text="schedule.title"></h3>
+                            <div class="absolute -top-2 right-3">
                                     <span class="flex-shrink-0 inline-block px-2 py-0.5 text-cyan-50 text-xs font-medium bg-secondary rounded-full"
                                           x-text="schedule.church.name"></span>
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="py-3 px-4">
-                                <p class="text-sm" x-text="new Date(schedule.start).toDateString()"></p>
-                                <p class="text-sm" x-text="getLocalTime(schedule.start)"></p>
-                            </div>
+                        <div class="py-3 px-4">
+                            <p class="text-sm" x-text="new Date(schedule.start).toDateString()"></p>
+                            <p class="text-sm" x-text="getLocalTime(schedule.start)"></p>
+                        </div>
 
-                        </li>
-                    </template>
-                </ul>
-
-            </div>
+                    </li>
+                </template>
+            </ul>
 
         </div>
-    {% endblock %}
 
-    {% block js %}
-        <script>
-      document.addEventListener('alpine:init', () => {
-          Alpine.data('appLiveStreamComponent', () => ({
-              countdown: 10,
-              countdownQuote: 0,
-              liveEvents: [],
-              scheduledEvents: [],
-              liveNotFound: [
-                  {
-                      icon: '/static/img/human-2412988_200.png',
-                      message: 'I don’t see any streams live at the moment, but don’t worry I will keep looking'
-                  },
-                  {
-                      icon: '/static/img/human-2412988_200.png',
-                      message: 'Go grab yourself a coffee it might take another minute'
-                  },
-                  {
-                      icon: '/static/img/human-2412988_200.png',
-                      message: 'I’m not sure if I’m seeing any streams live, but I’ll keep looking'
-                  },
-                  {
-                      icon: '/static/img/human-2412988_200.png',
-                      message: 'Trust me, you don’t want to miss this'
-                  },
-                  {
-                      icon: '/static/img/human-2412988_200.png',
-                      message: 'Hang in there'
-                  },
-                  {
-                      icon: '/static/img/human-2412988_200.png',
-                      message: 'The secret of patience is to drink a coffee in the meantime'
-                  },
-                  {
-                      icon: '/static/img/human-2412988_200.png',
-                      message: 'Great things take time'
-                  }
-              ],
-              getEvents() {
-                  fetch("/api/v1/streams")
-                      .then(response => response.json())
-                      .then(data => {
-                          const tempScheduledEvents = [];
-                          const tempLiveEvents = [];
-                          for (const event of data) {
-                              let hasLive = false;
-                              for (const stream of event.streams) {
-                                  if (stream['live'] === true) {
-                                      hasLive = true;
-                                  }
-                              }
-                              if (hasLive === true) {
-                                  tempLiveEvents.push(event);
-                              } else {
-                                  tempScheduledEvents.push(event);
-                              }
-                          }
-                          this.liveEvents = tempLiveEvents;
-                          this.scheduledEvents = tempScheduledEvents;
-                      });
-              },
-              start() {
-                  this.getEvents();
-                  setInterval(() => {
-                      if (this.countdown === 0) {
-                          this.countdown = 60;
-                          this.countdownQuote = Math.floor(Math.random() * 7);
-                          this.getEvents();
-                      } else {
-                          this.countdown -= 1;
-                      }
-                  }, 1000);
-              },
-              getLocalTime(date) {
-                  const d = new Date(date).toLocaleTimeString();
-                  const dAmPm = d.split(' ');
-                  const [hours, minutes, seconds] = dAmPm[0].split(':')
-                  return `${hours}:${minutes} ${dAmPm[1]}`
-              }
-          }));
-      });
-        </script>
-    {% endblock %}
+    </div>
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('appLiveStreamComponent', () => ({
+                countdown: 10,
+                countdownQuote: 0,
+                liveEvents: [],
+                scheduledEvents: [],
+                liveNotFound: [
+                    {
+                        icon: '/static/img/human-2412988_200.png',
+                        message: 'I don’t see any streams live at the moment, but don’t worry I will keep looking'
+                    },
+                    {
+                        icon: '/static/img/human-2412988_200.png',
+                        message: 'Go grab yourself a coffee it might take another minute'
+                    },
+                    {
+                        icon: '/static/img/human-2412988_200.png',
+                        message: 'I’m not sure if I’m seeing any streams live, but I’ll keep looking'
+                    },
+                    {
+                        icon: '/static/img/human-2412988_200.png',
+                        message: 'Trust me, you don’t want to miss this'
+                    },
+                    {
+                        icon: '/static/img/human-2412988_200.png',
+                        message: 'Hang in there'
+                    },
+                    {
+                        icon: '/static/img/human-2412988_200.png',
+                        message: 'The secret of patience is to drink a coffee in the meantime'
+                    },
+                    {
+                        icon: '/static/img/human-2412988_200.png',
+                        message: 'Great things take time'
+                    }
+                ],
+                getEvents() {
+                    fetch("/api/v1/streams")
+                        .then(response => response.json())
+                        .then(data => {
+                            const tempScheduledEvents = [];
+                            const tempLiveEvents = [];
+                            for (const event of data) {
+                                let hasLive = false;
+                                for (const stream of event.streams) {
+                                    if (stream['live'] === true) {
+                                        hasLive = true;
+                                    }
+                                }
+                                if (hasLive === true) {
+                                    tempLiveEvents.push(event);
+                                } else {
+                                    tempScheduledEvents.push(event);
+                                }
+                            }
+                            this.liveEvents = tempLiveEvents;
+                            this.scheduledEvents = tempScheduledEvents;
+                        });
+                },
+                start() {
+                    this.getEvents();
+                    setInterval(() => {
+                        if (this.countdown === 0) {
+                            this.countdown = 60;
+                            this.countdownQuote = Math.floor(Math.random() * 7);
+                            this.getEvents();
+                        } else {
+                            this.countdown -= 1;
+                        }
+                    }, 1000);
+                },
+                getLocalTime(date) {
+                    const d = new Date(date).toLocaleTimeString();
+                    const dAmPm = d.split(' ');
+                    const [hours, minutes, seconds] = dAmPm[0].split(':')
+                    return `${hours}:${minutes} ${dAmPm[1]}`
+                }
+            }));
+        });
+    </script>
+{% endblock %}

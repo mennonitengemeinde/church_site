@@ -5,7 +5,7 @@
             <div class="flex-1 flex justify-between sm:hidden">
                 {% if page_obj.has_previous %}
                     <a hx-get="?page={{ page_obj.previous_page_number }}{% if page_filter %}&{{ page_filter }}{% endif %}"
-                       hx-select-oob="{% if pagination_target_id %}{{ pagination_target_id }}{% else %}#paginated-content{% endif %}"
+                       hx-select-oob="#main-content"
                        hx-push-url="true"
                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 cursor-pointer">
                         <svg class="h-5 w-5"
@@ -32,7 +32,7 @@
 
                 {% if page_obj.has_next %}
                     <a hx-get="?page={{ page_obj.next_page_number }}{% if page_filter %}&{{ page_filter }}{% endif %}"
-                       hx-select-oob="{% if pagination_target_id %}{{ pagination_target_id }}{% else %}#paginated-content{% endif %}"
+                       hx-select-oob="#main-content"
                        hx-push-url="true"
                        class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 cursor-pointer">
                         Next {# Heroicon name: solid/chevron-right #}
@@ -71,7 +71,7 @@
                      aria-label="Pagination">
                     {% if page_obj.has_previous %}
                         <a hx-get="?page={{ page_obj.previous_page_number }}{% if page_filter %}&{{ page_filter }}{% endif %}"
-                           hx-select-oob="{% if pagination_target_id %}{{ pagination_target_id }}{% else %}#paginated-content{% endif %}"
+                           hx-select-oob="#main-content"
                            hx-push-url="true"
                            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
                             <!-- Heroicon name: solid/chevron-left -->
@@ -101,7 +101,7 @@
 
                         {% for page in pagination_links %}
                             <a hx-get="?page={{ page }}{% if page_filter %}&{{ page_filter }}{% endif %}"
-                               hx-select-oob=" {% if pagination_target_id %}{{ pagination_target_id }}{% else %}#paginated-content{% endif %}"
+                               hx-select-oob="#main-content"
                                hx-push-url="true"
                                class="{% if page == page_obj.number %}z-10 bg-red-50 border-primary-default text-primary-default{% else %}border-gray-300 bg-white text-gray-500 hover:bg-gray-50{% endif %} relative inline-flex items-center px-4 py-2 border text-sm font-medium cursor-pointer">
                                 {{ page }}
@@ -112,7 +112,7 @@
 
                     {% if page_obj.has_next %}
                         <a hx-get="?page={{ page_obj.next_page_number }}{% if page_filter %}&{{ page_filter }}{% endif %}"
-                           hx-select-oob="{% if pagination_target_id %}{{ pagination_target_id }}{% else %}#paginated-content{% endif %}"
+                           hx-select-oob="#main-content"
                            hx-push-url="true"
                            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
                             <span>Next</span>

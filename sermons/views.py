@@ -153,13 +153,13 @@ class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
     page_title = "Sermons - Admin"
     current_page = "admin_sermons"
     btn_add_href = reverse_lazy("sermons:sermons-admin-create")
-    paginate_by = 25
+    paginate_by = 10
 
-    def get_template_names(self):
-        if self.request.htmx:
-            return "sermons/partials/sermon-admin-list-partial.html"
-        else:
-            return self.template_name
+    # def get_template_names(self):
+    #     if self.request.htmx:
+    #         return "sermons/partials/sermon-admin-list-partial.html"
+    #     else:
+    #         return self.template_name
 
     def get_queryset(self):
         return get_member_sermons(self.request.user, reverse_order=True)

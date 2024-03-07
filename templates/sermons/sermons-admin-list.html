@@ -1,5 +1,87 @@
-{% extends 'core/layouts/admin-htmx-list-layout.html' %}
+{% extends '_manage_layout.html' %}
 
-{% block card_content %}
-  {% include 'sermons/partials/sermon-admin-list-partial.html' %}
+{% block tab_content %}
+    <div class="px-3 md:px-0 mt-3">
+
+        {% block add_btn %}
+            <div class="flex {% if btn_back_href %}justify-between{% else %}justify-end{% endif %} mb-3">
+                {% if btn_back_href %}
+                    <button class="btn btn-outline" onclick="window.history.back()">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                    </button>
+                {% endif %}
+                {% if btn_add_href %}
+                    <a href="{{ btn_add_href }}" class="btn btn-primary"><i class="fa-solid fa-plus mr-2"></i>Add</a>
+                {% endif %}
+            </div>
+        {% endblock %}
+
+        <div class="card bg-base-100 mb-4">
+            <div class="card-body p-4">
+                <div id="paginated-content" class="overflow-x-auto">
+                    <table x-data id="admin-table" class="table table-compact w-full">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Sermon Type</th>
+                                <th>Speakers</th>
+                                <th>Files</th>
+                                {% if user.is_superuser %}
+                                    <th>
+                                        <i class="fa-solid fa-video"></i>
+                                    </th>
+                                {% endif %}
+                                <th>Visible</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            {% for sermon in sermons %}
+                                <tr>
+                                    <td class="align-middle max-w-xs truncate">{{ sermon.title }}</td>
+                                    <td class="align-middle local-date"
+                                        data-date="{{ sermon.event.start|date:'U' }}"></td>
+                                    <td class="align-middle local-time"
+                                        data-time="{{ sermon.event.start|date:'U' }}"></td>
+                                    <td class="align-middle">{{ sermon.sermon_type }}</td>
+                                    <td class="align-middle">
+                                        {% for speaker in sermon.speakers.all %}
+
+                                            {% if not forloop.first %},{% endif %}
+                                            {{ speaker.name }}
+                                        {% endfor %}
+                                    </td>
+                                    <td class="align-middle text-sm">
+                                        {% if sermon.audio_low %}<i class="fa-solid fa-music mr-2"></i>{% endif %}
+                                        {% if sermon.video_url %}<i class="fa-solid fa-video"></i>{% endif %}
+                                    </td>
+                                    {% if user.is_superuser %}<td class="align-middle">{{ sermon.views }}</td>{% endif %}
+                                    <td class="align-middle">
+                                        {% if sermon.visible %}<i class="fa-solid fa-check"></i>{% endif %}
+                                    </td>
+                                    <td class="align-middle">
+                                        {% if perms.sermons.change_sermon %}
+                                            <a href="{% url 'sermons:sermons-admin-update' pk=sermon.id %}"
+                                               class="btn btn-sm btn-secondary">
+                                                <i class="fa-solid fa-edit"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="paginator">
+            {% include "snippets/paginator_snippet.html" %}
+
+        </div>
+    </div>
+
+    <div id="table-modal" class="modal modal-bottom sm:modal-middle"></div>
 {% endblock %}
