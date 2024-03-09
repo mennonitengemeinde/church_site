@@ -5,42 +5,87 @@
 {% load notification_tags %}
 
 {% block body %}
+    <div class="navbar bg-base-100">
+        <div class="navbar-start">
+            <img class="hidden sm:block lg:hidden h-12 w-auto"
+                 src="{% static 'img/logos/round_logo-192x192.png' %}"
+                 alt="Mennoniten Gemeinde">
+            <img class="hidden lg:block h-12 w-auto"
+                 src="{% static 'img/logos/text-round-logo-10.png' %}"
+                 alt="Mennoniten Gemeinde">
+        </div>
+        <div class="navbar-center">
+            <img class="sm:hidden h-12 w-auto"
+                 src="{% static 'img/logos/text-round-logo-10.png' %}"
+                 alt="Mennoniten Gemeinde">
+            <ul class="hidden sm:flex menu menu-horizontal px-1">
+                <li>
+                    <a href="{% url 'core:home' %}"
+                       class="{% if current_page == 'home' %}active{% endif %}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'schedules:events-list' %}"
+                       class="{% if current_page == 'events' %}active{% endif %}">Events</a>
+                </li>
+                <li>
+                    <a href="{% url 'sermons:sermons-list' %}"
+                       class="{% if current_page == 'sermons' %}active{% endif %}">Sermons</a>
+                </li>
+                <li>
+                    <a href="{% url 'streams:streams-list' %}"
+                       class="{% if current_page == 'live' %}active{% endif %}">Live</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-end">
+        {% if user.is_authenticated %}
+        <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full bg-primary text-lg">
+              <span>
+                                        {% if user.first_name %}
+                                            {{ user.first_name|make_list|first|upper }}
+                                        {% else %}
+                                            {{ user.username|make_list|first|upper }}
+                                        {% endif %}
+
+              </span>
+        </div>
+      </div>
+      <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+        <li>
+          <a class="justify-between">
+            Profile
+            <span class="badge">New</span>
+          </a>
+        </li>
+        <li><a>Settings</a></li>
+        <li><a>Logout</a></li>
+      </ul>
+    </div>
+        {% else %}
+            <a href="{% url 'account_login' %}" class="btn btn-ghost btn-circle">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-5 h-5"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     class="lucide lucide-log-in">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                    <polyline points="10 17 15 12 10 7" /><line x1="15" x2="3" y1="12" y2="12" />
+                </svg>
+            </a>
+        {% endif %}
+        </div>
+    </div>
 
     <nav x-data="{ open: false }"
          class="bg-base-100 bg-opacity-75 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <img class="block lg:hidden h-12 w-auto"
-                             src="{% static 'img/logos/round_logo-192x192.png' %}"
-                             alt="Mennoniten Gemeinde">
-                        <img class="hidden lg:block h-12 w-auto"
-                             src="{% static 'img/logos/text-round-logo-10.png' %}"
-                             alt="Mennoniten Gemeinde">
-                    </div>
-                    <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                        <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                        <a href="{% url 'core:home' %}"
-                           class="{% if current_page == 'home' %}border-primary text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                           aria-current="page">Home</a>
-
-                        <a href="{% url 'schedules:events-list' %}"
-                           class="{% if current_page == 'events' %}border-primary text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Events
-                        </a>
-
-                        <a href="{% url 'sermons:sermons-list' %}"
-                           class="{% if current_page == 'sermons' %}border-primary text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Sermons
-                        </a>
-
-                        <a href="{% url 'streams:streams-list' %}"
-                           class="{% if current_page == 'live' %}border-primary text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Live
-                        </a>
-                    </div>
-                </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
                     {# Profile dropdown #}
                     {% if user.is_authenticated %}
@@ -258,6 +303,86 @@
           class="flex-1 flex flex-col max-w-7xl mx-auto sm:px-6 lg:px-8 w-full">
         {% block content %}{% endblock %}
     </main>
+
+    <div class="btm-nav shadow-[0_-1px_3px_0_rgba(0,0,0,0.3)]">
+        <a href="{% url 'core:home' %}"
+           class="{% if current_page == 'home' %}active text-primary{% endif %}">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-5 h-5"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 class="lucide lucide-home">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+        </a>
+        <a href="{% url 'schedules:events-list' %}"
+           class="{% if current_page == 'events' %}active text-primary{% endif %}">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-5 h-5"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 class="lucide lucide-calendar">
+                <path d="M8 2v4" />
+                <path d="M16 2v4" />
+                <rect width="18" height="18" x="3" y="4" rx="2" />
+                <path d="M3 10h18" />
+            </svg>
+        </a>
+        <a href="{% url 'sermons:sermons-list' %}"
+           class="{% if current_page == 'sermons' %}active text-primary{% endif %}">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-5 h-5"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 class="lucide lucide-mic-vocal">
+                <path d="m12 8-9.04 9.06a2.82 2.82 0 1 0 3.98 3.98L16 12" />
+                <circle cx="17" cy="7" r="5" />
+            </svg>
+        </a>
+        <a href="{% url 'streams:streams-list' %}"
+           class="{% if current_page == 'live' %}active text-primary{% endif %}">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-5 h-5"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 class="lucide lucide-monitor-play">
+                <path d="m10 7 5 3-5 3Z" />
+                <rect width="20" height="14" x="2" y="3" rx="2" />
+                <path d="M12 17v4" />
+                <path d="M8 21h8" />
+            </svg>
+        </a>
+        <button>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-5 h-5"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 class="lucide lucide-menu">
+                <line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" />
+            </svg>
+        </button>
+    </div>
 
     {% if messages %}
         <div class="absolute bottom-2 right-2 space-y-2">
