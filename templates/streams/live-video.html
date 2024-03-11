@@ -1,34 +1,35 @@
 {% extends '_layout.html' %}
 
-{% block meta %}
-  <meta name="referrer" content="origin-when-cross-origin">
-{% endblock %}
+{% block meta %}<meta name="referrer" content="origin-when-cross-origin">{% endblock %}
 
 {% block content %}
 
-  <div class="px-3 md:px-0">
-    <button onclick="window.history.back()" class="btn btn-outline mt-3"><i
-        class="fa-solid fa-arrow-left mr-2"></i>Back
-    </button>
+    <div class="px-3 md:px-0">
+        <a href="{% url 'streams:streams-list' %}" class="btn mt-3">
+            <i class="fa-solid fa-arrow-left mr-2"></i>Back
+        </a>
 
-    <div class="card bg-base-100 mt-3">
-      <div class="card-body">
+        <div class="card bg-base-100 mt-3">
+            <div class="card-body">
 
-        <iframe class="aspect-video w-full" referrerpolicy="origin-when-cross-origin"
-                src="{{ stream.live_url }}"
-                allowfullscreen></iframe>
+                <iframe class="aspect-video w-full"
+                        referrerpolicy="origin-when-cross-origin"
+                        src="{{ stream.live_url }}"
+                        allowfullscreen></iframe>
 
-        <h4 class="card-title">{{ stream.title }}</h4>
-        <span class="badge badge-secondary">{{ stream.event.church }}</span>
+                <h4 class="card-title">{{ stream.title }}</h4>
+                <span class="badge">{{ stream.event.church }}</span>
 
-        <div class="flex space-x-2 mb-2">
-          {% for speaker in stream.speakers.all %}
-            <div class="badge badge-primary"><i
-                class="fa-solid fa-microphone mr-2"></i>{{ speaker }}</div>
-          {% endfor %}
+                <div class="flex space-x-2 mb-2">
+                    {% for speaker in stream.speakers.all %}
+                        <div class="badge badge-primary">
+                            <i class="fa-solid fa-microphone mr-2"></i>{{ speaker }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
 {% endblock %}
+

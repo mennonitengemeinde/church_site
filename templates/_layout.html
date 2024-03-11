@@ -5,7 +5,7 @@
 {% load notification_tags %}
 
 {% block body %}
-    <div class="navbar bg-base-100">
+    <div class="navbar bg-base-100 shadow-xl">
         <div class="navbar-start">
             <img class="hidden sm:block lg:hidden h-12 w-auto"
                  src="{% static 'img/logos/round_logo-192x192.png' %}"
@@ -18,7 +18,7 @@
             <img class="sm:hidden h-12 w-auto"
                  src="{% static 'img/logos/text-round-logo-10.png' %}"
                  alt="Mennoniten Gemeinde">
-            <ul class="hidden sm:flex menu menu-horizontal px-1">
+            <ul class="hidden sm:flex menu menu-horizontal space-x-1 px-1">
                 <li>
                     <a href="{% url 'core:home' %}"
                        class="{% if current_page == 'home' %}active{% endif %}">Home</a>
