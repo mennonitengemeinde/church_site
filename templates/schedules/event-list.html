@@ -1,23 +1,21 @@
 {% extends '_layout.html' %}
 
 {% load static %}
+
 {#{% load compress %}#}
 
-{% block meta %}
-    <meta name="robots" content="index, nofollow">
-{% endblock %}
+{% block meta %}<meta name="robots" content="index, nofollow">{% endblock %}
 
 {% block content %}
 
     <div class="flex flex-col md:flex-row py-5">
         <div class="flex justify-center w-full md:w-1/2">
-            <img class="w-fit max-w-sm h-auto mx-5" src="{% static 'img/booking_re_gw4j.svg' %}"
+            <img class="w-fit max-w-sm h-auto mx-5"
+                 src="{% static 'img/booking_re_gw4j.svg' %}"
                  alt="illustration of a calendar">
         </div>
         <div class="flex flex-col items-center justify-center md:w-1/2 px-5">
-            <h1 class="text-3xl font-bold text-primary">
-                Scheduled Events
-            </h1>
+            <h1 class="text-3xl font-bold text-primary">Scheduled Events</h1>
             <p class="py-3 max-w-sm text-center text-gray-500">
                 The schedule is periodically. If you don't see any events come back later.
             </p>
@@ -26,19 +24,19 @@
                 <label for="church" class="label">
                     <span class="label-text">Church</span>
                 </label>
-                <select id="church" name="church"
+                <select id="church"
+                        name="church"
                         hx-get="{% url 'schedules:events-list' %}"
                         hx-trigger="change"
-                        hx-target="#eventList"
+                        hx-select="#church"
+                        hx-select-oob="#eventList"
+                        hx-swap="outerHTML"
                         hx-push-url="true"
                         class="select select-bordered w-full">
-                    <option value="all"{% if current_church == 'all' %} selected{% endif %}>
-                        All Churches
-                    </option>
+                    <option value="all"{% if current_church == 'all' %} selected{% endif %}>All Churches</option>
                     {% for church in churches %}
                         <option value="{{ church.slug }}"
-                                {% if current_church == church.slug %}selected{% endif %}
-                        >{{ church.name }}</option>
+                                {% if current_church == church.slug %}selected{% endif %}>{{ church.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -46,7 +44,53 @@
     </div>
 
     <div id="eventList" class="flex justify-center px-3 md:pt-8">
-        {% include 'schedules/partials/event-list-partial.html' %}
+        <div class="flow-root w-full max-w-md">
+            <ul role="list" class="-mb-8">
+                {% for scheduleEvent in events %}
+                    <li>
+                        <div class="relative pb-8">
+                            {% if not forloop.last %}
+                                <span class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+                                      aria-hidden="true"></span>
+                            {% endif %}
+                            <div class="relative flex items-start space-x-3">
+                                <div class="relative">
+                                    <span class="h-10 w-10 rounded-full bg-primary flex flex-col items-center justify-center font-bold text-base-100 ring-8 ring-base-100">
+                                        <span class="-mb-0.5">{{ scheduleEvent.date|date:"j" }}</span>
+                                        <span class="-mt-0.5 text-[0.6rem]">{{ scheduleEvent.date|date:"M" }}</span>
+                                    </span>
+
+                                    <span class="absolute -bottom-0.5 -right-1 bg-base-100 rounded-tl px-0.5 py-px"></span>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <div class="font-medium text-gray-900">{{ scheduleEvent.date|date:"l" }}</div>
+                                    <ul class="divide-y divide-gray-200">
+                                        {% for eventDetail in scheduleEvent.events %}
+                                            <li class="card bg-base-100 w-full shadow-xl mt-2 text-sm text-gray-700">
+                                                <div class="card-body">
+                                                    <p class="mt-0.5 text-sm font-semibold">{{ eventDetail.title }}</p>
+                                                    <p class="text-sm text-gray-500">{{ eventDetail.start|date:"f a" }} - {{ eventDetail.end|date:"f a" }}</p>
+                                                    <p>{{ eventDetail.description }}</p>
+                                                    <p class="badge">{{ eventDetail.church }}</p>
+                                                    {% if eventDetail.live_stream %}
+                                                        <div class="pt-1">
+                                                            <a href="{% url 'streams:streams-list' %}"
+                                                               class="btn btn-sm btn-outline btn-primary">
+                                                                <i class="fa-solid fa-circle mr-1"></i>Live
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
 {% endblock %}

@@ -51,7 +51,7 @@
                                                 <time class="italic">
                                                 {{ event.start|date:"M j, f a" }}</time>
                                                 <div class="text-lg font-bold">{{ event.title }}</div>
-                                                <p class="badge badge-secondary">{{ event.church }}</p>
+                                                <p class="badge">{{ event.church }}</p>
                                                 {% if event.live_stream %}
                                                     <div class="pt-1">
                                                         <a href="{% url 'streams:streams-list' %}"
