@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-import pytz
+from django.utils import timezone
 
 from contactus.querysets import ContactMessageQuerySet
 
@@ -22,5 +22,4 @@ class ContactMessage(models.Model):
         ordering = ['message_date']
 
     def __str__(self):
-        tz = pytz.timezone(settings.TIME_ZONE)
-        return self.message_date.astimezone(tz).strftime('%Y-%m-%d, %H:%M:%I %p')
+        return timezone.localtime(self.message_date).strftime('%Y-%m-%d, %H:%M:%I %p')
