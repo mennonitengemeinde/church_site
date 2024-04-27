@@ -2,26 +2,21 @@ FROM python:3.12-slim-bookworm AS base
 WORKDIR /code
 EXPOSE 8000
 
-ARG  UID=1000 \
-  GID=1000
+ARG  UID=1000
+ARG  GID=1000
 
 ENV DJANGO_ENV=production \
   # python:
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
   PYTHONHASHSEED=random \
-  PYTHONDONTWRITEBYTECODE=1 \
-  # pip:
-  PIP_NO_CACHE_DIR=1 \
+  PYTHONDONTWRITEBYTECODE=1
+
+# pip:
+ENV PIP_NO_CACHE_DIR=1 \
   PIP_DISABLE_PIP_VERSION_CHECK=1 \
   PIP_DEFAULT_TIMEOUT=100 \
-  PIP_ROOT_USER_ACTION=ignore \
-  # poetry:
-  POETRY_VERSION=1.6.1 \
-  POETRY_NO_INTERACTION=1 \
-  POETRY_VIRTUALENVS_CREATE=false \
-  POETRY_CACHE_DIR='/var/cache/pypoetry' \
-  POETRY_HOME='/usr/local'
+  PIP_ROOT_USER_ACTION=ignore
 
 # SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 
@@ -40,14 +35,6 @@ RUN groupadd -g "${GID}" -r web \
 # Copy only requirements, to cache them in docker layer
 COPY --chown=web:web ./requirements.txt /code/
 
-# Project initialization:
-# hadolint ignore=SC2046
-# RUN --mount=type=cache,target="$POETRY_CACHE_DIR" \
-#   echo "$DJANGO_ENV" \
-#   && poetry version \
-# Install deps:
-# RUN poetry version 
-# hadolint ignore=DL3013
 RUN pip install -U pip \
   && pip install -r requirements.txt
 
@@ -55,18 +42,21 @@ RUN pip install -U pip \
 USER web
 
 
-FROM node:20 AS buildjs
+FROM node:20-slim AS buildjs
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
 WORKDIR /code
 
-COPY package-lock.json package.json tailwind.config.js ./
+COPY pnpm-lock.yaml package.json tailwind.config.js ./
 COPY templates templates
 COPY core/styles core/styles
 COPY ./**/forms.py forms/
 COPY assets assets
 
-RUN npm install && npm run build
-
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run build
 
 
 FROM base AS final

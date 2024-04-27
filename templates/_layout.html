@@ -7,7 +7,7 @@
 {% block body %}
 
     <nav x-data="{ open: false }"
-         class="bg-base-100 bg-opacity-75 border-b border-gray-200">
+         class="bg-base-100 bg-opacity-75 border-b border-gray-200 shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
@@ -266,7 +266,7 @@
                      x-show="open"
                      role="alert"
                      class="alert {{ message.level|notify }} shadow-lg">
-                    <div>
+                    <div class="flex space-x-1">
                         {% if message.level == 25 %}
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="stroke-current flex-shrink-0 h-6 w-6"

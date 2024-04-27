@@ -6,25 +6,31 @@ from django.views.generic import ListView, UpdateView, DetailView, CreateView
 
 
 class PageProperties:
-    page_title = None
-    current_page = None
+    page_title: str = None
+    current_page: str = None
+
+    def get_page_title(self):
+        if not self.page_title:
+            raise NotImplementedError('Page title must be set')
+        return self.page_title
+
+    def get_current_page(self):
+        if not self.current_page:
+            raise NotImplementedError('Current page must be set')
+        return self.current_page
 
 
 class FormProperties:
     form_has_files = False
 
 
-class CoreView(View):
+class CoreView(PageProperties, View):
     template_name: str = None
-    current_page: str = None
     btn_back_href: str = None
     btn_add_href: str = None
 
     def get_template_name(self):
         return self.template_name
-
-    def get_current_page(self):
-        return self.current_page
 
     def get_btn_back_href(self):
         return self.btn_back_href

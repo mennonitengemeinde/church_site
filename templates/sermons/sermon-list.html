@@ -84,13 +84,13 @@
                                     <span class="badge badge-accent">{{ sermon.event.church }}</span>
                                 </div>
 
-                                <div class="pb-3">
+                                <div class="pb-3 space-x-1">
                                     {% for speaker in sermon.speakers.all %}<span class="badge badge-primary">{{ speaker }}</span>{% endfor %}
                                 </div>
                             </div>
 
                             <div class="card-actions justify-center">
-                                <a class="btn btn-wide">Open</a>
+                                <a href="{% url 'sermons:sermons-detail' pk=sermon.id church=sermon.event.church %}" class="btn btn-wide">Open</a>
                             </div>
                         </div>
 
