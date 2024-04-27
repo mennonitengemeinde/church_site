@@ -87,7 +87,7 @@ INSTALLED_APPS = [
     "streams.apps.StreamsConfig",
     "contactus.apps.ContactusConfig",
     "forms.apps.FormsConfig",
-    "telegram.apps.TelegramConfig",
+    # "telegram.apps.TelegramConfig",
 ]
 
 MIDDLEWARE = [
