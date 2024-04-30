@@ -47,6 +47,10 @@ DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env("CSRF_ORIGINS")
 
+CSRF_COOKIE_SECURE = False if DEBUG else True
+SESSION_COOKIE_SECURE = False if DEBUG else True
+DEFAULT_HTTP_PROTOCOL = "http" if DEBUG else "https"
+
 ADMIN_URL = env("ADMIN_URL")
 
 # Application definition
