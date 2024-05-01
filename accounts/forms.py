@@ -6,6 +6,8 @@ from django.contrib.auth.models import Group
 from django.forms import CharField, TextInput, Textarea, CheckboxInput, Select, ModelForm, SelectMultiple
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV3
 
 
 class MgLoginForm(LoginForm):
@@ -44,6 +46,7 @@ class MgSignupForm(ASignUpForm):
     first_name = CharField(max_length=30)
     last_name = CharField(max_length=150)
     country = CountryField().formfield()
+    captcha = ReCaptchaField(widget=ReCaptchaV3(action='signup'))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

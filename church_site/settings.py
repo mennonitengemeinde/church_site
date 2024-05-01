@@ -28,10 +28,8 @@ env = Env(
     AZURE_ACCOUNT_NAME=(str, ""),
     AZURE_ACCOUNT_KEY=(str, ""),
     AZURE_CONTAINER=(str, ""),
-    BOT_API_KEY=(str, ""),
-    BOT_URL=(str, ""),
-    WOL_EVENTS_BOT_TOKEN=(str, ""),
-    WOL_EVENTS_BOT_BASE_URL=(str, ""),
+    RECAPTCHA_PUBLIC_KEY=(str, ""),
+    RECAPTCHA_PRIVATE_KEY=(str, ""),
 )
 Env.read_env(BASE_DIR / ".env")
 
@@ -82,6 +80,7 @@ INSTALLED_APPS = [
     "pwa",
     "django_countries",
     "django_htmx",
+    "django_recaptcha",
     # Project
     "core",
     "accounts.apps.AccountsConfig",
@@ -254,6 +253,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -354,10 +356,3 @@ PWA_APP_SPLASH_SCREEN = [
 ]
 PWA_APP_DIR = "ltr"
 PWA_APP_LANG = "en-US"
-
-# Bot
-BOT_API_KEY = env("BOT_API_KEY")
-BOT_URL = env("BOT_URL")
-
-WOL_EVENTS_BOT_TOKEN = ""
-WOL_EVENTS_BOT_BASE_URL = ""
