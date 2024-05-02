@@ -1,9 +1,10 @@
+from allauth.account.views import confirm_email, email_verification_sent
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from rest_framework import routers
-from allauth.account.views import confirm_email, email_verification_sent
 
 # from telegram.api.controllers import LiveSubscriptionViewSet
 
@@ -39,7 +40,8 @@ urlpatterns = [
     path("streams/", include("streams.urls")),
     path("contactus/", include("contactus.urls")),
     path("forms/", include("forms.urls")),
-    # path('telegram/', include('telegram.urls')),
+    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+    path("sitemap.xml", TemplateView.as_view(template_name="sitemap.xml", content_type="text/xml")),
 ]
 
 if settings.DEBUG:
