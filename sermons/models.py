@@ -39,6 +39,12 @@ def high_audio_path(instance, filename):
         f'{uuid4()}-low.mp3')
 
 
+def og_image_path(instance, filename):
+    return os.path.join(
+        'sermons/og-images',
+        f'{uuid4()}.jpg')
+
+
 class Sermon(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='sermons')
     sermon_type = models.CharField(max_length=50, choices=sermon_types)
@@ -47,8 +53,10 @@ class Sermon(models.Model):
     speakers = models.ManyToManyField(Speaker, related_name='sermons')
     audio_low = models.FileField(upload_to=low_audio_path, validators=[validate_file_extension], null=True, blank=True)
     audio_med = models.FileField(upload_to=med_audio_path, validators=[validate_file_extension], null=True, blank=True)
-    audio_high = models.FileField(upload_to=high_audio_path, validators=[validate_file_extension], null=True, blank=True)
+    audio_high = models.FileField(
+        upload_to=high_audio_path, validators=[validate_file_extension], null=True, blank=True)
     video_url = models.URLField(blank=True, null=True)
+    og_image = models.ImageField(upload_to=og_image_path, null=True, blank=True)
     visible = models.BooleanField(default=True)
     views = models.IntegerField(default=0)
 

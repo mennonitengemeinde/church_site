@@ -36,7 +36,9 @@
   <meta property="og:title" content="{{ page_title }}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mennonitengemeinde.org{{ request.get_full_path }}" />
-  <meta property="og:image" content="https://mennonitengemeinde.org{% static 'android-chrome-512x512.png' %}" />
+  {% block og_image %}
+    <meta property="og:image" content="https://mennonitengemeinde.org{% static 'android-chrome-512x512.png' %}" />
+  {% endblock %}
 
   <script src="{% static 'vendor/htmx.min.js' %}"></script>
   <script defer src="{% static 'vendor/cdn.min.js' %}"></script>

@@ -6,13 +6,23 @@
   <meta name="referrer" content="same-origin">
 {% endblock %}
 
+
+{% block og_image %}
+  {% if sermon.og_image %}
+    <meta property="og:image" content="{{ sermon.og_image.url }}" />
+  {% else %}
+    <meta property="og:image" content="https://mennonitengemeinde.org{% static 'android-chrome-512x512.png' %}" />
+  {% endif %}
+  <meta property="og:description" content="{{ sermon.sermon_type }} brought on {{ sermon.event.start|date }}" />
+{% endblock %}
+
 {% block content %}
   <div class="py-4">
 
     <div class="flex justify-start py-4 sm:pt-0 pl-4 sm:pl-0">
-      <button onclick="window.history.back()" class="btn btn-outline">
+      <a href="{% url 'sermons:sermons-list' %}" class="btn btn-outline">
         <i class="fa-solid fa-arrow-left mr-2"></i>Back
-      </button>
+      </a>
     </div>
 
     <div class="card bg-base-100">

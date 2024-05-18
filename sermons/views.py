@@ -141,7 +141,7 @@ class SermonsDetailView(BaseDetailView):
         return context
 
     def get_page_title(self) -> str:
-        return f'{self.object.event.start.strftime("%b %d, %Y")} - {self.object.title}'
+        return f'{self.object.title} - {self.object.speakers.first().name}'
 
 
 class SermonsAdminListView(PermissionRequiredMixin, AdminListView):
