@@ -18,5 +18,5 @@ gunicorn==22.0.0
 Pillow==10.3.0
 psycopg2-binary==2.9.9
 # requests==2.31.0
-setuptools==69.5.1 # needed for django_contries in python3.12
+setuptools==70.0.0 # needed for django_contries in python3.12
 whitenoise==6.6.0
