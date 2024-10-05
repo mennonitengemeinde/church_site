@@ -78,7 +78,7 @@ INSTALLED_APPS = [
     # 'compressor',
     # 'crispy_forms',
     # 'crispy_bootstrap5',
-    "pwa",
+    # "pwa",
     "django_countries",
     "django_htmx",
     "django_recaptcha",

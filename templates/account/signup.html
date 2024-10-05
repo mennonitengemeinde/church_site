@@ -4,40 +4,40 @@
 
 {% block content %}
 
-    <div class="flex flex-col items-center py-10 px-2">
-        <div>
+  <div class="flex flex-col items-center py-10 px-2">
+    <div>
 
-            <div class="flex justify-start">
-                <h1 class="text-3xl pb-5">Sign Up</h1>
+      <div class="flex justify-start">
+        <h1 class="text-3xl pb-5">Sign Up</h1>
+      </div>
+      <div class="card bg-base-100 max-w-sm shadow-xl">
+
+        <div class="card-body">
+          <form id="signup_form" method="POST" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+
+            {% for field in form %}
+              {% if field.auto_id != 'id_captcha' %}
+                <label for="{{ field.auto_id }}" class="label">
+                  <span class="label-text">{{ field.label }}</span>
+                </label>
+              {% endif %}
+              {{ field }}
+            {% endfor %}
+
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+            <div class="flex justify-center space-x-2 pt-5">
+              <a href="{% url 'core:home' %}" class="btn btn-default">Cancel</a>
+              <button class="btn btn-primary" type="submit">Sign Up</button>
             </div>
-            <div class="card bg-base-100 max-w-sm shadow-xl">
-
-                <div class="card-body">
-                    <form id="signup_form" method="POST" action="{% url 'account_signup' %}">
-                        {% csrf_token %}
-
-                        {% for field in form %}
-                            {% if field.auto_id != 'id_captcha' %}
-                            <label for="{{ field.auto_id }}" class="label">
-                                <span class="label-text">{{ field.label }}</span>
-                            </label>
-                            {% endif %}
-                            {{ field }}
-                        {% endfor %}
-
-                        {% if redirect_field_value %}
-                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-                        {% endif %}
-
-                        <div class="flex justify-center space-x-2 pt-5">
-                            <a href="{% url 'core:home' %}" class="btn btn-default">Cancel</a>
-                            <button class="btn btn-primary" type="submit">Sign Up</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+          </form>
         </div>
-
+      </div>
     </div>
+
+  </div>
 
 {% endblock %}
