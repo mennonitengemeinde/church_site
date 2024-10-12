@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "churches.apps.ChurchesConfig",
     "speakers.apps.SpeakersConfig",
+    "bulletin.apps.BulletinConfig",
     "schedules.apps.SchedulesConfig",
     "sermons.apps.SermonsConfig",
     "streams.apps.StreamsConfig",

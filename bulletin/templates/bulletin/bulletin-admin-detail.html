@@ -1,0 +1,40 @@
+{% extends '_manage_layout.html' %}
+
+{% block tab_content %}
+  <div class="px-3 md:px-0 mt-3">
+    <div class="flex mb-3">
+      {% if btn_back_href %}
+        <a class="btn btn-outline" href="{{ btn_back_href }}">
+          <i class="fa-solid fa-arrow-left mr-2"></i>Back
+        </a>
+      {% endif %}
+    </div>
+
+    <h1 class="text-2xl font-bold">{{ bulletin.title }}</h1>
+
+    <div class="space-y-4 pt-4">
+      <div>
+        <h2 class="text-xl font-semibold">Sunday</h2>
+        <a href="#" class="btn btn-primary">Add</a>
+      </div>
+      <div>
+        <h2>Monday</h2>
+      </div>
+      <div>
+        <h2>Tuesday</h2>
+      </div>
+      <div>
+        <h2>Wednesday</h2>
+      </div>
+      <div>
+        <h2>Thursday</h2>
+      </div>
+      <div>
+        <h2>Friday</h2>
+      </div>
+      <div>
+        <h2>Saturday</h2>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends '_manage_layout.html' %}
+
+
+{% block tab_content %}
+  <div class="px-3 md:px-0 mt-3">
+
+    <div class="flex {% if btn_back_href %}justify-between{% else %}justify-end{% endif %} mb-3">
+      {% if btn_add_href %}
+        <a href="{{ btn_add_href }}" class="btn btn-primary"><i class="fa-solid fa-plus mr-2"></i>Add</a>
+      {% endif %}
+    </div>
+
+    <div class="card bg-base-100 mb-4">
+      <div class="card-body p-4">
+        <div id="paginated-content" class="overflow-x-auto">
+          <table id="admin-table" class="table table-compact w-full">
+            <thead>
+            <tr>
+              <th>Title</th>
+              <th>Week</th>
+              <th>Year</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+            {% for b in bulletins %}
+              <tr>
+                <td class="align-middle">
+                  <a href="{% url 'bulletin:bulletins-admin-detail' pk=b.id %}">
+                    {{ b.title }}
+                  </a>
+                </td>
+                <td class="align-middle">{{ b.week }}</td>
+                <td class="align-middle">{{ b.year }}</td>
+                <td class="align-middle">
+                  {#              {% if perms.bulletin.change_bulletin %}#}
+                  {#                <a href="{% url 'speakers:speakers-admin-update' pk=speaker.id %}" class="btn btn-sm btn-secondary">#}
+                  {#                  <i class="fa-solid fa-edit"></i>#}
+                  {#                </a>#}
+                  {#              {% endif %}#}
+
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

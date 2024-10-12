@@ -11,6 +11,12 @@
                     <label for="current-tab" class="sr-only">Select a tab</label>
                     <select id="current-tab" name="current-tab" @change="window.location.href = $event.target.value"
                             class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
+                      {% if perms.bulletin.view_bulletin %}
+                        <option value="{% url 'bulletin:bulletins-admin-list' %}"
+                          {% if current_page == 'admin_bulletin' %} selected{% endif %}>
+                          Bulletin
+                        </option>
+                      {% endif %}
                         {% if perms.churches.view_church %}
                             <option value="{% url 'churches:churches-admin-list' %}"
                                     {% if current_page == 'admin_churches' %} selected{% endif %}>
@@ -68,6 +74,11 @@
                 {# Tabs at small breakpoint and up #}
                 <div class="hidden md:block">
                     <nav class="-mb-px flex space-x-8">
+                      {% if perms.bulletin.view_bulletin %}
+                        <a href="{% url 'bulletin:bulletins-admin-list' %}"
+                           class="{% if current_page == 'admin_bulletin' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                          Bulletins </a>
+                      {% endif %}
                         {% if perms.churches.view_church %}
                             <a href="{% url 'churches:churches-admin-list' %}"
                                class="{% if current_page == 'admin_churches' %}border-primary text-primary {% else %}border-transparent text-gray-500{% endif %} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">

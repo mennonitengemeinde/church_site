@@ -33,6 +33,7 @@ urlpatterns = [
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
     path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
     path("users/", include("accounts.urls")),
+    path("bulletin/", include("bulletin.urls")),
     path("churches/", include("churches.urls")),
     path("speakers/", include("speakers.urls")),
     path("schedules/", include("schedules.urls")),
