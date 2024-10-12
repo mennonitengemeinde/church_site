@@ -37,8 +37,8 @@ class StreamsList(APIView):
                 model = Event
                 fields = ['id', 'title', 'start', 'end', 'church', 'streams']
 
-        queryset = Event.objects.filter((Q(start__gt=timezone.now()) & Q(live_stream=True)) | Q(streams__live=True))
+        queryset = Event.objects.filter(
+            (Q(start__gt=timezone.now()) & Q(live_stream=True)) | Q(streams__live=True)
+        ).distinct()
         serializer_class = EventSerializer(queryset, many=True)
         return Response(serializer_class.data)
-
-
